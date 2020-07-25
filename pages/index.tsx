@@ -1,8 +1,10 @@
-import Head from 'next/head'
+import Head from "next/head";
+
+import styles from "./index.module.scss";
 
 export default function Home() {
   return (
-    <div className="container">
+    <div className={styles.index}>
       <Head>
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
@@ -20,7 +22,9 @@ export default function Home() {
         <div className="grid">
           <a href="https://nextjs.org/docs" className="card">
             <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
+            <p>
+              Find in-depth information about Next.js honk gonk honk and API.
+            </p>
           </a>
 
           <a href="https://nextjs.org/learn" className="card">
@@ -54,7 +58,7 @@ export default function Home() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
+          Powered by{" "}
           <img src="/vercel.svg" alt="Vercel Logo" className="logo" />
         </a>
       </footer>
@@ -205,5 +209,5 @@ export default function Home() {
         }
       `}</style>
     </div>
-  )
+  );
 }
