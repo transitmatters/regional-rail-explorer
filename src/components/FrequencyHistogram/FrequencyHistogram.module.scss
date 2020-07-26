@@ -1,0 +1,58 @@
+@use 'sass:color';
+
+@import '../../styles/base.scss';
+
+$rr-light: color.mix($rr-purple, white, 30%);
+$arrival-width: 25px;
+$bucket-max-width: $arrival-width * 1.5;
+$bucket-spacing: #{($bucket-max-width - $arrival-width) / 2};
+
+.histogram {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    min-height: 50px;
+}
+
+.bucket {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    flex-grow: 1;
+    max-width: 50px;
+    border-right: 1px solid #ddd;
+    &:first-child {
+        border-left: 1px solid #ddd;
+    }
+
+    :global .time {
+        user-select: none;
+        position: absolute;
+        bottom: -5px;
+        left: -2px;
+        transform: translateY(100%);
+        font-size: 12px;
+        color: #aaa;
+    }
+}
+
+@mixin arrival {
+    width: $arrival-width;
+    height: $arrival-width;
+    border-radius: #{$arrival-width / 2};
+    margin-bottom: $bucket-spacing;
+    box-sizing: border-box;
+}
+
+.arrival {
+    @include arrival;
+    background: $rr-purple;
+    border: #{$arrival-width / 4} solid $rr-light;
+}
+
+.enhancedArrival {
+    @include arrival;
+    background: $rr-purple;
+}

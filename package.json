@@ -26,8 +26,11 @@
     "@typescript-eslint/parser": "^3.7.0",
     "babel-loader": "^8.1.0",
     "babel-preset-react-app": "^9.1.2",
+    "css-loader": "^4.0.0",
     "eslint": "^7.5.0",
     "eslint-plugin-react": "^7.20.3",
+    "sass-loader": "^9.0.2",
+    "style-loader": "^1.2.1",
     "typescript": "^3.9.7"
   }
 }
