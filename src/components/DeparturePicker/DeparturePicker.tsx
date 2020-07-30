@@ -55,7 +55,6 @@ const DeparturePicker = (props: Props) => {
     const [offset, setOffset] = useState<NetworkTime>(0);
     const [hasSelected, setHasSelected] = useState(false);
     const wrapper = useRef<HTMLDivElement>(null);
-    const indicator = useRef<HTMLDivElement>(null);
     const timeRange = getTimeRange(
         [...baselineArrivals, ...enhancedArrivals],
         spanFullDay,
@@ -75,8 +74,7 @@ const DeparturePicker = (props: Props) => {
     }, [isCapturing]);
 
     const handleMouseEvent = (evt: MouseEvent) => {
-        const isClick = evt.type === "click";
-        if (isCapturing || isClick) {
+        if (isCapturing || evt.type === "click") {
             const { clientX } = evt;
             const [start, end] = timeRange;
             const { width, left } = wrapper.current.getBoundingClientRect();
@@ -87,10 +85,6 @@ const DeparturePicker = (props: Props) => {
             setHasSelected(true);
             setOffset(nextOffset);
             onUpdateTime(nextTime);
-            if (isClick) {
-                indicator.current.classList.add(styles.animated);
-                setTimeout(() => indicator.current.classList.remove(styles.animated), 100);
-            }
         }
     };
 
@@ -110,8 +104,11 @@ const DeparturePicker = (props: Props) => {
                 />
                 {offset !== null && (
                     <div
-                        ref={indicator}
-                        className={classNames(styles.indicator, !hasSelected && styles.invisible)}
+                        className={classNames(
+                            styles.indicator,
+                            !hasSelected && styles.invisible,
+                            !isCapturing && styles.animated
+                        )}
                         style={{ transform: `translateX(${offset}px)` }}
                     >
                         <div className={styles.indicatorInner}>
