@@ -1,0 +1,76 @@
+@use 'sass:color';
+
+@import 'styles/base.scss';
+
+$top-color: color.adjust($rr-gold, $saturation: -25%);
+$bottom-color: $rr-purple;
+
+@mixin triangle($color, $size: 8px) {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: $size solid transparent;
+    border-right: $size solid transparent;
+    border-bottom: $size solid $color;
+    left: -$size;
+    z-index: 1;
+}
+
+.container {
+    position: relative;
+}
+
+.top {
+    width: 100%;
+    height: 10px;
+    box-shadow: $global-shadow;
+    background: $top-color;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.bottom {
+    width: 100%;
+    height: 10px;
+    box-shadow: $global-shadow;
+    margin-top: 20px;
+    background: $bottom-color;
+    box-shadow: 0px -1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.indicator {
+    position: absolute;
+    height: calc(100% + 20px);
+    top: 0;
+}
+
+.invisible {
+    opacity: 0;
+}
+
+.animated {
+    transition: 200ms transform cubic-bezier(1, 0, 0, 1);
+}
+
+.indicatorInner {
+    position: relative;
+    height: 100%;
+}
+
+.needle {
+    position: absolute;
+    width: 2px;
+    top: 0;
+    left: -1px;
+    height: 100%;
+    background: darkred;
+}
+
+.topTriangle {
+    @include triangle($top-color);
+    transform: rotate(180deg);
+}
+
+.bottomTriangle {
+    @include triangle($bottom-color);
+    bottom: 0;
+}

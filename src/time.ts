@@ -53,6 +53,12 @@ export const stringifyTime = (
         .join(":");
 };
 
+export const stringify12Hour = (time: NetworkTime) => {
+    const hours = Math.floor(time / HOUR);
+    const isPM = hours > 12;
+    return `${isPM ? hours - 12 : hours} ${isPM ? "PM" : "AM"}`;
+};
+
 export const createTime = (
     day: NetworkDay,
     timeString: string

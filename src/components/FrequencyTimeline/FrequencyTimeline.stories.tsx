@@ -1,17 +1,19 @@
 import * as React from "react";
 
+import { DAY } from "time";
 import * as salem from "storydata/salem";
 
-import FrequencyHistogram from "./FrequencyHistogram";
+import FrequencyTimeline from "./FrequencyTimeline";
 
 export default {
-    title: "FrequencyHistogram",
-    component: FrequencyHistogram,
+    title: "FrequencyTimeline",
+    component: FrequencyTimeline,
 };
 
 export const Default = () => {
     return (
-        <FrequencyHistogram
+        <FrequencyTimeline
+            timeRange={[0, DAY]}
             enhancedArrivals={salem.enhancedArrivals}
             baselineArrivals={salem.baselineArrivals}
         />

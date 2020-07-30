@@ -1,4 +1,14 @@
+const path = require("path");
+
 module.exports = ({ config }) => {
+    config.resolve = {
+        ...config.resolve,
+        modules: [
+            path.resolve(__dirname, "..", "src"),
+            path.resolve(__dirname, "..", "node_modules")
+        ],
+    };
+
     config.module.rules.push({
         test: /\.(ts|tsx)$/,
         loader: require.resolve('babel-loader'),
@@ -6,7 +16,7 @@ module.exports = ({ config }) => {
             presets: [require.resolve('babel-preset-react-app')],
         },
     });
-    
+
     config.module.rules.push({
         test: /\.scss$/,
         loaders: [

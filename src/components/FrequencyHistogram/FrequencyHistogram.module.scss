@@ -4,8 +4,6 @@
 
 $rr-light: color.mix($rr-purple, white, 30%);
 $arrival-width: 25px;
-$bucket-max-width: $arrival-width * 1.5;
-$bucket-spacing: #{($bucket-max-width - $arrival-width) / 2};
 
 .histogram {
     display: flex;
@@ -21,7 +19,6 @@ $bucket-spacing: #{($bucket-max-width - $arrival-width) / 2};
     justify-content: flex-end;
     align-items: center;
     flex-grow: 1;
-    max-width: 50px;
     border-right: 1px solid #ddd;
     &:first-child {
         border-left: 1px solid #ddd;
@@ -42,7 +39,7 @@ $bucket-spacing: #{($bucket-max-width - $arrival-width) / 2};
     width: $arrival-width;
     height: $arrival-width;
     border-radius: #{$arrival-width / 2};
-    margin-bottom: $bucket-spacing;
+    margin-bottom: 5px;
     box-sizing: border-box;
 }
 

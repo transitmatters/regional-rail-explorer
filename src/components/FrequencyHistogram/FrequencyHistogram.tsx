@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
-import { NetworkTime, NetworkTimeRange } from "../../types";
-import { HOUR, DAY, MINUTE, stringifyTime } from "../../time";
+import { NetworkTime, NetworkTimeRange } from "types";
+import { HOUR, DAY, MINUTE, stringifyTime } from "time";
 
 import styles from "./FrequencyHistogram.module.scss";
 
