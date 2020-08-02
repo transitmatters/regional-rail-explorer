@@ -10,9 +10,7 @@ export const daysOfWeek: NetworkDay[] = [
     "sunday",
 ];
 
-export const parseTimeRange = (
-    timeRangeString: string
-): [NetworkTime, NetworkTime] => {
+export const parseTimeRange = (timeRangeString: string): [NetworkTime, NetworkTime] => {
     const [fromTime, toTime] = timeRangeString
         .split("-")
         .map((p) => p.trim())
@@ -40,17 +38,13 @@ export const stringifyTime = (
     minutes = minutes % 60;
     hours += hoursToAdd;
     // eslint-disable-next-line prefer-const
-    let [hoursString, minutesString, secondsString] = [
-        hours,
-        minutes,
-        seconds,
-    ].map((num) => num.toString().padStart(2, "0"));
+    let [hoursString, minutesString, secondsString] = [hours, minutes, seconds].map((num) =>
+        num.toString().padStart(2, "0")
+    );
     if (truncateLeadingZeros && hoursString.startsWith("0")) {
         hoursString = hoursString.slice(1);
     }
-    return [hoursString, minutesString, secondsString]
-        .slice(0, showSeconds ? 3 : 2)
-        .join(":");
+    return [hoursString, minutesString, secondsString].slice(0, showSeconds ? 3 : 2).join(":");
 };
 
 export const stringify12Hour = (time: NetworkTime) => {
@@ -59,20 +53,14 @@ export const stringify12Hour = (time: NetworkTime) => {
     return `${isPM ? hours - 12 : hours} ${isPM ? "PM" : "AM"}`;
 };
 
-export const createTime = (
-    day: NetworkDay,
-    timeString: string
-): NetworkDayTime => {
+export const createTime = (day: NetworkDay, timeString: string): NetworkDayTime => {
     return {
         day: day,
         time: parseTime(timeString),
     };
 };
 
-export const compareTimes = (
-    first: NetworkTime,
-    second: NetworkTime
-): number => {
+export const compareTimes = (first: NetworkTime, second: NetworkTime): number => {
     if (first === second) {
         return 0;
     }

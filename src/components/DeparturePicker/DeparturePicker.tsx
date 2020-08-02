@@ -7,7 +7,7 @@ import FrequencyTimeline from "components/FrequencyTimeline/FrequencyTimeline";
 
 import styles from "./DeparturePicker.module.scss";
 
-interface Props extends FrequencyTimelineProps {
+interface Props {
     onSelectTime: (time: NetworkTime) => any;
     onUpdateTime: (time: NetworkTime) => any;
     enhancedArrivals: NetworkTime[];

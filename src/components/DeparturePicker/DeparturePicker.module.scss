@@ -5,15 +5,11 @@
 $top-color: color.adjust($rr-gold, $saturation: -25%);
 $bottom-color: $rr-purple;
 
-@mixin triangle($color, $size: 8px) {
+@mixin picker-triangle($color, $size: 8px) {
     position: absolute;
-    width: 0;
-    height: 0;
-    border-left: $size solid transparent;
-    border-right: $size solid transparent;
-    border-bottom: $size solid $color;
-    left: -$size;
     z-index: 1;
+    left: -$size;
+    @include triangle($color, $size);
 }
 
 .container {
@@ -66,11 +62,11 @@ $bottom-color: $rr-purple;
 }
 
 .topTriangle {
-    @include triangle($top-color);
+    @include picker-triangle($top-color);
     transform: rotate(180deg);
 }
 
 .bottomTriangle {
-    @include triangle($bottom-color);
+    @include picker-triangle($bottom-color);
     bottom: 0;
 }

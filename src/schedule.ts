@@ -18,9 +18,7 @@ export const generateTimesByClockfaceSchedule = (
         const [rangeStart, rangeEnd] = isRange
             ? parseTimeRange(timeOrRangeString)
             : [previousRangeEnd, parseTime(timeOrRangeString)];
-        const latest =
-            times[times.length - 1] ||
-            rangeStart + MINUTE * clockfaceOffsetMinutes;
+        const latest = times[times.length - 1] || rangeStart + MINUTE * clockfaceOffsetMinutes;
         let now = previousRangeEnd ? previousRangeEnd + interval : latest;
         console.log("NOW", now, rangeStart);
         while (now <= rangeEnd) {

@@ -1,0 +1,141 @@
+@use 'sass:color';
+
+@import '../../styles/base.scss';
+
+$inner-padding: 15px;
+$station-padding: 7px;
+
+@mixin color-line-group($color) {
+    > li {
+        &:first-child {
+            color: $color;
+            font-weight: bold;
+        }
+    }
+    box-shadow: $global-shadow;
+}
+
+@mixin max-width {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.stationPicker {
+    position: relative;
+}
+
+.inner {
+    position: fixed;
+    left: 0;
+    box-sizing: border-box;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: whitesmoke;
+}
+
+.triangle {
+    @include triangle($rr-purple-dark);
+    transform: translateX(-50%);
+}
+
+.header {
+    background: $rr-purple-dark;
+    padding: 10px $inner-padding;
+}
+
+.controls {
+    @include max-width;
+}
+
+.search {
+    width: 100%;
+    margin: 10px 0;
+    height: 45px;
+    font-size: 25px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: none;
+    background: rgba(white, 0.1);
+    border: 2px solid transparent;
+    color: white;
+    &:focus {
+        outline: none;
+        border: 2px solid rgba(white, 0.8);
+        box-shadow: $global-shadow;
+    }
+}
+
+.stationListContainer {
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: $inner-padding 0;
+}
+
+.stationList {
+    @include max-width;
+    column-width: 180px;
+    padding: 0 $inner-padding;
+    padding-bottom: $inner-padding;
+    width: 100%;
+    box-sizing: border-box;
+
+    li {
+        padding-bottom: $station-padding;
+        &:hover,
+        &:focus {
+            cursor: pointer;
+            text-decoration: underline;
+        }
+    }
+
+    &:global(.searching) {
+        column-fill: auto;
+    }
+}
+
+.stationGroup {
+    background-color: white;
+    margin: 0;
+    padding: $station-padding;
+    margin-bottom: 20px;
+    -webkit-column-break-inside: avoid;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    list-style-type: none;
+    border: 1px solid transparent;
+
+    &:global(.red) {
+        @include color-line-group($red-line);
+    }
+
+    &:global(.orange) {
+        @include color-line-group($orange-line);
+    }
+
+    &:global(.blue) {
+        @include color-line-group($blue-line);
+    }
+
+    &:global(.green) {
+        @include color-line-group($green-line);
+    }
+
+    &:global(.silver) {
+        @include color-line-group($silver-line);
+    }
+
+    &:global(.regional-rail) {
+        @include color-line-group($rr-purple);
+    }
+
+    &:global(.searching) {
+        background: none;
+    }
+}
+
+.lineBullets {
+    list-style-type: none;
+    display: flex;
+}
