@@ -13,6 +13,12 @@ $station-padding: 7px;
         }
     }
     box-shadow: $global-shadow;
+    &:global(.highlighted) {
+        > li {
+            color: white;
+        }
+        background-color: $color;
+    }
 }
 
 @mixin max-width {
@@ -65,6 +71,9 @@ $station-padding: 7px;
         border: 2px solid rgba(white, 0.8);
         box-shadow: $global-shadow;
     }
+    &::placeholder {
+        color: rgba(white, 0.5);
+    }
 }
 
 .stationListContainer {
@@ -82,16 +91,23 @@ $station-padding: 7px;
     box-sizing: border-box;
 
     li {
-        padding-bottom: $station-padding;
+        display: flex;
         &:hover,
         &:focus {
             cursor: pointer;
             text-decoration: underline;
         }
+        &[aria-disabled='true']:not(:first-child) {
+            opacity: 0.5;
+        }
+        &:not(:last-child) {
+            padding-bottom: $station-padding;
+        }
     }
 
     &:global(.searching) {
         column-fill: auto;
+        column-width: 320px;
     }
 }
 
@@ -136,6 +152,38 @@ $station-padding: 7px;
 }
 
 .lineBullets {
-    list-style-type: none;
     display: flex;
+    align-items: center;
+
+    > div {
+        margin-left: 0.4em;
+        width: 0.8em;
+        height: 0.8em;
+        background-color: black;
+        border-radius: 1em;
+
+        &:global(.red) {
+            background-color: $red-line;
+        }
+
+        &:global(.orange) {
+            background-color: $orange-line;
+        }
+
+        &:global(.blue) {
+            background-color: $blue-line;
+        }
+
+        &:global(.green) {
+            background-color: $green-line;
+        }
+
+        &:global(.silver) {
+            background-color: $silver-line;
+        }
+
+        &:global(.regional-rail) {
+            background-color: $rr-purple;
+        }
+    }
 }

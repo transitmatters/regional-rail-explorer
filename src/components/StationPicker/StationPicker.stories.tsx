@@ -12,6 +12,26 @@ export default {
 
 export const Default = () => {
     return (
-        <StationPicker stationsByLine={stationsByLine} onSelectStation={action("select-line")} />
+        <StationPicker stationsByLine={stationsByLine} onSelectStation={action("select-station")} />
+    );
+};
+
+export const ExcludeColorLines = () => {
+    return (
+        <StationPicker
+            stationsByLine={stationsByLine}
+            onSelectStation={action("select-station")}
+            excludeColorLines
+        />
+    );
+};
+
+export const HighlightLine = () => {
+    return (
+        <StationPicker
+            stationsByLine={stationsByLine}
+            onSelectStation={action("select-station")}
+            previouslySelectedStationId="place-ER-0168"
+        />
     );
 };

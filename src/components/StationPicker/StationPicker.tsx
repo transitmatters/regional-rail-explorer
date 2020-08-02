@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, useMemo } from "react";
+import React, { useRef, useEffect, useState, useMemo, useCallback } from "react";
 import classNames from "classnames";
 
 import {
@@ -17,15 +17,35 @@ type StationsByLine = { [line: string]: Station[] };
 
 interface Props {
     stationsByLine: StationsByLine;
-    onSelectStation: (station: Station) => any;
+    onSelectStation: (stationId: string) => any;
+    excludeColorLines?: boolean;
+    previouslySelectedStationId?: string;
 }
 
 const colors = ["Red", "Orange", "Blue", "Green", "Silver"];
 const isColorLine = colors.includes.bind(colors);
 
-const sortRegionalRailEntriesFirst = (entryA: [any, any], entryB: [any, any]) => {
-    const valueA = +isColorLine(entryA[0]);
-    const valueB = +isColorLine(entryB[0]);
+const getIsHighlightedLine = (
+    previouslySelectedStationId: string,
+    line: string,
+    stations: Station[]
+) => {
+    return (
+        !isColorLine(line) && stations.some((station) => station.id === previouslySelectedStationId)
+    );
+};
+
+const sortRegionalRailEntriesFirst = (previouslySelectedStationId: string) => (
+    [lineA, stationsA]: [string, Station[]],
+    [lineB, stationsB]: [string, Station[]]
+) => {
+    if (previouslySelectedStationId) {
+        const valueA = +getIsHighlightedLine(previouslySelectedStationId, lineA, stationsA);
+        const valueB = +getIsHighlightedLine(previouslySelectedStationId, lineB, stationsB);
+        return valueB - valueA;
+    }
+    const valueA = +isColorLine(lineA);
+    const valueB = +isColorLine(lineB);
     return valueA - valueB;
 };
 
@@ -47,6 +67,7 @@ const getStationsToColorMap = (stationsByLine: StationsByLine) => {
 };
 
 const fuzzyMatchStation = (searchTerm: string, station: Station) => {
+    searchTerm = searchTerm.trim().toLowerCase();
     const lowercaseStation = station.name.toLowerCase();
     const matchesTerm =
         searchTerm.length > 1
@@ -56,7 +77,12 @@ const fuzzyMatchStation = (searchTerm: string, station: Station) => {
 };
 
 const StationPicker = (props: Props) => {
-    const { stationsByLine } = props;
+    const {
+        stationsByLine,
+        excludeColorLines,
+        previouslySelectedStationId,
+        onSelectStation,
+    } = props;
     const [searchTerm, setSearchTerm] = useState(null);
     const [disclosureBounds, setDisclosureBounds] = useState(null);
     const searchRef = useRef<HTMLInputElement>();
@@ -65,6 +91,17 @@ const StationPicker = (props: Props) => {
     const composite = useCompositeState({ currentId: null, loop: true });
     const searchResults = useCompositeState({ currentId: null, loop: true });
     const stationsToColor = useMemo(() => getStationsToColorMap(stationsByLine), [stationsByLine]);
+
+    // Using data-station-id instead of generating a closure for each station's callback is a
+    // performance enhancement recommended by Reakit when using a Composite with many items.
+    const handleSelectStation = useCallback(
+        (evt) => {
+            const stationId = (evt.target as HTMLElement).getAttribute("data-station-id");
+            onSelectStation(stationId);
+            disclosure.setVisible(false);
+        },
+        [onSelectStation]
+    );
 
     const updateDisclosureBounds = (el) => {
         if (el && !disclosureBounds) {
@@ -76,8 +113,6 @@ const StationPicker = (props: Props) => {
             });
         }
     };
-
-    console.log(disclosureBounds);
 
     useEffect(() => {
         if (disclosure.visible) {
@@ -109,11 +144,24 @@ const StationPicker = (props: Props) => {
     const renderAllStationsListing = () => (
         <Composite {...composite} role="list" as="div" className={styles.stationList}>
             {Object.entries(stationsByLine)
-                .sort(sortRegionalRailEntriesFirst)
+                .sort(sortRegionalRailEntriesFirst(previouslySelectedStationId))
+                .filter(([line]) => !excludeColorLines || !isColorLine(line))
                 .map(([line, stations]) => {
                     const colorClass = isColorLine(line) ? line.toLowerCase() : "regional-rail";
+                    const isHighlighted = getIsHighlightedLine(
+                        previouslySelectedStationId,
+                        line,
+                        stations
+                    );
                     return (
-                        <ul key={line} className={classNames(styles.stationGroup, colorClass)}>
+                        <ul
+                            key={line}
+                            className={classNames(
+                                styles.stationGroup,
+                                isHighlighted && "highlighted",
+                                colorClass
+                            )}
+                        >
                             <CompositeItem
                                 {...composite}
                                 id={`${line}-line`}
@@ -127,7 +175,10 @@ const StationPicker = (props: Props) => {
                                     {...composite}
                                     id={`${line}-line-${station.id}`}
                                     key={station.id}
+                                    disabled={station.id === previouslySelectedStationId}
                                     as="li"
+                                    data-station-id={station.id}
+                                    onClick={handleSelectStation}
                                 >
                                     {station.name}
                                 </CompositeItem>
@@ -154,13 +205,15 @@ const StationPicker = (props: Props) => {
                             id={`search-result-${station.id}`}
                             as="li"
                             key={station.id}
+                            data-station-id={station.id}
+                            onClick={handleSelectStation}
                         >
                             {station.name}
-                            <ul className={styles.lineBullets}>
+                            <div className={styles.lineBullets}>
                                 {[...station.colors].map((color) => (
-                                    <li key={color} className={color} />
+                                    <div key={color} className={color} />
                                 ))}
-                            </ul>
+                            </div>
                         </CompositeItem>
                     ))}
             </ul>
@@ -186,7 +239,7 @@ const StationPicker = (props: Props) => {
                             value={searchTerm}
                             className={styles.search}
                             placeholder="Search for a station..."
-                            onChange={(evt) => setSearchTerm(evt.target.value.trim().toLowerCase())}
+                            onChange={(evt) => setSearchTerm(evt.target.value)}
                         />
                     </div>
                 </div>

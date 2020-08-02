@@ -3,7 +3,7 @@
 @import 'styles/base.scss';
 
 $top-color: color.adjust($rr-gold, $saturation: -25%);
-$bottom-color: $rr-purple;
+$bottom-color: $rr-purple-dark;
 
 @mixin picker-triangle($color, $size: 8px) {
     position: absolute;
