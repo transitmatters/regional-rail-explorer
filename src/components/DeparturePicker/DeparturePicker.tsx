@@ -85,6 +85,7 @@ const DeparturePicker = (props: Props) => {
             setHasSelected(true);
             setOffset(nextOffset);
             onUpdateTime(nextTime);
+            onSelectTime(nextTime);
         }
     };
 

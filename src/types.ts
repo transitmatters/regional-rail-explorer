@@ -1,5 +1,3 @@
-import { BlockquoteHTMLAttributes } from "react";
-
 export type Indexed<T> = { [key: string]: T };
 
 export type Duration = number;
