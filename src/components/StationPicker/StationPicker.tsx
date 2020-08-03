@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, useMemo, useCallback } from "react";
+import React, { useRef, useEffect, useState, useMemo, useCallback, ReactNode } from "react";
 import classNames from "classnames";
 
 import {
@@ -13,9 +13,10 @@ import {
 import styles from "./StationPicker.module.scss";
 
 type Station = { id: string; name: string };
-type StationsByLine = { [line: string]: Station[] };
+export type StationsByLine = { [line: string]: Station[] };
 
 interface Props {
+    children?: ReactNode;
     stationsByLine: StationsByLine;
     onSelectStation: (stationId: string) => any;
     excludeColorLines?: boolean;
@@ -78,6 +79,7 @@ const fuzzyMatchStation = (searchTerm: string, station: Station) => {
 
 const StationPicker = (props: Props) => {
     const {
+        children,
         stationsByLine,
         excludeColorLines,
         previouslySelectedStationId,
@@ -229,7 +231,11 @@ const StationPicker = (props: Props) => {
             >
                 <div
                     className={styles.triangle}
-                    style={disclosureBounds && { marginLeft: disclosureBounds.width / 2 }}
+                    style={
+                        disclosureBounds && {
+                            marginLeft: disclosureBounds.left + disclosureBounds.width / 2,
+                        }
+                    }
                 />
                 <div className={styles.header}>
                     <div className={styles.controls}>
@@ -254,7 +260,7 @@ const StationPicker = (props: Props) => {
     return (
         <div className={styles.stationPicker}>
             <Disclosure {...disclosure} ref={updateDisclosureBounds}>
-                Choose a station...
+                {children}
             </Disclosure>
             <DisclosureContent {...disclosure}>{renderDisclosureContent()}</DisclosureContent>
         </div>

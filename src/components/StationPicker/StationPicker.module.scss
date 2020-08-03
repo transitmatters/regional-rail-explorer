@@ -38,7 +38,6 @@ $station-padding: 7px;
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    background: whitesmoke;
 }
 
 .triangle {
@@ -80,6 +79,7 @@ $station-padding: 7px;
     overflow-x: hidden;
     overflow-y: auto;
     padding: $inner-padding 0;
+    background: whitesmoke;
 }
 
 .stationList {

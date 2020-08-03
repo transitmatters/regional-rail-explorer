@@ -1,0 +1,26 @@
+@import '../../styles/base.scss';
+
+.button {
+    display: flex;
+    align-items: center;
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    outline: inherit;
+    background: whitesmoke;
+    box-shadow: $global-shadow;
+    font-size: 0.9em;
+    color: #111;
+}
+
+.large {
+    font-size: inherit;
+    font-size: 1em;
+    padding: 8 16px;
+}
+
+.rightIcon {
+    margin-left: 0.25em;
+}
