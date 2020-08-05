@@ -115,3 +115,28 @@ export interface NetworkDayTime {
     time: NetworkTime;
     day: NetworkDay | NetworkDayKind;
 }
+
+interface JourneyStop {
+    id: string;
+    name: string;
+}
+
+interface JourneyTravelSegment {
+    departureTime: NetworkTime;
+    arrivalTime: NetworkTime;
+    fromStop: JourneyStop;
+    toStop: JourneyStop;
+    parentStation: {
+        id: string;
+        name: string;
+    };
+}
+
+interface JourneyTransfer {
+    waitDuration: Duration;
+    transferDuration: Duration;
+}
+
+export interface Journey {
+    segments: 
+}

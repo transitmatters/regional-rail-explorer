@@ -339,3 +339,14 @@ export const stationsByLine = {
         { id: "place-forhl", name: "Forest Hills" },
     ],
 };
+
+export const stationsById: Record<string, { id: string; name: string }> = Object.values(
+    stationsByLine
+).reduce((allStations: Record<string, any>, lineStations) => {
+    lineStations.forEach((station) => {
+        if (!allStations[station.id]) {
+            allStations[station.id] = station;
+        }
+    });
+    return allStations;
+}, {});

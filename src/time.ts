@@ -26,7 +26,7 @@ export const parseTime = (timeString: string): NetworkTime => {
 
 export const stringifyTime = (
     time: NetworkTime,
-    { truncateLeadingZeros = true, showSeconds = false } = {}
+    { truncateLeadingZeros = true, showSeconds = false, use12Hour = false } = {}
 ): string => {
     let seconds = time,
         minutes = 0,
@@ -37,6 +37,7 @@ export const stringifyTime = (
     const hoursToAdd = Math.floor(minutes / 60);
     minutes = minutes % 60;
     hours += hoursToAdd;
+    hours = hours % (use12Hour ? 12 : 24);
     // eslint-disable-next-line prefer-const
     let [hoursString, minutesString, secondsString] = [hours, minutes, seconds].map((num) =>
         num.toString().padStart(2, "0")
@@ -44,7 +45,13 @@ export const stringifyTime = (
     if (truncateLeadingZeros && hoursString.startsWith("0")) {
         hoursString = hoursString.slice(1);
     }
-    return [hoursString, minutesString, secondsString].slice(0, showSeconds ? 3 : 2).join(":");
+    const timeString = [hoursString, minutesString, secondsString]
+        .slice(0, showSeconds ? 3 : 2)
+        .join(":");
+    if (use12Hour) {
+        return `${timeString} ${hours > 12 ? "PM" : "AM"}`;
+    }
+    return timeString;
 };
 
 export const stringify12Hour = (time: NetworkTime) => {

@@ -80,6 +80,7 @@ $station-padding: 7px;
     overflow-y: auto;
     padding: $inner-padding 0;
     background: whitesmoke;
+    flex-grow: 1;
 }
 
 .stationList {
