@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import classNames from "classnames";
 
 import { NetworkTime } from "types";
@@ -54,10 +54,16 @@ const TravelSegment = (props: { segment: JourneyTravelSegment }) => {
     const { segment } = props;
     const { fromStation, toStation, departureTime, arrivalTime, routeId } = segment;
     const color = getColorForRouteId(routeId);
-    const [expanded, setExpanded] = useState(false);
 
     const renderInnerContents = () => {
-        return null;
+        return segment.passedStations.map((passedStation) => {
+            return (
+                <div key={passedStation.station.id} className={styles.travelSegmentPassedStation}>
+                    <div className="circle" />
+                    <div className="label">{passedStation.station.name}</div>
+                </div>
+            );
+        });
     };
 
     const renderEndpoint = (station, time) => {
@@ -77,23 +83,39 @@ const TravelSegment = (props: { segment: JourneyTravelSegment }) => {
             className={classNames(styles.travelSegment, textColor(color))}
             style={{ minHeight: getSegmentHeight(segment) }}
         >
-            <div className={"stem"} />
+            <div className="stem" />
             {renderEndpoint(fromStation, departureTime)}
-            <div className={"inner"}>
-                {renderInnerContents()}
-                <div className="right-hairline" />
-            </div>
-            {renderInnerContents()}
+            <div className="inner">{renderInnerContents()}</div>
             {renderEndpoint(toStation, arrivalTime)}
         </div>
     );
 };
 
-const TransferSegment = (props: { segment: JourneyTransferSegment }) => {
-    const { segment } = props;
+const TransferSegment = (props: { isStart: boolean; segment: JourneyTransferSegment }) => {
+    const { segment, isStart } = props;
+    const transferDurationRounded = Math.floor(segment.transferDuration / MINUTE);
+    const waitDurationRounded = Math.floor(segment.waitDuration / MINUTE);
     return (
-        <div className={styles.transferSegment} style={{ minHeight: getSegmentHeight(segment) }}>
+        <div
+            className={classNames(styles.transferSegment, isStart && "start")}
+            style={{ minHeight: getSegmentHeight(segment) }}
+        >
+            {isStart && (
+                <div className="start-point">
+                    <div className="circle" />
+                    <div className="label">
+                        <div className="name">Start</div>
+                        <div className="time">{stringifyTime(segment.startTime)}</div>
+                    </div>
+                </div>
+            )}
             <div className="stem" />
+            <div className="label">
+                {transferDurationRounded > 0 && (
+                    <div>{transferDurationRounded} minute transfer</div>
+                )}
+                {waitDurationRounded > 0 && <div>{waitDurationRounded} minute wait</div>}
+            </div>
         </div>
     );
 };
@@ -106,7 +128,7 @@ const JourneyTimeline = (props: Props) => {
                 if (segment.type === "travel") {
                     return <TravelSegment key={index} segment={segment} />;
                 }
-                return <TransferSegment key={index} segment={segment} />;
+                return <TransferSegment key={index} segment={segment} isStart={index === 0} />;
             })}
         </div>
     );

@@ -1,6 +1,28 @@
-$endpoint-size: 20px;
 $stem-width: 8px;
 $text-offset: 25px;
+$travel-transfer-station-size: 20px;
+$travel-passed-station-size: 6px;
+$start-point-size: 14px;
+
+@mixin circle-on-line-with-label($circle-size) {
+    $circle-left: ($travel-transfer-station-size - $circle-size) / 2;
+    display: flex;
+    align-items: center;
+
+    > :global(.circle) {
+        margin-left: $circle-left;
+        width: $circle-size;
+        height: $circle-size;
+        border-radius: $circle-size / 2;
+        background-color: white;
+        flex-shrink: 0;
+    }
+
+    > :global(.label) {
+        margin-left: $text-offset - $circle-size - $circle-left;
+        margin-top: 2px;
+    }
+}
 
 .travelSegment {
     display: flex;
@@ -9,23 +31,52 @@ $text-offset: 25px;
     position: relative;
     :global .stem {
         position: absolute;
-        height: calc(100% - #{$endpoint-size});
-        top: $endpoint-size / 2;
-        left: $endpoint-size / 2;
+        height: calc(100% - #{$travel-transfer-station-size});
+        top: $travel-transfer-station-size / 2;
+        left: $travel-transfer-station-size / 2;
         transform: translateX(-50%);
         width: $stem-width;
         background: currentColor;
+    }
+
+    :global .inner {
+        padding: 10px 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        flex-grow: 1;
+    }
+}
+
+.travelSegmentPassedStation {
+    @include circle-on-line-with-label($travel-passed-station-size);
+    position: relative;
+    z-index: 1;
+    color: black;
+    display: flex;
+    align-items: center;
+    height: 30px;
+
+    :global .circle {
+        background-color: white;
+    }
+
+    :global .label {
+        height: 0.9em;
+        font-size: 0.9em;
+        margin-top: 1px;
     }
 }
 
 .travelSegmentEndpoint {
     position: relative;
     z-index: 1;
+    display: flex;
+    align-items: center;
+
+    @include circle-on-line-with-label($travel-transfer-station-size);
 
     :global .circle {
-        width: $endpoint-size;
-        height: $endpoint-size;
-        border-radius: $endpoint-size / 2;
         box-sizing: border-box;
         border: 4px solid currentColor;
         background: white;
@@ -33,12 +84,13 @@ $text-offset: 25px;
     }
 
     :global .label {
-        top: calc((#{$endpoint-size} - 1em) / 2);
+        display: flex;
         color: black;
-        position: absolute;
-        left: $text-offset;
+        font-weight: bold;
+        line-height: 1em;
         :global .time {
-            font-weight: bold;
+            font-weight: normal;
+            margin-left: 0.5em;
         }
     }
 }
@@ -48,12 +100,48 @@ $text-offset: 25px;
     flex-direction: column;
     position: relative;
 
-    :global .stem {
+    &:global(.start) {
+        :global(.stem) {
+            top: $start-point-size;
+            height: calc(100% - #{$start-point-size});
+        }
+    }
+
+    :global(.start-point) {
+        @include circle-on-line-with-label($start-point-size);
+        :global(.circle) {
+            box-sizing: border-box;
+            background: white;
+            border: 2px solid cornflowerblue;
+        }
+        :global(.label) {
+            height: 1em;
+            font-weight: bold;
+            display: flex;
+            :global .time {
+                font-weight: normal;
+                margin-left: 0.5em;
+            }
+        }
+    }
+
+    :global(.stem) {
         position: absolute;
         height: 100%;
         top: 0;
-        left: $endpoint-size / 2;
+        left: $travel-transfer-station-size / 2;
         transform: translateX(-50%);
         border: 1px dashed cornflowerblue;
+    }
+
+    & > :global(.label) {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-left: $text-offset;
+        flex-grow: 1;
+        font-size: 0.9em;
+        font-style: italic;
+        
     }
 }
