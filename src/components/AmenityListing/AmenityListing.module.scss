@@ -1,0 +1,44 @@
+@import '../../styles/base.scss';
+
+$icon-wrapper-size: 1.6em;
+
+.amenityListing {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    & > *:not(:last-child) {
+        margin-bottom: 0.5em;
+    }
+}
+
+.amenity {
+    display: flex;
+    align-items: center;
+
+    :global(.icon-wrapper) {
+        position: relative;
+        margin-right: 0.5em;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: $icon-wrapper-size;
+        height: $icon-wrapper-size;
+        border-radius: $icon-wrapper-size / 2;
+        background: #ddd;
+        &:global(.present) {
+            background: $rr-gold;
+            & > :global(.slash) {
+                display: none;
+            }
+        }
+        & > :global(.slash) {
+            position: absolute;
+            background: white;
+            width: 2px;
+            height: 100%;
+            left: calc(50% - 1px);
+            transform: rotate(-45deg);
+        }
+    }
+}

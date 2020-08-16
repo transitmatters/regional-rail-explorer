@@ -111,32 +111,56 @@ export type NetworkTime = number;
 
 export type NetworkTimeRange = [NetworkTime, NetworkTime];
 
+export interface Scenario {
+    name: string;
+}
+
+export type Amenity = "level-boarding" | "electric-trains" | "increased-top-speed";
+
 export interface NetworkDayTime {
     time: NetworkTime;
     day: NetworkDay | NetworkDayKind;
 }
 
-interface JourneyStop {
+export interface JourneyStation {
     id: string;
     name: string;
 }
 
-interface JourneyTravelSegment {
+export interface JourneyTravelSegment {
+    type: "travel";
     departureTime: NetworkTime;
     arrivalTime: NetworkTime;
-    fromStop: JourneyStop;
-    toStop: JourneyStop;
-    parentStation: {
-        id: string;
-        name: string;
-    };
+    fromStation: JourneyStation;
+    toStation: JourneyStation;
+    passedStations: {
+        time: NetworkTime;
+        station: JourneyStation;
+    }[];
+    routeId: string;
 }
 
-interface JourneyTransfer {
-    waitDuration: Duration;
-    transferDuration: Duration;
+export interface JourneyTransferSegment {
+    type: "transfer";
+    startTime: NetworkTime;
+    waitDuration: NetworkTime;
+    transferDuration: NetworkTime;
 }
 
-export interface Journey {
-    segments: 
+export type JourneySegment = JourneyTransferSegment | JourneyTravelSegment;
+
+export enum CrowdingLevel {
+    Low = 1,
+    Medium = 2,
+    High = 3,
+}
+
+export interface JourneyInfo {
+    scenario: Scenario;
+    segments: JourneySegment[];
+    amenities: Amenity[];
+    platformCrowding: {
+        stationName: string;
+        crowdingLevel: CrowdingLevel;
+    }[];
 }

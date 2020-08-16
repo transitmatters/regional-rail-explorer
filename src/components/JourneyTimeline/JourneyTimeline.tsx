@@ -1,42 +1,14 @@
 import React from "react";
 import classNames from "classnames";
 
-import { NetworkTime } from "types";
+import { JourneySegment, JourneyTransferSegment, JourneyTravelSegment } from "types";
 import { stringifyTime as globalStringifyTime, MINUTE } from "time";
 
 import styles from "./JourneyTimeline.module.scss";
-import { getColorForRouteId, textColor } from "colorClasses";
-
-interface JourneyStation {
-    id: string;
-    name: string;
-}
-
-interface JourneyTravelSegment {
-    type: "travel";
-    departureTime: NetworkTime;
-    arrivalTime: NetworkTime;
-    fromStation: JourneyStation;
-    toStation: JourneyStation;
-    passedStations: {
-        time: NetworkTime;
-        station: JourneyStation;
-    }[];
-    routeId: string;
-}
-
-interface JourneyTransferSegment {
-    type: "transfer";
-    startTime: NetworkTime;
-    waitDuration: NetworkTime;
-    transferDuration: NetworkTime;
-}
-
-type JourneySegment = JourneyTransferSegment | JourneyTravelSegment;
+import { getColorForRouteId, textColor } from "routes";
 
 type Props = {
     journey: JourneySegment[];
-    horizontal?: boolean;
 };
 
 const stringifyTime = (time) => globalStringifyTime(time, { use12Hour: true });

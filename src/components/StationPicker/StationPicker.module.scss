@@ -21,11 +21,6 @@ $station-padding: 7px;
     }
 }
 
-@mixin max-width {
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
 .stationPicker {
     position: relative;
 }

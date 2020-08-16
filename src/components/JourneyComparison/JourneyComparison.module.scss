@@ -1,0 +1,75 @@
+@import '../../styles/base.scss';
+
+.journeyComparison {
+    @include max-width;
+
+    :global(.bubble) {
+        display: inline-block;
+        color: white;
+        padding: 3px 6px;
+        margin-top: -3px;
+        margin-left: -6px;
+        border-radius: 4px;
+        &:global(.green) {
+            background: forestgreen;
+        }
+        &:global(.red) {
+            background: red;
+        }
+        &:global(.offset-left) {
+            margin-left: 6px;
+        }
+    }
+
+    :global(.wait-summary) {
+        height: 40px;
+    }
+
+    :global(.delay-info) {
+        > :nth-child(2) {
+            margin-top: 4px;
+            font-style: italic;
+        }
+    }
+
+    :global(.crowding-wrapper) {
+        > :first-child {
+            opacity: 0.5
+        }
+        > :global(.explanation) {
+            font-style: italic;
+        }
+    }
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 150px repeat(2, 1fr);
+    column-gap: 20px;
+    grid-template-areas: 'title baseline enhanced';
+    
+    > :global(.title) {
+        text-align: right;
+        grid-area: title;
+        font-style: italic;
+        color: #aaa;
+    }
+
+    > :global(.baseline) {
+        grid-area: baseline;
+    }
+
+    > :global(.enhanced) {
+        grid-area: enhanced;
+    }
+
+    &:first-child {
+        margin-top: 20px;
+    }
+
+    &:not(:last-child) {
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+        border-bottom: 1px #e5e5e5 solid;
+    }
+}

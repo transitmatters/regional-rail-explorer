@@ -1,4 +1,5 @@
-import { NetworkTime, NetworkDay, NetworkDayTime } from "./types";
+import { NetworkTime, NetworkDay, NetworkDayTime, Duration } from "types";
+import { pluralize } from "strings";
 
 export const daysOfWeek: NetworkDay[] = [
     "monday",
@@ -58,6 +59,17 @@ export const stringify12Hour = (time: NetworkTime) => {
     const hours = Math.floor(time / HOUR);
     const isPM = hours > 12;
     return `${isPM ? hours - 12 : hours} ${isPM ? "PM" : "AM"}`;
+};
+
+export const stringifyDuration = (duration: Duration) => {
+    let hours = 0;
+    while (duration >= HOUR) {
+        duration -= HOUR;
+        hours++;
+    }
+    const minutes = Math.floor(duration / MINUTE);
+    const hoursPrefix = hours ? `${hours} hr ` : "";
+    return `${hoursPrefix}${minutes} min`;
 };
 
 export const createTime = (day: NetworkDay, timeString: string): NetworkDayTime => {

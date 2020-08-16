@@ -1,6 +1,6 @@
 import React from "react";
 
-import { journey } from "storydata/journey";
+import { baseline as journey } from "storydata/journey";
 
 import JourneyTimeline from "./JourneyTimeline";
 
