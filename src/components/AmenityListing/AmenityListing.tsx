@@ -37,7 +37,7 @@ const AmenityListing = (props: Props) => {
     const renderAmenity = (amenity: Amenity, present: boolean) => {
         const { presence, absence, icon: Icon } = amenityToString[amenity];
         return (
-            <li className={styles.amenity}>
+            <li key={`${amenity}-${present}`} className={styles.amenity}>
                 <div className={classNames("icon-wrapper", present && "present")}>
                     <Icon color="white" />
                     <div className="slash" />

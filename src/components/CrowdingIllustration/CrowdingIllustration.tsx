@@ -1,4 +1,5 @@
 import React from "react";
+import classNames from "classnames";
 import Random from "random";
 import { GiPerson } from "react-icons/gi";
 
@@ -45,7 +46,10 @@ const CrowdingIllustration = (props: Props) => {
     };
 
     return (
-        <div className={styles.crowdingIllustration} style={{ height: totalHeight }}>
+        <div
+            className={classNames(styles.crowdingIllustration, "crowding-illustration")}
+            style={{ height: totalHeight }}
+        >
             {Array(crowding)
                 .fill(0)
                 .map((_, i) => renderPerson(i))}

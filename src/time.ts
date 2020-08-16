@@ -61,15 +61,15 @@ export const stringify12Hour = (time: NetworkTime) => {
     return `${isPM ? hours - 12 : hours} ${isPM ? "PM" : "AM"}`;
 };
 
-export const stringifyDuration = (duration: Duration) => {
+export const stringifyDuration = (duration: Duration, useFull = false) => {
     let hours = 0;
     while (duration >= HOUR) {
         duration -= HOUR;
         hours++;
     }
     const minutes = Math.floor(duration / MINUTE);
-    const hoursPrefix = hours ? `${hours} hr ` : "";
-    return `${hoursPrefix}${minutes} min`;
+    const hoursPrefix = hours ? `${hours} ${useFull ? pluralize("hour", hours) : "hr"} ` : "";
+    return `${hoursPrefix}${minutes} ${useFull ? pluralize("minute", hours) : "min"}`;
 };
 
 export const createTime = (day: NetworkDay, timeString: string): NetworkDayTime => {

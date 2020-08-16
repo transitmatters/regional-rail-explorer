@@ -159,8 +159,6 @@ export interface JourneyInfo {
     scenario: Scenario;
     segments: JourneySegment[];
     amenities: Amenity[];
-    platformCrowding: {
-        stationName: string;
-        crowdingLevel: CrowdingLevel;
-    }[];
+    arrivals: Record<string, { station: JourneyStation; times: NetworkTime[] }>;
+    platformCrowding: Record<string, { station: JourneyStation; crowdingLevel: CrowdingLevel }>;
 }

@@ -1,17 +1,17 @@
 .crowdingIllustration {
     position: relative;
+    overflow: hidden;
 }
 
 .platform {
     position: absolute;
-    bottom: -1px;
+    bottom: -2px;
     width: 100%;
     height: 1px;
-    background: black;
 }
 
 .person {
     position: absolute;
     bottom: 0;
-    transform: translateY(4.2%);
+    transform: translateY(5%);
 }
