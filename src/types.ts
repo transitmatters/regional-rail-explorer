@@ -88,6 +88,8 @@ export interface Station {
 
 export interface Network {
     stations: Indexed<Station>;
+    stationsById: Indexed<Station>;
+    trips: Indexed<Trip>;
 }
 
 export interface Station {
@@ -111,8 +113,20 @@ export type NetworkTime = number;
 
 export type NetworkTimeRange = [NetworkTime, NetworkTime];
 
-export interface Scenario {
+export interface ScenarioInfo {
     name: string;
+}
+
+export interface Scenario extends ScenarioInfo {
+    network: Network;
+    amenitiesByRoute: Record<string, Amenity[]>;
+    amenitiesByStation: Record<string, Amenity[]>;
+}
+
+export enum CrowdingLevel {
+    Low = 1,
+    Medium = 2,
+    High = 3,
 }
 
 export type Amenity = "level-boarding" | "electric-trains" | "increased-top-speed";
@@ -120,6 +134,13 @@ export type Amenity = "level-boarding" | "electric-trains" | "increased-top-spee
 export interface NetworkDayTime {
     time: NetworkTime;
     day: NetworkDay | NetworkDayKind;
+}
+
+export interface JourneyParams {
+    fromStationId: string;
+    toStationId: string;
+    day: NetworkDayKind;
+    time?: NetworkTime;
 }
 
 export interface JourneyStation {
@@ -148,15 +169,10 @@ export interface JourneyTransferSegment {
 }
 
 export type JourneySegment = JourneyTransferSegment | JourneyTravelSegment;
-
-export enum CrowdingLevel {
-    Low = 1,
-    Medium = 2,
-    High = 3,
-}
+export type Journey = JourneySegment[];
 
 export interface JourneyInfo {
-    scenario: Scenario;
+    scenario: ScenarioInfo;
     segments: JourneySegment[];
     amenities: Amenity[];
     arrivals: Record<string, { station: JourneyStation; times: NetworkTime[] }>;

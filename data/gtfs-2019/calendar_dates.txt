@@ -1,0 +1,70 @@
+service_id,date,exception_type,holiday_name
+LRV12020-hlb10011-Wdy-01,20200110,2,
+RTL12020-hmo10016-Sa-01,20200111,1,
+RTL12020-hmo10017-Su-01,20200112,1,
+RTL12020-hmo10011-Wdy-01,20200117,2,
+RTL12020-hms10016-Sa-01-AlfHrd,20200118,2,
+RTL12020-hms10017-Su-01-AlfHrd,20200119,2,
+LRV12020-hlb10011-Wdy-01,20200120,2,Martin Luther King Day
+LRV12020-hlm10011-Wdy-01,20200120,2,Martin Luther King Day
+MartinLutherKingDay-WashingtonsBirthday,20200120,1,Martin Luther King Day
+PRIV12020-hpa10011-Wdy-01,20200120,2,Martin Luther King Day
+PRIV12020-hpa10016-Sa-01,20200120,1,Martin Luther King Day
+PRIV12020-hpj10011-Wdy-01,20200120,2,Martin Luther King Day
+PRIV12020-hpj10016-Sa-01,20200120,1,Martin Luther King Day
+RTL12020-hmb10011-Wdy-01,20200120,2,Martin Luther King Day
+RTL12020-hmo10011-Wdy-01,20200120,2,Martin Luther King Day
+RTL12020-hms10011-Wdy-01,20200120,2,Martin Luther King Day
+WinterWeekday,20200120,2,Martin Luther King Day
+RTL12020-hmo10011-Wdy-01,20200124,2,
+RTL12020-hmo10011-Wdy-01-20:45-HSllTfs,20200131,2,
+RTL12020-hmo10016-Sa-01,20200201,1,
+RTL12020-hmo10016-Sa-01-HSllTfs,20200201,2,
+RTL12020-hmo10017-Su-01,20200202,1,
+RTL12020-hmo10017-Su-01-HSllTfs,20200202,2,
+RTL12020-hmo10011-Wdy-01,20200207,2,
+RTL12020-hmo10011-Wdy-01,20200214,2,
+RTL12020-hms10016-Sa-01,20200215,1,
+RTL12020-hms10016-Sa-01-AlfHrd,20200215,2,
+RTL12020-hms10017-Su-01,20200216,1,
+RTL12020-hms10017-Su-01-AlfHrd,20200216,2,
+CR-Sa-Fairmount-Fall-19C0,20200217,1,Washington's Birthday
+CR-Sa-Fitchburg-Fall-19C0,20200217,1,Washington's Birthday
+CR-Sa-Franklin-Fall-19C0,20200217,1,Washington's Birthday
+CR-Sa-Greenbush-Fall-19C0,20200217,1,Washington's Birthday
+CR-Sa-Haverhill-Fall-19C0,20200217,1,Washington's Birthday
+CR-Sa-Kingston-Fall-19C0,20200217,1,Washington's Birthday
+CR-Sa-Lowell-Fall-19C0,20200217,1,Washington's Birthday
+CR-Sa-Middleborough-Fall-19C0,20200217,1,Washington's Birthday
+CR-Sa-Needham-Fall-19C0,20200217,1,Washington's Birthday
+CR-Sa-Newburyport-Fall-19C0,20200217,1,Washington's Birthday
+CR-Sa-Providence-FallProvB-19C0,20200217,1,Washington's Birthday
+CR-Sa-Worcester-Fall-19C0,20200217,1,Washington's Birthday
+CR-Wdy-Fairmount-Fall-19,20200217,2,Washington's Birthday
+CR-Wdy-Fitchburg-Fall-19,20200217,2,Washington's Birthday
+CR-Wdy-Franklin-Fall-19,20200217,2,Washington's Birthday
+CR-Wdy-Greenbush-Fall-19,20200217,2,Washington's Birthday
+CR-Wdy-Haverhill-Fall-19,20200217,2,Washington's Birthday
+CR-Wdy-Kingston-Fall-19,20200217,2,Washington's Birthday
+CR-Wdy-Lowell-Fall-19,20200217,2,Washington's Birthday
+CR-Wdy-Middleborough-Fall-19,20200217,2,Washington's Birthday
+CR-Wdy-Needham-Fall-19,20200217,2,Washington's Birthday
+CR-Wdy-Newburyport-Fall-19,20200217,2,Washington's Birthday
+CR-Wdy-Providence-FallProvB-19,20200217,2,Washington's Birthday
+CR-Wdy-Worcester-Fall-19,20200217,2,Washington's Birthday
+LRV12020-hlb10011-Wdy-01,20200217,2,Washington's Birthday
+LRV12020-hlm10011-Wdy-01,20200217,2,Washington's Birthday
+MartinLutherKingDay-WashingtonsBirthday,20200217,1,Washington's Birthday
+PRIV12020-hpa10011-Wdy-01,20200217,2,Washington's Birthday
+PRIV12020-hpa10016-Sa-01,20200217,1,Washington's Birthday
+PRIV12020-hpj10011-Wdy-01,20200217,2,Washington's Birthday
+PRIV12020-hpj10016-Sa-01,20200217,1,Washington's Birthday
+RTL12020-hmb10011-Wdy-01,20200217,2,Washington's Birthday
+RTL12020-hmo10011-Wdy-01,20200217,2,Washington's Birthday
+RTL12020-hms10011-Wdy-01,20200217,2,Washington's Birthday
+WinterWeekday,20200217,2,Washington's Birthday
+WinterWeekday,20200218,2,
+WinterWeekday,20200219,2,
+WinterWeekday,20200220,2,
+WinterWeekday,20200221,2,
+RTL12020-hms10016-Sa-01,20200314,1,

@@ -24,10 +24,7 @@ const roundToNearestHour = (time: NetworkTime): NetworkTime => {
     return HOUR * hoursPart;
 };
 
-const getTimeRange = (
-    allArrivals: NetworkTime[],
-    spanFullDay: boolean
-): NetworkTimeRange => {
+const getTimeRange = (allArrivals: NetworkTime[], spanFullDay: boolean): NetworkTimeRange => {
     if (spanFullDay) {
         return [0, DAY];
     }
@@ -105,26 +102,13 @@ const FrequencyHistogram = ({
         if (width === null) {
             return null;
         }
-        const timeRange = getTimeRange(
-            [...baselineArrivals, ...enhancedArrivals],
-            spanFullDay
-        );
-        const buckets = getBuckets(
-            timeRange,
-            bucketMinMinutes,
-            bucketMaxMinutes,
-            width
-        );
-        const bucketedArrivals = bucketArrivals(
-            buckets,
-            baselineArrivals,
-            enhancedArrivals
-        );
+        const timeRange = getTimeRange([...baselineArrivals, ...enhancedArrivals], spanFullDay);
+        const buckets = getBuckets(timeRange, bucketMinMinutes, bucketMaxMinutes, width);
+        const bucketedArrivals = bucketArrivals(buckets, baselineArrivals, enhancedArrivals);
         return bucketedArrivals.map((entry) => {
             const { baselineCount, enhancedCount, bucket } = entry;
             const [startTime] = bucket;
             const totalInBucket = Math.max(baselineCount, enhancedCount);
-            console.log(totalInBucket, baselineCount, enhancedCount);
             const children = Array(totalInBucket)
                 .fill(0)
                 .map((_, index) => {
@@ -132,11 +116,7 @@ const FrequencyHistogram = ({
                     return (
                         <div
                             key={index}
-                            className={
-                                isEnhanced
-                                    ? styles.enhancedArrival
-                                    : styles.arrival
-                            }
+                            className={isEnhanced ? styles.enhancedArrival : styles.arrival}
                         />
                     );
                 });

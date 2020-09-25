@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { GrDown } from "react-icons/gr";
 
 import Button from "components/Button/Button";
 import StationPicker, { StationsByLine } from "components/StationPicker/StationPicker";
+import { JourneyParams } from "types";
 
 import styles from "./JourneyPicker.module.scss";
+import { parseTime } from "time";
 
 interface Station {
     id: string;
@@ -15,12 +17,29 @@ interface Props {
     stationsById: Record<string, Station>;
     initialFromStation?: Station;
     initialToStation?: Station;
+    onSelectJourney: (params: JourneyParams) => any;
 }
 
 const JourneyPicker = (props: Props) => {
-    const { stationsByLine, stationsById, initialFromStation, initialToStation } = props;
+    const {
+        stationsByLine,
+        stationsById,
+        initialFromStation,
+        initialToStation,
+        onSelectJourney,
+    } = props;
     const [fromStation, setFromStation] = useState(initialFromStation);
     const [toStation, setToStation] = useState(initialToStation);
+
+    useEffect(() => {
+        if (fromStation && toStation) {
+            onSelectJourney({
+                fromStationId: fromStation.id,
+                toStationId: toStation.id,
+                day: "weekday",
+            });
+        }
+    }, [fromStation, toStation]);
 
     return (
         <div className={styles.journeyPicker}>

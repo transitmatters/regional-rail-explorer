@@ -1,4 +1,4 @@
-import { NetworkTime, NetworkDay, NetworkDayTime, Duration } from "types";
+import { NetworkTime, NetworkDayKind, NetworkDay, NetworkDayTime, Duration } from "types";
 import { pluralize } from "strings";
 
 export const daysOfWeek: NetworkDay[] = [
@@ -10,6 +10,24 @@ export const daysOfWeek: NetworkDay[] = [
     "saturday",
     "sunday",
 ];
+
+export const weekdays = daysOfWeek.slice(0, 5);
+
+export const matchDayOfWeek = (
+    dayA: NetworkDay | NetworkDayKind,
+    dayB: NetworkDay | NetworkDayKind
+) => {
+    if (dayA === dayB) {
+        return true;
+    }
+    if (dayA === "weekday") {
+        return weekdays.includes(dayB as NetworkDay);
+    }
+    if (dayB === "weekday") {
+        return weekdays.slice(0, 5).includes(dayA as NetworkDay);
+    }
+    return false;
+};
 
 export const parseTimeRange = (timeRangeString: string): [NetworkTime, NetworkTime] => {
     const [fromTime, toTime] = timeRangeString
@@ -38,7 +56,8 @@ export const stringifyTime = (
     const hoursToAdd = Math.floor(minutes / 60);
     minutes = minutes % 60;
     hours += hoursToAdd;
-    hours = hours % (use12Hour ? 12 : 24);
+    const isPM = hours >= 12;
+    hours = (use12Hour && hours >= 12 ? hours - 12 : hours) % 24;
     // eslint-disable-next-line prefer-const
     let [hoursString, minutesString, secondsString] = [hours, minutes, seconds].map((num) =>
         num.toString().padStart(2, "0")
@@ -50,7 +69,7 @@ export const stringifyTime = (
         .slice(0, showSeconds ? 3 : 2)
         .join(":");
     if (use12Hour) {
-        return `${timeString} ${hours > 12 ? "PM" : "AM"}`;
+        return `${timeString} ${isPM ? "PM" : "AM"}`;
     }
     return timeString;
 };

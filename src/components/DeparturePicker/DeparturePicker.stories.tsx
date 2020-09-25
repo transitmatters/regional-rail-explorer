@@ -1,5 +1,5 @@
-import * as React from "react";
-import { action } from "@storybook/addon-actions";
+import React from "react";
+import useState from "storybook-addon-state";
 
 import * as salem from "storydata/salem";
 
@@ -11,15 +11,20 @@ export default {
     component: DeparturePicker,
 };
 
-export const Default = () => {
+const StatefulDeparturePicker = () => {
+    const [time, setTime] = useState("time", 9 * 3600);
     return (
         <DeparturePicker
             enhancedArrivals={salem.enhancedArrivals}
             baselineArrivals={salem.baselineArrivals}
             spanFullDay={false}
             timePadding={HOUR / 2}
-            onSelectTime={action("select-time")}
-            onUpdateTime={() => {}}
+            onSelectTime={setTime}
+            time={time}
         />
     );
+};
+
+export const Default = () => {
+    return <StatefulDeparturePicker />;
 };

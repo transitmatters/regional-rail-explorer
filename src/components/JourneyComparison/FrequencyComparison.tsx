@@ -8,7 +8,6 @@ import { ComparisonProps } from "./types";
 import ComparisonRow from "./ComparisonRow";
 
 import styles from "./JourneyComparison.module.scss";
-import next from "next";
 
 interface FrequencyInfoProps {
     journey: JourneyInfo;
@@ -24,7 +23,7 @@ const getSubsequentHeadway = (journey: JourneyInfo, arrivalStationId: string): D
         },
     } = journey;
     const now = (segments[0] as JourneyTransferSegment).startTime;
-    const indexOfNext = times.findIndex((arr) => arr >= now);
+    const indexOfNext = times.findIndex((arr) => arr > now);
     return times[indexOfNext + 1] - times[indexOfNext];
 };
 
@@ -60,7 +59,6 @@ const FrequencyInfo = (props: FrequencyInfoProps) => {
     const nextArrival = shownTimes[nextHeadwayIndex];
     const subsequentArrival = shownTimes[nextHeadwayIndex + 1];
     const waitWidth = (50 * (subsequentArrival - nextArrival)) / halfInterval;
-    console.log(waitWidth);
     const waitLeft = 50 * (1 + (nextArrival - now) / halfInterval);
     return (
         <div className={styles.frequencyInfo}>

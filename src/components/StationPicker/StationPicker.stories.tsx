@@ -2,7 +2,7 @@ import React from "react";
 import { action } from "@storybook/addon-actions";
 import { GrDown } from "react-icons/gr";
 
-import { stationsByLine } from "storydata/stationsByLine";
+import { stationsByLine } from "stations";
 import Button from "components/Button/Button";
 
 import StationPicker from "./StationPicker";

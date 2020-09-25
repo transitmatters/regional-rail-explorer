@@ -1,6 +1,6 @@
 import React from "react";
 
-import { stationsByLine, stationsById } from "storydata/stationsByLine";
+import { stationsByLine, stationsById } from "stations";
 import JourneyPicker from "./JourneyPicker";
 
 export default {
@@ -9,5 +9,11 @@ export default {
 };
 
 export const Default = () => {
-    return <JourneyPicker stationsByLine={stationsByLine} stationsById={stationsById} />;
+    return (
+        <JourneyPicker
+            stationsByLine={stationsByLine}
+            stationsById={stationsById}
+            onSelectJourney={(j) => console.log(j)}
+        />
+    );
 };

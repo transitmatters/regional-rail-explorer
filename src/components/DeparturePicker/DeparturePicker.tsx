@@ -2,18 +2,18 @@ import React, { useState, useEffect, useRef } from "react";
 import classNames from "classnames";
 
 import { NetworkTime, NetworkTimeRange } from "types";
-import { DAY, HOUR } from "time";
+import { DAY, HOUR, stringifyTime } from "time";
 import FrequencyTimeline from "components/FrequencyTimeline/FrequencyTimeline";
 
 import styles from "./DeparturePicker.module.scss";
 
 interface Props {
     onSelectTime: (time: NetworkTime) => any;
-    onUpdateTime: (time: NetworkTime) => any;
     enhancedArrivals: NetworkTime[];
     baselineArrivals: NetworkTime[];
     spanFullDay?: boolean;
     timePadding?: number;
+    time?: number;
 }
 
 const roundToNearestHour = (time: NetworkTime): NetworkTime => {
@@ -47,12 +47,11 @@ const DeparturePicker = (props: Props) => {
         spanFullDay = false,
         baselineArrivals,
         enhancedArrivals,
-        onUpdateTime,
         onSelectTime,
+        time,
         timePadding = 0,
     } = props;
     const [isCapturing, setIsCapturing] = useState(false);
-    const [offset, setOffset] = useState<NetworkTime>(0);
     const [hasSelected, setHasSelected] = useState(false);
     const wrapper = useRef<HTMLDivElement>(null);
     const timeRange = getTimeRange(
@@ -78,14 +77,38 @@ const DeparturePicker = (props: Props) => {
             const { clientX } = evt;
             const [start, end] = timeRange;
             const { width, left } = wrapper.current.getBoundingClientRect();
-            const buffer = 5;
             const progress = (clientX - left) / width;
-            const nextTime = start + (end - start) * progress;
-            const nextOffset = Math.max(buffer, Math.min(width - buffer, clientX - left));
+            const nextTime = Math.floor(start + (end - start) * progress);
+            console.log(stringifyTime(nextTime));
             setHasSelected(true);
-            setOffset(nextOffset);
-            onUpdateTime(nextTime);
             onSelectTime(nextTime);
+        }
+    };
+
+    const renderIndicator = () => {
+        if (wrapper.current && time) {
+            const { width } = wrapper.current.getBoundingClientRect();
+            const [start, end] = timeRange;
+            const progress = (time - start) / (end - start);
+            const left = progress * width;
+            const buffer = 5;
+            const offset = Math.max(buffer, Math.min(width - buffer, left));
+            return (
+                <div
+                    className={classNames(
+                        styles.indicator,
+                        !hasSelected && styles.invisible,
+                        !isCapturing && styles.animated
+                    )}
+                    style={{ transform: `translateX(${offset}px)` }}
+                >
+                    <div className={styles.indicatorInner}>
+                        <div className={styles.topTriangle} />
+                        <div className={styles.needle} />
+                        <div className={styles.bottomTriangle} />
+                    </div>
+                </div>
+            );
         }
     };
 
@@ -103,22 +126,7 @@ const DeparturePicker = (props: Props) => {
                     enhancedArrivals={enhancedArrivals}
                     timeRange={timeRange}
                 />
-                {offset !== null && (
-                    <div
-                        className={classNames(
-                            styles.indicator,
-                            !hasSelected && styles.invisible,
-                            !isCapturing && styles.animated
-                        )}
-                        style={{ transform: `translateX(${offset}px)` }}
-                    >
-                        <div className={styles.indicatorInner}>
-                            <div className={styles.topTriangle} />
-                            <div className={styles.needle} />
-                            <div className={styles.bottomTriangle} />
-                        </div>
-                    </div>
-                )}
+                {renderIndicator()}
             </div>
             <div className={styles.bottom} />
         </div>
