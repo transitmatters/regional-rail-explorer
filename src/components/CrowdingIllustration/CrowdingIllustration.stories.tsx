@@ -7,7 +7,7 @@ export default {
     component: CrowdingIllustration,
 };
 
-export const Low = () => <CrowdingIllustration crowding="low" />;
-export const Normal = () => <CrowdingIllustration crowding="normal" />;
-export const High = () => <CrowdingIllustration crowding="high" />;
+export const Low = () => <CrowdingIllustration crowding={15} />;
+export const Normal = () => <CrowdingIllustration crowding={30} />;
+export const High = () => <CrowdingIllustration crowding={45} />;
 export const Crush = () => <CrowdingIllustration crowding={60} />;

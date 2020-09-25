@@ -3,11 +3,7 @@ import classNames from "classnames";
 
 import styles from "./Button.module.scss";
 
-interface Props
-    extends React.DetailedHTMLProps<
-        React.ButtonHTMLAttributes<HTMLButtonElement>,
-        HTMLButtonElement
-    > {
+interface Props extends React.HTMLAttributes<HTMLButtonElement> {
     children: ReactNode;
     className?: string;
     large?: boolean;

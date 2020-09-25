@@ -27,6 +27,7 @@ $station-padding: 7px;
 
 .inner {
     position: fixed;
+    z-index: 2;
     left: 0;
     box-sizing: border-box;
     width: 100vw;

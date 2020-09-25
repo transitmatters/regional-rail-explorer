@@ -2,6 +2,7 @@
 
 .journeyComparison {
     @include max-width;
+    margin-bottom: 30px;
 
     :global(.bubble) {
         display: inline-block;
@@ -23,6 +24,10 @@
     :global(.secondary) {
         margin-top: 6px;
         font-style: italic;
+    }
+
+    :global(.duration) {
+        font-size: 18px;
     }
 
     :global(.crowding-illustration) {
@@ -100,6 +105,14 @@
             top: 50%;
             transform: translateY(-50%);
         }
+        :global(.wait-line) {
+            position: absolute;
+            height: 2px;
+            background: white;
+            border-bottom: 2px dashed cornflowerblue;
+            top: 50%;
+            transform: translateY(calc(-50% - 1px));
+        }
         :global(.time) {
             position: absolute;
             transform: translateX(-50%) translateY(-50%);
@@ -109,16 +122,11 @@
             border-radius: 10px;
             background: $rr-purple;
             &:global(.missed) {
-                box-shadow: 0 0 0 4px rgba(red, 0.5);
+                box-shadow: 0 0 0 4px rgba($rr-purple, 0.5);
             }
             &:global(.caught) {
-                box-shadow: 0 0 0 4px rgba(green, 0.5);
+                box-shadow: 0 0 0 4px rgba($rr-purple, 0.5);
             }
-        }
-        :global(.needle) {
-            @include triangle($rr-purple, 6px);
-            transform: translateY(1px) scaleX(0.8);
-            margin: 0 auto;
         }
     }
 }

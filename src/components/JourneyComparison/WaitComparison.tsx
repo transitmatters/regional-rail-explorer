@@ -48,9 +48,8 @@ const WaitInfo = (props: WaitInfoProps) => {
         worstCrowdingStations.length > 0 && worstCrowdingStations[0].crowdingLevel;
     return (
         <>
-            <div>
-                <span className="duration">{stringifyDuration(waitDuration)}</span> waiting for{" "}
-                {serviceType} trains
+            <div className="duration">
+                {stringifyDuration(waitDuration)} waiting for {serviceType} trains
                 {favorableWaitFraction > 0 && (
                     <div className="bubble offset-left green">
                         {Math.round(100 * favorableWaitFraction)}% less

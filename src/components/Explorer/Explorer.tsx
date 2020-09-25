@@ -1,15 +1,12 @@
 import React from "react";
 
+import { stationsByLine, stationsById } from "storydata/stationsByLine";
+import * as salem from "storydata/salem";
 import { baseline, enhanced } from "storydata/journey";
-import { enhancedArrivals, baselineArrivals } from "storydata/salem";
+
 import { JourneyInfo, CrowdingLevel } from "types";
-
-import JourneyComparison from "./JourneyComparison";
-
-export default {
-    title: "JourneyComparison",
-    component: JourneyComparison,
-};
+import { DeparturePicker, JourneyPicker, JourneyComparison } from "components";
+import { HOUR } from "time";
 
 const baselineInfo: JourneyInfo = {
     scenario: {
@@ -31,7 +28,7 @@ const baselineInfo: JourneyInfo = {
                 name: "Salem",
                 id: "place-ER-0168",
             },
-            times: baselineArrivals,
+            times: salem.baselineArrivals,
         },
     },
     amenities: [],
@@ -57,10 +54,32 @@ const enhancedInfo: JourneyInfo = {
                 name: "Salem",
                 id: "place-ER-0168",
             },
-            times: enhancedArrivals,
+            times: salem.enhancedArrivals,
         },
     },
     amenities: ["electric-trains", "level-boarding", "increased-top-speed"],
 };
 
-export const Default = () => <JourneyComparison baseline={baselineInfo} enhanced={enhancedInfo} />;
+const Explorer = (props) => {
+    return (
+        <div className="explorer">
+            <JourneyPicker
+                stationsById={stationsById}
+                stationsByLine={stationsByLine}
+                initialFromStation={{ id: "place-ER-0168", name: "Salem" }}
+                initialToStation={{ id: "place-DB-2258", name: "Uphams Corner" }}
+            />
+            <DeparturePicker
+                enhancedArrivals={salem.enhancedArrivals}
+                baselineArrivals={salem.baselineArrivals}
+                spanFullDay={false}
+                timePadding={HOUR / 2}
+                onSelectTime={() => {}}
+                onUpdateTime={() => {}}
+            />
+            <JourneyComparison baseline={baselineInfo} enhanced={enhancedInfo} />
+        </div>
+    );
+};
+
+export default Explorer;

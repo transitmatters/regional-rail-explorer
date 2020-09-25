@@ -45,8 +45,8 @@ const JourneyComparison = (props: ComparisonProps) => {
                     <span className="duration">{stringifyDuration(baselineTotalDuration)}</span>
                 }
                 enhanced={
-                    <div>
-                        <span className="duration">{stringifyDuration(enhancedTotalDuration)}</span>
+                    <div className="duration">
+                        {stringifyDuration(enhancedTotalDuration)}
                         {enhancedTotalFraction > 0 && (
                             <div className="bubble offset-left green">
                                 {Math.round(100 * enhancedTotalFraction)}% faster

@@ -1,7 +1,20 @@
+@import '../../styles/base.scss';
+
 .journeyPicker {
     display: flex;
     align-items: center;
-    > * {
+    padding: 20px;
+    background: $rr-purple-dark;
+
+    > :global(.group) {
+        display: flex;
+        align-items: center;
         margin-right: 10px;
+    }
+
+    > :global(.label),
+    > :global(.group) > :global(.label) {
+        color: white;
+        margin: 0 10px;
     }
 }
