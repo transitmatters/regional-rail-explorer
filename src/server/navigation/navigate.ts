@@ -5,7 +5,6 @@ import { compareTimes, stringifyTime, matchDayOfWeek } from "time";
 import { NavigationFailedError } from "errors";
 
 import { NavigationState, StopNavigationState } from "./types";
-import { summarizeState } from "./util";
 
 const getSuccessorStatesFromStop = (
     state: NavigationState,
@@ -28,12 +27,13 @@ const getSuccessorStatesFromStop = (
             stopTime.trip.routeId !== excludeRouteId
         );
     });
+
     const nextStopTimeForEachServiceAndDirection = ["0", "1"]
         .map((directionId) =>
-            location.serviceIds.map((serviceId) =>
+            location.routeIds.map((routeId) =>
                 boardableStopTimes.find(
                     (stopTime) =>
-                        stopTime.trip.serviceId === serviceId &&
+                        stopTime.trip.routeId === routeId &&
                         stopTime.trip.directionId === directionId
                 )
             )
@@ -48,7 +48,9 @@ const getSuccessorStatesFromStop = (
                 const isInFuture = compareTimes(stopOnSameTrip.time, time) > 0;
                 const isUsefulStop =
                     stopOnSameTrip.stop.parentStation === goal ||
-                    stopOnSameTrip.stop.serviceIds.length > 1;
+                    stopOnSameTrip.stop.parentStation.stops
+                        .map((stop) => stop.routeIds.length)
+                        .flat().length > 1;
                 return isInFuture && isUsefulStop && !seen.has(stopOnSameTrip.stop);
             });
             return validStopsTimesOnTrip.map((alightingStopTime) => {
@@ -94,10 +96,9 @@ const getSuccessorStates = (state: NavigationState, goal: Station): NavigationSt
             ? getSuccessorStatesFromStop(state, stop, dayTime, goal, null, trip.routeId)
             : [];
         const fromTransfer = stop.transfers
-            .map((transfer) => {
-                const { toStop } = transfer;
-                return getSuccessorStatesFromStop(state, toStop, dayTime, goal, transfer);
-            })
+            .map((transfer) =>
+                getSuccessorStatesFromStop(state, transfer.toStop, dayTime, goal, transfer)
+            )
             .flat();
         return [...fromSameStop, ...fromTransfer];
     }

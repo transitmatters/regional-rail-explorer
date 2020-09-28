@@ -7,7 +7,7 @@ import { mapScenarios } from "server/scenarios";
 export default async (req, res) => {
     const { scenarioNames, fromStationId, toStationId, day } = req.query;
     const scenarios = scenarioNames.split(",");
-    const arrivals = mapScenarios(scenarios, ({ network }) => {
+    const arrivals = mapScenarios(scenarios, ({ network, name }) => {
         const [fromStation, toStation] = getStationsByIds(network, fromStationId, toStationId);
         const exemplarJourney = navigate(fromStation, toStation, { time: parseTime("09:00"), day });
         const toStationIds = exemplarJourney

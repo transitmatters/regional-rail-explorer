@@ -77,6 +77,7 @@ export interface Stop {
     stopTimes: StopTime[];
     transfers: Transfer[];
     serviceIds: string[];
+    routeIds: string[];
     parentStation: Station;
 }
 

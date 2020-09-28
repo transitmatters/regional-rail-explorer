@@ -12,6 +12,10 @@ $bottom-color: $rr-purple-dark;
     @include triangle($color, $size);
 }
 
+.departurePicker {
+    overflow-x: hidden;
+}
+
 .container {
     position: relative;
 }

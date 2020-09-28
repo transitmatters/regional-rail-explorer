@@ -9,59 +9,7 @@ import { JourneyInfo, CrowdingLevel, JourneyParams, NetworkTime } from "types";
 import { DeparturePicker, JourneyPicker, JourneyComparison } from "components";
 import { HOUR } from "time";
 
-const scenarioNames = ["present", "present"];
-
-const baselineInfo: JourneyInfo = {
-    scenario: {
-        name: "Today's Commuter Rail",
-    },
-    segments: baseline,
-    platformCrowding: {
-        "place-ER-0168": {
-            station: {
-                name: "Salem",
-                id: "place-ER-0168",
-            },
-            crowdingLevel: CrowdingLevel.High,
-        },
-    },
-    arrivals: {
-        "place-ER-0168": {
-            station: {
-                name: "Salem",
-                id: "place-ER-0168",
-            },
-            times: salem.baselineArrivals,
-        },
-    },
-    amenities: [],
-};
-
-const enhancedInfo: JourneyInfo = {
-    scenario: {
-        name: "Regional Rail Phase 1",
-    },
-    segments: enhanced,
-    platformCrowding: {
-        "place-ER-0168": {
-            station: {
-                name: "Salem",
-                id: "place-ER-0168",
-            },
-            crowdingLevel: CrowdingLevel.Low,
-        },
-    },
-    arrivals: {
-        "place-ER-0168": {
-            station: {
-                name: "Salem",
-                id: "place-ER-0168",
-            },
-            times: salem.enhancedArrivals,
-        },
-    },
-    amenities: ["electric-trains", "level-boarding", "increased-top-speed"],
-};
+const scenarioNames = ["present", "phase_one"];
 
 const Explorer = () => {
     const [journeyParams, setJourneyParams] = useState<JourneyParams>();

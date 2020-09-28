@@ -17,6 +17,7 @@ export const createGtfsLoader = (basePath: string) => {
     const reader = <T>(filename) => () => loadCsv<T>(path.join(basePath, filename + ".txt"));
 
     return {
+        basePath,
         routes: reader<GtfsRoute>("routes"),
         trips: reader<GtfsTrip>("trips"),
         stops: reader<GtfsStop>("stops"),

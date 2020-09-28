@@ -35,6 +35,7 @@ const createStop = (gtfsStop: GtfsStop, parentStation: Station): Stop => {
         stopTimes: [],
         transfers: [],
         serviceIds: [],
+        routeIds: [],
         parentStation: parentStation,
     };
 };
@@ -93,6 +94,11 @@ export const buildNetworkFromGtfs = (loader: GtfsLoader): Network => {
         .map((trip) => createTrip(trip, gtfsServices))
         .filter((x) => x);
     const stations = gtfsStops.filter((stop) => stop.locationType === "1").map(createStation);
+    console.log(
+        "stations",
+        loader.basePath,
+        stations.map((st) => st.id)
+    );
     const indexedTrips = index(trips, "id");
     const allStops = [];
     stations.forEach((station) => {
@@ -129,6 +135,7 @@ export const buildNetworkFromGtfs = (loader: GtfsLoader): Network => {
                 )
                 .filter((x) => x);
             stop.serviceIds = [...new Set(stop.stopTimes.map((st) => st.trip.serviceId).flat())];
+            stop.routeIds = [...new Set(stop.stopTimes.map((st) => st.trip.routeId).flat())];
         });
     });
     trips.forEach((trip) => trip.stopTimes.sort((a, b) => compareTimes(a.time, b.time)));

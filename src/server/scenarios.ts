@@ -9,6 +9,12 @@ export const scenarios: Record<string, Scenario> = {
     present: {
         name: "Today's commuter rail",
         network: gtfsNetwork("gtfs-2019"),
+        amenitiesByRoute: {},
+        amenitiesByStation: {},
+    },
+    phase_one: {
+        name: "Regional Rail Phase One",
+        network: gtfsNetwork("gtfs-phase-one"),
         amenitiesByRoute: {
             "CR-Newburyport": ["electric-trains", "increased-top-speed"],
         },

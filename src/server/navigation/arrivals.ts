@@ -12,7 +12,7 @@ export const getArrivals = (origin: Station, goals: Station[], today: NetworkDay
                         servesToday &&
                         trip.stopTimes.some(
                             (stopOnSameTrip) =>
-                                compareTimes(stopOnSameTrip.time, originStopTime.time) &&
+                                compareTimes(stopOnSameTrip.time, originStopTime.time) > 0 &&
                                 goals.includes(stopOnSameTrip.stop.parentStation)
                         )
                     );
