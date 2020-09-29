@@ -79,7 +79,6 @@ const DeparturePicker = (props: Props) => {
             const { width, left } = wrapper.current.getBoundingClientRect();
             const progress = (clientX - left) / width;
             const nextTime = Math.floor(start + (end - start) * progress);
-            console.log(stringifyTime(nextTime));
             setHasSelected(true);
             onSelectTime(nextTime);
         }

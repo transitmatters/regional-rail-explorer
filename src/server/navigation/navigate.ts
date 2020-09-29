@@ -147,7 +147,6 @@ export const navigateBetweenStations = (
     while (!stateHeap.empty()) {
         const nextBestStates = getBestStatesFromHeap(stateHeap);
         for (const state of nextBestStates) {
-            // console.log("exploring", summarizeState(state));
             if (state.type === "stop") {
                 visited.add(state.stop.parentStation);
             }

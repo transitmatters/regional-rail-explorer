@@ -13,7 +13,7 @@ export const Default = () => {
         <JourneyPicker
             stationsByLine={stationsByLine}
             stationsById={stationsById}
-            onSelectJourney={(j) => console.log(j)}
+            onSelectJourney={(j) => void j}
         />
     );
 };
