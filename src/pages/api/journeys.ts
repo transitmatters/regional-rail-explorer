@@ -1,9 +1,19 @@
-import { Scenario, JourneyInfo, NetworkTime, NetworkDayKind, Amenity, Journey } from "types";
+import {
+    Scenario,
+    JourneyInfo,
+    NetworkTime,
+    NetworkDayKind,
+    Amenity,
+    Journey,
+    Station,
+    CrowdingLevel,
+} from "types";
 
 import { navigate } from "server/navigation";
 import { getStationsByIds } from "server/network";
 import { getArrivals } from "server/navigation/arrivals";
 import { mapScenarios } from "server/scenarios";
+import { HOUR, MINUTE } from "time";
 
 const calculateAmenities = (scenario: Scenario, journey: Journey): Amenity[] => {
     const { amenitiesByRoute, amenitiesByStation } = scenario;
@@ -26,6 +36,38 @@ const calculateAmenities = (scenario: Scenario, journey: Journey): Amenity[] => 
     return [...new Set(foundAmenties)];
 };
 
+const calculatePlatformCrowding = (
+    calculateAt: { station: Station; arrivals: NetworkTime[]; time: NetworkTime }[]
+) => {
+    const crowding = {};
+    calculateAt.forEach(({ station, arrivals, time }) => {
+        const nextArrivalIndex = arrivals.findIndex((arr) => arr >= time);
+        if (nextArrivalIndex !== -1 && nextArrivalIndex !== 0) {
+            const previousArrival = arrivals[nextArrivalIndex - 1];
+            const nextArrival = arrivals[nextArrivalIndex];
+            const waitTimeMinutes = (nextArrival - previousArrival) / MINUTE;
+            const isLongWait = waitTimeMinutes > 30;
+            const timeInHours = time / HOUR;
+            const isPeak =
+                (timeInHours >= 8 && timeInHours <= 10.5) ||
+                (timeInHours >= 16.5 && timeInHours <= 19.5);
+            const crowdingLevel = isLongWait
+                ? isPeak
+                    ? CrowdingLevel.High
+                    : CrowdingLevel.Medium
+                : CrowdingLevel.Low;
+            crowding[station.id] = {
+                station: {
+                    id: station.id,
+                    name: station.name,
+                },
+                crowdingLevel,
+            };
+        }
+    });
+    return crowding;
+};
+
 const getJourneyInfoForScenario = (
     scenario: Scenario,
     fromStationId: string,
@@ -46,7 +88,9 @@ const getJourneyInfoForScenario = (
         scenario: { name },
         segments: journey,
         amenities: calculateAmenities(scenario, journey),
-        platformCrowding: {},
+        platformCrowding: calculatePlatformCrowding([
+            { station: fromStation, arrivals: arrivals, time: time },
+        ]),
         arrivals: {
             [fromStation.id]: {
                 station: {
