@@ -1,38 +1,41 @@
 import React, { useState, useEffect } from "react";
+import { useRouter } from 'next/router'
 
 import { stationsByLine, stationsById } from "stations";
 import * as salem from "storydata/salem";
 import { baseline, enhanced } from "storydata/journey";
 
 import * as api from "api";
-import { JourneyInfo, CrowdingLevel, JourneyParams, NetworkTime } from "types";
+import { JourneyInfo, CrowdingLevel, JourneyParams, NetworkTime, NetworkDayKind } from "types";
 import { DeparturePicker, JourneyPicker, JourneyComparison } from "components";
 import { HOUR } from "time";
 
 const scenarioNames = ["present", "phase_one"];
 
 const Explorer = () => {
+    const router = useRouter();
     const [journeyParams, setJourneyParams] = useState<JourneyParams>();
     const [arrivals, setArrivals] = useState<NetworkTime[][]>(null);
     const [journeys, setJourneys] = useState<JourneyInfo[]>(null);
 
     useEffect(() => {
-        if (journeyParams) {
-            const { fromStationId, toStationId, day } = journeyParams;
-            api.arrivals(fromStationId, toStationId, day, scenarioNames).then(setArrivals);
+        if (router.query.from && router.query.to) {
+            const dayString = router.query.day.toString();
+            const day: NetworkDayKind = dayString === "weekday" ? "weekday" : dayString === "saturday" ? "saturday" : "sunday";
+            api.arrivals(router.query.from.toString(), router.query.to.toString(), day, scenarioNames).then(setArrivals);
         }
     }, [
-        journeyParams && journeyParams.fromStationId,
-        journeyParams && journeyParams.toStationId,
-        journeyParams && journeyParams.day,
+        router.query && router.query.from,
+        router.query && router.query.to,
+        router.query && router.query.day,
     ]);
 
-    useEffect(() => {
-        if (journeyParams && journeyParams.time) {
-            const { fromStationId, toStationId, day, time } = journeyParams;
-            api.journeys(fromStationId, toStationId, day, time, scenarioNames).then(setJourneys);
-        }
-    }, [journeyParams]);
+    // useEffect(() => {
+    //     if (journeyParams && journeyParams.time) {
+    //         const { fromStationId, toStationId, day, time } = journeyParams;
+    //         api.journeys(fromStationId, toStationId, day, time, scenarioNames).then(setJourneys);
+    //     }
+    // }, [journeyParams]);
 
     const renderDeparturePicker = () => {
         if (journeyParams && arrivals) {
