@@ -30,13 +30,6 @@ const Explorer = () => {
         router.query && router.query.day,
     ]);
 
-    // useEffect(() => {
-    //     if (journeyParams && journeyParams.time) {
-    //         const { fromStationId, toStationId, day, time } = journeyParams;
-    //         api.journeys(fromStationId, toStationId, day, time, scenarioNames).then(setJourneys);
-    //     }
-    // }, [journeyParams]);
-
     const renderDeparturePicker = () => {
         if (journeyParams && arrivals) {
             const [baselineArrivals, enhancedArrivals] = arrivals;
