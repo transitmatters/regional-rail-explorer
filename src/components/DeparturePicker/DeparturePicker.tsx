@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import classNames from "classnames";
 
 import { NetworkTime, NetworkTimeRange } from "types";
-import { DAY, HOUR, stringifyTime } from "time";
+import { DAY, HOUR } from "time";
 import FrequencyTimeline from "components/FrequencyTimeline/FrequencyTimeline";
 
 import styles from "./DeparturePicker.module.scss";

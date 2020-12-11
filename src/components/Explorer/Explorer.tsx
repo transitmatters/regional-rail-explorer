@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router";
 
 import { stationsByLine, stationsById } from "stations";
 import * as salem from "storydata/salem";
@@ -21,14 +21,31 @@ const Explorer = () => {
     useEffect(() => {
         if (router.query.from && router.query.to) {
             const dayString = router.query.day.toString();
-            const day: NetworkDayKind = dayString === "weekday" ? "weekday" : dayString === "saturday" ? "saturday" : "sunday";
-            api.arrivals(router.query.from.toString(), router.query.to.toString(), day, scenarioNames).then(setArrivals);
+            const day: NetworkDayKind =
+                dayString === "weekday"
+                    ? "weekday"
+                    : dayString === "saturday"
+                    ? "saturday"
+                    : "sunday";
+            api.arrivals(
+                router.query.from.toString(),
+                router.query.to.toString(),
+                day,
+                scenarioNames
+            ).then(setArrivals);
         }
     }, [
         router.query && router.query.from,
         router.query && router.query.to,
         router.query && router.query.day,
     ]);
+
+    useEffect(() => {
+        if (journeyParams && journeyParams.time) {
+            const { fromStationId, toStationId, day, time } = journeyParams;
+            api.journeys(fromStationId, toStationId, day, time, scenarioNames).then(setJourneys);
+        }
+    }, [journeyParams]);
 
     const renderDeparturePicker = () => {
         if (journeyParams && arrivals) {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { GrDown } from "react-icons/gr";
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router";
 
 import Button from "components/Button/Button";
 import StationPicker, { StationsByLine } from "components/StationPicker/StationPicker";
@@ -22,7 +22,7 @@ interface Props {
 }
 
 const JourneyPicker = (props: Props) => {
-    const router = useRouter()
+    const router = useRouter();
     const {
         stationsByLine,
         stationsById,
@@ -35,10 +35,10 @@ const JourneyPicker = (props: Props) => {
 
     useEffect(() => {
         if (router.query.from && router.query.to) {
-            setFromStation(stationsById[router.query.from.toString()])
-            setToStation(stationsById[router.query.to.toString()])
+            setFromStation(stationsById[router.query.from.toString()]);
+            setToStation(stationsById[router.query.to.toString()]);
         }
-    }, [router.query.from, router.query.to])
+    }, [router.query.from, router.query.to]);
 
     useEffect(() => {
         if (fromStation && toStation) {
@@ -47,7 +47,9 @@ const JourneyPicker = (props: Props) => {
                 toStationId: toStation.id,
                 day: "weekday",
             });
-            router.push(`/?from=${fromStation.id}&to=${toStation.id}&day=weekday`, undefined, { shallow: true });
+            router.push(`/?from=${fromStation.id}&to=${toStation.id}&day=weekday`, undefined, {
+                shallow: true,
+            });
         }
     }, [fromStation, toStation]);
 
