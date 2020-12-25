@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "next-dev": "next dev",
+    "dev": "npm run build && PORT=3000 npm start",
     "build": "next build",
     "start": "next start -p $PORT",
     "storybook": "start-storybook -p 3001 -c .storybook"
