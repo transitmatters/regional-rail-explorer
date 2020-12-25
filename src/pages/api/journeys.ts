@@ -11,7 +11,7 @@ import {
 
 import { navigate } from "server/navigation";
 import { getStationsByIds } from "server/network";
-import { getArrivals } from "server/navigation/arrivals";
+import { getArrivalTimesForJourney } from "server/navigation/arrivals";
 import { mapScenarios } from "server/scenarios";
 import { HOUR, MINUTE } from "time";
 
@@ -83,7 +83,7 @@ const getJourneyInfoForScenario = (
         .map((seg) => seg.type === "travel" && seg.toStation.id)
         .filter((x) => x);
     const toStations = getStationsByIds(network, ...toStationIds);
-    const arrivals = getArrivals(fromStation, toStations, day);
+    const arrivals = getArrivalTimesForJourney(fromStation, toStations, day);
     return {
         scenario: { name },
         segments: journey,

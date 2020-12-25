@@ -1,15 +1,21 @@
-import { Station, NetworkDayKind } from "types";
+import { Station, NetworkDayKind, Trip } from "types";
 import { compareTimes, matchDayOfWeek } from "time";
 
-export const getArrivals = (origin: Station, goals: Station[], today: NetworkDayKind) => {
+const tripIsToday = (trip: Trip, today: NetworkDayKind) =>
+    trip.serviceDays.some((day) => matchDayOfWeek(day, today));
+
+export const getArrivalTimesForJourney = (
+    origin: Station,
+    goals: Station[],
+    today: NetworkDayKind
+) => {
     return origin.stops
         .map((stop) =>
             stop.stopTimes
                 .filter((originStopTime) => {
                     const { trip } = originStopTime;
-                    const servesToday = trip.serviceDays.some((day) => matchDayOfWeek(day, today));
                     return (
-                        servesToday &&
+                        tripIsToday(trip, today) &&
                         trip.stopTimes.some(
                             (stopOnSameTrip) =>
                                 compareTimes(stopOnSameTrip.time, originStopTime.time) > 0 &&
@@ -21,4 +27,10 @@ export const getArrivals = (origin: Station, goals: Station[], today: NetworkDay
         )
         .flat()
         .sort((a, b) => a - b);
+};
+
+export const getStopTimesAtStation = (station: Station, today: NetworkDayKind) => {
+    return station.stops
+        .map((stop) => stop.stopTimes.filter((st) => tripIsToday(st.trip, today)))
+        .flat();
 };

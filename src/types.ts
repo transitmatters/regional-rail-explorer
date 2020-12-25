@@ -179,3 +179,10 @@ export interface JourneyInfo {
     arrivals: Record<string, { station: JourneyStation; times: NetworkTime[] }>;
     platformCrowding: Record<string, { station: JourneyStation; crowdingLevel: CrowdingLevel }>;
 }
+
+export interface DepartureBoardEntry {
+    time: NetworkTime;
+    routeId: string;
+    serviceId: string;
+    destination: JourneyStation;
+}

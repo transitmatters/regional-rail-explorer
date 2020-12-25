@@ -7,7 +7,6 @@ import StationPicker, { StationsByLine } from "components/StationPicker/StationP
 import { JourneyParams } from "types";
 
 import styles from "./JourneyPicker.module.scss";
-import { parseTime } from "time";
 
 interface Station {
     id: string;
