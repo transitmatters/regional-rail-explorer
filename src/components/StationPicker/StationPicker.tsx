@@ -21,6 +21,7 @@ interface Props {
     onSelectStation: (stationId: string) => any;
     excludeColorLines?: boolean;
     previouslySelectedStationId?: string;
+    lockBodyScroll?: boolean;
 }
 
 const colors = ["Red", "Orange", "Blue", "Green", "Silver"];
@@ -84,6 +85,7 @@ const StationPicker = (props: Props) => {
         excludeColorLines,
         previouslySelectedStationId,
         onSelectStation,
+        lockBodyScroll,
     } = props;
     const [searchTerm, setSearchTerm] = useState(null);
     const [disclosureBounds, setDisclosureBounds] = useState(null);
@@ -142,6 +144,15 @@ const StationPicker = (props: Props) => {
             };
         }
     }, [disclosure.visible]);
+
+    useEffect(() => {
+        if (lockBodyScroll && disclosure.visible) {
+            document.body.style.overflow = "hidden";
+            return () => {
+                document.body.style.overflow = "initial";
+            };
+        }
+    }, [lockBodyScroll, disclosure.visible]);
 
     const renderAllStationsListing = () => (
         <Composite {...composite} role="list" as="div" className={styles.stationList}>

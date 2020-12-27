@@ -8,14 +8,20 @@ interface Props extends React.HTMLAttributes<HTMLButtonElement> {
     children: ReactNode;
     className?: string;
     large?: boolean;
+    outline?: boolean;
     rightIcon?: ReactNode;
 }
 
 const Button = React.forwardRef((props: Props, ref) => {
-    const { className, children, large, rightIcon, ...restProps } = props;
+    const { className, children, large, rightIcon, outline, ...restProps } = props;
     return (
         <RKButton
-            className={classNames(styles.button, large && styles.large, className)}
+            className={classNames(
+                styles.button,
+                large && styles.large,
+                outline && styles.outline,
+                className
+            )}
             ref={ref as any}
             {...restProps}
         >

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { GrDown } from "react-icons/gr";
+import { GrDown, GrUp } from "react-icons/gr";
 
 import { Button, Select } from "components";
 import StationPicker, { StationsByLine } from "components/StationPicker/StationPicker";
@@ -36,6 +36,28 @@ const dayKindOptions = [
     { id: "sunday" as NetworkDayKind, label: "Sunday" },
 ];
 
+// eslint-disable-next-line react/prop-types
+const StationPickerWithDisclosure = ({ label, disabled, ...restProps }) => {
+    return (
+        <StationPicker {...(restProps as any)}>
+            {(disclosureProps) => {
+                const { "aria-expanded": open } = disclosureProps;
+                return (
+                    <Button
+                        large
+                        outline={open}
+                        rightIcon={open ? <GrUp /> : <GrDown />}
+                        {...disclosureProps}
+                        disabled={disabled}
+                    >
+                        {label}
+                    </Button>
+                );
+            }}
+        </StationPicker>
+    );
+};
+
 const JourneyPicker = (props: Props) => {
     const {
         day,
@@ -64,28 +86,22 @@ const JourneyPicker = (props: Props) => {
         <div className={styles.journeyPicker}>
             <div className="group">
                 <div className="label">From</div>
-                <StationPicker
+                <StationPickerWithDisclosure
+                    lockBodyScroll
+                    disabled={disabled}
+                    label={fromStation?.name ?? "Choose a station"}
                     onSelectStation={(stationId) => onSelectJourney({ fromStationId: stationId })}
                     stationsByLine={stationsByLine}
-                >
-                    {(discProps) => (
-                        <Button large rightIcon={<GrDown />} {...discProps} disabled={disabled}>
-                            {fromStation ? fromStation.name : "Choose a station"}
-                        </Button>
-                    )}
-                </StationPicker>
+                />
                 <div className="label">to</div>
-                <StationPicker
+                <StationPickerWithDisclosure
+                    lockBodyScroll
+                    disabled={disabled}
+                    label={toStation?.name ?? "Choose a station"}
                     onSelectStation={(stationId) => onSelectJourney({ toStationId: stationId })}
                     stationsByLine={stationsByLine}
                     previouslySelectedStationId={fromStation && fromStation.id}
-                >
-                    {(discProps) => (
-                        <Button large rightIcon={<GrDown />} {...discProps} disabled={disabled}>
-                            {toStation ? toStation.name : "Choose a station"}
-                        </Button>
-                    )}
-                </StationPicker>
+                />
             </div>
             <div className="group">
                 <div className="label">Leave during</div>

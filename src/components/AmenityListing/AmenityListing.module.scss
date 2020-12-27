@@ -1,6 +1,6 @@
 @import '../../styles/base.scss';
 
-$icon-wrapper-size: 1.6em;
+$icon-wrapper-size: 2em;
 
 .amenityListing {
     padding: 0;
@@ -26,15 +26,19 @@ $icon-wrapper-size: 1.6em;
         height: $icon-wrapper-size;
         border-radius: $icon-wrapper-size / 2;
         background: #ddd;
+        box-sizing: border-box;
+        border: 2px solid grey;
+
         &:global(.present) {
             background: $rr-gold;
+            border-color: darken($rr-gold, 10%);
             & > :global(.slash) {
                 display: none;
             }
         }
         & > :global(.slash) {
             position: absolute;
-            background: white;
+            background: grey;
             width: 2px;
             height: 100%;
             left: calc(50% - 1px);

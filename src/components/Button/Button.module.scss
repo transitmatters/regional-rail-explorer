@@ -13,18 +13,25 @@
     box-shadow: $global-shadow;
     font-size: 0.9em;
     color: #111;
-    &:focus {
-        outline: 2px solid $rr-purple;
 
+    &.outline {
+        background: none;
+        color: whitesmoke;
+        border: 2px solid whitesmoke;
+        padding: 3px 8px;
+        svg > * {
+            stroke: currentColor;
+        }
     }
-}
 
-.large {
-    font-size: inherit;
-    font-size: 1em;
-    padding: 8 16px;
-}
+    &.large {
+        font-size: inherit;
+        font-size: 1em;
+        padding: 8 16px;
+    }
 
-.rightIcon {
-    margin-left: 0.25em;
+    > .rightIcon {
+        display: flex;
+        margin-left: 0.25em;
+    }
 }
