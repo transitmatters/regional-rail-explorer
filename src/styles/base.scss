@@ -68,6 +68,12 @@ body {
     margin: 0 auto;
 }
 
+@mixin fill-to-max-width {
+    width: 1200px;
+    max-width: 95vw;
+    margin: 0 auto;
+}
+
 @mixin mobile {
     @media screen and (max-width: 700px) {
         @content;

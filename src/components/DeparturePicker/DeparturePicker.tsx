@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import classNames from "classnames";
 
 import { NetworkTime, NetworkTimeRange } from "types";
-import { DAY, HOUR } from "time";
+import { DAY, HOUR, stringifyTime } from "time";
 import FrequencyTimeline from "components/FrequencyTimeline/FrequencyTimeline";
 
 import styles from "./DeparturePicker.module.scss";
@@ -43,6 +43,31 @@ const getTimeRange = (
     return [roundToNearestHour(min) - padding, roundToNearestHour(max) + padding];
 };
 
+const getTimeFromCursorPosition = (
+    cursorClientX: number,
+    timeRange: NetworkTimeRange,
+    wrapperElement: HTMLElement
+) => {
+    const [start, end] = timeRange;
+    const { width, left } = wrapperElement.getBoundingClientRect();
+    const progress = (cursorClientX - left) / width;
+    return Math.floor(start + (end - start) * progress);
+};
+
+const getCursorTransformForTime = (
+    time: NetworkTime,
+    timeRange: NetworkTimeRange,
+    wrapperElement: HTMLElement
+) => {
+    const { width } = wrapperElement.getBoundingClientRect();
+    const [start, end] = timeRange;
+    const progress = (time - start) / (end - start);
+    const left = progress * width;
+    const buffer = 5;
+    const offset = Math.max(buffer, Math.min(width - buffer, left));
+    return `translateX(${offset}px)`;
+};
+
 const DeparturePicker = (props: Props) => {
     const {
         spanFullDay = false,
@@ -53,7 +78,7 @@ const DeparturePicker = (props: Props) => {
         time,
         timePadding = 0,
     } = props;
-    const [isCapturing, setIsCapturing] = useState(false);
+    const [cursorTime, setCursorTime] = useState(null);
     const hasSelected = typeof time === "number";
     const wrapper = useRef<HTMLDivElement>(null);
     const timeRange = getTimeRange(
@@ -62,45 +87,26 @@ const DeparturePicker = (props: Props) => {
         timePadding
     );
 
-    useEffect(() => {
-        if (!disabled && isCapturing) {
-            const handleMouseUp = () => setIsCapturing(false);
-            window.addEventListener("mousemove", handleMouseEvent);
-            window.addEventListener("mouseup", handleMouseUp);
-            return () => {
-                window.removeEventListener("mousemove", handleMouseEvent);
-                window.removeEventListener("mouseup", handleMouseUp);
-            };
-        }
-    }, [isCapturing]);
+    const handleClick = useCallback(
+        (evt: MouseEvent) =>
+            onSelectTime(getTimeFromCursorPosition(evt.clientX, timeRange, wrapper.current)),
+        [timeRange]
+    );
 
-    const handleMouseEvent = (evt: MouseEvent) => {
-        if (!disabled && (isCapturing || evt.type === "click")) {
-            const { clientX } = evt;
-            const [start, end] = timeRange;
-            const { width, left } = wrapper.current.getBoundingClientRect();
-            const progress = (clientX - left) / width;
-            const nextTime = Math.floor(start + (end - start) * progress);
-            onSelectTime(nextTime);
-        }
-    };
+    const handleMouseMove = useCallback(
+        (evt: MouseEvent) =>
+            setCursorTime(getTimeFromCursorPosition(evt.clientX, timeRange, wrapper.current)),
+        [timeRange]
+    );
 
     const renderIndicator = () => {
         if (wrapper.current && time) {
-            const { width } = wrapper.current.getBoundingClientRect();
-            const [start, end] = timeRange;
-            const progress = (time - start) / (end - start);
-            const left = progress * width;
-            const buffer = 5;
-            const offset = Math.max(buffer, Math.min(width - buffer, left));
             return (
                 <div
-                    className={classNames(
-                        styles.indicator,
-                        !hasSelected && styles.invisible,
-                        !isCapturing && styles.animated
-                    )}
-                    style={{ transform: `translateX(${offset}px)` }}
+                    className={classNames(styles.indicator, !hasSelected && styles.invisible)}
+                    style={{
+                        transform: getCursorTransformForTime(time, timeRange, wrapper.current),
+                    }}
                 >
                     <div className={styles.indicatorInner}>
                         <div className={styles.topTriangle} />
@@ -110,14 +116,38 @@ const DeparturePicker = (props: Props) => {
                 </div>
             );
         }
+        return null;
+    };
+
+    const renderCursor = () => {
+        if (wrapper.current && cursorTime) {
+            return (
+                <div
+                    className={styles.cursor}
+                    style={{
+                        transform: getCursorTransformForTime(
+                            cursorTime,
+                            timeRange,
+                            wrapper.current
+                        ),
+                    }}
+                >
+                    <div className={styles.cursorNeedle} />
+                    <span className={styles.cursorTime}>
+                        {stringifyTime(cursorTime, { use12Hour: true })}
+                    </span>
+                </div>
+            );
+        }
+        return null;
     };
 
     return (
         <div
             ref={wrapper}
             className={classNames(styles.departurePicker, disabled && styles.disabled)}
-            onMouseDown={() => setIsCapturing(true)}
-            onClick={(evt) => handleMouseEvent(evt.nativeEvent)}
+            onMouseMove={(evt) => handleMouseMove(evt.nativeEvent)}
+            onClick={(evt) => handleClick(evt.nativeEvent)}
         >
             <div className={styles.top} />
             <div className={styles.container}>
@@ -126,6 +156,7 @@ const DeparturePicker = (props: Props) => {
                     enhancedArrivals={enhancedArrivals}
                     timeRange={timeRange}
                 />
+                {renderCursor()}
                 {renderIndicator()}
             </div>
             <div className={styles.bottom} />

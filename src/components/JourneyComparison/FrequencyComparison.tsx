@@ -44,7 +44,7 @@ const getBestFrequencyComparison = (baseline: JourneyInfo, enhanced: JourneyInfo
 };
 
 const FrequencyInfo = (props: FrequencyInfoProps) => {
-    const { journey, arrivalStationId, halfInterval = HOUR } = props;
+    const { journey, arrivalStationId, halfInterval = HOUR * 1.25 } = props;
     const {
         segments,
         arrivals: {

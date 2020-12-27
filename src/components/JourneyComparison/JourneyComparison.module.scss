@@ -1,7 +1,7 @@
 @import '../../styles/base.scss';
 
 .journeyComparison {
-    @include max-width;
+    @include fill-to-max-width;
     margin-bottom: 30px;
 
     :global(.bubble) {
@@ -40,6 +40,7 @@
 
 .comparisonRow {
     display: grid;
+    width: 100%;
     grid-template-columns: 150px repeat(2, 1fr);
     column-gap: 20px;
     grid-template-areas: 'title baseline enhanced';
