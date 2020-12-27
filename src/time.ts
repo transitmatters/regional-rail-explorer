@@ -88,7 +88,7 @@ export const stringifyDuration = (duration: Duration, useFull = false) => {
     }
     const minutes = Math.floor(duration / MINUTE);
     const hoursPrefix = hours ? `${hours} ${useFull ? pluralize("hour", hours) : "hr"} ` : "";
-    return `${hoursPrefix}${minutes} ${useFull ? pluralize("minute", hours) : "min"}`;
+    return `${hoursPrefix}${minutes} ${useFull ? pluralize("minute", minutes) : "min"}`;
 };
 
 export const createTime = (day: NetworkDay, timeString: string): NetworkDayTime => {

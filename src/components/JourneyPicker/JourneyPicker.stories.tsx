@@ -11,9 +11,15 @@ export default {
 export const Default = () => {
     return (
         <JourneyPicker
+            fromStationId={null}
+            toStationId={null}
             stationsByLine={stationsByLine}
             stationsById={stationsById}
             onSelectJourney={(j) => void j}
+            onSelectDay={(d) => void d}
+            onSelectTimeOfDay={(t) => void t}
+            day="weekday"
+            time={null}
         />
     );
 };

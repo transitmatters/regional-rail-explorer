@@ -1,5 +1,3 @@
-@use 'sass:color';
-
 @import '../../styles/base.scss';
 
 :root {
@@ -12,7 +10,6 @@
     }
 }
 
-$rr-light: color.mix($rr-purple, white, 30%);
 $arrival-width: var(--arrival-width);
 
 .timeline {

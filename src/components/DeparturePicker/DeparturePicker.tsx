@@ -14,6 +14,7 @@ interface Props {
     spanFullDay?: boolean;
     timePadding?: number;
     time?: number;
+    disabled?: boolean;
 }
 
 const roundToNearestHour = (time: NetworkTime): NetworkTime => {
@@ -45,6 +46,7 @@ const getTimeRange = (
 const DeparturePicker = (props: Props) => {
     const {
         spanFullDay = false,
+        disabled = false,
         baselineArrivals,
         enhancedArrivals,
         onSelectTime,
@@ -52,7 +54,7 @@ const DeparturePicker = (props: Props) => {
         timePadding = 0,
     } = props;
     const [isCapturing, setIsCapturing] = useState(false);
-    const [hasSelected, setHasSelected] = useState(false);
+    const [hasSelected, setHasSelected] = useState(typeof time === "number");
     const wrapper = useRef<HTMLDivElement>(null);
     const timeRange = getTimeRange(
         [...baselineArrivals, ...enhancedArrivals],
@@ -61,7 +63,7 @@ const DeparturePicker = (props: Props) => {
     );
 
     useEffect(() => {
-        if (isCapturing) {
+        if (!disabled && isCapturing) {
             const handleMouseUp = () => setIsCapturing(false);
             window.addEventListener("mousemove", handleMouseEvent);
             window.addEventListener("mouseup", handleMouseUp);
@@ -73,7 +75,7 @@ const DeparturePicker = (props: Props) => {
     }, [isCapturing]);
 
     const handleMouseEvent = (evt: MouseEvent) => {
-        if (isCapturing || evt.type === "click") {
+        if (!disabled && (isCapturing || evt.type === "click")) {
             const { clientX } = evt;
             const [start, end] = timeRange;
             const { width, left } = wrapper.current.getBoundingClientRect();

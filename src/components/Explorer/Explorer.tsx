@@ -1,62 +1,68 @@
 import React, { useState, useEffect } from "react";
-import { useRouter } from "next/router";
+import { CgSpinner } from "react-icons/cg";
 
 import { stationsByLine, stationsById } from "stations";
-import * as salem from "storydata/salem";
-import { baseline, enhanced } from "storydata/journey";
 
 import * as api from "api";
-import { JourneyInfo, CrowdingLevel, JourneyParams, NetworkTime, NetworkDayKind } from "types";
+import { JourneyInfo, NetworkTime, NetworkDayKind } from "types";
 import { DeparturePicker, JourneyPicker, JourneyComparison } from "components";
-import { HOUR } from "time";
+import { useRouterBoundState } from "hooks/useRouterBoundState";
+import { usePendingPromise } from "hooks/usePendingPromise";
+
+import styles from "./Explorer.module.scss";
 
 const scenarioNames = ["present", "phase_one"];
 
 const Explorer = () => {
-    const router = useRouter();
-    const [journeyParams, setJourneyParams] = useState<JourneyParams>();
+    const [{ fromStationId, toStationId, day, time }, updateJourneyParams] = useRouterBoundState({
+        fromStationId: {
+            initial: null as string,
+            param: "from",
+        },
+        toStationId: {
+            initial: null as string,
+            param: "to",
+        },
+        day: {
+            initial: "weekday" as NetworkDayKind,
+            param: "day",
+        },
+        time: {
+            initial: null as number,
+            param: "time",
+            decode: parseInt,
+            encode: (t) => t?.toString(),
+        },
+    });
     const [arrivals, setArrivals] = useState<NetworkTime[][]>(null);
     const [journeys, setJourneys] = useState<JourneyInfo[]>(null);
+    const [isJourneyPending, wrapJourneyPending] = usePendingPromise();
 
     useEffect(() => {
-        if (router.query.from && router.query.to) {
-            const dayString = router.query.day.toString();
-            const day: NetworkDayKind =
-                dayString === "weekday"
-                    ? "weekday"
-                    : dayString === "saturday"
-                    ? "saturday"
-                    : "sunday";
-            api.arrivals(
-                router.query.from.toString(),
-                router.query.to.toString(),
-                day,
-                scenarioNames
-            ).then(setArrivals);
+        if (fromStationId && toStationId && day) {
+            api.arrivals(fromStationId, toStationId, day, scenarioNames).then(setArrivals);
         }
-    }, [
-        router.query && router.query.from,
-        router.query && router.query.to,
-        router.query && router.query.day,
-    ]);
+    }, [fromStationId, toStationId, day]);
 
     useEffect(() => {
-        if (journeyParams && journeyParams.time) {
-            const { fromStationId, toStationId, day, time } = journeyParams;
-            api.journeys(fromStationId, toStationId, day, time, scenarioNames).then(setJourneys);
+        if (time) {
+            wrapJourneyPending(
+                api.journeys(fromStationId, toStationId, day, time, scenarioNames).then(setJourneys)
+            );
         }
-    }, [journeyParams]);
+    }, [fromStationId, toStationId, day, time]);
 
     const renderDeparturePicker = () => {
-        if (journeyParams && arrivals) {
+        if (arrivals) {
             const [baselineArrivals, enhancedArrivals] = arrivals;
             return (
                 <DeparturePicker
                     baselineArrivals={baselineArrivals}
                     enhancedArrivals={enhancedArrivals}
                     spanFullDay={false}
-                    onSelectTime={(time) => setJourneyParams({ ...journeyParams, time })}
-                    time={journeyParams.time}
+                    onSelectTime={(time) => updateJourneyParams({ time })}
+                    time={time}
+                    disabled={isJourneyPending}
                 />
             );
         }
@@ -64,6 +70,13 @@ const Explorer = () => {
     };
 
     const renderJourneyComparison = () => {
+        if (isJourneyPending) {
+            return (
+                <div className={styles.spinnerContainer}>
+                    <CgSpinner className="spinning" size={50} />
+                </div>
+            );
+        }
         if (journeys) {
             const [baseline, enhanced] = journeys;
             return <JourneyComparison baseline={baseline} enhanced={enhanced} />;
@@ -72,11 +85,18 @@ const Explorer = () => {
     };
 
     return (
-        <div className="explorer">
+        <div className={styles.explorer}>
             <JourneyPicker
+                disabled={isJourneyPending}
+                time={time}
+                day={day}
                 stationsById={stationsById}
                 stationsByLine={stationsByLine}
-                onSelectJourney={setJourneyParams}
+                fromStationId={fromStationId}
+                toStationId={toStationId}
+                onSelectJourney={updateJourneyParams}
+                onSelectTimeOfDay={() => {}}
+                onSelectDay={(day) => updateJourneyParams({ day })}
             />
             {renderDeparturePicker()}
             {renderJourneyComparison()}

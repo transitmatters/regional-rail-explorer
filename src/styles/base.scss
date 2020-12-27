@@ -1,7 +1,10 @@
+@use 'sass:color';
+
 $rr-purple: #742573;
 $rr-purple-dark: #80276c;
 $rr-pink: #e424ba;
 $rr-gold: #ffbb31;
+$rr-light: color.mix($rr-purple, white, 30%);
 
 $red-line: #da291c;
 $orange-line: #ed8b00;
@@ -9,23 +12,47 @@ $green-line: #00843d;
 $blue-line: #003da5;
 $silver-line: #666;
 
-:global .text-red { color: $red-line; }
-:global .bkg-red { background: $red-line; }
+:global .text-red {
+    color: $red-line;
+}
+:global .bkg-red {
+    background: $red-line;
+}
 
-:global .text-orange { color: $orange-line; }
-:global .bkg-orange { background: $orange-line; }
+:global .text-orange {
+    color: $orange-line;
+}
+:global .bkg-orange {
+    background: $orange-line;
+}
 
-:global .text-green { color: $green-line; }
-:global .bkg-green { background: $green-line; }
+:global .text-green {
+    color: $green-line;
+}
+:global .bkg-green {
+    background: $green-line;
+}
 
-:global .text-blue { color: $blue-line; }
-:global .bkg-blue { background: $blue-line; }
+:global .text-blue {
+    color: $blue-line;
+}
+:global .bkg-blue {
+    background: $blue-line;
+}
 
-:global .text-silver { color: $silver-line; }
-:global .bkg-silver { background: $silver-line; }
+:global .text-silver {
+    color: $silver-line;
+}
+:global .bkg-silver {
+    background: $silver-line;
+}
 
-:global .text-regional-rail { color: $rr-purple; }
-:global .bkg-regional-rail { background: $rr-purple; }
+:global .text-regional-rail {
+    color: $rr-purple;
+}
+:global .bkg-regional-rail {
+    background: $rr-purple;
+}
 
 $global-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 
@@ -53,4 +80,21 @@ body {
     border-left: $size solid transparent;
     border-right: $size solid transparent;
     border-bottom: $size solid $color;
+}
+
+@keyframes :global(spin-frames) {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(359deg);
+    }
+}
+
+@mixin spinning($period: 2s) {
+    animation: spin-frames $period infinite linear;
+}
+
+:global .spinning {
+    @include spinning(0.75s);
 }

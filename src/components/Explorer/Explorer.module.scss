@@ -1,0 +1,15 @@
+@import '../../styles/base.scss';
+
+.explorer {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.spinnerContainer {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $rr-purple;
+}

@@ -3,8 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "next-dev": "next dev",
-    "dev": "npm run build && PORT=3000 npm start",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start -p $PORT",
     "storybook": "start-storybook -p 3001 -c .storybook"
@@ -13,16 +12,19 @@
     "@ridi/object-case-converter": "^2.0.4",
     "classnames": "^2.2.6",
     "csv-parse": "^4.12.0",
+    "esm": "^3.2.25",
+    "flatted": "^3.1.0",
     "heap": "^0.2.6",
     "next": "9.4.4",
     "prettier": "^2.0.5",
     "random": "^2.2.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
-    "react-icons": "^3.10.0",
+    "react-icons": "^4.1.0",
     "reakit": "^1.1.2",
     "sass": "^1.26.10",
-    "ts-node": "^9.0.0"
+    "ts-node": "^9.0.0",
+    "tsconfig-paths": "^3.9.0"
   },
   "devDependencies": {
     "@babel/core": "^7.10.5",
@@ -44,6 +46,6 @@
     "sass-loader": "^9.0.2",
     "storybook-addon-state": "^1.0.3",
     "style-loader": "^1.2.1",
-    "typescript": "^3.9.7"
+    "typescript": "^4.0.2"
   }
 }

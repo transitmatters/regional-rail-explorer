@@ -1,8 +1,5 @@
-@use 'sass:color';
-
 @import '../../styles/base.scss';
 
-$rr-light: color.mix($rr-purple, white, 30%);
 $arrival-width: 25px;
 
 .histogram {

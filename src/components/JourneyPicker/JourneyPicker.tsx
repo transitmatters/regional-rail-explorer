@@ -1,79 +1,87 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { GrDown } from "react-icons/gr";
-import { useRouter } from "next/router";
 
-import Button from "components/Button/Button";
+import { Button, Select } from "components";
 import StationPicker, { StationsByLine } from "components/StationPicker/StationPicker";
-import { JourneyParams } from "types";
+import { JourneyParams, NetworkDayKind, NetworkTime, TimeOfDay } from "types";
 
 import styles from "./JourneyPicker.module.scss";
-
+import { HOUR } from "time";
 interface Station {
     id: string;
     name: string;
 }
 interface Props {
-    stationsByLine: StationsByLine;
+    day: NetworkDayKind;
+    fromStationId: string;
+    onSelectDay: (day: NetworkDayKind) => unknown;
+    onSelectJourney: (params: Partial<JourneyParams>) => any;
+    onSelectTimeOfDay: (time: TimeOfDay) => unknown;
     stationsById: Record<string, Station>;
-    initialFromStation?: Station;
-    initialToStation?: Station;
-    onSelectJourney: (params: JourneyParams) => any;
+    stationsByLine: StationsByLine;
+    time: NetworkTime;
+    toStationId: string;
+    disabled?: boolean;
 }
 
+const timeOfDayPickerOptions = [
+    { id: "morning" as TimeOfDay, label: "Morning" },
+    { id: "midday" as TimeOfDay, label: "Midday" },
+    { id: "evening" as TimeOfDay, label: "Evening" },
+];
+
+const dayKindOptions = [
+    { id: "weekday" as NetworkDayKind, label: "Weekday" },
+    { id: "saturday" as NetworkDayKind, label: "Saturday" },
+    { id: "sunday" as NetworkDayKind, label: "Sunday" },
+];
+
 const JourneyPicker = (props: Props) => {
-    const router = useRouter();
     const {
-        stationsByLine,
-        stationsById,
-        initialFromStation,
-        initialToStation,
+        day,
+        fromStationId,
+        onSelectDay,
         onSelectJourney,
+        onSelectTimeOfDay,
+        stationsById,
+        stationsByLine,
+        time,
+        toStationId,
+        disabled,
     } = props;
-    const [fromStation, setFromStation] = useState(initialFromStation);
-    const [toStation, setToStation] = useState(initialToStation);
+
+    const [timeOfDay, setTimeOfDay] = useState(timeOfDayPickerOptions[0]);
+
+    const fromStation = stationsById[fromStationId];
+    const toStation = stationsById[toStationId];
 
     useEffect(() => {
-        if (router.query.from && router.query.to) {
-            setFromStation(stationsById[router.query.from.toString()]);
-            setToStation(stationsById[router.query.to.toString()]);
-        }
-    }, [router.query.from, router.query.to]);
-
-    useEffect(() => {
-        if (fromStation && toStation) {
-            onSelectJourney({
-                fromStationId: fromStation.id,
-                toStationId: toStation.id,
-                day: "weekday",
-            });
-            router.push(`/?from=${fromStation.id}&to=${toStation.id}&day=weekday`, undefined, {
-                shallow: true,
-            });
-        }
-    }, [fromStation, toStation]);
+        const index = time > 17 * HOUR ? 2 : time > 11 * HOUR ? 1 : 0;
+        setTimeOfDay(timeOfDayPickerOptions[index]);
+    }, [time]);
 
     return (
         <div className={styles.journeyPicker}>
             <div className="group">
                 <div className="label">From</div>
                 <StationPicker
-                    onSelectStation={(stationId) => setFromStation(stationsById[stationId])}
+                    onSelectStation={(stationId) => onSelectJourney({ fromStationId: stationId })}
                     stationsByLine={stationsByLine}
                 >
                     {(discProps) => (
-                        <Button large rightIcon={<GrDown />} {...discProps}>
+                        <Button large rightIcon={<GrDown />} {...discProps} disabled={disabled}>
                             {fromStation ? fromStation.name : "Choose a station"}
                         </Button>
                     )}
                 </StationPicker>
                 <div className="label">to</div>
                 <StationPicker
-                    onSelectStation={(stationId) => setToStation(stationsById[stationId])}
+                    onSelectStation={(stationId) => onSelectJourney({ toStationId: stationId })}
                     stationsByLine={stationsByLine}
                     previouslySelectedStationId={fromStation && fromStation.id}
                 >
                     {(discProps) => (
-                        <Button large rightIcon={<GrDown />} {...discProps}>
+                        <Button large rightIcon={<GrDown />} {...discProps} disabled={disabled}>
                             {toStation ? toStation.name : "Choose a station"}
                         </Button>
                     )}
@@ -81,13 +89,24 @@ const JourneyPicker = (props: Props) => {
             </div>
             <div className="group">
                 <div className="label">Leave during</div>
-                <Button large rightIcon={<GrDown />}>
-                    Morning
-                </Button>
+                <Select
+                    disclosureProps={{ large: true, disabled: disabled }}
+                    aria-label="Choose a departure time"
+                    items={timeOfDayPickerOptions}
+                    selectedItem={timeOfDay}
+                    onSelect={(item) => {
+                        setTimeOfDay(item);
+                        onSelectTimeOfDay(item.id);
+                    }}
+                />
                 <div className="label">on a</div>
-                <Button large rightIcon={<GrDown />}>
-                    Weekday
-                </Button>
+                <Select
+                    disclosureProps={{ large: true, disabled }}
+                    aria-label="Choose a day of the week"
+                    items={dayKindOptions}
+                    selectedItem={dayKindOptions.find((item) => item.id === day)}
+                    onSelect={(item) => onSelectDay(item.id)}
+                />
             </div>
         </div>
     );

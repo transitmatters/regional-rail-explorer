@@ -132,6 +132,8 @@ export enum CrowdingLevel {
 
 export type Amenity = "level-boarding" | "electric-trains" | "increased-top-speed";
 
+export type TimeOfDay = "morning" | "midday" | "evening";
+
 export interface NetworkDayTime {
     time: NetworkTime;
     day: NetworkDay | NetworkDayKind;

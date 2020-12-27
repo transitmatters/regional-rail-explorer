@@ -1,0 +1,24 @@
+@import '../../styles/base.scss';
+
+.menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background: white;
+    box-shadow: $global-shadow;
+}
+
+.menuItem {
+    display: flex;
+    align-items: center;
+    padding: 4px 10px;
+    user-select: none;
+    white-space: nowrap;
+    &:hover,
+    &[tabindex='0'] {
+        background: #ddd;
+        svg > * {
+            stroke: currentColor;
+        }
+    }
+}
