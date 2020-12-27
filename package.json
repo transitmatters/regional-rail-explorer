@@ -24,7 +24,8 @@
     "reakit": "^1.1.2",
     "sass": "^1.26.10",
     "ts-node": "^9.0.0",
-    "tsconfig-paths": "^3.9.0"
+    "tsconfig-paths": "^3.9.0",
+    "typescript": "^4.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.10.5",
@@ -45,7 +46,6 @@
     "eslint-plugin-react": "^7.20.3",
     "sass-loader": "^9.0.2",
     "storybook-addon-state": "^1.0.3",
-    "style-loader": "^1.2.1",
-    "typescript": "^4.0.2"
+    "style-loader": "^1.2.1"
   }
 }
