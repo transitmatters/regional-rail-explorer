@@ -54,7 +54,7 @@ const DeparturePicker = (props: Props) => {
         timePadding = 0,
     } = props;
     const [isCapturing, setIsCapturing] = useState(false);
-    const [hasSelected, setHasSelected] = useState(typeof time === "number");
+    const hasSelected = typeof time === "number";
     const wrapper = useRef<HTMLDivElement>(null);
     const timeRange = getTimeRange(
         [...baselineArrivals, ...enhancedArrivals],
@@ -81,7 +81,6 @@ const DeparturePicker = (props: Props) => {
             const { width, left } = wrapper.current.getBoundingClientRect();
             const progress = (clientX - left) / width;
             const nextTime = Math.floor(start + (end - start) * progress);
-            setHasSelected(true);
             onSelectTime(nextTime);
         }
     };
@@ -116,7 +115,7 @@ const DeparturePicker = (props: Props) => {
     return (
         <div
             ref={wrapper}
-            className={styles.departurePicker}
+            className={classNames(styles.departurePicker, disabled && styles.disabled)}
             onMouseDown={() => setIsCapturing(true)}
             onClick={(evt) => handleMouseEvent(evt.nativeEvent)}
         >

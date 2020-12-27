@@ -130,6 +130,7 @@ export const useRouterBoundState = <F extends Fields>(
 
     useEffect(() => {
         if (router && router.asPath && router.asPath !== routedToPath) {
+            setRoutedToPath(null);
             setState(getStateFromQuery(fields, normalizeQuery(router.query)));
         }
     }, [router?.query]);

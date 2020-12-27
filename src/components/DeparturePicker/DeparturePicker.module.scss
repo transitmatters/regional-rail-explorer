@@ -14,6 +14,11 @@ $bottom-color: $rr-purple-dark;
 
 .departurePicker {
     overflow-x: hidden;
+    transition: 0.2s opacity ease-in-out;
+}
+
+.disabled {
+    opacity: 0.75;
 }
 
 .container {

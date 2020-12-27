@@ -125,7 +125,6 @@ const getBestStatesFromHeap = (heap: any): NavigationState[] => {
 
 const printTripFromState = (navState: NavigationState) => {
     [...navState.parents, navState].forEach((state) => {
-        // eslint-disable-next-line no-undef
         console.log(
             stringifyTime(state.dayTime.time),
             state.type === "start"

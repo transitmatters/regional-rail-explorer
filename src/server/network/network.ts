@@ -94,11 +94,7 @@ export const buildNetworkFromGtfs = (loader: GtfsLoader): Network => {
         .map((trip) => createTrip(trip, gtfsServices))
         .filter((x) => x);
     const stations = gtfsStops.filter((stop) => stop.locationType === "1").map(createStation);
-    console.log(
-        "Loaded stations",
-        loader.basePath,
-        stations.map((st) => st.id)
-    );
+    console.log(`Loaded ${stations.length} stations from ${loader.basePath}`);
     const indexedTrips = index(trips, "id");
     const allStops = [];
     stations.forEach((station) => {

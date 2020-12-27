@@ -88,6 +88,9 @@ export const stringifyDuration = (duration: Duration, useFull = false) => {
     }
     const minutes = Math.floor(duration / MINUTE);
     const hoursPrefix = hours ? `${hours} ${useFull ? pluralize("hour", hours) : "hr"} ` : "";
+    if (hours > 0 && minutes === 0) {
+        return hoursPrefix.trim();
+    }
     return `${hoursPrefix}${minutes} ${useFull ? pluralize("minute", minutes) : "min"}`;
 };
 
