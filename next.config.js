@@ -24,20 +24,25 @@ const hackStylesToSupportNonPureDeclarations = (config) => {
     return config;
 };
 
-// eslint-disable-next-line no-global-assign
-require = require("esm")(module);
+const loadScenariosIntoConfig = () => {
+    if (process.env.NODE_ENV === "production") {
+        return {};
+    }
 
-require("tsconfig-paths").register({ baseUrl: `${process.cwd()}/src`, paths: {} });
-
-require("ts-node").register({
-    compilerOptions: {
-        baseUrl: `${process.cwd()}/src`,
-    },
-});
+    // eslint-disable-next-line no-global-assign
+    require = require("esm")(module);
+    require("tsconfig-paths").register({ baseUrl: `${process.cwd()}/src`, paths: {} });
+    require("ts-node").register({
+        compilerOptions: {
+            baseUrl: `${process.cwd()}/src`,
+        },
+    });
+    return { scenarios: stringify(require("./src/server/_loadScenarios").loadScenarios()) };
+};
 
 module.exports = {
     serverRuntimeConfig: {
-        scenarios: stringify(require("./src/server/_loadScenarios").default),
+        ...loadScenariosIntoConfig(),
     },
     webpack: (config) => {
         return hackStylesToSupportNonPureDeclarations(config);

@@ -8,21 +8,21 @@ import { loadGtfsNetwork } from "./network";
 
 const gtfsNetwork = (subpath) => loadGtfsNetwork(path.resolve(process.cwd(), "data", subpath));
 
-const scenarios = {
-    present: {
-        name: "Today's commuter rail",
-        network: gtfsNetwork("gtfs-2019"),
-        amenitiesByRoute: {},
-        amenitiesByStation: {},
-    },
-    phase_one: {
-        name: "Regional Rail Phase One",
-        network: gtfsNetwork("gtfs-phase-one"),
-        amenitiesByRoute: {
-            "CR-Newburyport": ["electric-trains", "increased-top-speed"],
+export const loadScenarios = () => {
+    return {
+        present: {
+            name: "Today's commuter rail",
+            network: gtfsNetwork("gtfs-2019"),
+            amenitiesByRoute: {},
+            amenitiesByStation: {},
         },
-        amenitiesByStation: {},
-    },
+        phase_one: {
+            name: "Regional Rail Phase One",
+            network: gtfsNetwork("gtfs-phase-one"),
+            amenitiesByRoute: {
+                "CR-Newburyport": ["electric-trains", "increased-top-speed"],
+            },
+            amenitiesByStation: {},
+        },
+    };
 };
-
-export default scenarios;
