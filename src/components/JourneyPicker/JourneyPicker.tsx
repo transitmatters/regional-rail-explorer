@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { GrDown, GrUp } from "react-icons/gr";
 
 import { Button, Select } from "components";
@@ -7,6 +7,8 @@ import { JourneyParams, NetworkDayKind, NetworkTime, TimeOfDay } from "types";
 
 import styles from "./JourneyPicker.module.scss";
 import { HOUR } from "time";
+import { MdSwapCalls } from "react-icons/md";
+
 interface Station {
     id: string;
     name: string;
@@ -77,6 +79,11 @@ const JourneyPicker = (props: Props) => {
     const fromStation = stationsById[fromStationId];
     const toStation = stationsById[toStationId];
 
+    const swapStations = useCallback(
+        () => onSelectJourney({ fromStationId: toStationId, toStationId: fromStationId }),
+        [onSelectJourney, fromStationId, toStationId]
+    );
+
     useEffect(() => {
         const index = time > 17 * HOUR ? 2 : time > 11 * HOUR ? 1 : 0;
         setTimeOfDay(timeOfDayPickerOptions[index]);
@@ -102,10 +109,14 @@ const JourneyPicker = (props: Props) => {
                     stationsByLine={stationsByLine}
                     previouslySelectedStationId={fromStation && fromStation.id}
                 />
+                <Button large outline className="swap-stations-button" onClick={swapStations}>
+                    <MdSwapCalls size="1.3em" />
+                </Button>
             </div>
             <div className="group">
                 <div className="label">Leave during</div>
                 <Select
+                    className={styles.dropdown}
                     disclosureProps={{ large: true, disabled: disabled }}
                     aria-label="Choose a departure time"
                     items={timeOfDayPickerOptions}
@@ -117,7 +128,7 @@ const JourneyPicker = (props: Props) => {
                 />
                 <div className="label">on a</div>
                 <Select
-                    disclosureProps={{ large: true, disabled }}
+                    disclosureProps={{ large: true, disabled}}
                     aria-label="Choose a day of the week"
                     items={dayKindOptions}
                     selectedItem={dayKindOptions.find((item) => item.id === day)}

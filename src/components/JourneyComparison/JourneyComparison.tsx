@@ -35,8 +35,18 @@ const JourneyComparison = (props: ComparisonProps) => {
     return (
         <div className={styles.journeyComparison}>
             <ComparisonRow
-                baseline={baseline.scenario.name}
-                enhanced={enhanced.scenario.name}
+                baseline={
+                    <div className="column-header">
+                        <div className="header-blip baseline" />
+                        {baseline.scenario.name}
+                    </div>
+                }
+                enhanced={
+                    <div className="column-header">
+                        <div className="header-blip enhanced" />
+                        {enhanced.scenario.name}
+                    </div>
+                }
                 isHeader
             />
             <ComparisonRow

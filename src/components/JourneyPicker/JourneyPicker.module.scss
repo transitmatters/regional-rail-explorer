@@ -12,6 +12,10 @@
         margin-right: 10px;
     }
 
+    :global(.swap-stations-button) {
+        margin-left: 15px;
+    }
+
     > :global(.label),
     > :global(.group) > :global(.label) {
         color: white;

@@ -36,6 +36,24 @@
         margin-right: 40px;
         margin-top: auto;
     }
+
+    :global(.column-header) {
+        display: flex;
+        align-items: center;
+        :global(.header-blip) {
+            margin-right: 8px;
+            display: inline;
+            height: 0.8em;
+            width: 0.8em;
+            border-radius: 4px;
+            &:global(.baseline) {
+                background: $rr-light;
+            }
+            &:global(.enhanced) {
+                background: $rr-purple;
+            }
+        }
+    }
 }
 
 .comparisonRow {

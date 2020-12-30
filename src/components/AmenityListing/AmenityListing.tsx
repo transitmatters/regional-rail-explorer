@@ -48,7 +48,7 @@ const AmenityListing = (props: Props) => {
         return (
             <li key={`${amenity}-${present}`} className={styles.amenity}>
                 <div className={classNames("icon-wrapper", present && "present")}>
-                    <Icon color={present ? "white" : "grey"} />
+                    <Icon color={present ? "white" : "whitesmoke"} />
                     {showSlash && <div className={"slash"} />}
                 </div>
                 <span className="label">{present ? presence : absence}</span>

@@ -56,7 +56,7 @@ export const stringifyTime = (
     const hoursToAdd = Math.floor(minutes / 60);
     minutes = minutes % 60;
     hours += hoursToAdd;
-    const isPM = hours >= 12;
+    const isPM = hours >= 12 && hours < 24;
     hours = (use12Hour && hours > 12 ? hours - 12 : hours) % 24;
     // eslint-disable-next-line prefer-const
     let [hoursString, minutesString, secondsString] = [hours, minutes, seconds].map((num) =>
@@ -76,7 +76,7 @@ export const stringifyTime = (
 
 export const stringify12Hour = (time: NetworkTime) => {
     const hours = Math.floor(time / HOUR);
-    const isPM = hours >= 12;
+    const isPM = hours >= 12 && hours < 24;
     return `${hours > 12 ? hours - 12 : hours} ${isPM ? "PM" : "AM"}`;
 };
 

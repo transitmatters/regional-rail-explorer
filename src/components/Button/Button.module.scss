@@ -17,7 +17,7 @@
     &.outline {
         background: none;
         color: whitesmoke;
-        border: 2px solid whitesmoke;
+        border: 2px solid rgba(white, 0.8);
         padding: 3px 8px;
         svg > * {
             stroke: currentColor;
@@ -27,11 +27,16 @@
     &.large {
         font-size: inherit;
         font-size: 1em;
+        height: 1.8em;
         padding: 8 16px;
     }
 
     > .rightIcon {
         display: flex;
         margin-left: 0.25em;
+    }
+
+    & > * {
+        min-height: 1em;
     }
 }
