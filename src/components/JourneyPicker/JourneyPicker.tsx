@@ -128,7 +128,7 @@ const JourneyPicker = (props: Props) => {
                 />
                 <div className="label">on a</div>
                 <Select
-                    disclosureProps={{ large: true, disabled}}
+                    disclosureProps={{ large: true, disabled }}
                     aria-label="Choose a day of the week"
                     items={dayKindOptions}
                     selectedItem={dayKindOptions.find((item) => item.id === day)}
