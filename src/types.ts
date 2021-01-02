@@ -1,3 +1,5 @@
+import { loadGtfsNetwork } from "server/network";
+
 export type Indexed<T> = { [key: string]: T };
 
 export type Duration = number;
@@ -8,6 +10,7 @@ export interface GtfsRoute {
 }
 export interface GtfsTrip {
     routeId: string;
+    routePatternId: string;
     tripId: string;
     serviceId: string;
     tripHeadsign: string;
@@ -59,6 +62,7 @@ export interface Trip {
     id: string;
     serviceId: string;
     routeId: string;
+    routePatternId: string;
     directionId: string;
     serviceDays: NetworkDay[];
     stopTimes: StopTime[];
@@ -87,12 +91,7 @@ export interface Station {
     stops: Stop[];
 }
 
-export interface Network {
-    stations: Indexed<Station>;
-    stationsById: Indexed<Station>;
-    trips: Indexed<Trip>;
-}
-
+export type Network = ReturnType<typeof loadGtfsNetwork>;
 export interface Station {
     id: string;
     name: string;
@@ -187,4 +186,28 @@ export interface DepartureBoardEntry {
     routeId: string;
     serviceId: string;
     destination: JourneyStation;
+}
+
+export interface SerializableStopTime {
+    stationId: string;
+    time: NetworkTime;
+}
+
+export interface SerializableTrip {
+    id: string;
+    directionId: string;
+    routePatternId: string;
+    stopTimes: SerializableStopTime[];
+}
+
+export interface BranchMap {
+    routePatternIds: string[];
+    stationIds: string[];
+    branches?: BranchMap[];
+}
+
+export interface SerializableRouteInfo {
+    stationNames: Record<string, string>;
+    branchMap: BranchMap;
+    weekdayTrips: SerializableTrip[];
 }

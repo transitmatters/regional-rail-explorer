@@ -24,7 +24,7 @@ export const matchDayOfWeek = (
         return weekdays.includes(dayB as NetworkDay);
     }
     if (dayB === "weekday") {
-        return weekdays.slice(0, 5).includes(dayA as NetworkDay);
+        return weekdays.includes(dayA as NetworkDay);
     }
     return false;
 };

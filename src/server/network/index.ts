@@ -2,7 +2,7 @@ import { Network } from "types";
 import { createGtfsLoader } from "./load";
 import { buildNetworkFromGtfs } from "./network";
 
-export const loadGtfsNetwork = (gtfsPath: string): Network => {
+export const loadGtfsNetwork = (gtfsPath: string) => {
     const loader = createGtfsLoader(gtfsPath);
     return buildNetworkFromGtfs(loader);
 };

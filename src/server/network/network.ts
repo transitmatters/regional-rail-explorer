@@ -4,7 +4,6 @@ import {
     GtfsStopTime,
     GtfsTrip,
     Indexed,
-    Network,
     Station,
     Stop,
     StopTime,
@@ -15,6 +14,7 @@ import {
 import { daysOfWeek, parseTime, compareTimes } from "time";
 
 import { GtfsLoader } from "./load";
+import { getSerializedRouteInfoByRegionalRailRouteId } from "./regionalRailRoutes";
 
 const index = <T>(array: T[], key: string, validate = true): Indexed<T> => {
     const res = {};
@@ -59,6 +59,7 @@ const createTrip = (gtfsTrip: GtfsTrip, services: GtfsService[]): Trip => {
         id: gtfsTrip.tripId,
         serviceId: gtfsTrip.serviceId,
         routeId: gtfsTrip.routeId,
+        routePatternId: gtfsTrip.routePatternId,
         directionId: gtfsTrip.directionId,
         serviceDays,
         stopTimes: [],
@@ -84,7 +85,7 @@ const createTransfer = (fromStop: Stop, toStop: Stop, minWalkTime: Duration): Tr
     return null;
 };
 
-export const buildNetworkFromGtfs = (loader: GtfsLoader): Network => {
+export const buildNetworkFromGtfs = (loader: GtfsLoader) => {
     const gtfsServices = loader.services();
     const gtfsStops = loader.stops();
     const gtfsStopTimes = loader.relevantStopTimes();
@@ -135,9 +136,11 @@ export const buildNetworkFromGtfs = (loader: GtfsLoader): Network => {
         });
     });
     trips.forEach((trip) => trip.stopTimes.sort((a, b) => compareTimes(a.time, b.time)));
+    const stationsById = index(stations, "id", true);
     return {
         stations: index(stations, "name", false),
-        stationsById: index(stations, "id", true),
+        stationsById,
+        regionalRailRouteInfo: getSerializedRouteInfoByRegionalRailRouteId(trips, stationsById),
         trips: indexedTrips,
     };
 };
