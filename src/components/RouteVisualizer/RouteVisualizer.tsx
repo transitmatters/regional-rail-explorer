@@ -114,14 +114,12 @@ const RouteVisualizer = (props: RouteVisualizerProps) => {
 
     const renderTrains = () => {
         const tripsInProgress = trips.filter((t) => t.start <= now && t.end >= now);
-        console.log(tripsInProgress);
         return tripsInProgress.map((trip) => {
-            const { stopTimes, routePatternId } = trip;
+            const { stopTimes } = trip;
             const routePattern = tripIdsToRoutePattern[trip.id];
             const nextStopTimeIndex = stopTimes.findIndex((st) => st.time > now);
             const nextStopTime = stopTimes[nextStopTimeIndex];
             const previousStopTime = stopTimes[nextStopTimeIndex - 1];
-            console.log(routePatternId, routePatterns);
             if (routePattern && nextStopTime && previousStopTime) {
                 const { stationOffsets, pathInterpolator } = routePattern;
                 const timeBetweenStations = nextStopTime.time - previousStopTime.time;
@@ -131,7 +129,6 @@ const RouteVisualizer = (props: RouteVisualizerProps) => {
                 const nextOffset = stationOffsets[nextStopTime.stationId];
                 const offset = previousOffset + (nextOffset - previousOffset) * progress;
                 const pos = pathInterpolator(offset);
-                console.log(pos);
                 return (
                     <g key={trip.id} transform={`translate(${pos.x}, ${pos.y})`}>
                         <circle cx={0} cy={0} r={4} fill={color} opacity={0.5} />
