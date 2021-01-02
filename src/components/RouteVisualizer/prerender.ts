@@ -1,12 +1,15 @@
+import { BranchMap } from "types";
+
+import { describeRoutePatterns } from "./routePatterns";
 import {
     PathCommand,
     pathEntryIsStationRange,
+    PathInterpolator,
     PathSegment,
     PathShape,
-    PrerenderedRoute,
-    RouteDescriptor,
+    PrerenderedRoutePattern,
     StationRange,
-    StationWithOffset,
+    Turtle,
 } from "./types";
 
 const createPathBuilder = () => {
@@ -61,15 +64,18 @@ const getStationIdsWithinRange = (stationRange: StationRange, stationIds: string
     return stationIds.slice(startIndex, endIndex + 1);
 };
 
-const getStationPositions = (stationOffsets, pathInterpolator) => {
+const getStationPositions = (
+    stationOffsets: Record<string, number>,
+    interpolator: PathInterpolator
+) => {
     const positions = {};
     Object.entries(stationOffsets).forEach(([stationId, offset]) => {
-        positions[stationId] = pathInterpolator(offset);
+        positions[stationId] = interpolator(offset);
     });
     return positions;
 };
 
-const prerenderRoute = (shape: PathShape, stationIds: string[]) => {
+const prerenderRoutePattern = (shape: PathShape, stationIds: string[]) => {
     const [start, ...entries] = shape;
     const pathBuilder = createPathBuilder();
     const segments: PathSegment[] = [];
@@ -120,38 +126,22 @@ const prerenderRoute = (shape: PathShape, stationIds: string[]) => {
     };
 };
 
-const mergeStationsFromRoutes = (routes: Record<string, PrerenderedRoute>) => {
-    const stations: Record<string, StationWithOffset> = {};
-    for (const route of Object.values(routes)) {
-        for (const station of route.stations) {
-            stations[station.id] = station;
-        }
-    }
-    return stations;
-};
-
-export const prerenderLine = (routesById: Record<string, RouteDescriptor>) => {
+export const prerenderLine = (branchMap: BranchMap) => {
+    const routePatternDescriptors = describeRoutePatterns(branchMap);
     const pathBuilder = createPathBuilder();
-    const routes: Record<string, PrerenderedRoute> = {};
-    let stationPositions: Record<string, number> = {};
+    const routePatterns: Record<string, PrerenderedRoutePattern> = {};
+    let stationPositions: Record<string, Turtle> = {};
 
-    for (const [routeId, { shape, stations }] of Object.entries(routesById)) {
-        const stationIds = stations.map((s) => s.id);
-        const { pathInterpolator, stationOffsets, pathDirective } = prerenderRoute(
+    for (const [routePatternId, { shape, stationIds }] of Object.entries(routePatternDescriptors)) {
+        const { pathInterpolator, stationOffsets, pathDirective } = prerenderRoutePattern(
             shape,
             stationIds
         );
 
-        const route: PrerenderedRoute = {
-            id: routeId,
-            pathInterpolator: pathInterpolator,
-            stations: stations.map((station) => {
-                return {
-                    id: station.id,
-                    name: station.name,
-                    offset: stationOffsets[station.id],
-                };
-            }),
+        const routePattern: PrerenderedRoutePattern = {
+            id: routePatternId,
+            pathInterpolator,
+            stationOffsets,
         };
 
         stationPositions = {
@@ -159,14 +149,13 @@ export const prerenderLine = (routesById: Record<string, RouteDescriptor>) => {
             ...getStationPositions(stationOffsets, pathInterpolator),
         };
 
-        routes[routeId] = route;
+        routePatterns[routePatternId] = routePattern;
         pathBuilder.add(pathDirective);
     }
 
     return {
-        routes: routes,
+        routePatterns: routePatterns,
         pathDirective: pathBuilder.get(),
         stationPositions: stationPositions,
-        stations: mergeStationsFromRoutes(routes),
     };
 };

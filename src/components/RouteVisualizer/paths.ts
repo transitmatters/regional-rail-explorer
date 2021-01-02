@@ -114,7 +114,12 @@ export const wiggle = (length, width, angle = 0) => (turtle: Turtle): PathSegmen
     };
 };
 
-export const stationRange = ({ start, end, stations, commands }): StationRange => {
+export const stationRange = ({
+    start = null,
+    end = null,
+    stations = null,
+    commands,
+}): StationRange => {
     return {
         type: "stationRange",
         start,

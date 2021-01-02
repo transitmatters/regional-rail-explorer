@@ -6,5 +6,6 @@ export { default as FrequencyHistogram } from "./FrequencyHistogram/FrequencyHis
 export { default as JourneyComparison } from "./JourneyComparison/JourneyComparison";
 export { default as JourneyPicker } from "./JourneyPicker/JourneyPicker";
 export { default as JourneyTimeline } from "./JourneyTimeline/JourneyTimeline";
+export { default as RouteVisualizer } from "./RouteVisualizer/RouteVisualizer";
 export { Menu, MenuItem, MenuItemDivider, Select } from "./Menu";
 export { default as StationPicker } from "./StationPicker/StationPicker";
