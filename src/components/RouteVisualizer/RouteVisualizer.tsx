@@ -1,22 +1,34 @@
 import React, { useLayoutEffect, useMemo, useState } from "react";
+import classNames from "classnames";
 
 import { BranchMap, NetworkTime, SerializableTrip } from "types";
 
 import { prerenderLine } from "./prerender";
 import { PrerenderedRoutePattern } from "./types";
+import styles from "./RouteVisualizer.module.scss";
+import { MINUTE } from "time";
 
-export interface RouteVisualizerProps {
+interface Props {
     branchMap: BranchMap;
     stationNames: Record<string, string>;
     trips?: SerializableTrip[];
     now?: NetworkTime;
-    color?: string;
+    innerStrokeClassName?: string;
+    lineClassName?: string;
+    labelClassName?: string;
+    stationClassName?: string;
+    trainClassName?: string;
+    trainAtTerminusClassName?: string;
 }
 
 interface BoundedTrip extends SerializableTrip {
     start: NetworkTime;
     end: NetworkTime;
 }
+
+const easeInOutQuart = (x: number) => {
+    return x < 0.5 ? 8 * x * x * x * x : 1 - Math.pow(-2 * x + 2, 4) / 2;
+};
 
 const createBoundedTrips = (trips: SerializableTrip[]): BoundedTrip[] => {
     return trips.map((trip) => {
@@ -52,8 +64,19 @@ const createTripIdToRoutePatternMap = (
     return map;
 };
 
-const RouteVisualizer = (props: RouteVisualizerProps) => {
-    const { branchMap, stationNames, trips: preboundedTrips, now, color = "#742573" } = props;
+const RouteVisualizer = (props: Props) => {
+    const {
+        branchMap,
+        stationNames,
+        trips: preboundedTrips,
+        now,
+        innerStrokeClassName,
+        lineClassName = styles.line,
+        stationClassName = styles.station,
+        trainClassName = styles.train,
+        labelClassName = styles.label,
+        trainAtTerminusClassName,
+    } = props;
     const [viewbox, setViewbox] = useState(undefined);
     const [svg, setSvg] = useState(null);
 
@@ -70,7 +93,7 @@ const RouteVisualizer = (props: RouteVisualizerProps) => {
     useLayoutEffect(() => {
         if (svg) {
             const paddingX = 2;
-            const paddingY = 2;
+            const paddingY = 4;
             const bbox = svg.getBBox();
             const x = bbox.x - paddingX;
             const width = bbox.width + paddingX * 2;
@@ -81,7 +104,19 @@ const RouteVisualizer = (props: RouteVisualizerProps) => {
     }, [svg]);
 
     const renderLine = () => {
-        return <path d={pathDirective} stroke={color} fill="transparent" strokeWidth={3} />;
+        return (
+            <>
+                <path d={pathDirective} fill="transparent" className={lineClassName} />
+                {innerStrokeClassName && (
+                    <path
+                        d={pathDirective}
+                        fill="transparent"
+                        strokeWidth={3}
+                        className={innerStrokeClassName}
+                    />
+                )}
+            </>
+        );
     };
 
     const renderStations = () => {
@@ -92,10 +127,10 @@ const RouteVisualizer = (props: RouteVisualizerProps) => {
             const label = (
                 <text
                     fontSize={7}
-                    fill={color}
+                    className={labelClassName}
                     textAnchor={labelPosition === "right" ? "start" : "end"}
-                    x={4}
-                    y={4}
+                    x={6}
+                    y={6}
                     aria-hidden="true"
                     style={{ transform: "rotate(45deg)" }}
                 >
@@ -105,7 +140,7 @@ const RouteVisualizer = (props: RouteVisualizerProps) => {
 
             return (
                 <g key={stationId} transform={`translate(${pos.x}, ${pos.y})`}>
-                    <circle cx={0} cy={0} r={2.5} fill="white" stroke={color} />
+                    <circle cx={0} cy={0} r={3} className={stationClassName} />
                     {label}
                 </g>
             );
@@ -113,25 +148,42 @@ const RouteVisualizer = (props: RouteVisualizerProps) => {
     };
 
     const renderTrains = () => {
-        const tripsInProgress = trips.filter((t) => t.start <= now && t.end >= now);
+        const buffer = 15 * MINUTE;
+        const tripsInProgress = trips.filter(
+            (t) => t.start - buffer <= now && t.end + buffer >= now
+        );
         return tripsInProgress.map((trip) => {
             const { stopTimes } = trip;
             const routePattern = tripIdsToRoutePattern[trip.id];
             const nextStopTimeIndex = stopTimes.findIndex((st) => st.time > now);
-            const nextStopTime = stopTimes[nextStopTimeIndex];
-            const previousStopTime = stopTimes[nextStopTimeIndex - 1];
+            const nextStopTime = stopTimes[nextStopTimeIndex] || stopTimes[stopTimes.length - 1];
+            const previousStopTime = stopTimes[nextStopTimeIndex - 1] || stopTimes[0];
+            const atTerminus = now > trip.end || now < trip.start;
             if (routePattern && nextStopTime && previousStopTime) {
                 const { stationOffsets, pathInterpolator } = routePattern;
                 const timeBetweenStations = nextStopTime.time - previousStopTime.time;
                 const timeElapsedSinceStation = now - previousStopTime.time;
-                const progress = timeElapsedSinceStation / timeBetweenStations;
+                const progress = Math.min(
+                    Math.max(0, timeElapsedSinceStation / timeBetweenStations),
+                    1
+                );
                 const previousOffset = stationOffsets[previousStopTime.stationId];
                 const nextOffset = stationOffsets[nextStopTime.stationId];
-                const offset = previousOffset + (nextOffset - previousOffset) * progress;
+                const offset =
+                    previousOffset + (nextOffset - previousOffset) * easeInOutQuart(progress);
                 const pos = pathInterpolator(offset);
                 return (
                     <g key={trip.id} transform={`translate(${pos.x}, ${pos.y})`}>
-                        <circle cx={0} cy={0} r={4} fill={color} opacity={0.5} />
+                        <circle
+                            cx={0}
+                            cy={0}
+                            r={6}
+                            className={classNames(
+                                trainClassName,
+                                atTerminus && trainAtTerminusClassName
+                            )}
+                            opacity={0.5}
+                        />
                     </g>
                 );
             }

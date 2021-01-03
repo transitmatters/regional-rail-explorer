@@ -43,7 +43,7 @@ const Select = <I extends SelectItem>(props: Props<I>) => {
         <Menu
             {...menuProps}
             ref={measureDisclosureWidth}
-            menuStyle={{ width: disclosureWidth }}
+            menuStyle={{ minWidth: disclosureWidth }}
             disclosure={React.cloneElement(disclosure(selectedItem), disclosureProps)}
         >
             {items.map((item) => (

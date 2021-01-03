@@ -1,4 +1,11 @@
-import { Station, Trip, SerializableRouteInfo, SerializableTrip, BranchMap } from "../../types";
+import {
+    Station,
+    Trip,
+    SerializableRouteInfo,
+    SerializableTrip,
+    BranchMap,
+    Route,
+} from "../../types";
 import { matchDayOfWeek } from "../../time";
 import { isRegionalRail } from "routes";
 
@@ -102,10 +109,7 @@ const getStationNamesMap = (stationIds: string[], stationMap: Record<string, Sta
     return namesMap;
 };
 
-const getRouteInfoFromTrips = (
-    trips: Trip[],
-    stationsById: Record<string, Station>
-): SerializableRouteInfo => {
+const getRouteInfoFromTrips = (trips: Trip[], stationsById: Record<string, Station>) => {
     const weekdayTripsByRoutePatternId = indexBy(
         trips
             .filter(isWeekdayTrip)
@@ -126,13 +130,17 @@ const getRouteInfoFromTrips = (
 
 export const getSerializedRouteInfoByRegionalRailRouteId = (
     trips: Trip[],
-    stationsById: Record<string, Station>
+    stationsById: Record<string, Station>,
+    routesById: Record<string, Route>
 ): Record<string, SerializableRouteInfo> => {
     const tripsByRouteId = indexBy(trips, "routeId");
     const routeInfoByRouteId: Record<string, SerializableRouteInfo> = {};
     for (const [routeId, trips] of Object.entries(tripsByRouteId)) {
         if (isRegionalRail(routeId)) {
-            routeInfoByRouteId[routeId] = getRouteInfoFromTrips(trips, stationsById);
+            routeInfoByRouteId[routeId] = {
+                ...routesById[routeId],
+                ...getRouteInfoFromTrips(trips, stationsById),
+            };
         }
     }
     return routeInfoByRouteId;

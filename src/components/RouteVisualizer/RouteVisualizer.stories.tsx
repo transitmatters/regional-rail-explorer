@@ -1,7 +1,9 @@
 import React from "react";
 
-import { easternRouteInfo } from "storydata/routeInfo";
+import { routeInfo } from "storydata/routeInfo";
 import { HOUR } from "time";
+
+const routeInfoEnhanced = routeInfo[1];
 
 import LiveRouteVisualizer from "./LiveRouteVisualizer";
 import RouteVisualizer from "./RouteVisualizer";
@@ -14,16 +16,10 @@ export default {
 export const Default = () => (
     <RouteVisualizer
         now={HOUR * 8}
-        trips={easternRouteInfo.weekdayTrips}
-        branchMap={easternRouteInfo.branchMap}
-        stationNames={easternRouteInfo.stationNames}
+        trips={routeInfoEnhanced.weekdayTrips}
+        branchMap={routeInfoEnhanced.branchMap}
+        stationNames={routeInfoEnhanced.stationNames}
     />
 );
 
-export const Live = () => (
-    <LiveRouteVisualizer
-        trips={easternRouteInfo.weekdayTrips}
-        branchMap={easternRouteInfo.branchMap}
-        stationNames={easternRouteInfo.stationNames}
-    />
-);
+export const Live = () => <LiveRouteVisualizer routeInfo={routeInfo} />;

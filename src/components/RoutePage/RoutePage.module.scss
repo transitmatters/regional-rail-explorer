@@ -1,0 +1,5 @@
+@import '../../styles/base.scss';
+
+.routePage {
+    @include fill-to-max-width;
+}

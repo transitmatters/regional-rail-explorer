@@ -58,6 +58,11 @@ export interface StopTime {
     trip: Trip;
 }
 
+export interface Route {
+    id: string;
+    name: string;
+}
+
 export interface Trip {
     id: string;
     serviceId: string;
@@ -206,7 +211,7 @@ export interface BranchMap {
     branches?: BranchMap[];
 }
 
-export interface SerializableRouteInfo {
+export interface SerializableRouteInfo extends Route {
     stationNames: Record<string, string>;
     branchMap: BranchMap;
     weekdayTrips: SerializableTrip[];

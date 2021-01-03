@@ -1,11 +1,16 @@
 import React, { useEffect, useMemo, useState } from "react";
+import classNames from "classnames";
 
 import { HOUR, MINUTE, stringifyTime } from "time";
-import { NetworkTime, SerializableTrip } from "types";
+import { Duration, NetworkTime, SerializableRouteInfo, SerializableTrip } from "types";
+import { Select } from "components";
 
-import RouteVisualizer, { RouteVisualizerProps } from "./RouteVisualizer";
+import RouteVisualizer from "./RouteVisualizer";
+import styles from "./LiveRouteVisualizer.module.scss";
 
-type Props = Omit<RouteVisualizerProps, "now">;
+interface Props {
+    routeInfo: SerializableRouteInfo[];
+}
 
 const getTimeBounds = (trips: SerializableTrip[]): [NetworkTime, NetworkTime] => {
     let earliest = Infinity;
@@ -46,9 +51,22 @@ const useIncrementingTime = (options: UseIncrementingTimeOptions) => {
     }, [earliest, latest, intervalMs, minutesPerTick]);
 };
 
+const roundToNearestTimeIncrement = (now: NetworkTime, increment: Duration = MINUTE * 10) => {
+    return Math.round(now / increment) * increment;
+};
+
+const selectItems = [
+    { id: "present", label: "Present day" },
+    { id: "phase-one", label: "Regional Rail Phase One" },
+];
+
 const LiveRouteVisualizer = (props: Props) => {
-    const { trips } = props;
-    const [earliest, latest] = useMemo(() => getTimeBounds(trips), [trips]);
+    const { routeInfo } = props;
+    const [baseline, enhanced] = routeInfo;
+    const [scenario, setScenario] = useState("present");
+    const routeInfoForScenario = scenario === "phase-one" ? enhanced : baseline;
+    const { weekdayTrips } = routeInfoForScenario;
+    const [earliest, latest] = useMemo(() => getTimeBounds(weekdayTrips), [weekdayTrips]);
     const [now, setNow] = useState(HOUR * 7.5);
 
     useIncrementingTime({
@@ -59,10 +77,33 @@ const LiveRouteVisualizer = (props: Props) => {
     });
 
     return (
-        <>
-            {stringifyTime(now, { use12Hour: true })}
-            <RouteVisualizer {...props} now={now} />
-        </>
+        <div className={styles.container}>
+            <div className={styles.controls}>
+                <Select
+                    disclosureProps={{ outline: true }}
+                    items={selectItems}
+                    selectedItem={selectItems.find((item) => item.id === scenario)}
+                    onSelect={(item) => setScenario(item.id)}
+                />
+                <div className={styles.time}>
+                    {stringifyTime(roundToNearestTimeIncrement(now), { use12Hour: true })}
+                </div>
+            </div>
+            <div className={styles.visualizerWrapper}>
+                <RouteVisualizer
+                    {...props}
+                    now={now}
+                    trips={weekdayTrips}
+                    branchMap={enhanced.branchMap}
+                    stationNames={enhanced.stationNames}
+                    lineClassName={styles.line}
+                    stationClassName={styles.station}
+                    labelClassName={styles.label}
+                    trainClassName={styles.train}
+                    trainAtTerminusClassName={styles.trainAtTerminus}
+                />
+            </div>
+        </div>
     );
 };
 

@@ -1,0 +1,105 @@
+@import '../../styles/base.scss';
+
+@keyframes flicker-frames {
+    0% {
+        opacity: 0;
+    }
+    5% {
+        opacity: 1;
+    }
+    6% {
+        opacity: 0;
+    }
+    22% {
+        opacity: 1;
+    }
+    23% {
+        opacity: 0;
+    }
+    32% {
+        opacity: 1;
+    }
+    32.5% {
+        opacity: 0;
+    }
+    39% {
+        opacity: 1;
+    }
+    39.5% {
+        opacity: 0;
+    }
+    42% {
+        opacity: 1;
+    }
+    43.5% {
+        opacity: 0;
+    }
+    48% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+.container {
+    background: $rr-purple;
+    padding: 10px;
+    color: white;
+    box-shadow: $global-shadow;
+}
+
+.visualizerWrapper {
+    min-height: 100px;
+}
+
+.time {
+    font-size: 1.5em;
+}
+
+.line {
+    stroke: white;
+    stroke-width: 3px;
+}
+
+.label {
+    fill: white;
+}
+
+.train {
+    fill: white;
+    opacity: 0.5;
+    transition: 0.2s ease-in-out opacity;
+}
+
+.trainAtTerminus {
+    opacity: 0;
+}
+
+.station {
+    stroke: white;
+    fill: $rr-purple;
+    stroke-width: 2px;
+}
+
+.electricStroke {
+    opacity: 0;
+    stroke: lighten($rr-gold, 80%);
+    stroke-width: 3px;
+    filter: drop-shadow(0px 0px 2px $rr-gold);
+    transition: 0.3s opacity;
+}
+
+.electricStrokeVisible {
+    opacity: 1;
+    animation: flicker-frames 3s linear;
+    animation-fill-mode: forwards;
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+    > * {
+        margin-right: 10px;
+    }
+}

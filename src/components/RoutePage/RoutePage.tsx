@@ -1,0 +1,24 @@
+import React from "react";
+
+import { SerializableRouteInfo } from "types";
+import { LiveRouteVisualizer } from "components";
+
+import styles from "./RoutePage.module.scss";
+
+interface Props {
+    scenarios: string[];
+    routeInfo: SerializableRouteInfo[];
+}
+
+const RoutePage = (props: Props) => {
+    const { routeInfo } = props;
+    const [baseline, enhanced] = routeInfo;
+    return (
+        <div className={styles.routePage}>
+            <h1>{enhanced.name} </h1>
+            <LiveRouteVisualizer routeInfo={routeInfo} />
+        </div>
+    );
+};
+
+export default RoutePage;

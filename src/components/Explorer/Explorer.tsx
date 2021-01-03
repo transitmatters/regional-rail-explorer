@@ -100,7 +100,7 @@ const Explorer = () => {
     };
 
     const renderJourneyComparison = () => {
-        if (isJourneyPending) {
+        if (true || isJourneyPending) {
             return (
                 <div className={styles.spinnerContainer}>
                     <CgSpinner className="spinning" size={50} />

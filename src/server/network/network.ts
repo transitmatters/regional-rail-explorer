@@ -10,6 +10,8 @@ import {
     Trip,
     Duration,
     Transfer,
+    GtfsRoute,
+    Route,
 } from "types";
 import { daysOfWeek, parseTime, compareTimes } from "time";
 
@@ -85,19 +87,27 @@ const createTransfer = (fromStop: Stop, toStop: Stop, minWalkTime: Duration): Tr
     return null;
 };
 
+const createRoute = (gtfsRoute: GtfsRoute): Route => {
+    return {
+        id: gtfsRoute.routeId,
+        name: gtfsRoute.routeLongName,
+    };
+};
+
 export const buildNetworkFromGtfs = (loader: GtfsLoader) => {
     const gtfsServices = loader.services();
     const gtfsStops = loader.stops();
     const gtfsStopTimes = loader.relevantStopTimes();
     const gtfsTransfers = loader.transfers();
+    const routes = loader.routes().map(createRoute);
     const trips = loader
         .trips()
         .map((trip) => createTrip(trip, gtfsServices))
         .filter((x) => x);
     const stations = gtfsStops.filter((stop) => stop.locationType === "1").map(createStation);
-    console.log(`Loaded ${stations.length} stations from ${loader.basePath}`);
     const indexedTrips = index(trips, "id");
     const allStops = [];
+    console.log(`Loaded ${stations.length} stations from ${loader.basePath}`);
     stations.forEach((station) => {
         const childStops = gtfsStops.filter(
             (stop) => stop.parentStation === station.id && stop.locationType === "0"
@@ -137,10 +147,15 @@ export const buildNetworkFromGtfs = (loader: GtfsLoader) => {
     });
     trips.forEach((trip) => trip.stopTimes.sort((a, b) => compareTimes(a.time, b.time)));
     const stationsById = index(stations, "id", true);
+    const routesById = index(routes, "id", true);
     return {
-        stations: index(stations, "name", false),
-        stationsById,
-        regionalRailRouteInfo: getSerializedRouteInfoByRegionalRailRouteId(trips, stationsById),
         trips: indexedTrips,
+        stationsById,
+        stations: index(stations, "name", false),
+        regionalRailRouteInfo: getSerializedRouteInfoByRegionalRailRouteId(
+            trips,
+            stationsById,
+            routesById
+        ),
     };
 };

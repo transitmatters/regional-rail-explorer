@@ -1,5 +1,4 @@
-import { RouteVisualizer } from "components";
-import LiveRouteVisualizer from "components/RouteVisualizer/LiveRouteVisualizer";
+import { RoutePage } from "components";
 import Head from "next/head";
 
 import { mapScenarios } from "server/scenarios";
@@ -14,7 +13,7 @@ export async function getServerSideProps(context) {
     const {
         params: { id },
     } = context;
-    const scenarios = ["phase_one"];
+    const scenarios = ["present", "phase_one"];
     const routeInfo = mapScenarios(
         scenarios,
         (scenario) => scenario.network.regionalRailRouteInfo[id]
@@ -29,18 +28,13 @@ export async function getServerSideProps(context) {
 
 export default function Route(props: Props) {
     const { routeInfo } = props;
-    const [phaseOneRouteInfo] = routeInfo;
-    const { weekdayTrips, stationNames, branchMap } = phaseOneRouteInfo;
+    console.log(routeInfo);
     return (
         <div>
             <Head>
                 <title>Regional Rail Explorer</title>
             </Head>
-            <LiveRouteVisualizer
-                trips={weekdayTrips}
-                stationNames={stationNames}
-                branchMap={branchMap}
-            />
+            <RoutePage {...props} />
         </div>
     );
 }
