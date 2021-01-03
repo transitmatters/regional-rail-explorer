@@ -92,7 +92,7 @@ const RouteVisualizer = (props: Props) => {
 
     useLayoutEffect(() => {
         if (svg) {
-            const paddingX = 2;
+            const paddingX = 4;
             const paddingY = 4;
             const bbox = svg.getBBox();
             const x = bbox.x - paddingX;
@@ -126,7 +126,7 @@ const RouteVisualizer = (props: Props) => {
 
             const label = (
                 <text
-                    fontSize={7}
+                    fontSize={10}
                     className={labelClassName}
                     textAnchor={labelPosition === "right" ? "start" : "end"}
                     x={6}

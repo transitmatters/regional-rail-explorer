@@ -1,47 +1,5 @@
 @import '../../styles/base.scss';
 
-@keyframes flicker-frames {
-    0% {
-        opacity: 0;
-    }
-    5% {
-        opacity: 1;
-    }
-    6% {
-        opacity: 0;
-    }
-    22% {
-        opacity: 1;
-    }
-    23% {
-        opacity: 0;
-    }
-    32% {
-        opacity: 1;
-    }
-    32.5% {
-        opacity: 0;
-    }
-    39% {
-        opacity: 1;
-    }
-    39.5% {
-        opacity: 0;
-    }
-    42% {
-        opacity: 1;
-    }
-    43.5% {
-        opacity: 0;
-    }
-    48% {
-        opacity: 0;
-    }
-    50% {
-        opacity: 1;
-    }
-}
-
 .container {
     background: $rr-purple;
     padding: 10px;
@@ -69,7 +27,7 @@
 .train {
     fill: white;
     opacity: 0.5;
-    transition: 0.2s ease-in-out opacity;
+    transition: 0.5s ease-in-out opacity;
 }
 
 .trainAtTerminus {
@@ -83,17 +41,8 @@
 }
 
 .electricStroke {
-    opacity: 0;
     stroke: lighten($rr-gold, 80%);
-    stroke-width: 3px;
     filter: drop-shadow(0px 0px 2px $rr-gold);
-    transition: 0.3s opacity;
-}
-
-.electricStrokeVisible {
-    opacity: 1;
-    animation: flicker-frames 3s linear;
-    animation-fill-mode: forwards;
 }
 
 .controls {

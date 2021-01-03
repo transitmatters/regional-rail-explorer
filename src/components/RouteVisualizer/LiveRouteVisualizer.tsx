@@ -67,10 +67,17 @@ const LiveRouteVisualizer = (props: Props) => {
     const routeInfoForScenario = scenario === "phase-one" ? enhanced : baseline;
     const { weekdayTrips } = routeInfoForScenario;
     const [earliest, latest] = useMemo(() => getTimeBounds(weekdayTrips), [weekdayTrips]);
-    const [now, setNow] = useState(HOUR * 7.5);
+    const [now, setNow] = useState(() => {
+        const date = new Date();
+        const now = date.getHours() * HOUR + date.getMinutes() * MINUTE + date.getSeconds();
+        if (now >= earliest && now <= latest) {
+            return now;
+        }
+        return HOUR * 7.5;
+    });
 
     useIncrementingTime({
-        minutesPerSecond: 5,
+        minutesPerSecond: 1,
         ticksPerSecond: 30,
         setTime: setNow,
         timeBounds: [earliest, latest],
@@ -96,8 +103,8 @@ const LiveRouteVisualizer = (props: Props) => {
                     trips={weekdayTrips}
                     branchMap={enhanced.branchMap}
                     stationNames={enhanced.stationNames}
-                    lineClassName={styles.line}
-                    stationClassName={styles.station}
+                    lineClassName={classNames(styles.line)}
+                    stationClassName={classNames(styles.station)}
                     labelClassName={styles.label}
                     trainClassName={styles.train}
                     trainAtTerminusClassName={styles.trainAtTerminus}

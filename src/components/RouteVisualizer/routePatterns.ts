@@ -44,9 +44,9 @@ interface CreateRoutePatternsOptions {
 
 const describeRoutePatternsInner = (branchMap: BranchMap, options: CreateRoutePatternsOptions) => {
     const {
-        minimumBranchSpacing = 50,
+        minimumBranchSpacing = 70,
         stationSpacing = 50,
-        stationRangePadding = 10,
+        stationRangePadding = 20,
         branchingLength = 30,
     } = options;
     const { branches, stationIds, routePatternIds } = branchMap;
