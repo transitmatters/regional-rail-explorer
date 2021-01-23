@@ -6,8 +6,7 @@ import { stationsByLine, stationsById } from "stations";
 import * as api from "api";
 import { JourneyInfo, NetworkTime, NetworkDayKind, TimeOfDay } from "types";
 import { DeparturePicker, JourneyPicker, JourneyComparison } from "components";
-import { useRouterBoundState } from "hooks/useRouterBoundState";
-import { usePendingPromise } from "hooks/usePendingPromise";
+import { useRouterBoundState, usePendingPromise } from "hooks";
 
 import styles from "./Explorer.module.scss";
 import { getAdvantageousDepartureTime } from "./departures";

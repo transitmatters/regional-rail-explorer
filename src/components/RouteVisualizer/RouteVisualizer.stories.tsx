@@ -3,10 +3,10 @@ import React from "react";
 import { routeInfo } from "storydata/routeInfo";
 import { HOUR } from "time";
 
-const routeInfoEnhanced = routeInfo[1];
-
 import LiveRouteVisualizer from "./LiveRouteVisualizer";
 import RouteVisualizer from "./RouteVisualizer";
+
+const routeInfoEnhanced = routeInfo[1];
 
 export default {
     title: "RouteVisualizer",
@@ -23,3 +23,7 @@ export const Default = () => (
 );
 
 export const Live = () => <LiveRouteVisualizer routeInfo={routeInfo} />;
+
+export const InitialTime = () => (
+    <LiveRouteVisualizer routeInfo={routeInfo} initialTime={HOUR * 11} />
+);

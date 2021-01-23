@@ -8,6 +8,7 @@ import {
     PathSegment,
     PathShape,
     PrerenderedRoutePattern,
+    RoutePatternDescriptor,
     StationRange,
     Turtle,
 } from "./types";
@@ -126,13 +127,17 @@ const prerenderRoutePattern = (shape: PathShape, stationIds: string[]) => {
     };
 };
 
-export const prerenderLine = (branchMap: BranchMap) => {
+export const prerenderBranchMap = (branchMap: BranchMap) => {
     const routePatternDescriptors = describeRoutePatterns(branchMap);
+    return prerenderRoutePatterns(routePatternDescriptors);
+};
+
+export const prerenderRoutePatterns = (routePatterns: Record<string, RoutePatternDescriptor>) => {
     const pathBuilder = createPathBuilder();
-    const routePatterns: Record<string, PrerenderedRoutePattern> = {};
+    const prerenderedRoutePatterns: Record<string, PrerenderedRoutePattern> = {};
     let stationPositions: Record<string, Turtle> = {};
 
-    for (const [routePatternId, { shape, stationIds }] of Object.entries(routePatternDescriptors)) {
+    for (const [routePatternId, { shape, stationIds }] of Object.entries(routePatterns)) {
         const { pathInterpolator, stationOffsets, pathDirective } = prerenderRoutePattern(
             shape,
             stationIds
@@ -149,12 +154,12 @@ export const prerenderLine = (branchMap: BranchMap) => {
             ...getStationPositions(stationOffsets, pathInterpolator),
         };
 
-        routePatterns[routePatternId] = routePattern;
+        prerenderedRoutePatterns[routePatternId] = routePattern;
         pathBuilder.add(pathDirective);
     }
 
     return {
-        routePatterns: routePatterns,
+        routePatterns: prerenderedRoutePatterns,
         pathDirective: pathBuilder.get(),
         stationPositions: stationPositions,
     };

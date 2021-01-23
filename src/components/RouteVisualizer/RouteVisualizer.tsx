@@ -1,12 +1,12 @@
-import React, { useLayoutEffect, useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import classNames from "classnames";
 
-import { BranchMap, NetworkTime, SerializableTrip } from "types";
-
-import { prerenderLine } from "./prerender";
-import { PrerenderedRoutePattern } from "./types";
-import styles from "./RouteVisualizer.module.scss";
 import { MINUTE } from "time";
+import { BranchMap, NetworkTime, SerializableTrip } from "types";
+import { useSvgLayout } from "hooks";
+import { prerenderBranchMap, PrerenderedRoutePattern } from "diagrams";
+
+import styles from "./RouteVisualizer.module.scss";
 
 interface Props {
     branchMap: BranchMap;
@@ -77,11 +77,10 @@ const RouteVisualizer = (props: Props) => {
         labelClassName = styles.label,
         trainAtTerminusClassName,
     } = props;
-    const [viewbox, setViewbox] = useState(undefined);
-    const [svg, setSvg] = useState(null);
+    const svgProps = useSvgLayout();
 
     const { pathDirective, stationPositions, routePatterns } = useMemo(
-        () => prerenderLine(branchMap),
+        () => prerenderBranchMap(branchMap),
         [branchMap]
     );
     const trips = useMemo(() => createBoundedTrips(preboundedTrips), [preboundedTrips]);
@@ -89,19 +88,6 @@ const RouteVisualizer = (props: Props) => {
         () => createTripIdToRoutePatternMap(trips, Object.values(routePatterns)),
         [trips, routePatterns]
     );
-
-    useLayoutEffect(() => {
-        if (svg) {
-            const paddingX = 4;
-            const paddingY = 4;
-            const bbox = svg.getBBox();
-            const x = bbox.x - paddingX;
-            const width = bbox.width + paddingX * 2;
-            const y = bbox.y - paddingY;
-            const height = bbox.height + paddingY * 2;
-            setViewbox(`${x} ${y} ${width} ${height}`);
-        }
-    }, [svg]);
 
     const renderLine = () => {
         return (
@@ -121,14 +107,13 @@ const RouteVisualizer = (props: Props) => {
 
     const renderStations = () => {
         return Object.entries(stationPositions).map(([stationId, pos]) => {
-            const labelPosition = "right";
             const stationName = stationNames[stationId];
 
             const label = (
                 <text
                     fontSize={10}
                     className={labelClassName}
-                    textAnchor={labelPosition === "right" ? "start" : "end"}
+                    textAnchor="start"
                     x={6}
                     y={6}
                     aria-hidden="true"
@@ -191,7 +176,7 @@ const RouteVisualizer = (props: Props) => {
     };
 
     return (
-        <svg ref={setSvg} viewBox={viewbox} aria-hidden="true" preserveAspectRatio="xMidYMin">
+        <svg {...svgProps} aria-hidden="true">
             {renderLine()}
             {renderStations()}
             {typeof now === "number" && renderTrains()}

@@ -35,14 +35,17 @@ const createStationRangeSegment = (stationIds: string[], width: number) => {
     ] as const;
 };
 
-interface CreateRoutePatternsOptions {
+interface DescribeRoutePatternsOptions {
     minimumBranchSpacing?: number;
     stationRangePadding?: number;
     stationSpacing?: number;
     branchingLength?: number;
 }
 
-const describeRoutePatternsInner = (branchMap: BranchMap, options: CreateRoutePatternsOptions) => {
+const describeRoutePatternsInner = (
+    branchMap: BranchMap,
+    options: DescribeRoutePatternsOptions
+) => {
     const {
         minimumBranchSpacing = 70,
         stationSpacing = 50,
@@ -107,7 +110,7 @@ const describeRoutePatternsInner = (branchMap: BranchMap, options: CreateRoutePa
 
 export const describeRoutePatterns = (
     branchMap: BranchMap,
-    options: CreateRoutePatternsOptions = {}
+    options: DescribeRoutePatternsOptions = {}
 ) => {
     return describeRoutePatternsInner(branchMap, options).routePatterns;
 };

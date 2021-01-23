@@ -10,6 +10,7 @@ import styles from "./LiveRouteVisualizer.module.scss";
 
 interface Props {
     routeInfo: SerializableRouteInfo[];
+    initialTime?: NetworkTime;
 }
 
 const getTimeBounds = (trips: SerializableTrip[]): [NetworkTime, NetworkTime] => {
@@ -61,13 +62,16 @@ const selectItems = [
 ];
 
 const LiveRouteVisualizer = (props: Props) => {
-    const { routeInfo } = props;
+    const { routeInfo, initialTime = null } = props;
     const [baseline, enhanced] = routeInfo;
     const [scenario, setScenario] = useState("present");
     const routeInfoForScenario = scenario === "phase-one" ? enhanced : baseline;
     const { weekdayTrips } = routeInfoForScenario;
     const [earliest, latest] = useMemo(() => getTimeBounds(weekdayTrips), [weekdayTrips]);
     const [now, setNow] = useState(() => {
+        if (initialTime) {
+            return initialTime;
+        }
         const date = new Date();
         const now = date.getHours() * HOUR + date.getMinutes() * MINUTE + date.getSeconds();
         if (now >= earliest && now <= latest) {
