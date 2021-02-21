@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start -p $PORT",
-    "storybook": "start-storybook -p 3001 -c .storybook"
+    "storybook": "start-storybook -p 3001 -c .storybook",
+    "lint": "eslint src"
   },
   "dependencies": {
     "@ridi/object-case-converter": "^2.0.4",
