@@ -9,13 +9,13 @@ import {
 } from "diagrams";
 
 export const prerenderNetwork = (curveRadius = 10) => {
-    const line = (length) => anyLine(Math.max(length - curveRadius / 2, 20));
+    const line = (length) => anyLine(Math.max(length - curveRadius, 20));
     const curve = (angle) => anyCurve(curveRadius, angle);
     const cw = curve(45);
     const ccw = curve(-45);
 
     const southStation = start(0, 0, 90);
-    const northStation = start(0, -50, -90);
+    const northStation = start(0, -0, -90);
 
     const toBeverly = [northStation, line(20), cw, line(20), cw, line(40), ccw, line(100)] as const;
     const toBackBay = [southStation, line(10), curve(90), line(25)] as const;
@@ -31,7 +31,7 @@ export const prerenderNetwork = (curveRadius = 10) => {
     };
 
     const newburyport: RoutePatternDescriptor = {
-        shape: [...toBeverly, ccw, line(50), ccw, line(30)],
+        shape: [...toBeverly, ccw, line(50), ccw, line(40)],
         stationIds: [],
     };
 
@@ -46,7 +46,7 @@ export const prerenderNetwork = (curveRadius = 10) => {
     };
 
     const fitchburg: RoutePatternDescriptor = {
-        shape: [northStation, line(10), curve(-90), line(140), cw, line(170)],
+        shape: [northStation, line(10), curve(-90), line(130), cw, line(170)],
         stationIds: [],
     };
 

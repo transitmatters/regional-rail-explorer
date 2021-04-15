@@ -4,8 +4,15 @@ import { CgSpinner } from "react-icons/cg";
 import { stationsByLine, stationsById } from "stations";
 
 import * as api from "api";
-import { JourneyInfo, NetworkTime, NetworkDayKind, TimeOfDay } from "types";
-import { DeparturePicker, JourneyPicker, JourneyComparison } from "components";
+import {
+    JourneyInfo,
+    NetworkTime,
+    NetworkDayKind,
+    TimeOfDay,
+    ApiResult,
+    JourneyApiResult,
+} from "types";
+import { DeparturePicker, JourneyPicker, JourneyComparison, JourneyErrorState } from "components";
 import { useRouterBoundState, usePendingPromise } from "hooks";
 
 import styles from "./Explorer.module.scss";
@@ -45,7 +52,7 @@ const Explorer = () => {
         }
     );
     const [arrivals, setArrivals] = useState<NetworkTime[][]>(null);
-    const [journeys, setJourneys] = useState<JourneyInfo[]>(null);
+    const [journeys, setJourneys] = useState<JourneyApiResult>(null);
     const [requestedTimeOfDay, setRequestedTimeOfDay] = useState<TimeOfDay>(null);
     const [isJourneyPending, wrapJourneyPending] = usePendingPromise();
 
@@ -107,7 +114,14 @@ const Explorer = () => {
             );
         }
         if (journeys) {
-            const [baseline, enhanced] = journeys;
+            const journeyResolvedWithError = journeys.find((j) => "error" in j);
+            if (journeyResolvedWithError && "error" in journeyResolvedWithError) {
+                const {
+                    payload: { scenario },
+                } = journeyResolvedWithError;
+                return <JourneyErrorState scenarioWithError={scenario} />;
+            }
+            const [baseline, enhanced] = journeys as JourneyInfo[];
             return <JourneyComparison baseline={baseline} enhanced={enhanced} />;
         }
         return null;

@@ -7,6 +7,7 @@ import {
     Journey,
     Station,
     CrowdingLevel,
+    JourneyApiResult,
 } from "types";
 
 import { navigate } from "server/navigation";
@@ -105,8 +106,17 @@ const getJourneyInfoForScenario = (
 
 export default async (req, res) => {
     const { fromStationId, toStationId, day, time, scenarioNames } = req.query;
-    const journeys = mapScenarios(scenarioNames.split(","), (scenario) =>
-        getJourneyInfoForScenario(scenario, fromStationId, toStationId, parseInt(time, 10), day)
+    const journeys: JourneyApiResult = mapScenarios(
+        scenarioNames.split(","),
+        (scenario) =>
+            getJourneyInfoForScenario(
+                scenario,
+                fromStationId,
+                toStationId,
+                parseInt(time, 10),
+                day
+            ),
+        (_, scenario) => ({ error: true, payload: { scenario: { name: scenario.name } } })
     );
     res.status(200).json(journeys);
 };

@@ -1,5 +1,8 @@
 import { loadGtfsNetwork } from "server/network";
 
+export type ApiError<P = any> = { error: true; payload: P };
+export type ApiResult<T, P> = ApiError<P> | T;
+
 export type Indexed<T> = { [key: string]: T };
 
 export type Duration = number;
@@ -185,6 +188,8 @@ export interface JourneyInfo {
     arrivals: Record<string, { station: JourneyStation; times: NetworkTime[] }>;
     platformCrowding: Record<string, { station: JourneyStation; crowdingLevel: CrowdingLevel }>;
 }
+
+export type JourneyApiResult = ApiResult<JourneyInfo, { scenario: ScenarioInfo }>[];
 
 export interface DepartureBoardEntry {
     time: NetworkTime;

@@ -5,6 +5,7 @@ import { compareTimes, stringifyTime, matchDayOfWeek } from "time";
 import { NavigationFailedError } from "errors";
 
 import { NavigationState, StopNavigationState } from "./types";
+import { summarizeState } from "./util";
 
 const getSuccessorStatesFromStop = (
     state: NavigationState,
@@ -12,7 +13,7 @@ const getSuccessorStatesFromStop = (
     dayTime: NetworkDayTime,
     goal: Station,
     fromTransfer?: Transfer,
-    excludeRouteId?: string
+    excludeRoutePatternId?: string
 ): StopNavigationState[] => {
     const { seen, parents } = state;
     const { stopTimes } = location;
@@ -24,7 +25,7 @@ const getSuccessorStatesFromStop = (
         return (
             stopTime.trip.serviceDays.some((day) => matchDayOfWeek(day, searchTime.day)) &&
             stopTime.time >= searchTime.time &&
-            stopTime.trip.routeId !== excludeRouteId
+            stopTime.trip.routePatternId !== excludeRoutePatternId
         );
     });
 
@@ -93,11 +94,18 @@ const getSuccessorStates = (state: NavigationState, goal: Station): NavigationSt
         const isRegionalRailTerminus =
             parentStation.id === "place-north" || parentStation.id === "place-sstat";
         const fromSameStop = isRegionalRailTerminus
-            ? getSuccessorStatesFromStop(state, stop, dayTime, goal, null, trip.routeId)
+            ? getSuccessorStatesFromStop(state, stop, dayTime, goal, null, trip.routePatternId)
             : [];
         const fromTransfer = stop.transfers
             .map((transfer) =>
-                getSuccessorStatesFromStop(state, transfer.toStop, dayTime, goal, transfer)
+                getSuccessorStatesFromStop(
+                    state,
+                    transfer.toStop,
+                    dayTime,
+                    goal,
+                    transfer,
+                    trip.routePatternId
+                )
             )
             .flat();
         return [...fromSameStop, ...fromTransfer];
@@ -146,6 +154,7 @@ export const navigateBetweenStations = (
     while (!stateHeap.empty()) {
         const nextBestStates = getBestStatesFromHeap(stateHeap);
         for (const state of nextBestStates) {
+            // console.log(summarizeState(state));
             if (state.type === "stop") {
                 visited.add(state.stop.parentStation);
             }

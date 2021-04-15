@@ -8,18 +8,26 @@ const {
     serverRuntimeConfig: { scenarios: scenariosString },
 } = getConfig();
 
-export const scenarios =
+export const scenarios: Record<string, Scenario> =
     process.env.NODE_ENV === "production" ? loadScenarios() : parse(scenariosString);
 
-export const mapScenarios = <T>(
+export const mapScenarios = <T, E>(
     scenarioNames: string[],
-    callback: (scenario: Scenario) => T
-): T[] => {
+    callback: (scenario: Scenario) => T,
+    handleError: (err: Error, scenario: Scenario) => E
+): (T | E)[] => {
     const scenariosForNames = scenarioNames.map((name) => {
         if (scenarios[name]) {
             return scenarios[name];
         }
         throw new Error(`No scenario named ${name}`);
     });
-    return scenariosForNames.map(callback);
+    return scenariosForNames.map((scenario) => {
+        try {
+            return callback(scenario);
+        } catch (err) {
+            console.log(`[in mapScenarios]`, err);
+            return handleError(err, scenario);
+        }
+    });
 };

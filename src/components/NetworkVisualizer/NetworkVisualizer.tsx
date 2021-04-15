@@ -10,7 +10,6 @@ interface Props {
 
 const NetworkVisualizer = (props: Props) => {
     const { curveRadius } = props;
-    console.log(curveRadius);
     const { pathDirective } = useMemo(() => prerenderNetwork(curveRadius), [curveRadius]);
     const svgProps = useSvgLayout();
 
