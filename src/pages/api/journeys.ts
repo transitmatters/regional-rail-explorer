@@ -76,7 +76,7 @@ const getJourneyInfoForScenario = (
     time: NetworkTime,
     day: NetworkDayKind
 ): JourneyInfo => {
-    const { name, network } = scenario;
+    const { id, name, network } = scenario;
     const [fromStation, toStation] = getStationsByIds(network, fromStationId, toStationId);
     const journey = navigate(fromStation, toStation, { time, day });
     // TODO(ian): dedupe this nonsense from /api/arrivals
@@ -86,7 +86,7 @@ const getJourneyInfoForScenario = (
     const toStations = getStationsByIds(network, ...toStationIds);
     const arrivals = getArrivalTimesForJourney(fromStation, toStations, day);
     return {
-        scenario: { name },
+        scenario: { id, name },
         segments: journey,
         amenities: calculateAmenities(scenario, journey),
         platformCrowding: calculatePlatformCrowding([
@@ -116,7 +116,10 @@ export default async (req, res) => {
                 parseInt(time, 10),
                 day
             ),
-        (_, scenario) => ({ error: true, payload: { scenario: { name: scenario.name } } })
+        (_, scenario) => ({
+            error: true,
+            payload: { scenario: { name: scenario.name, id: scenario.id } },
+        })
     );
     res.status(200).json(journeys);
 };

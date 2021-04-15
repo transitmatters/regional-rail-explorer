@@ -10,5 +10,5 @@ export default {
 };
 
 export const Default = () => (
-   <RoutePage scenarios={["present", "phase_one"]} routeInfo={routeInfo}/>
+    <RoutePage scenarios={["present", "phase_one"]} routeInfo={routeInfo} />
 );

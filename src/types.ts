@@ -122,6 +122,7 @@ export type NetworkTime = number;
 export type NetworkTimeRange = [NetworkTime, NetworkTime];
 
 export interface ScenarioInfo {
+    id: string;
     name: string;
 }
 

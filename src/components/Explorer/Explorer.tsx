@@ -4,21 +4,14 @@ import { CgSpinner } from "react-icons/cg";
 import { stationsByLine, stationsById } from "stations";
 
 import * as api from "api";
-import {
-    JourneyInfo,
-    NetworkTime,
-    NetworkDayKind,
-    TimeOfDay,
-    ApiResult,
-    JourneyApiResult,
-} from "types";
+import { JourneyInfo, NetworkTime, NetworkDayKind, TimeOfDay, JourneyApiResult } from "types";
 import { DeparturePicker, JourneyPicker, JourneyComparison, JourneyErrorState } from "components";
 import { useRouterBoundState, usePendingPromise } from "hooks";
 
 import styles from "./Explorer.module.scss";
 import { getAdvantageousDepartureTime } from "./departures";
 
-const scenarioNames = ["present", "phase_one"];
+const scenarioIds = ["present", "phase_one"];
 
 const Explorer = () => {
     const [{ fromStationId, toStationId, day, time }, updateJourneyParams] = useRouterBoundState(
@@ -59,7 +52,7 @@ const Explorer = () => {
     useEffect(() => {
         setArrivals(null);
         if (fromStationId && toStationId && day) {
-            api.arrivals(fromStationId, toStationId, day, scenarioNames).then(setArrivals);
+            api.arrivals(fromStationId, toStationId, day, scenarioIds).then(setArrivals);
             if (!time) {
                 setRequestedTimeOfDay("morning");
             }
@@ -70,7 +63,7 @@ const Explorer = () => {
         setJourneys(null);
         if (fromStationId && toStationId && day && time) {
             wrapJourneyPending(
-                api.journeys(fromStationId, toStationId, day, time, scenarioNames).then(setJourneys)
+                api.journeys(fromStationId, toStationId, day, time, scenarioIds).then(setJourneys)
             );
         }
     }, [fromStationId, toStationId, day, time]);
