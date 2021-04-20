@@ -28,7 +28,6 @@ export async function getServerSideProps(context) {
 
 export default function Route(props: Props) {
     const { routeInfo } = props;
-    console.log(routeInfo);
     return (
         <div>
             <Head>

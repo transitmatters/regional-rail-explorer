@@ -1,0 +1,44 @@
+@import '../../styles/base.scss';
+
+.appFrame {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.globalNav {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background: $rr-purple-dark;
+    color: white;
+}
+
+.breadcrumbs {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    a,
+    a:hover {
+        color: white;
+    }
+    a {
+        text-decoration: none;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    > span {
+        line-height: 1em;
+        margin: 0 10px;
+    }
+}
+
+.container {
+    flex-grow: 1;
+}

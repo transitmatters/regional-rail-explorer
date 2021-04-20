@@ -9,6 +9,7 @@ import { MenuItem } from "./MenuItem";
 interface SelectItem {
     label: string;
     id: string;
+    href?: string;
 }
 
 interface Props<I> extends Omit<MenuProps, "disclosure" | "children"> {
@@ -47,7 +48,12 @@ const Select = <I extends SelectItem>(props: Props<I>) => {
             disclosure={React.cloneElement(disclosure(selectedItem), disclosureProps)}
         >
             {items.map((item) => (
-                <MenuItem onClick={() => onSelect(item)} key={item.id} text={item.label} />
+                <MenuItem
+                    onClick={() => onSelect(item)}
+                    key={item.id}
+                    text={item.label}
+                    href={item.href}
+                />
             ))}
         </Menu>
     );

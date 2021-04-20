@@ -5,7 +5,13 @@ import { stationsByLine, stationsById } from "stations";
 
 import * as api from "api";
 import { JourneyInfo, NetworkTime, NetworkDayKind, TimeOfDay, JourneyApiResult } from "types";
-import { DeparturePicker, JourneyPicker, JourneyComparison, JourneyErrorState } from "components";
+import {
+    DeparturePicker,
+    JourneyPicker,
+    JourneyComparison,
+    JourneyErrorState,
+    AppFrame,
+} from "components";
 import { useRouterBoundState, usePendingPromise } from "hooks";
 
 import styles from "./Explorer.module.scss";
@@ -121,22 +127,27 @@ const Explorer = () => {
     };
 
     return (
-        <div className={styles.explorer}>
-            <JourneyPicker
-                disabled={isJourneyPending}
-                time={time}
-                day={day}
-                stationsById={stationsById}
-                stationsByLine={stationsByLine}
-                fromStationId={fromStationId}
-                toStationId={toStationId}
-                onSelectJourney={updateJourneyParams}
-                onSelectTimeOfDay={setRequestedTimeOfDay}
-                onSelectDay={(day) => updateJourneyParams({ day })}
-            />
+        <AppFrame
+            mode="journey"
+            containerClassName={styles.explorer}
+            controls={
+                <JourneyPicker
+                    disabled={isJourneyPending}
+                    time={time}
+                    day={day}
+                    stationsById={stationsById}
+                    stationsByLine={stationsByLine}
+                    fromStationId={fromStationId}
+                    toStationId={toStationId}
+                    onSelectJourney={updateJourneyParams}
+                    onSelectTimeOfDay={setRequestedTimeOfDay}
+                    onSelectDay={(day) => updateJourneyParams({ day })}
+                />
+            }
+        >
             {renderDeparturePicker()}
             {renderJourneyComparison()}
-        </div>
+        </AppFrame>
     );
 };
 

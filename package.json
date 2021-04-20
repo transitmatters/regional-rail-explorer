@@ -22,7 +22,7 @@
     "random": "^2.2.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
-    "react-icons": "^4.1.0",
+    "react-icons": "^4.2.0",
     "reakit": "^1.1.2",
     "sass": "^1.26.10",
     "ts-node": "^9.0.0",

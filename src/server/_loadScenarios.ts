@@ -20,7 +20,7 @@ export const loadScenarios = () => {
         {
             id: "phase_one",
             name: "Regional Rail Phase One",
-            network: gtfsNetwork("phase-one-testing"),
+            network: gtfsNetwork("gtfs-phase-one"),
             amenitiesByRoute: {
                 "CR-Newburyport": ["electric-trains", "increased-top-speed"],
             },
