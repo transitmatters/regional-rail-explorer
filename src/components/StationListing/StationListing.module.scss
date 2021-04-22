@@ -36,27 +36,6 @@ $station-padding: 7px;
     @include max-width;
 }
 
-.search {
-    width: 100%;
-    margin: 10px 0;
-    height: 45px;
-    font-size: 25px;
-    padding: 10px;
-    box-sizing: border-box;
-    border: none;
-    background: rgba(white, 0.1);
-    border: 2px solid transparent;
-    color: white;
-    &:focus {
-        outline: none;
-        border: 2px solid rgba(white, 0.8);
-        box-shadow: $global-shadow;
-    }
-    &::placeholder {
-        color: rgba(white, 0.5);
-    }
-}
-
 .stationListContainer {
     overflow-x: hidden;
     overflow-y: auto;
@@ -85,6 +64,13 @@ $station-padding: 7px;
         }
         &:not(:last-child) {
             padding-bottom: $station-padding;
+        }
+        a {
+            color: inherit;
+            text-decoration: none;
+            &:hover {
+                text-decoration: underline;
+            }
         }
     }
 

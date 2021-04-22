@@ -19,4 +19,8 @@
         color: white;
         margin: 0 10px;
     }
+
+    > :global(.group):first-child {
+        margin-left: -10px;
+    }
 }

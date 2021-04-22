@@ -350,3 +350,7 @@ export const stationsById: Record<string, { id: string; name: string }> = Object
     });
     return allStations;
 }, {});
+
+export const getLinkToStation = (station: { id: string }) => {
+    return `/station/${station.id}`;
+};

@@ -12,14 +12,16 @@ export default function Stations() {
                 <StationSearchBar
                     onChange={setSearchTerm}
                     value={searchTerm}
-                    ref={(e) => e?.focus()}
+                    ref={(e: any) => e?.focus()}
+                    smaller
                 />
             }
         >
             <StationListing
                 stationsByLine={stationsByLine}
-                showSearch={false}
                 searchTerm={searchTerm}
+                showSearch={false}
+                linkToStations
             />
         </AppFrame>
     );

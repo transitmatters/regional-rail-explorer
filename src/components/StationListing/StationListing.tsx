@@ -5,6 +5,7 @@ import classNames from "classnames";
 import StationSearchBar from "./StationSearchBar";
 
 import styles from "./StationListing.module.scss";
+import { getLinkToStation } from "stations";
 
 type Station = { id: string; name: string };
 export type StationsByLine = { [line: string]: Station[] };
@@ -17,6 +18,7 @@ type Props = {
     searchRef?: React.MutableRefObject<HTMLInputElement>;
     showSearch?: boolean;
     searchTerm?: string;
+    linkToStations?: boolean;
 };
 
 const colors = ["Red", "Orange", "Blue", "Green", "Silver"];
@@ -83,12 +85,14 @@ const StationListing = React.forwardRef((props: Props, ref: any) => {
         onSelectStation = noop,
         searchRef = focusSearch,
         showSearch = true,
+        linkToStations = false,
         searchTerm: providedSearchTerm = null,
     } = props;
-    const [searchTerm, setSearchTerm] = useState(null);
+    const [ownSearchTerm, setOwnSearchTerm] = useState(null);
     const composite = useCompositeState({ currentId: null, loop: true });
     const searchResults = useCompositeState({ currentId: null, loop: true });
     const stationsToColor = useMemo(() => getStationsToColorMap(stationsByLine), [stationsByLine]);
+    const searchTerm = providedSearchTerm || ownSearchTerm;
 
     // Using data-station-id instead of generating a closure for each station's callback is a
     // performance enhancement recommended by Reakit when using a Composite with many items.
@@ -139,7 +143,11 @@ const StationListing = React.forwardRef((props: Props, ref: any) => {
                                     data-station-id={station.id}
                                     onClick={handleSelectStation}
                                 >
-                                    {station.name}
+                                    {linkToStations ? (
+                                        <a href={getLinkToStation(station)}>{station.name}</a>
+                                    ) : (
+                                        station.name
+                                    )}
                                 </CompositeItem>
                             ))}
                         </ul>
@@ -188,7 +196,7 @@ const StationListing = React.forwardRef((props: Props, ref: any) => {
                     <div className={styles.controls}>
                         <StationSearchBar
                             value={searchTerm}
-                            onChange={setSearchTerm}
+                            onChange={setOwnSearchTerm}
                             ref={searchRef}
                         />
                     </div>

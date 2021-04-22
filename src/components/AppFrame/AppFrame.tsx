@@ -43,11 +43,13 @@ const AppFrame = (props: Props) => {
                     {breadcrumbs.map((breadcrumb, index) => (
                         <div className={styles.breadcrumb} key={index}>
                             <span>{breadcrumb}</span>
-                            <HiChevronRight size={24} />
+                            {(index < breadcrumbs.length - 1 || controls) && (
+                                <HiChevronRight size={24} />
+                            )}
                         </div>
                     ))}
                 </div>
-                {controls}
+                {controls && <div className={styles.controls}>{controls}</div>}
             </div>
             <div className={classNames(styles.container, containerClassName)}>{children}</div>
         </div>

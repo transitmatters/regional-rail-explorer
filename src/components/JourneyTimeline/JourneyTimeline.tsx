@@ -1,11 +1,17 @@
 import React from "react";
 import classNames from "classnames";
 
-import { JourneySegment, JourneyTransferSegment, JourneyTravelSegment } from "types";
+import {
+    JourneySegment,
+    JourneyStation,
+    JourneyTransferSegment,
+    JourneyTravelSegment,
+} from "types";
 import { stringifyTime as globalStringifyTime, MINUTE } from "time";
 
 import styles from "./JourneyTimeline.module.scss";
 import { getColorForRouteId, textColor } from "routes";
+import { getLinkToStation } from "stations";
 
 type Props = {
     journey: JourneySegment[];
@@ -27,12 +33,20 @@ const TravelSegment = (props: { segment: JourneyTravelSegment }) => {
     const { fromStation, toStation, departureTime, arrivalTime, routeId } = segment;
     const color = getColorForRouteId(routeId);
 
+    const renderStationName = (station: JourneyStation) => {
+        return (
+            <a href={getLinkToStation(station)} className={styles.stationName}>
+                {station.name}
+            </a>
+        );
+    };
+
     const renderInnerContents = () => {
         return segment.passedStations.map((passedStation) => {
             return (
                 <div key={passedStation.station.id} className={styles.travelSegmentPassedStation}>
                     <div className="circle" />
-                    <div className="label">{passedStation.station.name}</div>
+                    <div className="label">{renderStationName(passedStation.station)}</div>
                 </div>
             );
         });
@@ -43,7 +57,7 @@ const TravelSegment = (props: { segment: JourneyTravelSegment }) => {
             <div className={styles.travelSegmentEndpoint}>
                 <div className="circle" />
                 <div className="label">
-                    <div className="name">{station.name}</div>
+                    <div className="name">{renderStationName(station)}</div>
                     <div className="time">{stringifyTime(time)}</div>
                 </div>
             </div>

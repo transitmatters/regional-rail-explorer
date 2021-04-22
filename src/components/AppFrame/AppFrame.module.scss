@@ -9,7 +9,8 @@
 .globalNav {
     display: flex;
     align-items: center;
-    padding: 20px;
+    height: 60px;
+    padding: 0 10px;
     background: $rr-purple-dark;
     color: white;
 }
@@ -39,6 +40,12 @@
     }
 }
 
+.controls {
+    margin-left: 10px;
+    flex-grow: 1;
+}
+
 .container {
+    display: flex;
     flex-grow: 1;
 }

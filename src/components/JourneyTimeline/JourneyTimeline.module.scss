@@ -143,3 +143,11 @@ $start-point-size: 14px;
         
     }
 }
+
+.stationName {
+    color: inherit;
+    text-decoration: none;
+    &:hover {
+        text-decoration: underline;
+    }
+}

@@ -13,5 +13,6 @@ export { RouteVisualizer, LiveRouteVisualizer } from "./RouteVisualizer";
 export { Menu, MenuItem, MenuItemDivider, Select } from "./Menu";
 export { default as ModeSelect } from "./ModeSelect/ModeSelect";
 export { default as RoutePage } from "./RoutePage/RoutePage";
+export { default as StationDetails } from "./StationDetails/StationDetails";
 export { default as StationPicker } from "./StationPicker/StationPicker";
 export { StationSearchBar, StationListing } from "./StationListing";
