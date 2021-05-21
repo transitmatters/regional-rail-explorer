@@ -3,7 +3,15 @@ import fs from "fs";
 import path from "path";
 import { camelize } from "@ridi/object-case-converter";
 
-import { GtfsService, GtfsRoute, GtfsTrip, GtfsStop, GtfsStopTime, GtfsTransfer } from "types";
+import {
+    GtfsService,
+    GtfsRoute,
+    GtfsTrip,
+    GtfsStop,
+    GtfsStopTime,
+    GtfsTransfer,
+    GtfsRoutePatternAmenities,
+} from "types";
 
 const loadCsv = <T>(filePath: string): T[] => {
     const contents = fs.readFileSync(filePath);
@@ -16,6 +24,13 @@ export type GtfsLoader = ReturnType<typeof createGtfsLoader>;
 export const createGtfsLoader = (basePath: string) => {
     const reader = <T>(filename) => () => loadCsv<T>(path.join(basePath, filename + ".txt"));
 
+    const optionalReader = <T>(filename) => {
+        if (fs.existsSync(filename)) {
+            return reader<T>(filename);
+        }
+        return null;
+    };
+
     return {
         basePath,
         routes: reader<GtfsRoute>("routes"),
@@ -25,5 +40,6 @@ export const createGtfsLoader = (basePath: string) => {
         stopTimes: reader<GtfsStopTime>("stop_times"),
         relevantStopTimes: reader<GtfsStopTime>("relevant_stop_times"),
         transfers: reader<GtfsTransfer>("transfers"),
+        amenities: optionalReader<GtfsRoutePatternAmenities>("amenities"),
     };
 };

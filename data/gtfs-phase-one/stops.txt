@@ -1,275 +1,177 @@
 stop_id,stop_code,stop_name,stop_desc,platform_code,platform_name,stop_lat,stop_lon,zone_id,stop_address,stop_url,level_id,location_type,parent_station,wheelchair_boarding,municipality,on_street,at_street,vehicle_type
-place-coecl,place-coecl,Copley,,,,42.349974,-71.077447,,,,,1,,1,Boston,,,
-70154,70154,Copley,,,,42.349871,-71.078049,,,,level_-1_platform,0,place-coecl,1,Boston,,,0
-70155,70155,Copley,,,,42.350126,-71.077376,,,,level_-1_platform,0,place-coecl,1,Boston,,,0
-place-ogmnl,place-ogmnl,Oak Grove,,,,42.43668,-71.071097,,,,,1,,1,Malden,,,
-70036,70036,Oak Grove,,,,42.43668,-71.071097,,,,level_0_platform,0,place-ogmnl,1,Malden,,,1
-place-GRB-0276,place-GRB-0276,Greenbush,,,,42.178776,-70.746641,CR-zone-6,,,,1,,1,Scituate,,,
-place-GRB-0276-0,place-GRB-0276-0,platform 0,,,,42.178776,-70.746641,CR-zone-6,,,,0,place-GRB-0276,1,Scituate,,,2
-place-GRB-0276-1,place-GRB-0276-1,platform 1,,,,42.178776,-70.746641,CR-zone-6,,,,0,place-GRB-0276,1,Scituate,,,2
-place-FR-0253,place-FR-0253,South Acton,,,,42.460375,-71.457744,CR-zone-6,,,,1,,1,Acton,,,
-place-FR-0253-0,place-FR-0253-0,platform 0,,,,42.460375,-71.457744,CR-zone-6,,,,0,place-FR-0253,1,Acton,,,2
-place-FR-0253-1,place-FR-0253-1,platform 1,,,,42.460375,-71.457744,CR-zone-6,,,,0,place-FR-0253,1,Acton,,,2
-place-rvrwy,place-rvrwy,Riverway,,,,42.331684,-71.111931,,,,,1,,2,Boston,,,
-70255,70255,Riverway,,,,42.331391,-71.111925,,,,level_in_street,0,place-rvrwy,2,Boston,,,0
-70256,70256,Riverway,,,,42.331871,-71.111961,,,,level_in_street,0,place-rvrwy,2,Boston,,,0
-place-FB-0177,place-FB-0177,Plimptonville,,,,42.159123,-71.236125,CR-zone-4,,,,1,,2,Walpole,,,
-Plimptonville,Plimptonville,Plimptonville,,,,42.159123,-71.236125,CR-zone-4,,,,0,place-FB-0177,2,Walpole,,,2
-place-valrd,place-valrd,Valley Road,,,,42.268322,-71.081566,,,,,1,,2,Milton,,,
+place-smary,place-smary,Saint Marys Street,,,,42.345974,-71.107353,,,,,1,,1,Brookline,,,
+70211,70211,Saint Marys Street,,,,42.345884,-71.107697,,,,level_median,0,place-smary,1,Brookline,,,0
+70212,70212,Saint Marys Street,,,,42.346007,-71.107166,,,,level_median,0,place-smary,1,Brookline,,,0
 place-GB-0229,place-GB-0229,Beverly Farms,,,,42.561651,-70.811405,CR-zone-5,,,,1,,1,Beverly,,,
 place-GB-0229-0,place-GB-0229-0,platform 0,,,,42.561651,-70.811405,CR-zone-5,,,,0,place-GB-0229,1,Beverly,,,2
 place-GB-0229-1,place-GB-0229-1,platform 1,,,,42.561651,-70.811405,CR-zone-5,,,,0,place-GB-0229,1,Beverly,,,2
-place-ER-0208,place-ER-0208,North Beverly,,,,42.583779,-70.883851,CR-zone-5,,,,1,,1,Beverly,,,
-place-ER-0208-0,place-ER-0208-0,platform 0,,,,42.583779,-70.883851,CR-zone-5,,,,0,place-ER-0208,1,Beverly,,,2
-place-ER-0208-1,place-ER-0208-1,platform 1,,,,42.583779,-70.883851,CR-zone-5,,,,0,place-ER-0208,1,Beverly,,,2
-place-armnl,place-armnl,Arlington,,,,42.351902,-71.070893,,,,,1,,1,Boston,,,
-70156,70156,Arlington,,,,42.351902,-71.070893,,,,level_-2_platform,0,place-armnl,1,Boston,,,0
-70157,70157,Arlington,,,,42.351902,-71.070893,,,,level_-2_platform,0,place-armnl,1,Boston,,,0
-place-newtn,place-newtn,Newton Highlands,,,,42.321735,-71.206116,,,,,1,,1,Newton,,,
-70168,70168,Newton Highlands,,,,42.321687,-71.206063,,,,level_ground,0,place-newtn,1,Newton,,,0
-70169,70169,Newton Highlands,,,,42.321734,-71.206118,,,,level_ground,0,place-newtn,1,Newton,,,0
+place-FR-0494,place-FR-0494,Fitchburg,,,,42.58072,-71.792611,CR-zone-8,,,,1,,1,Fitchburg,,,
+place-FR-0494-0,place-FR-0494-0,platform 0,,,,42.58072,-71.792611,CR-zone-8,,,,0,place-FR-0494,1,Fitchburg,,,2
+place-FR-0494-1,place-FR-0494-1,platform 1,,,,42.58072,-71.792611,CR-zone-8,,,,0,place-FR-0494,1,Fitchburg,,,2
+place-bland,place-bland,Blandford Street,,,,42.349293,-71.100258,,,,,1,,2,Boston,,,
+70148,70148,Blandford Street,,,,42.349165,-71.099821,,,,level_median,0,place-bland,2,Boston,,,0
+70149,70149,Blandford Street,,,,42.349276,-71.100213,,,,level_median,0,place-bland,2,Boston,,,0
+place-GRB-0146,place-GRB-0146,East Weymouth,,,,42.2191,-70.9214,CR-zone-2,,,,1,,1,Weymouth,,,
+place-GRB-0146-0,place-GRB-0146-0,platform 0,,,,42.2191,-70.9214,CR-zone-2,,,,0,place-GRB-0146,1,Weymouth,,,2
+place-GRB-0146-1,place-GRB-0146-1,platform 1,,,,42.2191,-70.9214,CR-zone-2,,,,0,place-GRB-0146,1,Weymouth,,,2
+place-coecl,place-coecl,Copley,,,,42.349974,-71.077447,,,,,1,,1,Boston,,,
+70154,70154,Copley,,,,42.349871,-71.078049,,,,level_-1_platform,0,place-coecl,1,Boston,,,0
+70155,70155,Copley,,,,42.350126,-71.077376,,,,level_-1_platform,0,place-coecl,1,Boston,,,0
 place-belsq,place-belsq,Bellingham Square,,,,42.395438,-71.033884,,,,,1,,1,Chelsea,,,
-place-smmnl,place-smmnl,Shawmut,,,,42.293126,-71.065738,,,,,1,,1,Boston,,,
-70091,70091,Shawmut,,,,42.293126,-71.065738,,,,level_-1_platform,0,place-smmnl,1,Boston,,,1
-70092,70092,Shawmut,,,,42.293126,-71.065738,,,,level_-1_platform,0,place-smmnl,1,Boston,,,1
-place-denrd,place-denrd,Dean Road,,,,42.337807,-71.141853,,,,,1,,2,Brookline,,,
-70233,70233,Dean Road,,,,42.337807,-71.141753,,,,level_median,0,place-denrd,2,Brookline,,,0
-70234,70234,Dean Road,,,,42.337628,-71.142309,,,,level_median,0,place-denrd,2,Brookline,,,0
-place-qamnl,place-qamnl,Quincy Adams,,,,42.233391,-71.007153,,,,,1,,1,Quincy,,,
-70103,70103,Quincy Adams,,,,42.233391,-71.007153,,,,level_1_platform,0,place-qamnl,1,Quincy,,,1
-70104,70104,Quincy Adams,,,,42.233391,-71.007153,,,,level_1_platform,0,place-qamnl,1,Quincy,,,1
-place-NB-0080,place-NB-0080,West Roxbury,,,,42.281358,-71.160065,CR-zone-1,,,,1,,1,Boston,,,
-place-NB-0080-0,place-NB-0080-0,platform 0,,,,42.281358,-71.160065,CR-zone-1,,,,0,place-NB-0080,1,Boston,,,2
-place-NB-0080-1,place-NB-0080-1,platform 1,,,,42.281358,-71.160065,CR-zone-1,,,,0,place-NB-0080,1,Boston,,,2
-place-nqncy,place-nqncy,North Quincy,,,,42.275275,-71.029583,,,,,1,,1,Quincy,,,
-70097,70097,North Quincy,,,,42.275275,-71.029583,,,,level_0_platform,0,place-nqncy,1,Quincy,,,1
-70098,70098,North Quincy,,,,42.275275,-71.029583,,,,level_0_platform,0,place-nqncy,1,Quincy,,,1
-place-DB-2205,place-DB-2205,Fairmount,,,,42.253638,-71.11927,CR-zone-1A,,,,1,,1,Boston,,,
-place-DB-2205-0,place-DB-2205-0,platform 0,,,,42.253638,-71.11927,CR-zone-1A,,,,0,place-DB-2205,1,Boston,,,2
-place-DB-2205-1,place-DB-2205-1,platform 1,,,,42.253638,-71.11927,CR-zone-1A,,,,0,place-DB-2205,1,Boston,,,2
-place-ER-0362,place-ER-0362,Newburyport,,,,42.797837,-70.87797,CR-zone-8,,,,1,,1,Newburyport,,,
-place-ER-0362-0,place-ER-0362-0,platform 0,,,,42.797837,-70.87797,CR-zone-8,,,,0,place-ER-0362,1,Newburyport,,,2
-place-ER-0362-1,place-ER-0362-1,platform 1,,,,42.797837,-70.87797,CR-zone-8,,,,0,place-ER-0362,1,Newburyport,,,2
-place-buest,place-buest,Boston University East,,,,42.349735,-71.103889,,,,,1,,1,Boston,,,
-70146,70146,Boston University East,,,,42.349659,-71.103989,,,,level_median,0,place-buest,1,Boston,,,0
-70147,70147,Boston University East,,,,42.349811,-71.104657,,,,level_median,0,place-buest,1,Boston,,,0
-place-bvmnl,place-bvmnl,Brookline Village,,,,42.332774,-71.116296,,,,,1,,1,Brookline,,,
-70180,70180,Brookline Village,,,,42.332838,-71.116234,,,,level_ground,0,place-bvmnl,1,Brookline,,,0
-70181,70181,Brookline Village,,,,42.332871,-71.116263,,,,level_ground,0,place-bvmnl,1,Brookline,,,0
-place-alsgr,place-alsgr,Allston Street,,,,42.348701,-71.137955,,,,,1,,2,Boston,,,
-70126,70126,Allston Street,,,,42.348649,-71.137881,,,,level_median,0,place-alsgr,2,Boston,,,0
-70127,70127,Allston Street,,,,42.348546,-71.137362,,,,level_median,0,place-alsgr,2,Boston,,,0
-place-NEC-2108,place-NEC-2108,Sharon,,,,42.124553,-71.184468,CR-zone-4,,,,1,,1,Sharon,,,
-place-NEC-2108-0,place-NEC-2108-0,platform 0,,,,42.124553,-71.184468,CR-zone-4,,,,0,place-NEC-2108,1,Sharon,,,2
-place-NEC-2108-1,place-NEC-2108-1,platform 1,,,,42.124553,-71.184468,CR-zone-4,,,,0,place-NEC-2108,1,Sharon,,,2
-place-knncl,place-knncl,Kendall/MIT,,,,42.362491,-71.086177,,,,,1,,1,Cambridge,,,
-70071,70071,Kendall/MIT,,,,42.362355,-71.085605,,,,level_-1_platform,0,place-knncl,1,Cambridge,,,1
-70072,70072,Kendall/MIT,,,,42.362434,-71.085591,,,,level_-1_platform,0,place-knncl,1,Cambridge,,,1
-place-WML-0102,place-WML-0102,Auburndale,,,,42.345725,-71.250826,CR-zone-2,,,,1,,2,Newton,,,
-place-WML-0102-0,place-WML-0102-0,platform 0,,,,42.345725,-71.250826,CR-zone-2,,,,0,place-WML-0102,2,Newton,,,2
-place-WML-0102-1,place-WML-0102-1,platform 1,,,,42.345725,-71.250826,CR-zone-2,,,,0,place-WML-0102,2,Newton,,,2
 place-ER-0099,place-ER-0099,River Works,,,,42.449927,-70.969848,CR-zone-2,,,,1,,2,Lynn,,,
 place-ER-0099-0,place-ER-0099-0,platform 0,,,,42.449927,-70.969848,CR-zone-2,,,,0,place-ER-0099,2,Lynn,,,2
 place-ER-0099-1,place-ER-0099-1,platform 1,,,,42.449927,-70.969848,CR-zone-2,,,,0,place-ER-0099,2,Lynn,,,2
-place-FR-0115,place-FR-0115,Brandeis/Roberts,,,,42.361898,-71.260065,CR-zone-2,,,,1,,1,Waltham,,,
-place-FR-0115-0,place-FR-0115-0,platform 0,,,,42.361898,-71.260065,CR-zone-2,,,,0,place-FR-0115,1,Waltham,,,2
-place-FR-0115-1,place-FR-0115-1,platform 1,,,,42.361898,-71.260065,CR-zone-2,,,,0,place-FR-0115,1,Waltham,,,2
-place-WR-0205,place-WR-0205,Ballardvale,,,,42.627356,-71.159962,CR-zone-4,,,,1,,1,Andover,,,
-place-WR-0205-0,place-WR-0205-0,platform 0,,,,42.627356,-71.159962,CR-zone-4,,,,0,place-WR-0205,1,Andover,,,2
-place-WR-0205-1,place-WR-0205-1,platform 1,,,,42.627356,-71.159962,CR-zone-4,,,,0,place-WR-0205,1,Andover,,,2
-place-NEC-2173,place-NEC-2173,Route 128,,,,42.210308,-71.147134,CR-zone-2,,,,1,,1,Westwood,,,
-place-NEC-2173-0,place-NEC-2173-0,platform 0,,,,42.210308,-71.147134,CR-zone-2,,,,0,place-NEC-2173,1,Westwood,,,2
-place-NEC-2173-1,place-NEC-2173-1,platform 1,,,,42.210308,-71.147134,CR-zone-2,,,,0,place-NEC-2173,1,Westwood,,,2
-place-NB-0127,place-NB-0127,Needham Center,,,,42.280775,-71.237686,CR-zone-2,,,,1,,1,Needham,,,
-place-NB-0127-0,place-NB-0127-0,platform 0,,,,42.280775,-71.237686,CR-zone-2,,,,0,place-NB-0127,1,Needham,,,2
-place-NB-0127-1,place-NB-0127-1,platform 1,,,,42.280775,-71.237686,CR-zone-2,,,,0,place-NB-0127,1,Needham,,,2
-place-CM-0564,place-CM-0564,Bourne,,,,41.746497,-70.588772,CF-zone-buzzards,,,,1,,1,Bourne,,,
-place-NB-0137,place-NB-0137,Needham Heights,,,,42.293444,-71.236027,CR-zone-2,,,,1,,1,Needham,,,
-place-NB-0137-0,place-NB-0137-0,platform 0,,,,42.293444,-71.236027,CR-zone-2,,,,0,place-NB-0137,1,Needham,,,2
-place-NB-0137-1,place-NB-0137-1,platform 1,,,,42.293444,-71.236027,CR-zone-2,,,,0,place-NB-0137,1,Needham,,,2
-place-FB-0143,place-FB-0143,Norwood Depot,,,,42.196857,-71.196688,CR-zone-3,,,,1,,1,Norwood,,,
-place-FB-0143-0,place-FB-0143-0,platform 0,,,,42.196857,-71.196688,CR-zone-3,,,,0,place-FB-0143,1,Norwood,,,2
-place-FB-0143-1,place-FB-0143-1,platform 1,,,,42.196857,-71.196688,CR-zone-3,,,,0,place-FB-0143,1,Norwood,,,2
-place-dudly,place-dudly,Dudley Square,,,,42.329544,-71.083982,,,,,1,,1,Boston,,,
-place-hsmnl,place-hsmnl,Heath Street,,,,42.328316,-71.110252,,,,,1,,1,Boston,,,
-70260,70260,Heath Street,,,,42.328316,-71.110252,,,,level_ground,0,place-hsmnl,1,Boston,,,0
-place-hwsst,place-hwsst,Hawes Street,,,,42.344906,-71.111145,,,,,1,,2,Brookline,,,
-70213,70213,Hawes Street,,,,42.344758,-71.111761,,,,level_median,0,place-hwsst,2,Brookline,,,0
-70214,70214,Hawes Street,,,,42.344867,-71.111157,,,,level_median,0,place-hwsst,2,Brookline,,,0
-place-waban,place-waban,Waban,,,,42.325943,-71.230728,,,,,1,,2,Newton,,,
-70164,70164,Waban,,,,42.325899,-71.230805,,,,level_ground,0,place-waban,2,Newton,,,0
-70165,70165,Waban,,,,42.325943,-71.23073,,,,level_ground,0,place-waban,2,Newton,,,0
-place-state,place-state,State,,,,42.358978,-71.057598,,,,,1,,1,Boston,,,
-70022,70022,State,,,,42.358978,-71.057598,,,,level_-1_up_platform,0,place-state,1,Boston,,,1
-70023,70023,State,,,,42.358978,-71.057598,,,,level_-2_oak_grove_platform,0,place-state,1,Boston,,,1
-70041,70041,State,,,,42.358978,-71.057598,,,,level_-1_up_platform,0,place-state,1,Boston,,,1
-70042,70042,State,,,,42.358978,-71.057598,,,,level_-1_up_platform,0,place-state,1,Boston,,,1
-place-crtst,place-crtst,Courthouse,,,,42.35245,-71.04685,,,,,1,,1,Boston,,,
-place-cedgr,place-cedgr,Cedar Grove,,,,42.279682,-71.060432,,,,,1,,1,Boston,,,
-place-DB-2222,place-DB-2222,Blue Hill Avenue,,,,42.271466,-71.095782,CR-zone-1A,,,,1,,1,Boston,,,
-place-DB-2222-0,place-DB-2222-0,platform 0,,,,42.271466,-71.095782,CR-zone-1A,,,,0,place-DB-2222,1,Boston,,,2
-place-DB-2222-1,place-DB-2222-1,platform 1,,,,42.271466,-71.095782,CR-zone-1A,,,,0,place-DB-2222,1,Boston,,,2
-place-bckhl,place-bckhl,Back of the Hill,,,,42.330139,-71.111313,,,,,1,,2,Boston,,,
-70257,70257,Back of the Hill,,,,42.329369,-71.111046,,,,level_in_street,0,place-bckhl,2,Boston,,,0
-70258,70258,Back of the Hill,,,,42.329399,-71.110931,,,,level_in_street,0,place-bckhl,2,Boston,,,0
-place-forhl,place-forhl,Forest Hills,,,,42.300523,-71.113686,CR-zone-1A,,,,1,,1,Boston,,,
-place-forhl-0,place-forhl-0,platform 0,,,,42.300523,-71.113686,CR-zone-1A,,,,0,place-forhl,1,Boston,,,2
-place-forhl-1,place-forhl-1,platform 1,,,,42.300523,-71.113686,CR-zone-1A,,,,0,place-forhl,1,Boston,,,2
-70001,70001,Forest Hills,,,,42.300523,-71.113686,,,,level_-1_orange_platform,0,place-forhl,1,Boston,,,1
-place-wrnst,place-wrnst,Warren Street,,,,42.348343,-71.140457,,,,,1,,2,Boston,,,
-70124,70124,Warren Street,,,,42.348285,-71.140436,,,,level_median,0,place-wrnst,2,Boston,,,0
-70125,70125,Warren Street,,,,42.348819,-71.140051,,,,level_median,0,place-wrnst,2,Boston,,,0
-place-ER-0128,place-ER-0128,Swampscott,,,,42.473743,-70.922537,CR-zone-3,,,,1,,1,Swampscott,,,
-place-ER-0128-0,place-ER-0128-0,platform 0,,,,42.473743,-70.922537,CR-zone-3,,,,0,place-ER-0128,1,Swampscott,,,2
-place-ER-0128-1,place-ER-0128-1,platform 1,,,,42.473743,-70.922537,CR-zone-3,,,,0,place-ER-0128,1,Swampscott,,,2
-place-rr-bridgewater-center,place-rr-bridgewater-center,Bridgewater Center,,,,0,0,,,,,1,,1,Bridgewater,,,
-place-rr-bridgewater-center-0,place-rr-bridgewater-center-0,platform 0,,,,0,0,,,,,0,place-rr-bridgewater-center,1,Bridgewater,,,2
-place-rr-bridgewater-center-1,place-rr-bridgewater-center-1,platform 1,,,,0,0,,,,,0,place-rr-bridgewater-center,1,Bridgewater,,,2
-place-CM-0790,place-CM-0790,Hyannis,,,,41.660225,-70.276583,CF-zone-hyannis,,,,1,,1,Barnstable,,,
-place-brmnl,place-brmnl,Brigham Circle,,,,42.334229,-71.104609,,,,,1,,1,Boston,,,
-70249,70249,Brigham Circle,,,,42.334331,-71.104487,,,,level_median,0,place-brmnl,1,Boston,,,0
-70250,70250,Brigham Circle,,,,42.334846,-71.103017,,,,level_median,0,place-brmnl,1,Boston,,,0
-place-rr-braintree-highlands,place-rr-braintree-highlands,Braintree Highlands,,,,0,0,,,,,1,,1,Braintree,,,
-place-rr-braintree-highlands-0,place-rr-braintree-highlands-0,platform 0,,,,0,0,,,,,0,place-rr-braintree-highlands,1,Braintree,,,2
-place-rr-braintree-highlands-1,place-rr-braintree-highlands-1,platform 1,,,,0,0,,,,,0,place-rr-braintree-highlands,1,Braintree,,,2
-place-NEC-1969,place-NEC-1969,Attleboro,,,,41.940739,-71.285094,CR-zone-7,,,,1,,1,Attleboro,,,
-place-NEC-1969-0,place-NEC-1969-0,platform 0,,,,41.940739,-71.285094,CR-zone-7,,,,0,place-NEC-1969,1,Attleboro,,,2
-place-NEC-1969-1,place-NEC-1969-1,platform 1,,,,41.940739,-71.285094,CR-zone-7,,,,0,place-NEC-1969,1,Attleboro,,,2
-place-FB-0275,place-FB-0275,Franklin,,,,42.083238,-71.396102,CR-zone-6,,,,1,,2,Franklin,,,
-place-FB-0275-0,place-FB-0275-0,platform 0,,,,42.083238,-71.396102,CR-zone-6,,,,0,place-FB-0275,2,Franklin,,,2
-place-FB-0275-1,place-FB-0275-1,platform 1,,,,42.083238,-71.396102,CR-zone-6,,,,0,place-FB-0275,2,Franklin,,,2
-place-astao,place-astao,Assembly,,,,42.392811,-71.077257,,,,,1,,1,Somerville,,,
-70278,70278,Assembly,,,,42.392811,-71.077257,,,,level_0_platform,0,place-astao,1,Somerville,,,1
-70279,70279,Assembly,,,,42.392811,-71.077257,,,,level_0_platform,0,place-astao,1,Somerville,,,1
-place-fldcr,place-fldcr,Fields Corner,,,,42.300093,-71.061667,,,,,1,,1,Boston,,,
-70089,70089,Fields Corner,,,,42.300093,-71.061667,,,,level_1_platform,0,place-fldcr,1,Boston,,,1
-70090,70090,Fields Corner,,,,42.300093,-71.061667,,,,level_1_platform,0,place-fldcr,1,Boston,,,1
-place-WML-0035,place-WML-0035,Boston Landing,,,,42.357293,-71.139883,CR-zone-1A,,,,1,,1,Boston,,,
-place-WML-0035-0,place-WML-0035-0,platform 0,,,,42.357293,-71.139883,CR-zone-1A,,,,0,place-WML-0035,1,Boston,,,2
-place-WML-0035-1,place-WML-0035-1,platform 1,,,,42.357293,-71.139883,CR-zone-1A,,,,0,place-WML-0035,1,Boston,,,2
-place-bucen,place-bucen,Boston University Central,,,,42.350082,-71.106865,,,,,1,,1,Boston,,,
-70144,70144,Boston University Central,,,,42.350013,-71.106902,,,,level_median,0,place-bucen,1,Boston,,,0
-70145,70145,Boston University Central,,,,42.350148,-71.107455,,,,level_median,0,place-bucen,1,Boston,,,0
-place-rsmnl,place-rsmnl,Reservoir,,,,42.335027,-71.148952,,,,,1,,1,Brookline,,,
-70174,70174,Reservoir,,,,42.334916,-71.149064,,,,level_-1_platform,0,place-rsmnl,1,Brookline,,,0
-70175,70175,Reservoir,,,,42.334954,-71.149079,,,,level_-1_platform,0,place-rsmnl,1,Brookline,,,0
-place-FR-0301,place-FR-0301,Littleton/Rte 495,,,,42.519236,-71.502643,CR-zone-7,,,,1,,1,Littleton,,,
-place-FR-0301-0,place-FR-0301-0,platform 0,,,,42.519236,-71.502643,CR-zone-7,,,,0,place-FR-0301,1,Littleton,,,2
-place-FR-0301-1,place-FR-0301-1,platform 1,,,,42.519236,-71.502643,CR-zone-7,,,,0,place-FR-0301,1,Littleton,,,2
-place-orhte,place-orhte,Orient Heights,,,,42.386867,-71.004736,,,,,1,,1,Boston,,,
-70051,70051,Orient Heights,,,,42.386867,-71.004736,,,,level_0_platform,0,place-orhte,1,Boston,,,1
-70052,70052,Orient Heights,,,,42.386867,-71.004736,,,,level_0_platform,0,place-orhte,1,Boston,,,1
-place-stplb,place-stplb,Saint Paul Street,,,,42.3512,-71.116104,,,,,1,,2,Boston,,,
-70140,70140,Saint Paul Street,,,,42.35111,-71.116014,,,,level_median,0,place-stplb,2,Boston,,,0
-70141,70141,Saint Paul Street,,,,42.351241,-71.116531,,,,level_median,0,place-stplb,2,Boston,,,0
+place-rvrwy,place-rvrwy,Riverway,,,,42.331684,-71.111931,,,,,1,,2,Boston,,,
+70255,70255,Riverway,,,,42.331391,-71.111925,,,,level_in_street,0,place-rvrwy,2,Boston,,,0
+70256,70256,Riverway,,,,42.331871,-71.111961,,,,level_in_street,0,place-rvrwy,2,Boston,,,0
+place-matt,place-matt,Mattapan,,,,42.267762,-71.092241,,,,,1,,1,Boston,,,
+place-bndhl,place-bndhl,Brandon Hall,,,,42.340023,-71.129082,,,,,1,,2,Brookline,,,
+70225,70225,Brandon Hall,,,,42.340053,-71.128869,,,,level_median,0,place-bndhl,2,Brookline,,,0
+70226,70226,Brandon Hall,,,,42.340038,-71.12866,,,,level_median,0,place-bndhl,2,Brookline,,,0
+place-knncl,place-knncl,Kendall/MIT,,,,42.362491,-71.086177,,,,,1,,1,Cambridge,,,
+70071,70071,Kendall/MIT,,,,42.362355,-71.085605,,,,level_-1_platform,0,place-knncl,1,Cambridge,,,1
+70072,70072,Kendall/MIT,,,,42.362434,-71.085591,,,,level_-1_platform,0,place-knncl,1,Cambridge,,,1
 place-rr-north-revere,place-rr-north-revere,Revere,,,,42.4154533,-70.9922548,,,,,1,,1,Revere,,,
 place-rr-north-revere-0,place-rr-north-revere-0,platform 0,,,,42.4154533,-70.9922548,,,,,0,place-rr-north-revere,1,Revere,,,2
 place-rr-north-revere-1,place-rr-north-revere-1,platform 1,,,,42.4154533,-70.9922548,,,,,0,place-rr-north-revere,1,Revere,,,2
-place-WML-0147,place-WML-0147,Wellesley Square,,,,42.297526,-71.294173,CR-zone-3,,,,1,,2,Wellesley,,,
-place-WML-0147-0,place-WML-0147-0,platform 0,,,,42.297526,-71.294173,CR-zone-3,,,,0,place-WML-0147,2,Wellesley,,,2
-place-WML-0147-1,place-WML-0147-1,platform 1,,,,42.297526,-71.294173,CR-zone-3,,,,0,place-WML-0147,2,Wellesley,,,2
-place-FB-0148,place-FB-0148,Norwood Central,,,,42.188775,-71.199665,CR-zone-3,,,,1,,1,Norwood,,,
-place-FB-0148-0,place-FB-0148-0,platform 0,,,,42.188775,-71.199665,CR-zone-3,,,,0,place-FB-0148,1,Norwood,,,2
-place-FB-0148-1,place-FB-0148-1,platform 1,,,,42.188775,-71.199665,CR-zone-3,,,,0,place-FB-0148,1,Norwood,,,2
-place-GRB-0199,place-GRB-0199,Cohasset,,,,42.24421,-70.837529,CR-zone-4,,,,1,,1,Cohasset,,,
-Cohasset,Cohasset,Cohasset,,,,42.24421,-70.837529,CR-zone-4,,,,0,place-GRB-0199,1,Cohasset,,,2
-place-bomnl,place-bomnl,Bowdoin,,,,42.361365,-71.062037,,,,,1,,2,Boston,,,
-70038,70038,Bowdoin,,,,42.361365,-71.062037,,,,level_-1_platform,0,place-bomnl,2,Boston,,,1
-70838,70838,Bowdoin,,,,42.361365,-71.062037,,,,level_-1_platform,0,place-bomnl,2,Boston,,,1
-place-sull,place-sull,Sullivan Square,,,,42.383975,-71.076994,,,,,1,,1,Boston,,,
-70030,70030,Sullivan Square,,,,42.383975,-71.076994,,,,level_-1_platform,0,place-sull,1,Boston,,,1
-70031,70031,Sullivan Square,,,,42.383975,-71.076994,,,,level_-1_platform,0,place-sull,1,Boston,,,1
-place-wascm,place-wascm,Washington Street,,,,42.343864,-71.142853,,,,,1,,1,Boston,,,
-70120,70120,Washington Street,,,,42.344329,-71.142385,,,,level_median,0,place-wascm,1,Boston,,,0
-70121,70121,Washington Street,,,,42.343974,-71.142731,,,,level_median,0,place-wascm,1,Boston,,,0
-place-FR-0132,place-FR-0132,Kendal Green,,,,42.37897,-71.282411,CR-zone-3,,,,1,,2,Weston,,,
-place-FR-0132-0,place-FR-0132-0,platform 0,,,,42.37897,-71.282411,CR-zone-3,,,,0,place-FR-0132,2,Weston,,,2
-place-FR-0132-1,place-FR-0132-1,platform 1,,,,42.37897,-71.282411,CR-zone-3,,,,0,place-FR-0132,2,Weston,,,2
-place-NB-0120,place-NB-0120,Needham Junction,,,,42.273187,-71.235559,CR-zone-2,,,,1,,1,Needham,,,
-place-NB-0120-0,place-NB-0120-0,platform 0,,,,42.273187,-71.235559,CR-zone-2,,,,0,place-NB-0120,1,Needham,,,2
-place-NB-0120-1,place-NB-0120-1,platform 1,,,,42.273187,-71.235559,CR-zone-2,,,,0,place-NB-0120,1,Needham,,,2
-place-andrw,place-andrw,Andrew,,,,42.330154,-71.057655,,,,,1,,1,Boston,,,
-70083,70083,Andrew,,,,42.330154,-71.057655,,,,level_-2_platform,0,place-andrw,1,Boston,,,1
-70084,70084,Andrew,,,,42.330154,-71.057655,,,,level_-2_platform,0,place-andrw,1,Boston,,,1
-place-bcnfd,place-bcnfd,Beaconsfield,,,,42.335846,-71.140823,,,,,1,,2,Brookline,,,
-70176,70176,Beaconsfield,,,,42.335809,-71.140841,,,,level_ground,0,place-bcnfd,2,Brookline,,,0
-70177,70177,Beaconsfield,,,,42.335848,-71.140826,,,,level_ground,0,place-bcnfd,2,Brookline,,,0
+place-valrd,place-valrd,Valley Road,,,,42.268322,-71.081566,,,,,1,,2,Milton,,,
+place-WR-0085,place-WR-0085,Greenwood,,,,42.483005,-71.067247,CR-zone-2,,,,1,,2,Wakefield,,,
+place-WR-0085-0,place-WR-0085-0,platform 0,,,,42.483005,-71.067247,CR-zone-2,,,,0,place-WR-0085,2,Wakefield,,,2
+place-WR-0085-1,place-WR-0085-1,platform 1,,,,42.483005,-71.067247,CR-zone-2,,,,0,place-WR-0085,2,Wakefield,,,2
 place-dwnxg,place-dwnxg,Downtown Crossing,,,,42.355518,-71.060225,,,,,1,,1,Boston,,,
 70020,70020,Downtown Crossing,,,,42.355518,-71.060225,,,,level_-1_orange_platform,0,place-dwnxg,1,Boston,,,1
 70021,70021,Downtown Crossing,,,,42.355518,-71.060225,,,,level_-1_orange_platform,0,place-dwnxg,1,Boston,,,1
 70077,70077,Downtown Crossing,,,,42.355518,-71.060225,,,,level_-2_red_platform,0,place-dwnxg,1,Boston,,,1
 70078,70078,Downtown Crossing,,,,42.355518,-71.060225,,,,level_-2_red_platform,0,place-dwnxg,1,Boston,,,1
-place-cenav,place-cenav,Central Avenue,,,,42.270027,-71.073334,,,,,1,,1,Milton,,,
-place-WR-0228,place-WR-0228,Andover,,,,42.658336,-71.144502,CR-zone-5,,,,1,,1,Andover,,,
-place-WR-0228-0,place-WR-0228-0,platform 0,,,,42.658336,-71.144502,CR-zone-5,,,,0,place-WR-0228,1,Andover,,,2
-place-WR-0228-1,place-WR-0228-1,platform 1,,,,42.658336,-71.144502,CR-zone-5,,,,0,place-WR-0228,1,Andover,,,2
-place-GB-0353,place-GB-0353,Rockport,,,,42.655491,-70.627055,CR-zone-8,,,,1,,1,Rockport,,,
-place-GB-0353-0,place-GB-0353-0,platform 0,,,,42.655491,-70.627055,CR-zone-8,,,,0,place-GB-0353,1,Rockport,,,2
-place-GB-0353-1,place-GB-0353-1,platform 1,,,,42.655491,-70.627055,CR-zone-8,,,,0,place-GB-0353,1,Rockport,,,2
-place-WML-0199,place-WML-0199,West Natick,,,,42.283064,-71.391797,CR-zone-4,,,,1,,1,Natick,,,
-place-WML-0199-0,place-WML-0199-0,platform 0,,,,42.283064,-71.391797,CR-zone-4,,,,0,place-WML-0199,1,Natick,,,2
-place-WML-0199-1,place-WML-0199-1,platform 1,,,,42.283064,-71.391797,CR-zone-4,,,,0,place-WML-0199,1,Natick,,,2
-place-plymouth-center,place-plymouth-center,Plymouth Center,,,,0,0,,,,,1,,1,Plymouth,,,
-place-plymouth-center-0,place-plymouth-center-0,platform 0,,,,0,0,,,,,0,place-plymouth-center,1,Plymouth,,,2
-place-plymouth-center-1,place-plymouth-center-1,platform 1,,,,0,0,,,,,0,place-plymouth-center,1,Plymouth,,,2
-place-FB-0191,place-FB-0191,Walpole,,,,42.145477,-71.25779,CR-zone-4,,,,1,,2,Walpole,,,
-place-FB-0191-0,place-FB-0191-0,platform 0,,,,42.145477,-71.25779,CR-zone-4,,,,0,place-FB-0191,2,Walpole,,,2
-place-FB-0191-1,place-FB-0191-1,platform 1,,,,42.145477,-71.25779,CR-zone-4,,,,0,place-FB-0191,2,Walpole,,,2
-place-grnst,place-grnst,Green Street,,,,42.310525,-71.107414,,,,,1,,1,Boston,,,
-70002,70002,Green Street,,,,42.310525,-71.107414,,,,level_-1_platform,0,place-grnst,1,Boston,,,1
-70003,70003,Green Street,,,,42.310525,-71.107414,,,,level_-1_platform,0,place-grnst,1,Boston,,,1
-place-matt,place-matt,Mattapan,,,,42.267762,-71.092241,,,,,1,,1,Boston,,,
-place-mfa,place-mfa,Museum of Fine Arts,,,,42.337711,-71.095512,,,,,1,,1,Boston,,,
-70245,70245,Museum of Fine Arts,,,,42.337875,-71.09524,,,,level_median,0,place-mfa,1,Boston,,,0
-70246,70246,Museum of Fine Arts,,,,42.338017,-71.094682,,,,level_median,0,place-mfa,1,Boston,,,0
-place-kingston-jct,place-kingston-jct,Kingston Junction,,,,0,0,,,,,1,,1,Kingston,,,
-place-kingston-jct-0,place-kingston-jct-0,platform 0,,,,0,0,,,,,0,place-kingston-jct,1,Kingston,,,2
-place-kingston-jct-1,place-kingston-jct-1,platform 1,,,,0,0,,,,,0,place-kingston-jct,1,Kingston,,,2
-place-FR-0167,place-FR-0167,Lincoln,,,,42.41342,-71.325404,CR-zone-4,,,,1,,2,Lincoln,,,
-place-FR-0167-0,place-FR-0167-0,platform 0,,,,42.41342,-71.325404,CR-zone-4,,,,0,place-FR-0167,2,Lincoln,,,2
-place-FR-0167-1,place-FR-0167-1,platform 1,,,,42.41342,-71.325404,CR-zone-4,,,,0,place-FR-0167,2,Lincoln,,,2
-place-MM-0277,place-MM-0277,Bridgewater,,,,41.984916,-70.96537,CR-zone-6,,,,1,,1,Bridgewater,,,
-place-MM-0277-0,place-MM-0277-0,platform 0,,,,41.984916,-70.96537,CR-zone-6,,,,0,place-MM-0277,1,Bridgewater,,,2
-place-MM-0277-1,place-MM-0277-1,platform 1,,,,41.984916,-70.96537,CR-zone-6,,,,0,place-MM-0277,1,Bridgewater,,,2
-place-WML-0442,place-WML-0442,Worcester,,,,42.261461,-71.794888,CR-zone-8,,,,1,,1,Worcester,,,
-place-WML-0442-0,place-WML-0442-0,platform 0,,,,42.261461,-71.794888,CR-zone-8,,,,0,place-WML-0442,1,Worcester,,,2
-place-WML-0442-1,place-WML-0442-1,platform 1,,,,42.261461,-71.794888,CR-zone-8,,,,0,place-WML-0442,1,Worcester,,,2
-place-bcnwa,place-bcnwa,Washington Square,,,,42.339394,-71.13533,,,,,1,,1,Brookline,,,
-70229,70229,Washington Square,,,,42.339471,-71.135139,,,,level_median,0,place-bcnwa,1,Brookline,,,0
-70230,70230,Washington Square,,,,42.339519,-71.134587,,,,level_median,0,place-bcnwa,1,Brookline,,,0
-place-NB-0109,place-NB-0109,Hersey,,,,42.275648,-71.215528,CR-zone-2,,,,1,,1,Needham,,,
-place-NB-0109-0,place-NB-0109-0,platform 0,,,,42.275648,-71.215528,CR-zone-2,,,,0,place-NB-0109,1,Needham,,,2
-place-NB-0109-1,place-NB-0109-1,platform 1,,,,42.275648,-71.215528,CR-zone-2,,,,0,place-NB-0109,1,Needham,,,2
-place-chswk,place-chswk,Chiswick Road,,,,42.340805,-71.150711,,,,,1,,2,Boston,,,
-70114,70114,Chiswick Road,,,,42.340808,-71.150633,,,,level_median,0,place-chswk,2,Boston,,,0
-70115,70115,Chiswick Road,,,,42.34054,-71.15114,,,,level_median,0,place-chswk,2,Boston,,,0
-place-WML-0274,place-WML-0274,Southborough,,,,42.267024,-71.524371,CR-zone-6,,,,1,,1,Southborough,,,
-place-WML-0274-0,place-WML-0274-0,platform 0,,,,42.267024,-71.524371,CR-zone-6,,,,0,place-WML-0274,1,Southborough,,,2
-place-WML-0274-1,place-WML-0274-1,platform 1,,,,42.267024,-71.524371,CR-zone-6,,,,0,place-WML-0274,1,Southborough,,,2
-place-miltt,place-miltt,Milton,,,,42.270306,-71.067673,,,,,1,,1,Milton,,,
+place-KB-0351,place-KB-0351,Kingston,,,,41.97762,-70.721709,CR-zone-8,,,,1,,1,Kingston,,,
+Kingston,Kingston,Kingston,,,,41.97762,-70.721709,CR-zone-8,,,,0,place-KB-0351,1,Kingston,,,2
 place-PB-0356,place-PB-0356,Plymouth,,,,41.981278,-70.690421,CR-zone-8,,,,1,,1,Plymouth,,,
 place-PB-0356-0,place-PB-0356-0,platform 0,,,,41.981278,-70.690421,CR-zone-8,,,,0,place-PB-0356,1,Plymouth,,,2
 place-PB-0356-1,place-PB-0356-1,platform 1,,,,41.981278,-70.690421,CR-zone-8,,,,0,place-PB-0356,1,Plymouth,,,2
-place-gover,place-gover,Government Center,,,,42.359705,-71.059215,,,,,1,,1,Boston,,,
-70039,70039,Government Center,,,,42.359705,-71.059215,,,,level_-2_blue_platform,0,place-gover,1,Boston,,,1
-70040,70040,Government Center,,,,42.359705,-71.059215,,,,level_-2_blue_platform,0,place-gover,1,Boston,,,1
-70201,70201,Government Center,,,,42.359705,-71.059215,,,,level_-1_green_platform,0,place-gover,1,Boston,,,0
-70202,70202,Government Center,,,,42.359705,-71.059215,,,,level_-1_green_platform,0,place-gover,1,Boston,,,0
-place-rr-ceylon-park,place-rr-ceylon-park,Ceylon Park,,,,42.3097728,-71.0735888,,,,,1,,1,Boston,,,
-place-rr-ceylon-park-0,place-rr-ceylon-park-0,platform 0,,,,42.3097728,-71.0735888,,,,,0,place-rr-ceylon-park,1,Boston,,,2
-place-rr-ceylon-park-1,place-rr-ceylon-park-1,platform 1,,,,42.3097728,-71.0735888,,,,,0,place-rr-ceylon-park,1,Boston,,,2
-place-hymnl,place-hymnl,Hynes Convention Center,,,,42.347888,-71.087903,,,,,1,,2,Boston,,,
-70152,70152,Hynes Convention Center,,,,42.347888,-71.087903,,,,level_-2_platform,0,place-hymnl,2,Boston,,,0
-70153,70153,Hynes Convention Center,,,,42.347888,-71.087903,,,,level_-2_platform,0,place-hymnl,2,Boston,,,0
-place-NHRML-0055,place-NHRML-0055,West Medford,,,,42.421776,-71.133342,CR-zone-1A,,,,1,,2,Medford,,,
-place-NHRML-0055-0,place-NHRML-0055-0,platform 0,,,,42.421776,-71.133342,CR-zone-1A,,,,0,place-NHRML-0055,2,Medford,,,2
-place-NHRML-0055-1,place-NHRML-0055-1,platform 1,,,,42.421776,-71.133342,CR-zone-1A,,,,0,place-NHRML-0055,2,Medford,,,2
-place-mvbcl,place-mvbcl,Maverick,,,,42.369119,-71.03953,,,,,1,,1,Boston,,,
-70045,70045,Maverick,,,,42.369119,-71.03953,,,,level_-1_platform,0,place-mvbcl,1,Boston,,,1
-70046,70046,Maverick,,,,42.369119,-71.03953,,,,level_-1_platform,0,place-mvbcl,1,Boston,,,1
-place-brico,place-brico,Packards Corner,,,,42.351967,-71.125031,,,,,1,,2,Boston,,,
-70134,70134,Packards Corner,,,,42.351891,-71.125067,,,,level_median,0,place-brico,2,Boston,,,0
-70135,70135,Packards Corner,,,,42.351651,-71.12551,,,,level_median,0,place-brico,2,Boston,,,0
+place-kntst,place-kntst,Kent Street,,,,42.344074,-71.114197,,,,,1,,2,Brookline,,,
+70215,70215,Kent Street,,,,42.344117,-71.114097,,,,level_median,0,place-kntst,2,Brookline,,,0
+70216,70216,Kent Street,,,,42.343927,-71.114569,,,,level_median,0,place-kntst,2,Brookline,,,0
+place-GRB-0118,place-GRB-0118,Weymouth Landing/East Braintree,,,,42.221503,-70.968152,CR-zone-2,,,,1,,1,Weymouth,,,
+place-GRB-0118-0,place-GRB-0118-0,platform 0,,,,42.221503,-70.968152,CR-zone-2,,,,0,place-GRB-0118,1,Weymouth,,,2
+place-GRB-0118-1,place-GRB-0118-1,platform 1,,,,42.221503,-70.968152,CR-zone-2,,,,0,place-GRB-0118,1,Weymouth,,,2
+place-kingston-jct,place-kingston-jct,Kingston Junction,,,,0,0,,,,,1,,1,Kingston,,,
+place-kingston-jct-0,place-kingston-jct-0,platform 0,,,,0,0,,,,,0,place-kingston-jct,1,Kingston,,,2
+place-kingston-jct-1,place-kingston-jct-1,platform 1,,,,0,0,,,,,0,place-kingston-jct,1,Kingston,,,2
+place-bmmnl,place-bmmnl,Beachmont,,,,42.397542,-70.992319,,,,,1,,1,Revere,,,
+70055,70055,Beachmont,,,,42.397542,-70.992319,,,,level_1_platform,0,place-bmmnl,1,Revere,,,1
+70056,70056,Beachmont,,,,42.397542,-70.992319,,,,level_1_platform,0,place-bmmnl,1,Revere,,,1
+place-chels,place-chels,Chelsea,,,,42.397071,-71.042102,,,,,1,,1,Chelsea,,,
+place-nqncy,place-nqncy,North Quincy,,,,42.275275,-71.029583,,,,,1,,1,Quincy,,,
+70097,70097,North Quincy,,,,42.275275,-71.029583,,,,level_0_platform,0,place-nqncy,1,Quincy,,,1
+70098,70098,North Quincy,,,,42.275275,-71.029583,,,,level_0_platform,0,place-nqncy,1,Quincy,,,1
+place-wrnst,place-wrnst,Warren Street,,,,42.348343,-71.140457,,,,,1,,2,Boston,,,
+70124,70124,Warren Street,,,,42.348285,-71.140436,,,,level_median,0,place-wrnst,2,Boston,,,0
+70125,70125,Warren Street,,,,42.348819,-71.140051,,,,level_median,0,place-wrnst,2,Boston,,,0
+place-mispk,place-mispk,Mission Park,,,,42.333195,-71.109756,,,,,1,,2,Boston,,,
+70253,70253,Mission Park,,,,42.333279,-71.109276,,,,level_in_street,0,place-mispk,2,Boston,,,0
+70254,70254,Mission Park,,,,42.333092,-71.10968,,,,level_in_street,0,place-mispk,2,Boston,,,0
+place-harsq,place-harsq,Harvard,,,,42.373362,-71.118956,,,,,1,,1,Cambridge,,,
+70067,70067,Harvard,,,,42.373362,-71.118956,,,,level_-2_southbound_platform,0,place-harsq,1,Cambridge,,,1
+70068,70068,Harvard,,,,42.373362,-71.118956,,,,level_-1_alewife_platform,0,place-harsq,1,Cambridge,,,1
+place-wascm,place-wascm,Washington Street,,,,42.343864,-71.142853,,,,,1,,1,Boston,,,
+70120,70120,Washington Street,,,,42.344329,-71.142385,,,,level_median,0,place-wascm,1,Boston,,,0
+70121,70121,Washington Street,,,,42.343974,-71.142731,,,,level_median,0,place-wascm,1,Boston,,,0
+place-WML-0035,place-WML-0035,Boston Landing,,,,42.357293,-71.139883,CR-zone-1A,,,,1,,1,Boston,,,
+place-WML-0035-0,place-WML-0035-0,platform 0,,,,42.357293,-71.139883,CR-zone-1A,,,,0,place-WML-0035,1,Boston,,,2
+place-WML-0035-1,place-WML-0035-1,platform 1,,,,42.357293,-71.139883,CR-zone-1A,,,,0,place-WML-0035,1,Boston,,,2
+place-WML-0025,place-WML-0025,Lansdowne,,,,42.347581,-71.099974,CR-zone-1A,,,,1,,1,Boston,,,
+place-WML-0025-0,place-WML-0025-0,platform 0,,,,42.347581,-71.099974,CR-zone-1A,,,,0,place-WML-0025,1,Boston,,,2
+place-WML-0025-1,place-WML-0025-1,platform 1,,,,42.347581,-71.099974,CR-zone-1A,,,,0,place-WML-0025,1,Boston,,,2
+place-jaksn,place-jaksn,Jackson Square,,,,42.323132,-71.099592,,,,,1,,1,Boston,,,
+70006,70006,Jackson Square,,,,42.323132,-71.099592,,,,level_-1_platform,0,place-jaksn,1,Boston,,,1
+70007,70007,Jackson Square,,,,42.323132,-71.099592,,,,level_-1_platform,0,place-jaksn,1,Boston,,,1
+place-masta,place-masta,Massachusetts Avenue,,,,42.341512,-71.083423,,,,,1,,1,Boston,,,
+70012,70012,Massachusetts Avenue,,,,42.341512,-71.083423,,,,level_-1_platform,0,place-masta,1,Boston,,,1
+70013,70013,Massachusetts Avenue,,,,42.341512,-71.083423,,,,level_-1_platform,0,place-masta,1,Boston,,,1
+place-MM-0150,place-MM-0150,Holbrook/Randolph,,,,42.156343,-71.027371,CR-zone-3,,,,1,,1,Randolph,,,
+place-MM-0150-0,place-MM-0150-0,platform 0,,,,42.156343,-71.027371,CR-zone-3,,,,0,place-MM-0150,1,Randolph,,,2
+place-MM-0150-1,place-MM-0150-1,platform 1,,,,42.156343,-71.027371,CR-zone-3,,,,0,place-MM-0150,1,Randolph,,,2
+place-hwsst,place-hwsst,Hawes Street,,,,42.344906,-71.111145,,,,,1,,2,Brookline,,,
+70213,70213,Hawes Street,,,,42.344758,-71.111761,,,,level_median,0,place-hwsst,2,Brookline,,,0
+70214,70214,Hawes Street,,,,42.344867,-71.111157,,,,level_median,0,place-hwsst,2,Brookline,,,0
+place-DB-2258,place-DB-2258,Uphams Corner,,,,42.319125,-71.068627,CR-zone-1A,,,,1,,1,Boston,,,
+place-DB-2258-0,place-DB-2258-0,platform 0,,,,42.319125,-71.068627,CR-zone-1A,,,,0,place-DB-2258,1,Boston,,,2
+place-DB-2258-1,place-DB-2258-1,platform 1,,,,42.319125,-71.068627,CR-zone-1A,,,,0,place-DB-2258,1,Boston,,,2
+place-FR-0115,place-FR-0115,Brandeis/Roberts,,,,42.361898,-71.260065,CR-zone-2,,,,1,,1,Waltham,,,
+place-FR-0115-0,place-FR-0115-0,platform 0,,,,42.361898,-71.260065,CR-zone-2,,,,0,place-FR-0115,1,Waltham,,,2
+place-FR-0115-1,place-FR-0115-1,platform 1,,,,42.361898,-71.260065,CR-zone-2,,,,0,place-FR-0115,1,Waltham,,,2
+place-FB-0118,place-FB-0118,Dedham Corp Center,,,,42.227079,-71.174254,CR-zone-2,,,,1,,1,Dedham,,,
+place-FB-0118-0,place-FB-0118-0,platform 0,,,,42.227079,-71.174254,CR-zone-2,,,,0,place-FB-0118,1,Dedham,,,2
+place-FB-0118-1,place-FB-0118-1,platform 1,,,,42.227079,-71.174254,CR-zone-2,,,,0,place-FB-0118,1,Dedham,,,2
+place-WR-0264,place-WR-0264,Lawrence,,,,42.701806,-71.15198,CR-zone-6,,,,1,,1,Lawrence,,,
+place-WR-0264-0,place-WR-0264-0,platform 0,,,,42.701806,-71.15198,CR-zone-6,,,,0,place-WR-0264,1,Lawrence,,,2
+place-WR-0264-1,place-WR-0264-1,platform 1,,,,42.701806,-71.15198,CR-zone-6,,,,0,place-WR-0264,1,Lawrence,,,2
+place-SB-0189,place-SB-0189,Stoughton,,,,42.124084,-71.103627,CR-zone-4,,,,1,,1,Stoughton,,,
+place-SB-0189-0,place-SB-0189-0,platform 0,,,,42.124084,-71.103627,CR-zone-4,,,,0,place-SB-0189,1,Stoughton,,,2
+place-SB-0189-1,place-SB-0189-1,platform 1,,,,42.124084,-71.103627,CR-zone-4,,,,0,place-SB-0189,1,Stoughton,,,2
+place-sbmnl,place-sbmnl,Stony Brook,,,,42.317062,-71.104248,,,,,1,,1,Boston,,,
+70004,70004,Stony Brook,,,,42.317062,-71.104248,,,,level_-1_platform,0,place-sbmnl,1,Boston,,,1
+70005,70005,Stony Brook,,,,42.317062,-71.104248,,,,level_-1_platform,0,place-sbmnl,1,Boston,,,1
+place-NB-0064,place-NB-0064,Roslindale Village,,,,42.287442,-71.130283,CR-zone-1,,,,1,,1,Boston,,,
+place-NB-0064-0,place-NB-0064-0,platform 0,,,,42.287442,-71.130283,CR-zone-1,,,,0,place-NB-0064,1,Boston,,,2
+place-NB-0064-1,place-NB-0064-1,platform 1,,,,42.287442,-71.130283,CR-zone-1,,,,0,place-NB-0064,1,Boston,,,2
+place-rr-river-street,place-rr-river-street,River Street,,,,42.2637601,-71.1045547,,,,,1,,1,Boston,,,
+place-rr-river-street-0,place-rr-river-street-0,platform 0,,,,42.2637601,-71.1045547,,,,,0,place-rr-river-street,1,Boston,,,2
+place-rr-river-street-1,place-rr-river-street-1,platform 1,,,,42.2637601,-71.1045547,,,,,0,place-rr-river-street,1,Boston,,,2
+place-PB-0194,place-PB-0194,Abington,,,,42.107156,-70.934405,CR-zone-4,,,,1,,1,Abington,,,
+place-PB-0194-0,place-PB-0194-0,platform 0,,,,42.107156,-70.934405,CR-zone-4,,,,0,place-PB-0194,1,Abington,,,2
+place-PB-0194-1,place-PB-0194-1,platform 1,,,,42.107156,-70.934405,CR-zone-4,,,,0,place-PB-0194,1,Abington,,,2
+place-armnl,place-armnl,Arlington,,,,42.351902,-71.070893,,,,,1,,1,Boston,,,
+70156,70156,Arlington,,,,42.351902,-71.070893,,,,level_-2_platform,0,place-armnl,1,Boston,,,0
+70157,70157,Arlington,,,,42.351902,-71.070893,,,,level_-2_platform,0,place-armnl,1,Boston,,,0
+place-capst,place-capst,Capen Street,,,,42.267712,-71.087753,,,,,1,,1,Milton,,,
+place-alfcl,place-alfcl,Alewife,,,,42.395428,-71.142483,,,,,1,,1,Cambridge,,,
+70061,70061,Alewife,,,,42.395428,-71.142483,,,,level_-2_platform,0,place-alfcl,1,Cambridge,,,1
+place-plsgr,place-plsgr,Pleasant Street,,,,42.351521,-71.118889,,,,,1,,2,Boston,,,
+70138,70138,Pleasant Street,,,,42.351445,-71.118753,,,,level_median,0,place-plsgr,2,Boston,,,0
+70139,70139,Pleasant Street,,,,42.351566,-71.119281,,,,level_median,0,place-plsgr,2,Boston,,,0
+place-WML-0125,place-WML-0125,Wellesley Farms,,,,42.323608,-71.272288,CR-zone-3,,,,1,,2,Wellesley,,,
+place-WML-0125-0,place-WML-0125-0,platform 0,,,,42.323608,-71.272288,CR-zone-3,,,,0,place-WML-0125,2,Wellesley,,,2
+place-WML-0125-1,place-WML-0125-1,platform 1,,,,42.323608,-71.272288,CR-zone-3,,,,0,place-WML-0125,2,Wellesley,,,2
+place-FS-0049,place-FS-0049,Foxboro,,,,42.0951,-71.26151,CR-zone-4,,,,1,,1,Foxborough,,,
+Foxboro,Foxboro,Foxboro,,,,42.0951,-71.26151,CR-zone-4,,,,0,place-FS-0049,1,Foxborough,,,2
+place-grnst,place-grnst,Green Street,,,,42.310525,-71.107414,,,,,1,,1,Boston,,,
+70002,70002,Green Street,,,,42.310525,-71.107414,,,,level_-1_platform,0,place-grnst,1,Boston,,,1
+70003,70003,Green Street,,,,42.310525,-71.107414,,,,level_-1_platform,0,place-grnst,1,Boston,,,1
+place-CM-0564,place-CM-0564,Bourne,,,,41.746497,-70.588772,CF-zone-buzzards,,,,1,,1,Bourne,,,
+place-qamnl,place-qamnl,Quincy Adams,,,,42.233391,-71.007153,,,,,1,,1,Quincy,,,
+70103,70103,Quincy Adams,,,,42.233391,-71.007153,,,,level_1_platform,0,place-qamnl,1,Quincy,,,1
+70104,70104,Quincy Adams,,,,42.233391,-71.007153,,,,level_1_platform,0,place-qamnl,1,Quincy,,,1
+place-NHRML-0152,place-NHRML-0152,Wilmington,,,,42.546624,-71.174334,CR-zone-3,,,,1,,1,Wilmington,,,
+place-NHRML-0152-0,place-NHRML-0152-0,platform 0,,,,42.546624,-71.174334,CR-zone-3,,,,0,place-NHRML-0152,1,Wilmington,,,2
+place-NHRML-0152-1,place-NHRML-0152-1,platform 1,,,,42.546624,-71.174334,CR-zone-3,,,,0,place-NHRML-0152,1,Wilmington,,,2
+place-NB-0080,place-NB-0080,West Roxbury,,,,42.281358,-71.160065,CR-zone-1,,,,1,,1,Boston,,,
+place-NB-0080-0,place-NB-0080-0,platform 0,,,,42.281358,-71.160065,CR-zone-1,,,,0,place-NB-0080,1,Boston,,,2
+place-NB-0080-1,place-NB-0080-1,platform 1,,,,42.281358,-71.160065,CR-zone-1,,,,0,place-NB-0080,1,Boston,,,2
+place-PB-0281,place-PB-0281,Halifax,,,,42.014739,-70.824263,CR-zone-7,,,,1,,1,Halifax,,,
+place-PB-0281-0,place-PB-0281-0,platform 0,,,,42.014739,-70.824263,CR-zone-7,,,,0,place-PB-0281,1,Halifax,,,2
+place-PB-0281-1,place-PB-0281-1,platform 1,,,,42.014739,-70.824263,CR-zone-7,,,,0,place-PB-0281,1,Halifax,,,2
+place-NHRML-0127,place-NHRML-0127,Anderson/Woburn,,,,42.516987,-71.144475,CR-zone-2,,,,1,,1,Woburn,,,
+place-NHRML-0127-0,place-NHRML-0127-0,platform 0,,,,42.516987,-71.144475,CR-zone-2,,,,0,place-NHRML-0127,1,Woburn,,,2
+place-NHRML-0127-1,place-NHRML-0127-1,platform 1,,,,42.516987,-71.144475,CR-zone-2,,,,0,place-NHRML-0127,1,Woburn,,,2
+place-NB-0072,place-NB-0072,Bellevue,,,,42.286588,-71.145557,CR-zone-1,,,,1,,1,Boston,,,
+place-NB-0072-0,place-NB-0072-0,platform 0,,,,42.286588,-71.145557,CR-zone-1,,,,0,place-NB-0072,1,Boston,,,2
+place-NB-0072-1,place-NB-0072-1,platform 1,,,,42.286588,-71.145557,CR-zone-1,,,,0,place-NB-0072,1,Boston,,,2
+place-chncl,place-chncl,Chinatown,,,,42.352547,-71.062752,,,,,1,,1,Boston,,,
+70018,70018,Chinatown,,,,42.352547,-71.062752,,,,level_-1_platform,0,place-chncl,1,Boston,,,1
+70019,70019,Chinatown,,,,42.352547,-71.062752,,,,level_-1_platform,0,place-chncl,1,Boston,,,1
+place-fenwy,place-fenwy,Fenway,,,,42.345394,-71.104187,,,,,1,,1,Boston,,,
+70186,70186,Fenway,,,,42.345362,-71.104162,,,,level_ground,0,place-fenwy,1,Boston,,,0
+70187,70187,Fenway,,,,42.345395,-71.10419,,,,level_ground,0,place-fenwy,1,Boston,,,0
+place-rr-west-station,place-rr-west-station,West Station,,,,0,0,,,,,1,,1,Boston,,,
+place-rr-west-station-0,place-rr-west-station-0,platform 0,,,,0,0,,,,,0,place-rr-west-station,1,Boston,,,2
+place-rr-west-station-1,place-rr-west-station-1,platform 1,,,,0,0,,,,,0,place-rr-west-station,1,Boston,,,2
+place-GRB-0233,place-GRB-0233,North Scituate,,,,42.219528,-70.788602,CR-zone-5,,,,1,,1,Scituate,,,
+place-GRB-0233-0,place-GRB-0233-0,platform 0,,,,42.219528,-70.788602,CR-zone-5,,,,0,place-GRB-0233,1,Scituate,,,2
+place-GRB-0233-1,place-GRB-0233-1,platform 1,,,,42.219528,-70.788602,CR-zone-5,,,,0,place-GRB-0233,1,Scituate,,,2
+place-longw,place-longw,Longwood,,,,42.341145,-71.110451,,,,,1,,1,Brookline,,,
+70182,70182,Longwood,,,,42.341123,-71.110393,,,,level_ground,0,place-longw,1,Brookline,,,0
+70183,70183,Longwood,,,,42.341143,-71.110447,,,,level_ground,0,place-longw,1,Brookline,,,0
 place-north,place-north,North Station,,,,42.365577,-71.06129,CR-zone-1A,,,,1,,1,Boston,,,
 place-north-0,place-north-0,platform 0,,,,42.365577,-71.06129,CR-zone-1A,,,,0,place-north,1,Boston,,,2
 place-north-1,place-north-1,platform 1,,,,42.365577,-71.06129,CR-zone-1A,,,,0,place-north,1,Boston,,,2
@@ -277,150 +179,293 @@ place-north-1,place-north-1,platform 1,,,,42.365577,-71.06129,CR-zone-1A,,,,0,pl
 70027,70027,North Station,,,,42.365577,-71.06129,,,,level_-2_low_platform,0,place-north,1,Boston,,,1
 70205,70205,North Station,,,,42.365577,-71.06129,,,,level_-1_lechmere_platform,0,place-north,1,Boston,,,0
 70206,70206,North Station,,,,42.365577,-71.06129,,,,level_-2_low_platform,0,place-north,1,Boston,,,0
-place-NEC-1919,place-NEC-1919,South Attleboro,,,,41.897943,-71.354621,CR-zone-7,,,,1,,1,Attleboro,,,
-place-NEC-1919-0,place-NEC-1919-0,platform 0,,,,41.897943,-71.354621,CR-zone-7,,,,0,place-NEC-1919,1,Attleboro,,,2
-place-NEC-1919-1,place-NEC-1919-1,platform 1,,,,41.897943,-71.354621,CR-zone-7,,,,0,place-NEC-1919,1,Attleboro,,,2
-place-SB-0156,place-SB-0156,Canton Center,,,,42.157095,-71.14628,CR-zone-3,,,,1,,1,Canton,,,
-place-SB-0156-0,place-SB-0156-0,platform 0,,,,42.157095,-71.14628,CR-zone-3,,,,0,place-SB-0156,1,Canton,,,2
-place-SB-0156-1,place-SB-0156-1,platform 1,,,,42.157095,-71.14628,CR-zone-3,,,,0,place-SB-0156,1,Canton,,,2
-place-WR-0264,place-WR-0264,Lawrence,,,,42.701806,-71.15198,CR-zone-6,,,,1,,1,Lawrence,,,
-place-WR-0264-0,place-WR-0264-0,platform 0,,,,42.701806,-71.15198,CR-zone-6,,,,0,place-WR-0264,1,Lawrence,,,2
-place-WR-0264-1,place-WR-0264-1,platform 1,,,,42.701806,-71.15198,CR-zone-6,,,,0,place-WR-0264,1,Lawrence,,,2
-place-FR-0361,place-FR-0361,Ayer,,,,42.559074,-71.588476,CR-zone-8,,,,1,,2,Ayer,,,
-place-FR-0361-0,place-FR-0361-0,platform 0,,,,42.559074,-71.588476,CR-zone-8,,,,0,place-FR-0361,2,Ayer,,,2
-place-FR-0361-1,place-FR-0361-1,platform 1,,,,42.559074,-71.588476,CR-zone-8,,,,0,place-FR-0361,2,Ayer,,,2
-place-longw,place-longw,Longwood,,,,42.341145,-71.110451,,,,,1,,1,Brookline,,,
-70182,70182,Longwood,,,,42.341123,-71.110393,,,,level_ground,0,place-longw,1,Brookline,,,0
-70183,70183,Longwood,,,,42.341143,-71.110447,,,,level_ground,0,place-longw,1,Brookline,,,0
-place-engav,place-engav,Englewood Avenue,,,,42.336971,-71.14566,,,,,1,,2,Brookline,,,
-70235,70235,Englewood Avenue,,,,42.336964,-71.145867,,,,level_median,0,place-engav,2,Brookline,,,0
-70236,70236,Englewood Avenue,,,,42.337011,-71.145368,,,,level_median,0,place-engav,2,Brookline,,,0
-place-prmnl,place-prmnl,Prudential,,,,42.34557,-71.081696,,,,,1,,1,Boston,,,
-70239,70239,Prudential,,,,42.34557,-71.081696,,,,level_-2_platform,0,place-prmnl,1,Boston,,,0
-70240,70240,Prudential,,,,42.34557,-71.081696,,,,level_-2_platform,0,place-prmnl,1,Boston,,,0
-place-sthld,place-sthld,Sutherland Road,,,,42.341614,-71.146202,,,,,1,,2,Boston,,,
-70116,70116,Sutherland Road,,,,42.341589,-71.146089,,,,level_median,0,place-sthld,2,Boston,,,0
-70117,70117,Sutherland Road,,,,42.341577,-71.146607,,,,level_median,0,place-sthld,2,Boston,,,0
-place-sumav,place-sumav,Summit Avenue,,,,42.34111,-71.12561,,,,,1,,2,Brookline,,,
-70223,70223,Summit Avenue,,,,42.34112,-71.125652,,,,level_median,0,place-sumav,2,Brookline,,,0
-70224,70224,Summit Avenue,,,,42.341027,-71.125759,,,,level_median,0,place-sumav,2,Brookline,,,0
-place-sdmnl,place-sdmnl,Suffolk Downs,,,,42.390501,-70.997123,,,,,1,,1,Boston,,,
-70053,70053,Suffolk Downs,,,,42.390501,-70.997123,,,,level_0_platform,0,place-sdmnl,1,Boston,,,1
-70054,70054,Suffolk Downs,,,,42.390501,-70.997123,,,,level_0_platform,0,place-sdmnl,1,Boston,,,1
-place-rr-newton-corner,place-rr-newton-corner,Newton Corner,,,,0,0,,,,,1,,1,Newton,,,
-place-rr-newton-corner-0,place-rr-newton-corner-0,platform 0,,,,0,0,,,,,0,place-rr-newton-corner,1,Newton,,,2
-place-rr-newton-corner-1,place-rr-newton-corner-1,platform 1,,,,0,0,,,,,0,place-rr-newton-corner,1,Newton,,,2
-place-MM-0150,place-MM-0150,Holbrook/Randolph,,,,42.156343,-71.027371,CR-zone-3,,,,1,,1,Randolph,,,
-place-MM-0150-0,place-MM-0150-0,platform 0,,,,42.156343,-71.027371,CR-zone-3,,,,0,place-MM-0150,1,Randolph,,,2
-place-MM-0150-1,place-MM-0150-1,platform 1,,,,42.156343,-71.027371,CR-zone-3,,,,0,place-MM-0150,1,Randolph,,,2
-place-fenwd,place-fenwd,Fenwood Road,,,,42.333706,-71.105728,,,,,1,,2,Boston,,,
-70251,70251,Fenwood Road,,,,42.33374,-71.105721,,,,level_in_street,0,place-fenwd,2,Boston,,,0
-70252,70252,Fenwood Road,,,,42.333706,-71.105583,,,,level_in_street,0,place-fenwd,2,Boston,,,0
-place-sstat,place-sstat,South Station,,,,42.352271,-71.055242,CR-zone-1A,,,,1,,1,Boston,,,
-place-sstat-0,place-sstat-0,platform 0,,,,42.352271,-71.055242,CR-zone-1A,,,,0,place-sstat,1,Boston,,,2
-place-sstat-1,place-sstat-1,platform 1,,,,42.352271,-71.055242,CR-zone-1A,,,,0,place-sstat,1,Boston,,,2
-70079,70079,South Station,,,,42.352271,-71.055242,,,,level_-3_red_platform,0,place-sstat,1,Boston,,,1
-70080,70080,South Station,,,,42.352271,-71.055242,,,,level_-3_red_platform,0,place-sstat,1,Boston,,,1
-place-grigg,place-grigg,Griggs Street,,,,42.348545,-71.134949,,,,,1,,2,Boston,,,
-70128,70128,Griggs Street,,,,42.348747,-71.1345,,,,level_median,0,place-grigg,2,Boston,,,0
-70129,70129,Griggs Street,,,,42.348919,-71.134305,,,,level_median,0,place-grigg,2,Boston,,,0
-place-GRB-0162,place-GRB-0162,West Hingham,,,,42.235838,-70.902708,CR-zone-3,,,,1,,1,Hingham,,,
-place-GRB-0162-0,place-GRB-0162-0,platform 0,,,,42.235838,-70.902708,CR-zone-3,,,,0,place-GRB-0162,1,Hingham,,,2
-place-GRB-0162-1,place-GRB-0162-1,platform 1,,,,42.235838,-70.902708,CR-zone-3,,,,0,place-GRB-0162,1,Hingham,,,2
-place-MM-0356,place-MM-0356,Middleborough/Lakeville,,,,41.87821,-70.918444,CR-zone-8,,,,1,,1,Lakeville,,,
-place-MM-0356-0,place-MM-0356-0,platform 0,,,,41.87821,-70.918444,CR-zone-8,,,,0,place-MM-0356,1,Lakeville,,,2
-place-MM-0356-1,place-MM-0356-1,platform 1,,,,41.87821,-70.918444,CR-zone-8,,,,0,place-MM-0356,1,Lakeville,,,2
-place-GB-0222,place-GB-0222,Prides Crossing,,,,42.559446,-70.825541,CR-zone-5,,,,1,,2,Beverly,,,
-place-GB-0222-0,place-GB-0222-0,platform 0,,,,42.559446,-70.825541,CR-zone-5,,,,0,place-GB-0222,2,Beverly,,,2
-place-GB-0222-1,place-GB-0222-1,platform 1,,,,42.559446,-70.825541,CR-zone-5,,,,0,place-GB-0222,2,Beverly,,,2
-place-WML-0214,place-WML-0214,Framingham,,,,42.276108,-71.420055,CR-zone-5,,,,1,,1,Framingham,,,
-place-WML-0214-0,place-WML-0214-0,platform 0,,,,42.276108,-71.420055,CR-zone-5,,,,0,place-WML-0214,1,Framingham,,,2
-place-WML-0214-1,place-WML-0214-1,platform 1,,,,42.276108,-71.420055,CR-zone-5,,,,0,place-WML-0214,1,Framingham,,,2
-place-mispk,place-mispk,Mission Park,,,,42.333195,-71.109756,,,,,1,,2,Boston,,,
-70253,70253,Mission Park,,,,42.333279,-71.109276,,,,level_in_street,0,place-mispk,2,Boston,,,0
-70254,70254,Mission Park,,,,42.333092,-71.10968,,,,level_in_street,0,place-mispk,2,Boston,,,0
-place-CM-0493,place-CM-0493,Wareham Village,,,,41.758333,-70.714722,CF-zone-buzzards,,,,1,,1,Wareham,,,
-place-NHRML-0254,place-NHRML-0254,Lowell,,,,42.63535,-71.314543,CR-zone-6,,,,1,,1,Lowell,,,
-place-NHRML-0254-0,place-NHRML-0254-0,platform 0,,,,42.63535,-71.314543,CR-zone-6,,,,0,place-NHRML-0254,1,Lowell,,,2
-place-NHRML-0254-1,place-NHRML-0254-1,platform 1,,,,42.63535,-71.314543,CR-zone-6,,,,0,place-NHRML-0254,1,Lowell,,,2
-place-KB-0351,place-KB-0351,Kingston,,,,41.97762,-70.721709,CR-zone-8,,,,1,,1,Kingston,,,
-Kingston,Kingston,Kingston,,,,41.97762,-70.721709,CR-zone-8,,,,0,place-KB-0351,1,Kingston,,,2
-place-FR-0394,place-FR-0394,Shirley,,,,42.545089,-71.648004,CR-zone-8,,,,1,,2,Shirley,,,
-place-FR-0394-0,place-FR-0394-0,platform 0,,,,42.545089,-71.648004,CR-zone-8,,,,0,place-FR-0394,2,Shirley,,,2
-place-FR-0394-1,place-FR-0394-1,platform 1,,,,42.545089,-71.648004,CR-zone-8,,,,0,place-FR-0394,2,Shirley,,,2
-place-PB-0194,place-PB-0194,Abington,,,,42.107156,-70.934405,CR-zone-4,,,,1,,1,Abington,,,
-place-PB-0194-0,place-PB-0194-0,platform 0,,,,42.107156,-70.934405,CR-zone-4,,,,0,place-PB-0194,1,Abington,,,2
-place-PB-0194-1,place-PB-0194-1,platform 1,,,,42.107156,-70.934405,CR-zone-4,,,,0,place-PB-0194,1,Abington,,,2
-place-capst,place-capst,Capen Street,,,,42.267712,-71.087753,,,,,1,,1,Milton,,,
-place-bmmnl,place-bmmnl,Beachmont,,,,42.397542,-70.992319,,,,,1,,1,Revere,,,
-70055,70055,Beachmont,,,,42.397542,-70.992319,,,,level_1_platform,0,place-bmmnl,1,Revere,,,1
-70056,70056,Beachmont,,,,42.397542,-70.992319,,,,level_1_platform,0,place-bmmnl,1,Revere,,,1
-place-rr-weymouth-col-sq,place-rr-weymouth-col-sq,Weymouth Columbian Square,,,,0,0,,,,,1,,1,Weymouth,,,
-place-rr-weymouth-col-sq-0,place-rr-weymouth-col-sq-0,platform 0,,,,0,0,,,,,0,place-rr-weymouth-col-sq,1,Weymouth,,,2
-place-rr-weymouth-col-sq-1,place-rr-weymouth-col-sq-1,platform 1,,,,0,0,,,,,0,place-rr-weymouth-col-sq,1,Weymouth,,,2
+place-jfk,place-jfk,JFK/UMass,,,,42.320685,-71.052391,CR-zone-1A,,,,1,,1,Boston,,,
+place-jfk-0,place-jfk-0,platform 0,,,,42.320685,-71.052391,CR-zone-1A,,,,0,place-jfk,1,Boston,,,2
+place-jfk-1,place-jfk-1,platform 1,,,,42.320685,-71.052391,CR-zone-1A,,,,0,place-jfk,1,Boston,,,2
+70085,70085,JFK/UMass,,,,42.320685,-71.052391,,,,level_0_red_platform,0,place-jfk,1,Boston,,,1
+70086,70086,JFK/UMass,,,,42.320685,-71.052391,,,,level_0_red_platform,0,place-jfk,1,Boston,,,1
+70095,70095,JFK/UMass,,,,42.320685,-71.052391,,,,level_0_red_platform,0,place-jfk,1,Boston,,,1
+70096,70096,JFK/UMass,,,,42.320685,-71.052391,,,,level_0_red_platform,0,place-jfk,1,Boston,,,1
+place-FR-0074,place-FR-0074,Waverley,,,,42.3876,-71.190744,CR-zone-1,,,,1,,2,Belmont,,,
+place-FR-0074-0,place-FR-0074-0,platform 0,,,,42.3876,-71.190744,CR-zone-1,,,,0,place-FR-0074,2,Belmont,,,2
+place-FR-0074-1,place-FR-0074-1,platform 1,,,,42.3876,-71.190744,CR-zone-1,,,,0,place-FR-0074,2,Belmont,,,2
 place-rbmnl,place-rbmnl,Revere Beach,,,,42.407843,-70.992533,,,,,1,,1,Revere,,,
 70057,70057,Revere Beach,,,,42.407843,-70.992533,,,,level_-1_platform,0,place-rbmnl,1,Revere,,,1
 70058,70058,Revere Beach,,,,42.407843,-70.992533,,,,level_-1_platform,0,place-rbmnl,1,Revere,,,1
-place-FB-0109,place-FB-0109,Endicott,,,,42.233249,-71.158647,CR-zone-2,,,,1,,2,Dedham,,,
-place-FB-0109-0,place-FB-0109-0,platform 0,,,,42.233249,-71.158647,CR-zone-2,,,,0,place-FB-0109,2,Dedham,,,2
-place-FB-0109-1,place-FB-0109-1,platform 1,,,,42.233249,-71.158647,CR-zone-2,,,,0,place-FB-0109,2,Dedham,,,2
-place-sougr,place-sougr,South Street,,,,42.3396,-71.157661,,,,,1,,2,Boston,,,
-70110,70110,South Street,,,,42.339371,-71.157057,,,,level_median,0,place-sougr,2,Boston,,,0
-70111,70111,South Street,,,,42.339581,-71.157499,,,,level_median,0,place-sougr,2,Boston,,,0
-place-buwst,place-buwst,Boston University West,,,,42.350941,-71.113876,,,,,1,,2,Boston,,,
-70142,70142,Boston University West,,,,42.350765,-71.113133,,,,level_median,0,place-buwst,2,Boston,,,0
-70143,70143,Boston University West,,,,42.350894,-71.113645,,,,level_median,0,place-buwst,2,Boston,,,0
-place-WR-0099,place-WR-0099,Wakefield,,,,42.502126,-71.075566,CR-zone-2,,,,1,,2,Wakefield,,,
-place-WR-0099-0,place-WR-0099-0,platform 0,,,,42.502126,-71.075566,CR-zone-2,,,,0,place-WR-0099,2,Wakefield,,,2
-place-WR-0099-1,place-WR-0099-1,platform 1,,,,42.502126,-71.075566,CR-zone-2,,,,0,place-WR-0099,2,Wakefield,,,2
-place-welln,place-welln,Wellington,,,,42.40237,-71.077082,,,,,1,,1,Medford,,,
-70032,70032,Wellington,,,,42.40237,-71.077082,,,,level_-0.5_platform,0,place-welln,1,Medford,,,1
-70033,70033,Wellington,,,,42.40237,-71.077082,,,,level_-0.5_platform,0,place-welln,1,Medford,,,1
-place-NEC-1851,place-NEC-1851,Providence,,,,41.829293,-71.413301,CR-zone-8,,,,1,,1,Providence,,,
-place-NEC-1851-0,place-NEC-1851-0,platform 0,,,,41.829293,-71.413301,CR-zone-8,,,,0,place-NEC-1851,1,Providence,,,2
-place-NEC-1851-1,place-NEC-1851-1,platform 1,,,,41.829293,-71.413301,CR-zone-8,,,,0,place-NEC-1851,1,Providence,,,2
-place-FR-0219,place-FR-0219,West Concord,,,,42.457043,-71.392892,CR-zone-5,,,,1,,1,Concord,,,
-place-FR-0219-0,place-FR-0219-0,platform 0,,,,42.457043,-71.392892,CR-zone-5,,,,0,place-FR-0219,1,Concord,,,2
-place-FR-0219-1,place-FR-0219-1,platform 1,,,,42.457043,-71.392892,CR-zone-5,,,,0,place-FR-0219,1,Concord,,,2
-place-WML-0340,place-WML-0340,Westborough,,,,42.269644,-71.647076,CR-zone-7,,,,1,,1,Westborough,,,
-place-WML-0340-0,place-WML-0340-0,platform 0,,,,42.269644,-71.647076,CR-zone-7,,,,0,place-WML-0340,1,Westborough,,,2
-place-WML-0340-1,place-WML-0340-1,platform 1,,,,42.269644,-71.647076,CR-zone-7,,,,0,place-WML-0340,1,Westborough,,,2
-place-chels,place-chels,Chelsea,,,,42.397071,-71.042102,,,,,1,,1,Chelsea,,,
-place-chncl,place-chncl,Chinatown,,,,42.352547,-71.062752,,,,,1,,1,Boston,,,
-70018,70018,Chinatown,,,,42.352547,-71.062752,,,,level_-1_platform,0,place-chncl,1,Boston,,,1
-70019,70019,Chinatown,,,,42.352547,-71.062752,,,,level_-1_platform,0,place-chncl,1,Boston,,,1
-place-DB-2265,place-DB-2265,Newmarket,,,,42.327415,-71.065674,CR-zone-1A,,,,1,,1,Boston,,,
-place-DB-2265-0,place-DB-2265-0,platform 0,,,,42.327415,-71.065674,CR-zone-1A,,,,0,place-DB-2265,1,Boston,,,2
-place-DB-2265-1,place-DB-2265-1,platform 1,,,,42.327415,-71.065674,CR-zone-1A,,,,0,place-DB-2265,1,Boston,,,2
-place-FR-0098,place-FR-0098,Waltham,,,,42.374269,-71.235598,CR-zone-2,,,,1,,1,Waltham,,,
-place-FR-0098-0,place-FR-0098-0,platform 0,,,,42.374269,-71.235598,CR-zone-2,,,,0,place-FR-0098,1,Waltham,,,2
-place-FR-0098-1,place-FR-0098-1,platform 1,,,,42.374269,-71.235598,CR-zone-2,,,,0,place-FR-0098,1,Waltham,,,2
-place-WR-0075,place-WR-0075,Melrose Highlands,,,,42.469464,-71.068297,CR-zone-1,,,,1,,1,Melrose,,,
-place-WR-0075-0,place-WR-0075-0,platform 0,,,,42.469464,-71.068297,CR-zone-1,,,,0,place-WR-0075,1,Melrose,,,2
-place-WR-0075-1,place-WR-0075-1,platform 1,,,,42.469464,-71.068297,CR-zone-1,,,,0,place-WR-0075,1,Melrose,,,2
-place-cntsq,place-cntsq,Central,,,,42.365486,-71.103802,,,,,1,,1,Cambridge,,,
-70069,70069,Central,,,,42.365304,-71.103621,,,,level_-1_platform,0,place-cntsq,1,Cambridge,,,1
-70070,70070,Central,,,,42.365379,-71.103554,,,,level_-1_platform,0,place-cntsq,1,Cambridge,,,1
-place-wimnl,place-wimnl,Wood Island,,,,42.37964,-71.022865,,,,,1,,1,Boston,,,
-70049,70049,Wood Island,,,,42.37964,-71.022865,,,,level_0_platform,0,place-wimnl,1,Boston,,,1
-70050,70050,Wood Island,,,,42.37964,-71.022865,,,,level_0_platform,0,place-wimnl,1,Boston,,,1
-place-boyls,place-boyls,Boylston,,,,42.35302,-71.06459,,,,,1,,2,Boston,,,
-70158,70158,Boylston,,,,42.352531,-71.064682,,,,level_-1_platform,0,place-boyls,2,Boston,,,0
-70159,70159,Boylston,,,,42.353214,-71.064545,,,,level_-1_platform,0,place-boyls,2,Boston,,,0
-place-DB-2240,place-DB-2240,Talbot Avenue,,,,42.292246,-71.07814,CR-zone-1A,,,,1,,1,Boston,,,
-place-DB-2240-0,place-DB-2240-0,platform 0,,,,42.292246,-71.07814,CR-zone-1A,,,,0,place-DB-2240,1,Boston,,,2
-place-DB-2240-1,place-DB-2240-1,platform 1,,,,42.292246,-71.07814,CR-zone-1A,,,,0,place-DB-2240,1,Boston,,,2
-place-NEC-1659,place-NEC-1659,Wickford Junction,,,,41.581289,-71.491147,CR-zone-10,,,,1,,1,North Kingstown,,,
-place-NEC-1659-0,place-NEC-1659-0,platform 0,,,,41.581289,-71.491147,CR-zone-10,,,,0,place-NEC-1659,1,North Kingstown,,,2
-place-NEC-1659-1,place-NEC-1659-1,platform 1,,,,41.581289,-71.491147,CR-zone-10,,,,0,place-NEC-1659,1,North Kingstown,,,2
-place-boxdt,place-boxdt,Box District,,,,42.394049,-71.028365,,,,,1,,1,Chelsea,,,
+place-plymouth-center,place-plymouth-center,Plymouth Center,,,,0,0,,,,,1,,1,Plymouth,,,
+place-plymouth-center-0,place-plymouth-center-0,platform 0,,,,0,0,,,,,0,place-plymouth-center,1,Plymouth,,,2
+place-plymouth-center-1,place-plymouth-center-1,platform 1,,,,0,0,,,,,0,place-plymouth-center,1,Plymouth,,,2
+place-smmnl,place-smmnl,Shawmut,,,,42.293126,-71.065738,,,,,1,,1,Boston,,,
+70091,70091,Shawmut,,,,42.293126,-71.065738,,,,level_-1_platform,0,place-smmnl,1,Boston,,,1
+70092,70092,Shawmut,,,,42.293126,-71.065738,,,,level_-1_platform,0,place-smmnl,1,Boston,,,1
+place-NEC-2040,place-NEC-2040,Mansfield,,,,42.032787,-71.219917,CR-zone-6,,,,1,,1,Mansfield,,,
+place-NEC-2040-0,place-NEC-2040-0,platform 0,,,,42.032787,-71.219917,CR-zone-6,,,,0,place-NEC-2040,1,Mansfield,,,2
+place-NEC-2040-1,place-NEC-2040-1,platform 1,,,,42.032787,-71.219917,CR-zone-6,,,,0,place-NEC-2040,1,Mansfield,,,2
+place-DB-2249,place-DB-2249,Four Corners/Geneva,,,,42.305037,-71.076833,CR-zone-1A,,,,1,,1,Boston,,,
+place-DB-2249-0,place-DB-2249-0,platform 0,,,,42.305037,-71.076833,CR-zone-1A,,,,0,place-DB-2249,1,Boston,,,2
+place-DB-2249-1,place-DB-2249-1,platform 1,,,,42.305037,-71.076833,CR-zone-1A,,,,0,place-DB-2249,1,Boston,,,2
 place-FR-3338,place-FR-3338,Wachusett,,,,42.553477,-71.848488,CR-zone-8,,,,1,,1,Fitchburg,,,
 place-FR-3338-0,place-FR-3338-0,platform 0,,,,42.553477,-71.848488,CR-zone-8,,,,0,place-FR-3338,1,Fitchburg,,,2
 place-FR-3338-1,place-FR-3338-1,platform 1,,,,42.553477,-71.848488,CR-zone-8,,,,0,place-FR-3338,1,Fitchburg,,,2
+place-NB-0120,place-NB-0120,Needham Junction,,,,42.273187,-71.235559,CR-zone-2,,,,1,,1,Needham,,,
+place-NB-0120-0,place-NB-0120-0,platform 0,,,,42.273187,-71.235559,CR-zone-2,,,,0,place-NB-0120,1,Needham,,,2
+place-NB-0120-1,place-NB-0120-1,platform 1,,,,42.273187,-71.235559,CR-zone-2,,,,0,place-NB-0120,1,Needham,,,2
+place-FR-0147,place-FR-0147,Silver Hill,,,,42.395625,-71.302357,CR-zone-3,,,,1,,2,Weston,,,
+Silver Hill,Silver Hill,Silver Hill,,,,42.395625,-71.302357,CR-zone-3,,,,0,place-FR-0147,2,Weston,,,2
+place-NEC-2108,place-NEC-2108,Sharon,,,,42.124553,-71.184468,CR-zone-4,,,,1,,1,Sharon,,,
+place-NEC-2108-0,place-NEC-2108-0,platform 0,,,,42.124553,-71.184468,CR-zone-4,,,,0,place-NEC-2108,1,Sharon,,,2
+place-NEC-2108-1,place-NEC-2108-1,platform 1,,,,42.124553,-71.184468,CR-zone-4,,,,0,place-NEC-2108,1,Sharon,,,2
+place-GRB-0183,place-GRB-0183,Nantasket Junction,,,,42.244959,-70.869205,CR-zone-4,,,,1,,1,Hingham,,,
+place-GRB-0183-0,place-GRB-0183-0,platform 0,,,,42.244959,-70.869205,CR-zone-4,,,,0,place-GRB-0183,1,Hingham,,,2
+place-GRB-0183-1,place-GRB-0183-1,platform 1,,,,42.244959,-70.869205,CR-zone-4,,,,0,place-GRB-0183,1,Hingham,,,2
+place-GB-0254,place-GB-0254,Manchester,,,,42.573687,-70.77009,CR-zone-6,,,,1,,1,Manchester-by-the-Sea,,,
+place-GB-0254-0,place-GB-0254-0,platform 0,,,,42.573687,-70.77009,CR-zone-6,,,,0,place-GB-0254,1,Manchester-by-the-Sea,,,2
+place-GB-0254-1,place-GB-0254-1,platform 1,,,,42.573687,-70.77009,CR-zone-6,,,,0,place-GB-0254,1,Manchester-by-the-Sea,,,2
+place-WR-0120,place-WR-0120,Reading,,,,42.52221,-71.108294,CR-zone-2,,,,1,,1,Reading,,,
+place-WR-0120-0,place-WR-0120-0,platform 0,,,,42.52221,-71.108294,CR-zone-2,,,,0,place-WR-0120,1,Reading,,,2
+place-WR-0120-1,place-WR-0120-1,platform 1,,,,42.52221,-71.108294,CR-zone-2,,,,0,place-WR-0120,1,Reading,,,2
+place-rockland-n-abington,place-rockland-n-abington,Rockland-North Abington,,,,0,0,,,,,1,,1,Abington,,,
+place-rockland-n-abington-0,place-rockland-n-abington-0,platform 0,,,,0,0,,,,,0,place-rockland-n-abington,1,Abington,,,2
+place-rockland-n-abington-1,place-rockland-n-abington-1,platform 1,,,,0,0,,,,,0,place-rockland-n-abington,1,Abington,,,2
+place-WR-0163,place-WR-0163,North Wilmington,,,,42.569661,-71.159696,CR-zone-3,,,,1,,2,Wilmington,,,
+North Wilmington,North Wilmington,North Wilmington,,,,42.569661,-71.159696,CR-zone-3,,,,0,place-WR-0163,2,Wilmington,,,2
+place-butlr,place-butlr,Butler,,,,42.272343,-71.062584,,,,,1,,1,Boston,,,
+place-ccmnl,place-ccmnl,Community College,,,,42.373622,-71.069533,,,,,1,,1,Boston,,,
+70028,70028,Community College,,,,42.373622,-71.069533,,,,level_-1_platform,0,place-ccmnl,1,Boston,,,1
+70029,70029,Community College,,,,42.373622,-71.069533,,,,level_-1_platform,0,place-ccmnl,1,Boston,,,1
+place-fldcr,place-fldcr,Fields Corner,,,,42.300093,-71.061667,,,,,1,,1,Boston,,,
+70089,70089,Fields Corner,,,,42.300093,-71.061667,,,,level_1_platform,0,place-fldcr,1,Boston,,,1
+70090,70090,Fields Corner,,,,42.300093,-71.061667,,,,level_1_platform,0,place-fldcr,1,Boston,,,1
+place-hsmnl,place-hsmnl,Heath Street,,,,42.328316,-71.110252,,,,,1,,1,Boston,,,
+70260,70260,Heath Street,,,,42.328316,-71.110252,,,,level_ground,0,place-hsmnl,1,Boston,,,0
+place-NHRML-0254,place-NHRML-0254,Lowell,,,,42.63535,-71.314543,CR-zone-6,,,,1,,1,Lowell,,,
+place-NHRML-0254-0,place-NHRML-0254-0,platform 0,,,,42.63535,-71.314543,CR-zone-6,,,,0,place-NHRML-0254,1,Lowell,,,2
+place-NHRML-0254-1,place-NHRML-0254-1,platform 1,,,,42.63535,-71.314543,CR-zone-6,,,,0,place-NHRML-0254,1,Lowell,,,2
+place-sumav,place-sumav,Summit Avenue,,,,42.34111,-71.12561,,,,,1,,2,Brookline,,,
+70223,70223,Summit Avenue,,,,42.34112,-71.125652,,,,level_median,0,place-sumav,2,Brookline,,,0
+70224,70224,Summit Avenue,,,,42.341027,-71.125759,,,,level_median,0,place-sumav,2,Brookline,,,0
+place-NHRML-0218,place-NHRML-0218,North Billerica,,,,42.593248,-71.280995,CR-zone-5,,,,1,,1,Billerica,,,
+place-NHRML-0218-0,place-NHRML-0218-0,platform 0,,,,42.593248,-71.280995,CR-zone-5,,,,0,place-NHRML-0218,1,Billerica,,,2
+place-NHRML-0218-1,place-NHRML-0218-1,platform 1,,,,42.593248,-71.280995,CR-zone-5,,,,0,place-NHRML-0218,1,Billerica,,,2
+place-mlmnl,place-mlmnl,Malden Center,,,,42.426632,-71.07411,CR-zone-1A,,,,1,,1,Malden,,,
+place-mlmnl-0,place-mlmnl-0,platform 0,,,,42.426632,-71.07411,CR-zone-1A,,,,0,place-mlmnl,1,Malden,,,2
+place-mlmnl-1,place-mlmnl-1,platform 1,,,,42.426632,-71.07411,CR-zone-1A,,,,0,place-mlmnl,1,Malden,,,2
+70034,70034,Malden Center,,,,42.426632,-71.07411,,,,level_1_orange_platform,0,place-mlmnl,1,Malden,,,1
+70035,70035,Malden Center,,,,42.426632,-71.07411,,,,level_1_orange_platform,0,place-mlmnl,1,Malden,,,1
+place-NEC-1969,place-NEC-1969,Attleboro,,,,41.940739,-71.285094,CR-zone-7,,,,1,,1,Attleboro,,,
+place-NEC-1969-0,place-NEC-1969-0,platform 0,,,,41.940739,-71.285094,CR-zone-7,,,,0,place-NEC-1969,1,Attleboro,,,2
+place-NEC-1969-1,place-NEC-1969-1,platform 1,,,,41.940739,-71.285094,CR-zone-7,,,,0,place-NEC-1969,1,Attleboro,,,2
+place-ER-0128,place-ER-0128,Swampscott,,,,42.473743,-70.922537,CR-zone-3,,,,1,,1,Swampscott,,,
+place-ER-0128-0,place-ER-0128-0,platform 0,,,,42.473743,-70.922537,CR-zone-3,,,,0,place-ER-0128,1,Swampscott,,,2
+place-ER-0128-1,place-ER-0128-1,platform 1,,,,42.473743,-70.922537,CR-zone-3,,,,0,place-ER-0128,1,Swampscott,,,2
+place-NEC-2139,place-NEC-2139,Canton Junction,,,,42.163204,-71.15376,CR-zone-3,,,,1,,1,Canton,,,
+place-NEC-2139-0,place-NEC-2139-0,platform 0,,,,42.163204,-71.15376,CR-zone-3,,,,0,place-NEC-2139,1,Canton,,,2
+place-NEC-2139-1,place-NEC-2139-1,platform 1,,,,42.163204,-71.15376,CR-zone-3,,,,0,place-NEC-2139,1,Canton,,,2
+place-brntn,place-brntn,Braintree,,,,42.207854,-71.001138,CR-zone-2,,,,1,,1,Braintree,,,
+place-brntn-0,place-brntn-0,platform 0,,,,42.207854,-71.001138,CR-zone-2,,,,0,place-brntn,1,Braintree,,,2
+place-brntn-1,place-brntn-1,platform 1,,,,42.207854,-71.001138,CR-zone-2,,,,0,place-brntn,1,Braintree,,,2
+70105,70105,Braintree,,,,42.208371,-71.001423,,,,level_1_red_platform,0,place-brntn,1,Braintree,,,1
+place-buwst,place-buwst,Boston University West,,,,42.350941,-71.113876,,,,,1,,2,Boston,,,
+70142,70142,Boston University West,,,,42.350765,-71.113133,,,,level_median,0,place-buwst,2,Boston,,,0
+70143,70143,Boston University West,,,,42.350894,-71.113645,,,,level_median,0,place-buwst,2,Boston,,,0
+place-WR-0062,place-WR-0062,Wyoming Hill,,,,42.451731,-71.069379,CR-zone-1,,,,1,,2,Melrose,,,
+place-WR-0062-0,place-WR-0062-0,platform 0,,,,42.451731,-71.069379,CR-zone-1,,,,0,place-WR-0062,2,Melrose,,,2
+place-WR-0062-1,place-WR-0062-1,platform 1,,,,42.451731,-71.069379,CR-zone-1,,,,0,place-WR-0062,2,Melrose,,,2
+place-bcnwa,place-bcnwa,Washington Square,,,,42.339394,-71.13533,,,,,1,,1,Brookline,,,
+70229,70229,Washington Square,,,,42.339471,-71.135139,,,,level_median,0,place-bcnwa,1,Brookline,,,0
+70230,70230,Washington Square,,,,42.339519,-71.134587,,,,level_median,0,place-bcnwa,1,Brookline,,,0
+place-rcmnl,place-rcmnl,Roxbury Crossing,,,,42.331397,-71.095451,,,,,1,,1,Boston,,,
+70008,70008,Roxbury Crossing,,,,42.331397,-71.095451,,,,level_-1_platform,0,place-rcmnl,1,Boston,,,1
+70009,70009,Roxbury Crossing,,,,42.331397,-71.095451,,,,level_-1_platform,0,place-rcmnl,1,Boston,,,1
+place-DB-2265,place-DB-2265,Newmarket,,,,42.327415,-71.065674,CR-zone-1A,,,,1,,1,Boston,,,
+place-DB-2265-0,place-DB-2265-0,platform 0,,,,42.327415,-71.065674,CR-zone-1A,,,,0,place-DB-2265,1,Boston,,,2
+place-DB-2265-1,place-DB-2265-1,platform 1,,,,42.327415,-71.065674,CR-zone-1A,,,,0,place-DB-2265,1,Boston,,,2
+place-bcnfd,place-bcnfd,Beaconsfield,,,,42.335846,-71.140823,,,,,1,,2,Brookline,,,
+70176,70176,Beaconsfield,,,,42.335809,-71.140841,,,,level_ground,0,place-bcnfd,2,Brookline,,,0
+70177,70177,Beaconsfield,,,,42.335848,-71.140826,,,,level_ground,0,place-bcnfd,2,Brookline,,,0
+place-GRB-0276,place-GRB-0276,Greenbush,,,,42.178776,-70.746641,CR-zone-6,,,,1,,1,Scituate,,,
+place-GRB-0276-0,place-GRB-0276-0,platform 0,,,,42.178776,-70.746641,CR-zone-6,,,,0,place-GRB-0276,1,Scituate,,,2
+place-GRB-0276-1,place-GRB-0276-1,platform 1,,,,42.178776,-70.746641,CR-zone-6,,,,0,place-GRB-0276,1,Scituate,,,2
+place-ER-0208,place-ER-0208,North Beverly,,,,42.583779,-70.883851,CR-zone-5,,,,1,,1,Beverly,,,
+place-ER-0208-0,place-ER-0208-0,platform 0,,,,42.583779,-70.883851,CR-zone-5,,,,0,place-ER-0208,1,Beverly,,,2
+place-ER-0208-1,place-ER-0208-1,platform 1,,,,42.583779,-70.883851,CR-zone-5,,,,0,place-ER-0208,1,Beverly,,,2
+place-orhte,place-orhte,Orient Heights,,,,42.386867,-71.004736,,,,,1,,1,Boston,,,
+70051,70051,Orient Heights,,,,42.386867,-71.004736,,,,level_0_platform,0,place-orhte,1,Boston,,,1
+70052,70052,Orient Heights,,,,42.386867,-71.004736,,,,level_0_platform,0,place-orhte,1,Boston,,,1
+place-FR-0167,place-FR-0167,Lincoln,,,,42.41342,-71.325404,CR-zone-4,,,,1,,2,Lincoln,,,
+place-FR-0167-0,place-FR-0167-0,platform 0,,,,42.41342,-71.325404,CR-zone-4,,,,0,place-FR-0167,2,Lincoln,,,2
+place-FR-0167-1,place-FR-0167-1,platform 1,,,,42.41342,-71.325404,CR-zone-4,,,,0,place-FR-0167,2,Lincoln,,,2
+place-FR-0098,place-FR-0098,Waltham,,,,42.374269,-71.235598,CR-zone-2,,,,1,,1,Waltham,,,
+place-FR-0098-0,place-FR-0098-0,platform 0,,,,42.374269,-71.235598,CR-zone-2,,,,0,place-FR-0098,1,Waltham,,,2
+place-FR-0098-1,place-FR-0098-1,platform 1,,,,42.374269,-71.235598,CR-zone-2,,,,0,place-FR-0098,1,Waltham,,,2
+place-FB-0191,place-FB-0191,Walpole,,,,42.145477,-71.25779,CR-zone-4,,,,1,,2,Walpole,,,
+place-FB-0191-0,place-FB-0191-0,platform 0,,,,42.145477,-71.25779,CR-zone-4,,,,0,place-FB-0191,2,Walpole,,,2
+place-FB-0191-1,place-FB-0191-1,platform 1,,,,42.145477,-71.25779,CR-zone-4,,,,0,place-FB-0191,2,Walpole,,,2
+place-sougr,place-sougr,South Street,,,,42.3396,-71.157661,,,,,1,,2,Boston,,,
+70110,70110,South Street,,,,42.339371,-71.157057,,,,level_median,0,place-sougr,2,Boston,,,0
+70111,70111,South Street,,,,42.339581,-71.157499,,,,level_median,0,place-sougr,2,Boston,,,0
+place-FB-0230,place-FB-0230,Norfolk,,,,42.120694,-71.325217,CR-zone-5,,,,1,,1,Norfolk,,,
+place-FB-0230-0,place-FB-0230-0,platform 0,,,,42.120694,-71.325217,CR-zone-5,,,,0,place-FB-0230,1,Norfolk,,,2
+place-FB-0230-1,place-FB-0230-1,platform 1,,,,42.120694,-71.325217,CR-zone-5,,,,0,place-FB-0230,1,Norfolk,,,2
+place-sthld,place-sthld,Sutherland Road,,,,42.341614,-71.146202,,,,,1,,2,Boston,,,
+70116,70116,Sutherland Road,,,,42.341589,-71.146089,,,,level_median,0,place-sthld,2,Boston,,,0
+70117,70117,Sutherland Road,,,,42.341577,-71.146607,,,,level_median,0,place-sthld,2,Boston,,,0
+place-tapst,place-tapst,Tappan Street,,,,42.338459,-71.138702,,,,,1,,2,Brookline,,,
+70231,70231,Tappan Street,,,,42.338498,-71.138731,,,,level_median,0,place-tapst,2,Brookline,,,0
+70232,70232,Tappan Street,,,,42.338567,-71.13819,,,,level_median,0,place-tapst,2,Brookline,,,0
+place-DB-2230,place-DB-2230,Morton Street,,,,42.280994,-71.085475,CR-zone-1A,,,,1,,1,Boston,,,
+place-DB-2230-0,place-DB-2230-0,platform 0,,,,42.280994,-71.085475,CR-zone-1A,,,,0,place-DB-2230,1,Boston,,,2
+place-DB-2230-1,place-DB-2230-1,platform 1,,,,42.280994,-71.085475,CR-zone-1A,,,,0,place-DB-2230,1,Boston,,,2
+place-CM-0493,place-CM-0493,Wareham Village,,,,41.758333,-70.714722,CF-zone-buzzards,,,,1,,1,Wareham,,,
+place-sdmnl,place-sdmnl,Suffolk Downs,,,,42.390501,-70.997123,,,,,1,,1,Boston,,,
+70053,70053,Suffolk Downs,,,,42.390501,-70.997123,,,,level_0_platform,0,place-sdmnl,1,Boston,,,1
+70054,70054,Suffolk Downs,,,,42.390501,-70.997123,,,,level_0_platform,0,place-sdmnl,1,Boston,,,1
+place-rr-pawtucket,place-rr-pawtucket,Pawtucket,,,,0,0,,,,,1,,1,"Pawtucket, RI",,,
+place-rr-pawtucket-0,place-rr-pawtucket-0,platform 0,,,,0,0,,,,,0,place-rr-pawtucket,1,"Pawtucket, RI",,,2
+place-rr-pawtucket-1,place-rr-pawtucket-1,platform 1,,,,0,0,,,,,0,place-rr-pawtucket,1,"Pawtucket, RI",,,2
+place-NEC-2203,place-NEC-2203,Hyde Park,,,,42.25503,-71.125526,CR-zone-1,,,,1,,1,Boston,,,
+place-NEC-2203-0,place-NEC-2203-0,platform 0,,,,42.25503,-71.125526,CR-zone-1,,,,0,place-NEC-2203,1,Boston,,,2
+place-NEC-2203-1,place-NEC-2203-1,platform 1,,,,42.25503,-71.125526,CR-zone-1,,,,0,place-NEC-2203,1,Boston,,,2
+place-WML-0135,place-WML-0135,Wellesley Hills,,,,42.31037,-71.277044,CR-zone-3,,,,1,,2,Wellesley,,,
+place-WML-0135-0,place-WML-0135-0,platform 0,,,,42.31037,-71.277044,CR-zone-3,,,,0,place-WML-0135,2,Wellesley,,,2
+place-WML-0135-1,place-WML-0135-1,platform 1,,,,42.31037,-71.277044,CR-zone-3,,,,0,place-WML-0135,2,Wellesley,,,2
+place-portr,place-portr,Porter,,,,42.3884,-71.119149,CR-zone-1A,,,,1,,1,Cambridge,,,
+place-portr-0,place-portr-0,platform 0,,,,42.3884,-71.119149,CR-zone-1A,,,,0,place-portr,1,Cambridge,,,2
+place-portr-1,place-portr-1,platform 1,,,,42.3884,-71.119149,CR-zone-1A,,,,0,place-portr,1,Cambridge,,,2
+70065,70065,Porter,,,,42.3884,-71.119149,,,,level_-3_southbound_platform,0,place-portr,1,Cambridge,,,1
+70066,70066,Porter,,,,42.3884,-71.119149,,,,level_-4_alewife_platform,0,place-portr,1,Cambridge,,,1
+place-fenwd,place-fenwd,Fenwood Road,,,,42.333706,-71.105728,,,,,1,,2,Boston,,,
+70251,70251,Fenwood Road,,,,42.33374,-71.105721,,,,level_in_street,0,place-fenwd,2,Boston,,,0
+70252,70252,Fenwood Road,,,,42.333706,-71.105583,,,,level_in_street,0,place-fenwd,2,Boston,,,0
+place-FR-0301,place-FR-0301,Littleton/Rte 495,,,,42.519236,-71.502643,CR-zone-7,,,,1,,1,Littleton,,,
+place-FR-0301-0,place-FR-0301-0,platform 0,,,,42.519236,-71.502643,CR-zone-7,,,,0,place-FR-0301,1,Littleton,,,2
+place-FR-0301-1,place-FR-0301-1,platform 1,,,,42.519236,-71.502643,CR-zone-7,,,,0,place-FR-0301,1,Littleton,,,2
+place-ER-0312,place-ER-0312,Rowley,,,,42.726845,-70.859034,CR-zone-7,,,,1,,1,Rowley,,,
+place-ER-0312-0,place-ER-0312-0,platform 0,,,,42.726845,-70.859034,CR-zone-7,,,,0,place-ER-0312,1,Rowley,,,2
+place-ER-0312-1,place-ER-0312-1,platform 1,,,,42.726845,-70.859034,CR-zone-7,,,,0,place-ER-0312,1,Rowley,,,2
+place-brmnl,place-brmnl,Brigham Circle,,,,42.334229,-71.104609,,,,,1,,1,Boston,,,
+70249,70249,Brigham Circle,,,,42.334331,-71.104487,,,,level_median,0,place-brmnl,1,Boston,,,0
+70250,70250,Brigham Circle,,,,42.334846,-71.103017,,,,level_median,0,place-brmnl,1,Boston,,,0
+place-rr-braintree-highlands,place-rr-braintree-highlands,Braintree Highlands,,,,0,0,,,,,1,,1,Braintree,,,
+place-rr-braintree-highlands-0,place-rr-braintree-highlands-0,platform 0,,,,0,0,,,,,0,place-rr-braintree-highlands,1,Braintree,,,2
+place-rr-braintree-highlands-1,place-rr-braintree-highlands-1,platform 1,,,,0,0,,,,,0,place-rr-braintree-highlands,1,Braintree,,,2
+place-rr-mboro-centre-st,place-rr-mboro-centre-st,Middleborough Centre St,,,,0,0,,,,,1,,1,Middleborough,,,
+place-rr-mboro-centre-st-0,place-rr-mboro-centre-st-0,platform 0,,,,0,0,,,,,0,place-rr-mboro-centre-st,1,Middleborough,,,2
+place-rr-mboro-centre-st-1,place-rr-mboro-centre-st-1,platform 1,,,,0,0,,,,,0,place-rr-mboro-centre-st,1,Middleborough,,,2
+place-FB-0148,place-FB-0148,Norwood Central,,,,42.188775,-71.199665,CR-zone-3,,,,1,,1,Norwood,,,
+place-FB-0148-0,place-FB-0148-0,platform 0,,,,42.188775,-71.199665,CR-zone-3,,,,0,place-FB-0148,1,Norwood,,,2
+place-FB-0148-1,place-FB-0148-1,platform 1,,,,42.188775,-71.199665,CR-zone-3,,,,0,place-FB-0148,1,Norwood,,,2
+place-NHRML-0078,place-NHRML-0078,Winchester Center,,,,42.451088,-71.13783,CR-zone-1,,,,1,,2,Winchester,,,
+place-NHRML-0078-0,place-NHRML-0078-0,platform 0,,,,42.451088,-71.13783,CR-zone-1,,,,0,place-NHRML-0078,2,Winchester,,,2
+place-NHRML-0078-1,place-NHRML-0078-1,platform 1,,,,42.451088,-71.13783,CR-zone-1,,,,0,place-NHRML-0078,2,Winchester,,,2
+place-NHRML-0055,place-NHRML-0055,West Medford,,,,42.421776,-71.133342,CR-zone-1A,,,,1,,2,Medford,,,
+place-NHRML-0055-0,place-NHRML-0055-0,platform 0,,,,42.421776,-71.133342,CR-zone-1A,,,,0,place-NHRML-0055,2,Medford,,,2
+place-NHRML-0055-1,place-NHRML-0055-1,platform 1,,,,42.421776,-71.133342,CR-zone-1A,,,,0,place-NHRML-0055,2,Medford,,,2
+place-ER-0115,place-ER-0115,Lynn,,,,42.462953,-70.945421,CR-zone-2,,,,1,,1,Lynn,,,
+place-ER-0115-0,place-ER-0115-0,platform 0,,,,42.462953,-70.945421,CR-zone-2,,,,0,place-ER-0115,1,Lynn,,,2
+place-ER-0115-1,place-ER-0115-1,platform 1,,,,42.462953,-70.945421,CR-zone-2,,,,0,place-ER-0115,1,Lynn,,,2
+place-DB-2205,place-DB-2205,Fairmount,,,,42.253638,-71.11927,CR-zone-1A,,,,1,,1,Boston,,,
+place-DB-2205-0,place-DB-2205-0,platform 0,,,,42.253638,-71.11927,CR-zone-1A,,,,0,place-DB-2205,1,Boston,,,2
+place-DB-2205-1,place-DB-2205-1,platform 1,,,,42.253638,-71.11927,CR-zone-1A,,,,0,place-DB-2205,1,Boston,,,2
+place-PB-0158,place-PB-0158,South Weymouth,,,,42.155025,-70.953302,CR-zone-3,,,,1,,1,Weymouth,,,
+place-PB-0158-0,place-PB-0158-0,platform 0,,,,42.155025,-70.953302,CR-zone-3,,,,0,place-PB-0158,1,Weymouth,,,2
+place-PB-0158-1,place-PB-0158-1,platform 1,,,,42.155025,-70.953302,CR-zone-3,,,,0,place-PB-0158,1,Weymouth,,,2
+place-dudly,place-dudly,Dudley Square,,,,42.329544,-71.083982,,,,,1,,1,Boston,,,
+place-sull,place-sull,Sullivan Square,,,,42.383975,-71.076994,,,,,1,,1,Boston,,,
+70030,70030,Sullivan Square,,,,42.383975,-71.076994,,,,level_-1_platform,0,place-sull,1,Boston,,,1
+70031,70031,Sullivan Square,,,,42.383975,-71.076994,,,,level_-1_platform,0,place-sull,1,Boston,,,1
+place-ER-0183,place-ER-0183,Beverly,,,,42.547276,-70.885432,CR-zone-4,,,,1,,1,Beverly,,,
+place-ER-0183-0,place-ER-0183-0,platform 0,,,,42.547276,-70.885432,CR-zone-4,,,,0,place-ER-0183,1,Beverly,,,2
+place-ER-0183-1,place-ER-0183-1,platform 1,,,,42.547276,-70.885432,CR-zone-4,,,,0,place-ER-0183,1,Beverly,,,2
+place-FR-0219,place-FR-0219,West Concord,,,,42.457043,-71.392892,CR-zone-5,,,,1,,1,Concord,,,
+place-FR-0219-0,place-FR-0219-0,platform 0,,,,42.457043,-71.392892,CR-zone-5,,,,0,place-FR-0219,1,Concord,,,2
+place-FR-0219-1,place-FR-0219-1,platform 1,,,,42.457043,-71.392892,CR-zone-5,,,,0,place-FR-0219,1,Concord,,,2
+place-FB-0125,place-FB-0125,Islington,,,,42.22105,-71.183961,CR-zone-3,,,,1,,2,Westwood,,,
+place-FB-0125-0,place-FB-0125-0,platform 0,,,,42.22105,-71.183961,CR-zone-3,,,,0,place-FB-0125,2,Westwood,,,2
+place-FB-0125-1,place-FB-0125-1,platform 1,,,,42.22105,-71.183961,CR-zone-3,,,,0,place-FB-0125,2,Westwood,,,2
+place-bvmnl,place-bvmnl,Brookline Village,,,,42.332774,-71.116296,,,,,1,,1,Brookline,,,
+70180,70180,Brookline Village,,,,42.332838,-71.116234,,,,level_ground,0,place-bvmnl,1,Brookline,,,0
+70181,70181,Brookline Village,,,,42.332871,-71.116263,,,,level_ground,0,place-bvmnl,1,Brookline,,,0
+place-NEC-1659,place-NEC-1659,Wickford Junction,,,,41.581289,-71.491147,CR-zone-10,,,,1,,1,North Kingstown,,,
+place-NEC-1659-0,place-NEC-1659-0,platform 0,,,,41.581289,-71.491147,CR-zone-10,,,,0,place-NEC-1659,1,North Kingstown,,,2
+place-NEC-1659-1,place-NEC-1659-1,platform 1,,,,41.581289,-71.491147,CR-zone-10,,,,0,place-NEC-1659,1,North Kingstown,,,2
+place-WML-0214,place-WML-0214,Framingham,,,,42.276108,-71.420055,CR-zone-5,,,,1,,1,Framingham,,,
+place-WML-0214-0,place-WML-0214-0,platform 0,,,,42.276108,-71.420055,CR-zone-5,,,,0,place-WML-0214,1,Framingham,,,2
+place-WML-0214-1,place-WML-0214-1,platform 1,,,,42.276108,-71.420055,CR-zone-5,,,,0,place-WML-0214,1,Framingham,,,2
+place-andrw,place-andrw,Andrew,,,,42.330154,-71.057655,,,,,1,,1,Boston,,,
+70083,70083,Andrew,,,,42.330154,-71.057655,,,,level_-2_platform,0,place-andrw,1,Boston,,,1
+70084,70084,Andrew,,,,42.330154,-71.057655,,,,level_-2_platform,0,place-andrw,1,Boston,,,1
+place-chswk,place-chswk,Chiswick Road,,,,42.340805,-71.150711,,,,,1,,2,Boston,,,
+70114,70114,Chiswick Road,,,,42.340808,-71.150633,,,,level_median,0,place-chswk,2,Boston,,,0
+70115,70115,Chiswick Road,,,,42.34054,-71.15114,,,,level_median,0,place-chswk,2,Boston,,,0
+place-tumnl,place-tumnl,Tufts Medical Center,,,,42.349662,-71.063917,,,,,1,,1,Boston,,,
+70016,70016,Tufts Medical Center,,,,42.349662,-71.063917,,,,level_-2_platform,0,place-tumnl,1,Boston,,,1
+70017,70017,Tufts Medical Center,,,,42.349662,-71.063917,,,,level_-2_platform,0,place-tumnl,1,Boston,,,1
+place-welln,place-welln,Wellington,,,,42.40237,-71.077082,,,,,1,,1,Medford,,,
+70032,70032,Wellington,,,,42.40237,-71.077082,,,,level_-0.5_platform,0,place-welln,1,Medford,,,1
+70033,70033,Wellington,,,,42.40237,-71.077082,,,,level_-0.5_platform,0,place-welln,1,Medford,,,1
+place-WR-0067,place-WR-0067,Melrose Cedar Park,,,,42.458768,-71.069789,CR-zone-1,,,,1,,2,Melrose,,,
+place-WR-0067-0,place-WR-0067-0,platform 0,,,,42.458768,-71.069789,CR-zone-1,,,,0,place-WR-0067,2,Melrose,,,2
+place-WR-0067-1,place-WR-0067-1,platform 1,,,,42.458768,-71.069789,CR-zone-1,,,,0,place-WR-0067,2,Melrose,,,2
+place-alsgr,place-alsgr,Allston Street,,,,42.348701,-71.137955,,,,,1,,2,Boston,,,
+70126,70126,Allston Street,,,,42.348649,-71.137881,,,,level_median,0,place-alsgr,2,Boston,,,0
+70127,70127,Allston Street,,,,42.348546,-71.137362,,,,level_median,0,place-alsgr,2,Boston,,,0
+place-WR-0075,place-WR-0075,Melrose Highlands,,,,42.469464,-71.068297,CR-zone-1,,,,1,,1,Melrose,,,
+place-WR-0075-0,place-WR-0075-0,platform 0,,,,42.469464,-71.068297,CR-zone-1,,,,0,place-WR-0075,1,Melrose,,,2
+place-WR-0075-1,place-WR-0075-1,platform 1,,,,42.469464,-71.068297,CR-zone-1,,,,0,place-WR-0075,1,Melrose,,,2
+place-woodl,place-woodl,Woodland,,,,42.333374,-71.244301,,,,,1,,1,Newton,,,
+70162,70162,Woodland,,,,42.333339,-71.244333,,,,level_ground,0,place-woodl,1,Newton,,,0
+70163,70163,Woodland,,,,42.333372,-71.244303,,,,level_ground,0,place-woodl,1,Newton,,,0
 place-PB-0245,place-PB-0245,Hanson,,,,42.043967,-70.882438,CR-zone-6,,,,1,,1,Hanson,,,
 place-PB-0245-0,place-PB-0245-0,platform 0,,,,42.043967,-70.882438,CR-zone-6,,,,0,place-PB-0245,1,Hanson,,,2
 place-PB-0245-1,place-PB-0245-1,platform 1,,,,42.043967,-70.882438,CR-zone-6,,,,0,place-PB-0245,1,Hanson,,,2
-place-conrd,place-conrd,Silver Line Way,,,,42.347154,-71.038385,,,,,1,,1,Boston,,,
+place-ER-0046,place-ER-0046,Chelsea,,,,42.395689,-71.034281,CR-zone-1A,,,,1,,2,Chelsea,,,
+place-ER-0046-0,place-ER-0046-0,platform 0,,,,42.395689,-71.034281,CR-zone-1A,,,,0,place-ER-0046,2,Chelsea,,,2
+place-ER-0046-1,place-ER-0046-1,platform 1,,,,42.395689,-71.034281,CR-zone-1A,,,,0,place-ER-0046,2,Chelsea,,,2
+place-chill,place-chill,Chestnut Hill Avenue,,,,42.338169,-71.15316,,,,,1,,2,Boston,,,
+70112,70112,Chestnut Hill Avenue,,,,42.33873,-71.152526,,,,level_median,0,place-chill,2,Boston,,,0
+70113,70113,Chestnut Hill Avenue,,,,42.33829,-71.153025,,,,level_median,0,place-chill,2,Boston,,,0
+place-ER-0276,place-ER-0276,Ipswich,,,,42.676921,-70.840589,CR-zone-6,,,,1,,1,Ipswich,,,
+place-ER-0276-0,place-ER-0276-0,platform 0,,,,42.676921,-70.840589,CR-zone-6,,,,0,place-ER-0276,1,Ipswich,,,2
+place-ER-0276-1,place-ER-0276-1,platform 1,,,,42.676921,-70.840589,CR-zone-6,,,,0,place-ER-0276,1,Ipswich,,,2
+place-FB-0143,place-FB-0143,Norwood Depot,,,,42.196857,-71.196688,CR-zone-3,,,,1,,1,Norwood,,,
+place-FB-0143-0,place-FB-0143-0,platform 0,,,,42.196857,-71.196688,CR-zone-3,,,,0,place-FB-0143,1,Norwood,,,2
+place-FB-0143-1,place-FB-0143-1,platform 1,,,,42.196857,-71.196688,CR-zone-3,,,,0,place-FB-0143,1,Norwood,,,2
+place-PB-0212,place-PB-0212,Whitman,,,,42.082749,-70.923411,CR-zone-5,,,,1,,1,Whitman,,,
+place-PB-0212-0,place-PB-0212-0,platform 0,,,,42.082749,-70.923411,CR-zone-5,,,,0,place-PB-0212,1,Whitman,,,2
+place-PB-0212-1,place-PB-0212-1,platform 1,,,,42.082749,-70.923411,CR-zone-5,,,,0,place-PB-0212,1,Whitman,,,2
+place-WML-0252,place-WML-0252,Ashland,,,,42.26149,-71.482161,CR-zone-6,,,,1,,1,Ashland,,,
+place-WML-0252-0,place-WML-0252-0,platform 0,,,,42.26149,-71.482161,CR-zone-6,,,,0,place-WML-0252,1,Ashland,,,2
+place-WML-0252-1,place-WML-0252-1,platform 1,,,,42.26149,-71.482161,CR-zone-6,,,,0,place-WML-0252,1,Ashland,,,2
+place-MM-0277,place-MM-0277,Bridgewater,,,,41.984916,-70.96537,CR-zone-6,,,,1,,1,Bridgewater,,,
+place-MM-0277-0,place-MM-0277-0,platform 0,,,,41.984916,-70.96537,CR-zone-6,,,,0,place-MM-0277,1,Bridgewater,,,2
+place-MM-0277-1,place-MM-0277-1,platform 1,,,,41.984916,-70.96537,CR-zone-6,,,,0,place-MM-0277,1,Bridgewater,,,2
+place-clmnl,place-clmnl,Cleveland Circle,,,,42.336142,-71.149326,,,,,1,,1,Boston,,,
+70237,70237,Cleveland Circle,,,,42.336216,-71.149201,,,,level_median,0,place-clmnl,1,Boston,,,0
+70238,70238,Cleveland Circle,,,,42.336252,-71.148774,,,,level_median,0,place-clmnl,1,Boston,,,0
+place-qnctr,place-qnctr,Quincy Center,,,,42.251809,-71.005409,CR-zone-1A-1,,,,1,,1,Quincy,,,
+place-qnctr-0,place-qnctr-0,platform 0,,,,42.251809,-71.005409,CR-zone-1A-1,,,,0,place-qnctr,1,Quincy,,,2
+place-qnctr-1,place-qnctr-1,platform 1,,,,42.251809,-71.005409,CR-zone-1A-1,,,,0,place-qnctr,1,Quincy,,,2
+70101,70101,Quincy Center,,,,42.251809,-71.005409,,,,level_-1_red_platform,0,place-qnctr,1,Quincy,,,1
+70102,70102,Quincy Center,,,,42.251809,-71.005409,,,,level_-1_red_platform,0,place-qnctr,1,Quincy,,,1
+place-ER-0168,place-ER-0168,Salem,,,,42.524792,-70.895876,CR-zone-3,,,,1,,1,Salem,,,
+place-ER-0168-0,place-ER-0168-0,platform 0,,,,42.524792,-70.895876,CR-zone-3,,,,0,place-ER-0168,1,Salem,,,2
+place-ER-0168-1,place-ER-0168-1,platform 1,,,,42.524792,-70.895876,CR-zone-3,,,,0,place-ER-0168,1,Salem,,,2
+place-WR-0099,place-WR-0099,Wakefield,,,,42.502126,-71.075566,CR-zone-2,,,,1,,2,Wakefield,,,
+place-WR-0099-0,place-WR-0099-0,platform 0,,,,42.502126,-71.075566,CR-zone-2,,,,0,place-WR-0099,2,Wakefield,,,2
+place-WR-0099-1,place-WR-0099-1,platform 1,,,,42.502126,-71.075566,CR-zone-2,,,,0,place-WR-0099,2,Wakefield,,,2
+place-newtn,place-newtn,Newton Highlands,,,,42.321735,-71.206116,,,,,1,,1,Newton,,,
+70168,70168,Newton Highlands,,,,42.321687,-71.206063,,,,level_ground,0,place-newtn,1,Newton,,,0
+70169,70169,Newton Highlands,,,,42.321734,-71.206118,,,,level_ground,0,place-newtn,1,Newton,,,0
+place-engav,place-engav,Englewood Avenue,,,,42.336971,-71.14566,,,,,1,,2,Brookline,,,
+70235,70235,Englewood Avenue,,,,42.336964,-71.145867,,,,level_median,0,place-engav,2,Brookline,,,0
+70236,70236,Englewood Avenue,,,,42.337011,-71.145368,,,,level_median,0,place-engav,2,Brookline,,,0
+place-brdwy,place-brdwy,Broadway,,,,42.342622,-71.056967,,,,,1,,1,Boston,,,
+70081,70081,Broadway,,,,42.342622,-71.056967,,,,level_-2_platform,0,place-brdwy,1,Boston,,,1
+70082,70082,Broadway,,,,42.342622,-71.056967,,,,level_-2_platform,0,place-brdwy,1,Boston,,,1
+place-brico,place-brico,Packards Corner,,,,42.351967,-71.125031,,,,,1,,2,Boston,,,
+70134,70134,Packards Corner,,,,42.351891,-71.125067,,,,level_median,0,place-brico,2,Boston,,,0
+70135,70135,Packards Corner,,,,42.351651,-71.12551,,,,level_median,0,place-brico,2,Boston,,,0
 place-pktrm,place-pktrm,Park Street,,,,42.356395,-71.062424,,,,,1,,1,Boston,,,
 70075,70075,Park Street,,,,42.356395,-71.062424,,,,level_-2_red_platform,0,place-pktrm,1,Boston,,,1
 70076,70076,Park Street,,,,42.356395,-71.062424,,,,level_-2_red_platform,0,place-pktrm,1,Boston,,,1
@@ -430,398 +475,353 @@ place-pktrm,place-pktrm,Park Street,,,,42.356395,-71.062424,,,,,1,,1,Boston,,,
 70199,70199,Park Street,,,,42.356395,-71.062424,,,,level_-1_green_platform,0,place-pktrm,1,Boston,,,0
 70200,70200,Park Street,,,,42.356395,-71.062424,,,,level_-1_green_platform,0,place-pktrm,1,Boston,,,0
 71199,71199,Park Street,,,,42.356395,-71.062424,,,,level_-1_green_platform,0,place-pktrm,1,Boston,,,0
-place-ER-0115,place-ER-0115,Lynn,,,,42.462953,-70.945421,CR-zone-2,,,,1,,1,Lynn,,,
-place-ER-0115-0,place-ER-0115-0,platform 0,,,,42.462953,-70.945421,CR-zone-2,,,,0,place-ER-0115,1,Lynn,,,2
-place-ER-0115-1,place-ER-0115-1,platform 1,,,,42.462953,-70.945421,CR-zone-2,,,,0,place-ER-0115,1,Lynn,,,2
-place-NB-0076,place-NB-0076,Highland,,,,42.284969,-71.153937,CR-zone-1,,,,1,,1,Boston,,,
-place-NB-0076-0,place-NB-0076-0,platform 0,,,,42.284969,-71.153937,CR-zone-1,,,,0,place-NB-0076,1,Boston,,,2
-place-NB-0076-1,place-NB-0076-1,platform 1,,,,42.284969,-71.153937,CR-zone-1,,,,0,place-NB-0076,1,Boston,,,2
-place-qnctr,place-qnctr,Quincy Center,,,,42.251809,-71.005409,CR-zone-1A-1,,,,1,,1,Quincy,,,
-place-qnctr-0,place-qnctr-0,platform 0,,,,42.251809,-71.005409,CR-zone-1A-1,,,,0,place-qnctr,1,Quincy,,,2
-place-qnctr-1,place-qnctr-1,platform 1,,,,42.251809,-71.005409,CR-zone-1A-1,,,,0,place-qnctr,1,Quincy,,,2
-70101,70101,Quincy Center,,,,42.251809,-71.005409,,,,level_-1_red_platform,0,place-qnctr,1,Quincy,,,1
-70102,70102,Quincy Center,,,,42.251809,-71.005409,,,,level_-1_red_platform,0,place-qnctr,1,Quincy,,,1
-place-estav,place-estav,Eastern Avenue,,,,42.388374,-71.023859,,,,,1,,1,Chelsea,,,
-place-eliot,place-eliot,Eliot,,,,42.319023,-71.216713,,,,,1,,2,Newton,,,
-70166,70166,Eliot,,,,42.318957,-71.216776,,,,level_ground,0,place-eliot,2,Newton,,,0
-70167,70167,Eliot,,,,42.319024,-71.216711,,,,level_ground,0,place-eliot,2,Newton,,,0
-place-WR-0067,place-WR-0067,Melrose Cedar Park,,,,42.458768,-71.069789,CR-zone-1,,,,1,,2,Melrose,,,
-place-WR-0067-0,place-WR-0067-0,platform 0,,,,42.458768,-71.069789,CR-zone-1,,,,0,place-WR-0067,2,Melrose,,,2
-place-WR-0067-1,place-WR-0067-1,platform 1,,,,42.458768,-71.069789,CR-zone-1,,,,0,place-WR-0067,2,Melrose,,,2
-place-FB-0118,place-FB-0118,Dedham Corp Center,,,,42.227079,-71.174254,CR-zone-2,,,,1,,1,Dedham,,,
-place-FB-0118-0,place-FB-0118-0,platform 0,,,,42.227079,-71.174254,CR-zone-2,,,,0,place-FB-0118,1,Dedham,,,2
-place-FB-0118-1,place-FB-0118-1,platform 1,,,,42.227079,-71.174254,CR-zone-2,,,,0,place-FB-0118,1,Dedham,,,2
-place-WR-0325,place-WR-0325,Bradford,,,,42.766912,-71.088411,CR-zone-7,,,,1,,1,Bradford,,,
-place-WR-0325-0,place-WR-0325-0,platform 0,,,,42.766912,-71.088411,CR-zone-7,,,,0,place-WR-0325,1,Bradford,,,2
-place-WR-0325-1,place-WR-0325-1,platform 1,,,,42.766912,-71.088411,CR-zone-7,,,,0,place-WR-0325,1,Bradford,,,2
-place-WR-0329,place-WR-0329,Haverhill,,,,42.773474,-71.086237,CR-zone-7,,,,1,,1,Haverhill,,,
-place-WR-0329-0,place-WR-0329-0,platform 0,,,,42.773474,-71.086237,CR-zone-7,,,,0,place-WR-0329,1,Haverhill,,,2
-place-WR-0329-1,place-WR-0329-1,platform 1,,,,42.773474,-71.086237,CR-zone-7,,,,0,place-WR-0329,1,Haverhill,,,2
-place-DB-2249,place-DB-2249,Four Corners/Geneva,,,,42.305037,-71.076833,CR-zone-1A,,,,1,,1,Boston,,,
-place-DB-2249-0,place-DB-2249-0,platform 0,,,,42.305037,-71.076833,CR-zone-1A,,,,0,place-DB-2249,1,Boston,,,2
-place-DB-2249-1,place-DB-2249-1,platform 1,,,,42.305037,-71.076833,CR-zone-1A,,,,0,place-DB-2249,1,Boston,,,2
-place-bndhl,place-bndhl,Brandon Hall,,,,42.340023,-71.129082,,,,,1,,2,Brookline,,,
-70225,70225,Brandon Hall,,,,42.340053,-71.128869,,,,level_median,0,place-bndhl,2,Brookline,,,0
-70226,70226,Brandon Hall,,,,42.340038,-71.12866,,,,level_median,0,place-bndhl,2,Brookline,,,0
-place-WR-0120,place-WR-0120,Reading,,,,42.52221,-71.108294,CR-zone-2,,,,1,,1,Reading,,,
-place-WR-0120-0,place-WR-0120-0,platform 0,,,,42.52221,-71.108294,CR-zone-2,,,,0,place-WR-0120,1,Reading,,,2
-place-WR-0120-1,place-WR-0120-1,platform 1,,,,42.52221,-71.108294,CR-zone-2,,,,0,place-WR-0120,1,Reading,,,2
-place-smary,place-smary,Saint Marys Street,,,,42.345974,-71.107353,,,,,1,,1,Brookline,,,
-70211,70211,Saint Marys Street,,,,42.345884,-71.107697,,,,level_median,0,place-smary,1,Brookline,,,0
-70212,70212,Saint Marys Street,,,,42.346007,-71.107166,,,,level_median,0,place-smary,1,Brookline,,,0
-place-GB-0254,place-GB-0254,Manchester,,,,42.573687,-70.77009,CR-zone-6,,,,1,,1,Manchester-by-the-Sea,,,
-place-GB-0254-0,place-GB-0254-0,platform 0,,,,42.573687,-70.77009,CR-zone-6,,,,0,place-GB-0254,1,Manchester-by-the-Sea,,,2
-place-GB-0254-1,place-GB-0254-1,platform 1,,,,42.573687,-70.77009,CR-zone-6,,,,0,place-GB-0254,1,Manchester-by-the-Sea,,,2
-place-portr,place-portr,Porter,,,,42.3884,-71.119149,CR-zone-1A,,,,1,,1,Cambridge,,,
-place-portr-0,place-portr-0,platform 0,,,,42.3884,-71.119149,CR-zone-1A,,,,0,place-portr,1,Cambridge,,,2
-place-portr-1,place-portr-1,platform 1,,,,42.3884,-71.119149,CR-zone-1A,,,,0,place-portr,1,Cambridge,,,2
-70065,70065,Porter,,,,42.3884,-71.119149,,,,level_-3_southbound_platform,0,place-portr,1,Cambridge,,,1
-70066,70066,Porter,,,,42.3884,-71.119149,,,,level_-4_alewife_platform,0,place-portr,1,Cambridge,,,1
-place-NB-0072,place-NB-0072,Bellevue,,,,42.286588,-71.145557,CR-zone-1,,,,1,,1,Boston,,,
-place-NB-0072-0,place-NB-0072-0,platform 0,,,,42.286588,-71.145557,CR-zone-1,,,,0,place-NB-0072,1,Boston,,,2
-place-NB-0072-1,place-NB-0072-1,platform 1,,,,42.286588,-71.145557,CR-zone-1,,,,0,place-NB-0072,1,Boston,,,2
-place-fbkst,place-fbkst,Fairbanks Street,,,,42.339725,-71.131073,,,,,1,,2,Brookline,,,
-70227,70227,Fairbanks Street,,,,42.33969,-71.131228,,,,level_median,0,place-fbkst,2,Brookline,,,0
-70228,70228,Fairbanks Street,,,,42.339644,-71.131078,,,,level_median,0,place-fbkst,2,Brookline,,,0
-place-GB-0198,place-GB-0198,Montserrat,,,,42.562171,-70.869254,CR-zone-4,,,,1,,1,Beverly,,,
-place-GB-0198-0,place-GB-0198-0,platform 0,,,,42.562171,-70.869254,CR-zone-4,,,,0,place-GB-0198,1,Beverly,,,2
-place-GB-0198-1,place-GB-0198-1,platform 1,,,,42.562171,-70.869254,CR-zone-4,,,,0,place-GB-0198,1,Beverly,,,2
-place-rr-cohasset-center,place-rr-cohasset-center,Cohasset Center,,,,0,0,,,,,1,,1,Cohasset Center,,,
-place-rr-cohasset-center-0,place-rr-cohasset-center-0,platform 0,,,,0,0,,,,,0,place-rr-cohasset-center,1,Cohasset Center,,,2
-place-rr-cohasset-center-1,place-rr-cohasset-center-1,platform 1,,,,0,0,,,,,0,place-rr-cohasset-center,1,Cohasset Center,,,2
-place-bbsta,place-bbsta,Back Bay,,,,42.34735,-71.075727,CR-zone-1A,,,,1,,1,Boston,,,
-place-bbsta-0,place-bbsta-0,platform 0,,,,42.34735,-71.075727,CR-zone-1A,,,,0,place-bbsta,1,Boston,,,2
-place-bbsta-1,place-bbsta-1,platform 1,,,,42.34735,-71.075727,CR-zone-1A,,,,0,place-bbsta,1,Boston,,,2
-70014,70014,Back Bay,,,,42.34735,-71.075727,,,,level_-1_orange_platform,0,place-bbsta,1,Boston,,,1
-70015,70015,Back Bay,,,,42.34735,-71.075727,,,,level_-1_orange_platform,0,place-bbsta,1,Boston,,,1
-place-fenwy,place-fenwy,Fenway,,,,42.345394,-71.104187,,,,,1,,1,Boston,,,
-70186,70186,Fenway,,,,42.345362,-71.104162,,,,level_ground,0,place-fenwy,1,Boston,,,0
-70187,70187,Fenway,,,,42.345395,-71.10419,,,,level_ground,0,place-fenwy,1,Boston,,,0
-place-WR-0062,place-WR-0062,Wyoming Hill,,,,42.451731,-71.069379,CR-zone-1,,,,1,,2,Melrose,,,
-place-WR-0062-0,place-WR-0062-0,platform 0,,,,42.451731,-71.069379,CR-zone-1,,,,0,place-WR-0062,2,Melrose,,,2
-place-WR-0062-1,place-WR-0062-1,platform 1,,,,42.451731,-71.069379,CR-zone-1,,,,0,place-WR-0062,2,Melrose,,,2
-place-FR-0064,place-FR-0064,Belmont,,,,42.395896,-71.17619,CR-zone-1,,,,1,,2,Belmont,,,
-place-FR-0064-0,place-FR-0064-0,platform 0,,,,42.395896,-71.17619,CR-zone-1,,,,0,place-FR-0064,2,Belmont,,,2
-place-FR-0064-1,place-FR-0064-1,platform 1,,,,42.395896,-71.17619,CR-zone-1,,,,0,place-FR-0064,2,Belmont,,,2
-place-ER-0276,place-ER-0276,Ipswich,,,,42.676921,-70.840589,CR-zone-6,,,,1,,1,Ipswich,,,
-place-ER-0276-0,place-ER-0276-0,platform 0,,,,42.676921,-70.840589,CR-zone-6,,,,0,place-ER-0276,1,Ipswich,,,2
-place-ER-0276-1,place-ER-0276-1,platform 1,,,,42.676921,-70.840589,CR-zone-6,,,,0,place-ER-0276,1,Ipswich,,,2
-place-brntn,place-brntn,Braintree,,,,42.207854,-71.001138,CR-zone-2,,,,1,,1,Braintree,,,
-place-brntn-0,place-brntn-0,platform 0,,,,42.207854,-71.001138,CR-zone-2,,,,0,place-brntn,1,Braintree,,,2
-place-brntn-1,place-brntn-1,platform 1,,,,42.207854,-71.001138,CR-zone-2,,,,0,place-brntn,1,Braintree,,,2
-70105,70105,Braintree,,,,42.208371,-71.001423,,,,level_1_red_platform,0,place-brntn,1,Braintree,,,1
-place-rr-mboro-centre-st,place-rr-mboro-centre-st,Middleborough Centre St,,,,0,0,,,,,1,,1,Middleborough,,,
-place-rr-mboro-centre-st-0,place-rr-mboro-centre-st-0,platform 0,,,,0,0,,,,,0,place-rr-mboro-centre-st,1,Middleborough,,,2
-place-rr-mboro-centre-st-1,place-rr-mboro-centre-st-1,platform 1,,,,0,0,,,,,0,place-rr-mboro-centre-st,1,Middleborough,,,2
-place-babck,place-babck,Babcock Street,,,,42.35182,-71.12165,,,,,1,,2,Boston,,,
-70136,70136,Babcock Street,,,,42.351776,-71.12153,,,,level_median,0,place-babck,2,Boston,,,0
-70137,70137,Babcock Street,,,,42.351903,-71.122042,,,,level_median,0,place-babck,2,Boston,,,0
-place-PB-0158,place-PB-0158,South Weymouth,,,,42.155025,-70.953302,CR-zone-3,,,,1,,1,Weymouth,,,
-place-PB-0158-0,place-PB-0158-0,platform 0,,,,42.155025,-70.953302,CR-zone-3,,,,0,place-PB-0158,1,Weymouth,,,2
-place-PB-0158-1,place-PB-0158-1,platform 1,,,,42.155025,-70.953302,CR-zone-3,,,,0,place-PB-0158,1,Weymouth,,,2
-place-FR-0137,place-FR-0137,Hastings,,,,42.385755,-71.289203,CR-zone-3,,,,1,,2,Weston,,,
-Hastings,Hastings,Hastings,,,,42.385755,-71.289203,CR-zone-3,,,,0,place-FR-0137,2,Weston,,,2
-place-PB-0212,place-PB-0212,Whitman,,,,42.082749,-70.923411,CR-zone-5,,,,1,,1,Whitman,,,
-place-PB-0212-0,place-PB-0212-0,platform 0,,,,42.082749,-70.923411,CR-zone-5,,,,0,place-PB-0212,1,Whitman,,,2
-place-PB-0212-1,place-PB-0212-1,platform 1,,,,42.082749,-70.923411,CR-zone-5,,,,0,place-PB-0212,1,Whitman,,,2
-place-DB-2258,place-DB-2258,Uphams Corner,,,,42.319125,-71.068627,CR-zone-1A,,,,1,,1,Boston,,,
-place-DB-2258-0,place-DB-2258-0,platform 0,,,,42.319125,-71.068627,CR-zone-1A,,,,0,place-DB-2258,1,Boston,,,2
-place-DB-2258-1,place-DB-2258-1,platform 1,,,,42.319125,-71.068627,CR-zone-1A,,,,0,place-DB-2258,1,Boston,,,2
-place-FB-0166,place-FB-0166,Windsor Gardens,,,,42.172127,-71.219366,CR-zone-4,,,,1,,2,Norwood,,,
-place-FB-0166-0,place-FB-0166-0,platform 0,,,,42.172127,-71.219366,CR-zone-4,,,,0,place-FB-0166,2,Norwood,,,2
-place-FB-0166-1,place-FB-0166-1,platform 1,,,,42.172127,-71.219366,CR-zone-4,,,,0,place-FB-0166,2,Norwood,,,2
-place-WML-0081,place-WML-0081,Newtonville,,,,42.351702,-71.205408,CR-zone-1,,,,1,,2,Newton,,,
-place-WML-0081-0,place-WML-0081-0,platform 0,,,,42.351702,-71.205408,CR-zone-1,,,,0,place-WML-0081,2,Newton,,,2
-place-WML-0081-1,place-WML-0081-1,platform 1,,,,42.351702,-71.205408,CR-zone-1,,,,0,place-WML-0081,2,Newton,,,2
-place-chmnl,place-chmnl,Charles/MGH,,,,42.361166,-71.070628,,,,,1,,1,Boston,,,
-70073,70073,Charles/MGH,,,,42.361166,-71.070628,,,,level_1_platform,0,place-chmnl,1,Boston,,,1
-70074,70074,Charles/MGH,,,,42.361166,-71.070628,,,,level_1_platform,0,place-chmnl,1,Boston,,,1
-place-bland,place-bland,Blandford Street,,,,42.349293,-71.100258,,,,,1,,2,Boston,,,
-70148,70148,Blandford Street,,,,42.349165,-71.099821,,,,level_median,0,place-bland,2,Boston,,,0
-70149,70149,Blandford Street,,,,42.349276,-71.100213,,,,level_median,0,place-bland,2,Boston,,,0
-place-brdwy,place-brdwy,Broadway,,,,42.342622,-71.056967,,,,,1,,1,Boston,,,
-70081,70081,Broadway,,,,42.342622,-71.056967,,,,level_-2_platform,0,place-brdwy,1,Boston,,,1
-70082,70082,Broadway,,,,42.342622,-71.056967,,,,level_-2_platform,0,place-brdwy,1,Boston,,,1
-place-WML-0135,place-WML-0135,Wellesley Hills,,,,42.31037,-71.277044,CR-zone-3,,,,1,,2,Wellesley,,,
-place-WML-0135-0,place-WML-0135-0,platform 0,,,,42.31037,-71.277044,CR-zone-3,,,,0,place-WML-0135,2,Wellesley,,,2
-place-WML-0135-1,place-WML-0135-1,platform 1,,,,42.31037,-71.277044,CR-zone-3,,,,0,place-WML-0135,2,Wellesley,,,2
-place-WML-0252,place-WML-0252,Ashland,,,,42.26149,-71.482161,CR-zone-6,,,,1,,1,Ashland,,,
-place-WML-0252-0,place-WML-0252-0,platform 0,,,,42.26149,-71.482161,CR-zone-6,,,,0,place-WML-0252,1,Ashland,,,2
-place-WML-0252-1,place-WML-0252-1,platform 1,,,,42.26149,-71.482161,CR-zone-6,,,,0,place-WML-0252,1,Ashland,,,2
-place-GB-0296,place-GB-0296,West Gloucester,,,,42.611933,-70.705417,CR-zone-7,,,,1,,1,Gloucester,,,
-place-GB-0296-0,place-GB-0296-0,platform 0,,,,42.611933,-70.705417,CR-zone-7,,,,0,place-GB-0296,1,Gloucester,,,2
-place-GB-0296-1,place-GB-0296-1,platform 1,,,,42.611933,-70.705417,CR-zone-7,,,,0,place-GB-0296,1,Gloucester,,,2
-place-rockland-n-abington,place-rockland-n-abington,Rockland-North Abington,,,,0,0,,,,,1,,1,Abington,,,
-place-rockland-n-abington-0,place-rockland-n-abington-0,platform 0,,,,0,0,,,,,0,place-rockland-n-abington,1,Abington,,,2
-place-rockland-n-abington-1,place-rockland-n-abington-1,platform 1,,,,0,0,,,,,0,place-rockland-n-abington,1,Abington,,,2
-place-ccmnl,place-ccmnl,Community College,,,,42.373622,-71.069533,,,,,1,,1,Boston,,,
-70028,70028,Community College,,,,42.373622,-71.069533,,,,level_-1_platform,0,place-ccmnl,1,Boston,,,1
-70029,70029,Community College,,,,42.373622,-71.069533,,,,level_-1_platform,0,place-ccmnl,1,Boston,,,1
-place-chhil,place-chhil,Chestnut Hill,,,,42.326653,-71.165314,,,,,1,,2,Newton,,,
-70172,70172,Chestnut Hill,,,,42.326633,-71.165299,,,,level_ground,0,place-chhil,2,Newton,,,0
-70173,70173,Chestnut Hill,,,,42.326654,-71.165316,,,,level_ground,0,place-chhil,2,Newton,,,0
-place-GRB-0183,place-GRB-0183,Nantasket Junction,,,,42.244959,-70.869205,CR-zone-4,,,,1,,1,Hingham,,,
-place-GRB-0183-0,place-GRB-0183-0,platform 0,,,,42.244959,-70.869205,CR-zone-4,,,,0,place-GRB-0183,1,Hingham,,,2
-place-GRB-0183-1,place-GRB-0183-1,platform 1,,,,42.244959,-70.869205,CR-zone-4,,,,0,place-GRB-0183,1,Hingham,,,2
-place-harvd,place-harvd,Harvard Avenue,,,,42.350243,-71.131355,,,,,1,,1,Boston,,,
-70130,70130,Harvard Avenue,,,,42.350263,-71.131298,,,,level_median,0,place-harvd,1,Boston,,,0
-70131,70131,Harvard Avenue,,,,42.350602,-71.130727,,,,level_median,0,place-harvd,1,Boston,,,0
-place-sbmnl,place-sbmnl,Stony Brook,,,,42.317062,-71.104248,,,,,1,,1,Boston,,,
-70004,70004,Stony Brook,,,,42.317062,-71.104248,,,,level_-1_platform,0,place-sbmnl,1,Boston,,,1
-70005,70005,Stony Brook,,,,42.317062,-71.104248,,,,level_-1_platform,0,place-sbmnl,1,Boston,,,1
-place-MM-0219,place-MM-0219,Campello,,,,42.060951,-71.011004,CR-zone-5,,,,1,,1,Brockton,,,
-place-MM-0219-0,place-MM-0219-0,platform 0,,,,42.060951,-71.011004,CR-zone-5,,,,0,place-MM-0219,1,Brockton,,,2
-place-MM-0219-1,place-MM-0219-1,platform 1,,,,42.060951,-71.011004,CR-zone-5,,,,0,place-MM-0219,1,Brockton,,,2
-place-ER-0183,place-ER-0183,Beverly,,,,42.547276,-70.885432,CR-zone-4,,,,1,,1,Beverly,,,
-place-ER-0183-0,place-ER-0183-0,platform 0,,,,42.547276,-70.885432,CR-zone-4,,,,0,place-ER-0183,1,Beverly,,,2
-place-ER-0183-1,place-ER-0183-1,platform 1,,,,42.547276,-70.885432,CR-zone-4,,,,0,place-ER-0183,1,Beverly,,,2
-place-WR-0085,place-WR-0085,Greenwood,,,,42.483005,-71.067247,CR-zone-2,,,,1,,2,Wakefield,,,
-place-WR-0085-0,place-WR-0085-0,platform 0,,,,42.483005,-71.067247,CR-zone-2,,,,0,place-WR-0085,2,Wakefield,,,2
-place-WR-0085-1,place-WR-0085-1,platform 1,,,,42.483005,-71.067247,CR-zone-2,,,,0,place-WR-0085,2,Wakefield,,,2
-place-ER-0312,place-ER-0312,Rowley,,,,42.726845,-70.859034,CR-zone-7,,,,1,,1,Rowley,,,
-place-ER-0312-0,place-ER-0312-0,platform 0,,,,42.726845,-70.859034,CR-zone-7,,,,0,place-ER-0312,1,Rowley,,,2
-place-ER-0312-1,place-ER-0312-1,platform 1,,,,42.726845,-70.859034,CR-zone-7,,,,0,place-ER-0312,1,Rowley,,,2
-place-DB-0095,place-DB-0095,Readville,,,,42.238405,-71.133246,CR-zone-2,,,,1,,1,Boston,,,
-place-DB-0095-0,place-DB-0095-0,platform 0,,,,42.238405,-71.133246,CR-zone-2,,,,0,place-DB-0095,1,Boston,,,2
-place-DB-0095-1,place-DB-0095-1,platform 1,,,,42.238405,-71.133246,CR-zone-2,,,,0,place-DB-0095,1,Boston,,,2
-place-NEC-2139,place-NEC-2139,Canton Junction,,,,42.163204,-71.15376,CR-zone-3,,,,1,,1,Canton,,,
-place-NEC-2139-0,place-NEC-2139-0,platform 0,,,,42.163204,-71.15376,CR-zone-3,,,,0,place-NEC-2139,1,Canton,,,2
-place-NEC-2139-1,place-NEC-2139-1,platform 1,,,,42.163204,-71.15376,CR-zone-3,,,,0,place-NEC-2139,1,Canton,,,2
-place-stpul,place-stpul,Saint Paul Street,,,,42.343327,-71.116997,,,,,1,,2,Brookline,,,
-70217,70217,Saint Paul Street,,,,42.34334,-71.116927,,,,level_median,0,place-stpul,2,Brookline,,,0
-70218,70218,Saint Paul Street,,,,42.343118,-71.117498,,,,level_median,0,place-stpul,2,Brookline,,,0
-place-lake,place-lake,Boston College,,,,42.340081,-71.166769,,,,,1,,1,Boston,,,
-70106,70106,Boston College,,,,42.340149,-71.167029,,,,level_ground,0,place-lake,1,Boston,,,0
-70107,70107,Boston College,,,,42.34024,-71.166849,,,,level_ground,0,place-lake,1,Boston,,,0
-place-wondl,place-wondl,Wonderland,,,,42.41342,-70.991648,,,,,1,,1,Revere,,,
-70059,70059,Wonderland,,,,42.413513,-70.991737,,,,level_0_platform,0,place-wondl,1,Revere,,,1
-70060,70060,Wonderland,,,,42.413495,-70.991613,,,,level_0_platform,0,place-wondl,1,Revere,,,1
-place-rr-river-street,place-rr-river-street,River Street,,,,42.2637601,-71.1045547,,,,,1,,1,Boston,,,
-place-rr-river-street-0,place-rr-river-street-0,platform 0,,,,42.2637601,-71.1045547,,,,,0,place-rr-river-street,1,Boston,,,2
-place-rr-river-street-1,place-rr-river-street-1,platform 1,,,,42.2637601,-71.1045547,,,,,0,place-rr-river-street,1,Boston,,,2
-place-lngmd,place-lngmd,Longwood Medical Area,,,,42.33596,-71.100052,,,,,1,,1,Boston,,,
-70247,70247,Longwood Medical Area,,,,42.33608,-71.099883,,,,level_median,0,place-lngmd,1,Boston,,,0
-70248,70248,Longwood Medical Area,,,,42.336217,-71.099328,,,,level_median,0,place-lngmd,1,Boston,,,0
-place-DB-2230,place-DB-2230,Morton Street,,,,42.280994,-71.085475,CR-zone-1A,,,,1,,1,Boston,,,
-place-DB-2230-0,place-DB-2230-0,platform 0,,,,42.280994,-71.085475,CR-zone-1A,,,,0,place-DB-2230,1,Boston,,,2
-place-DB-2230-1,place-DB-2230-1,platform 1,,,,42.280994,-71.085475,CR-zone-1A,,,,0,place-DB-2230,1,Boston,,,2
-place-rr-pawtucket,place-rr-pawtucket,Pawtucket,,,,0,0,,,,,1,,1,"Pawtucket, RI",,,
-place-rr-pawtucket-0,place-rr-pawtucket-0,platform 0,,,,0,0,,,,,0,place-rr-pawtucket,1,"Pawtucket, RI",,,2
-place-rr-pawtucket-1,place-rr-pawtucket-1,platform 1,,,,0,0,,,,,0,place-rr-pawtucket,1,"Pawtucket, RI",,,2
-place-aqucl,place-aqucl,Aquarium,,,,42.359784,-71.051652,,,,,1,,1,Boston,,,
-70043,70043,Aquarium,,,,42.359784,-71.051652,,,,level_-2_platform,0,place-aqucl,1,Boston,,,1
-70044,70044,Aquarium,,,,42.359784,-71.051652,,,,level_-2_platform,0,place-aqucl,1,Boston,,,1
-place-haecl,place-haecl,Haymarket,,,,42.363021,-71.05829,,,,,1,,1,Boston,,,
-70024,70024,Haymarket,,,,42.363021,-71.05829,,,,level_-1_orange_platform,0,place-haecl,1,Boston,,,1
-70025,70025,Haymarket,,,,42.363021,-71.05829,,,,level_-1_orange_platform,0,place-haecl,1,Boston,,,1
-70203,70203,Haymarket,,,,42.363021,-71.05829,,,,level_-1_green_platform,0,place-haecl,1,Boston,,,0
-70204,70204,Haymarket,,,,42.363021,-71.05829,,,,level_-1_green_platform,0,place-haecl,1,Boston,,,0
-place-WML-0177,place-WML-0177,Natick Center,,,,42.285719,-71.347133,CR-zone-4,,,,1,,2,Natick,,,
-place-WML-0177-0,place-WML-0177-0,platform 0,,,,42.285719,-71.347133,CR-zone-4,,,,0,place-WML-0177,2,Natick,,,2
-place-WML-0177-1,place-WML-0177-1,platform 1,,,,42.285719,-71.347133,CR-zone-4,,,,0,place-WML-0177,2,Natick,,,2
-place-GB-0316,place-GB-0316,Gloucester,,,,42.616799,-70.668345,CR-zone-7,,,,1,,1,Gloucester,,,
-place-GB-0316-0,place-GB-0316-0,platform 0,,,,42.616799,-70.668345,CR-zone-7,,,,0,place-GB-0316,1,Gloucester,,,2
-place-GB-0316-1,place-GB-0316-1,platform 1,,,,42.616799,-70.668345,CR-zone-7,,,,0,place-GB-0316,1,Gloucester,,,2
-place-FR-0451,place-FR-0451,North Leominster,,,,42.539017,-71.739186,CR-zone-8,,,,1,,1,Leominster,,,
-place-FR-0451-0,place-FR-0451-0,platform 0,,,,42.539017,-71.739186,CR-zone-8,,,,0,place-FR-0451,1,Leominster,,,2
-place-FR-0451-1,place-FR-0451-1,platform 1,,,,42.539017,-71.739186,CR-zone-8,,,,0,place-FR-0451,1,Leominster,,,2
-place-masta,place-masta,Massachusetts Avenue,,,,42.341512,-71.083423,,,,,1,,1,Boston,,,
-70012,70012,Massachusetts Avenue,,,,42.341512,-71.083423,,,,level_-1_platform,0,place-masta,1,Boston,,,1
-70013,70013,Massachusetts Avenue,,,,42.341512,-71.083423,,,,level_-1_platform,0,place-masta,1,Boston,,,1
-place-ER-0227,place-ER-0227,Hamilton/Wenham,,,,42.609212,-70.874801,CR-zone-5,,,,1,,1,Hamilton,,,
-place-ER-0227-0,place-ER-0227-0,platform 0,,,,42.609212,-70.874801,CR-zone-5,,,,0,place-ER-0227,1,Hamilton,,,2
-place-ER-0227-1,place-ER-0227-1,platform 1,,,,42.609212,-70.874801,CR-zone-5,,,,0,place-ER-0227,1,Hamilton,,,2
-place-jaksn,place-jaksn,Jackson Square,,,,42.323132,-71.099592,,,,,1,,1,Boston,,,
-70006,70006,Jackson Square,,,,42.323132,-71.099592,,,,level_-1_platform,0,place-jaksn,1,Boston,,,1
-70007,70007,Jackson Square,,,,42.323132,-71.099592,,,,level_-1_platform,0,place-jaksn,1,Boston,,,1
-place-rr-south-salem,place-rr-south-salem,South Salem,,,,42.5073423,-70.8966044,,,,,1,,1,Salem,,,
-place-rr-south-salem-0,place-rr-south-salem-0,platform 0,,,,42.5073423,-70.8966044,,,,,0,place-rr-south-salem,1,Salem,,,2
-place-rr-south-salem-1,place-rr-south-salem-1,platform 1,,,,42.5073423,-70.8966044,,,,,0,place-rr-south-salem,1,Salem,,,2
-place-NHRML-0127,place-NHRML-0127,Anderson/Woburn,,,,42.516987,-71.144475,CR-zone-2,,,,1,,1,Woburn,,,
-place-NHRML-0127-0,place-NHRML-0127-0,platform 0,,,,42.516987,-71.144475,CR-zone-2,,,,0,place-NHRML-0127,1,Woburn,,,2
-place-NHRML-0127-1,place-NHRML-0127-1,platform 1,,,,42.516987,-71.144475,CR-zone-2,,,,0,place-NHRML-0127,1,Woburn,,,2
-place-NHRML-0218,place-NHRML-0218,North Billerica,,,,42.593248,-71.280995,CR-zone-5,,,,1,,1,Billerica,,,
-place-NHRML-0218-0,place-NHRML-0218-0,platform 0,,,,42.593248,-71.280995,CR-zone-5,,,,0,place-NHRML-0218,1,Billerica,,,2
-place-NHRML-0218-1,place-NHRML-0218-1,platform 1,,,,42.593248,-71.280995,CR-zone-5,,,,0,place-NHRML-0218,1,Billerica,,,2
-place-WML-0125,place-WML-0125,Wellesley Farms,,,,42.323608,-71.272288,CR-zone-3,,,,1,,2,Wellesley,,,
-place-WML-0125-0,place-WML-0125-0,platform 0,,,,42.323608,-71.272288,CR-zone-3,,,,0,place-WML-0125,2,Wellesley,,,2
-place-WML-0125-1,place-WML-0125-1,platform 1,,,,42.323608,-71.272288,CR-zone-3,,,,0,place-WML-0125,2,Wellesley,,,2
-place-davis,place-davis,Davis,,,,42.39674,-71.121815,,,,,1,,1,Somerville,,,
-70063,70063,Davis,,,,42.39674,-71.121815,,,,level_-2_platform,0,place-davis,1,Somerville,,,1
-70064,70064,Davis,,,,42.39674,-71.121815,,,,level_-2_platform,0,place-davis,1,Somerville,,,1
-place-spmnl,place-spmnl,Science Park/West End,,,,42.366664,-71.067666,,,,,1,,1,Boston,,,
-70207,70207,Science Park/West End,,,,42.366664,-71.067666,,,,level_2_platform,0,place-spmnl,1,Boston,,,0
-70208,70208,Science Park/West End,,,,42.366664,-71.067666,,,,level_2_platform,0,place-spmnl,1,Boston,,,0
-place-NB-0064,place-NB-0064,Roslindale Village,,,,42.287442,-71.130283,CR-zone-1,,,,1,,1,Boston,,,
-place-NB-0064-0,place-NB-0064-0,platform 0,,,,42.287442,-71.130283,CR-zone-1,,,,0,place-NB-0064,1,Boston,,,2
-place-NB-0064-1,place-NB-0064-1,platform 1,,,,42.287442,-71.130283,CR-zone-1,,,,0,place-NB-0064,1,Boston,,,2
-place-FR-0074,place-FR-0074,Waverley,,,,42.3876,-71.190744,CR-zone-1,,,,1,,2,Belmont,,,
-place-FR-0074-0,place-FR-0074-0,platform 0,,,,42.3876,-71.190744,CR-zone-1,,,,0,place-FR-0074,2,Belmont,,,2
-place-FR-0074-1,place-FR-0074-1,platform 1,,,,42.3876,-71.190744,CR-zone-1,,,,0,place-FR-0074,2,Belmont,,,2
-place-plsgr,place-plsgr,Pleasant Street,,,,42.351521,-71.118889,,,,,1,,2,Boston,,,
-70138,70138,Pleasant Street,,,,42.351445,-71.118753,,,,level_median,0,place-plsgr,2,Boston,,,0
-70139,70139,Pleasant Street,,,,42.351566,-71.119281,,,,level_median,0,place-plsgr,2,Boston,,,0
-place-GRB-0118,place-GRB-0118,Weymouth Landing/East Braintree,,,,42.221503,-70.968152,CR-zone-2,,,,1,,1,Weymouth,,,
-place-GRB-0118-0,place-GRB-0118-0,platform 0,,,,42.221503,-70.968152,CR-zone-2,,,,0,place-GRB-0118,1,Weymouth,,,2
-place-GRB-0118-1,place-GRB-0118-1,platform 1,,,,42.221503,-70.968152,CR-zone-2,,,,0,place-GRB-0118,1,Weymouth,,,2
-place-ER-0046,place-ER-0046,Chelsea,,,,42.395689,-71.034281,CR-zone-1A,,,,1,,2,Chelsea,,,
-place-ER-0046-0,place-ER-0046-0,platform 0,,,,42.395689,-71.034281,CR-zone-1A,,,,0,place-ER-0046,2,Chelsea,,,2
-place-ER-0046-1,place-ER-0046-1,platform 1,,,,42.395689,-71.034281,CR-zone-1A,,,,0,place-ER-0046,2,Chelsea,,,2
-place-tumnl,place-tumnl,Tufts Medical Center,,,,42.349662,-71.063917,,,,,1,,1,Boston,,,
-70016,70016,Tufts Medical Center,,,,42.349662,-71.063917,,,,level_-2_platform,0,place-tumnl,1,Boston,,,1
-70017,70017,Tufts Medical Center,,,,42.349662,-71.063917,,,,level_-2_platform,0,place-tumnl,1,Boston,,,1
-place-rr-west-station,place-rr-west-station,West Station,,,,0,0,,,,,1,,1,Boston,,,
-place-rr-west-station-0,place-rr-west-station-0,platform 0,,,,0,0,,,,,0,place-rr-west-station,1,Boston,,,2
-place-rr-west-station-1,place-rr-west-station-1,platform 1,,,,0,0,,,,,0,place-rr-west-station,1,Boston,,,2
-place-FR-0494,place-FR-0494,Fitchburg,,,,42.58072,-71.792611,CR-zone-8,,,,1,,1,Fitchburg,,,
-place-FR-0494-0,place-FR-0494-0,platform 0,,,,42.58072,-71.792611,CR-zone-8,,,,0,place-FR-0494,1,Fitchburg,,,2
-place-FR-0494-1,place-FR-0494-1,platform 1,,,,42.58072,-71.792611,CR-zone-8,,,,0,place-FR-0494,1,Fitchburg,,,2
-place-asmnl,place-asmnl,Ashmont,,,,42.284652,-71.064489,,,,,1,,1,Boston,,,
-70093,70093,Ashmont,,,,42.284239,-71.063601,,,,level_-1_platform,0,place-asmnl,1,Boston,,,1
-70094,70094,Ashmont,,,,42.284258,-71.063524,,,,level_-1_platform,0,place-asmnl,1,Boston,,,1
-place-WML-0364,place-WML-0364,Grafton,,,,42.2466,-71.685325,CR-zone-8,,,,1,,1,Grafton,,,
-place-WML-0364-0,place-WML-0364-0,platform 0,,,,42.2466,-71.685325,CR-zone-8,,,,0,place-WML-0364,1,Grafton,,,2
-place-WML-0364-1,place-WML-0364-1,platform 1,,,,42.2466,-71.685325,CR-zone-8,,,,0,place-WML-0364,1,Grafton,,,2
-place-butlr,place-butlr,Butler,,,,42.272343,-71.062584,,,,,1,,1,Boston,,,
-place-chill,place-chill,Chestnut Hill Avenue,,,,42.338169,-71.15316,,,,,1,,2,Boston,,,
-70112,70112,Chestnut Hill Avenue,,,,42.33873,-71.152526,,,,level_median,0,place-chill,2,Boston,,,0
-70113,70113,Chestnut Hill Avenue,,,,42.33829,-71.153025,,,,level_median,0,place-chill,2,Boston,,,0
-place-river,place-river,Riverside,,,,42.337059,-71.251742,,,,,1,,1,Newton,,,
-70160,70160,Riverside,,,,42.337283,-71.252385,,,,level_1_platform,0,place-river,1,Newton,,,0
-70161,70161,Riverside,,,,42.337321,-71.252357,,,,level_1_platform,0,place-river,1,Newton,,,0
-place-FS-0049,place-FS-0049,Foxboro,,,,42.0951,-71.26151,CR-zone-4,,,,1,,1,Foxborough,,,
-Foxboro,Foxboro,Foxboro,,,,42.0951,-71.26151,CR-zone-4,,,,0,place-FS-0049,1,Foxborough,,,2
-place-clmnl,place-clmnl,Cleveland Circle,,,,42.336142,-71.149326,,,,,1,,1,Boston,,,
-70237,70237,Cleveland Circle,,,,42.336216,-71.149201,,,,level_median,0,place-clmnl,1,Boston,,,0
-70238,70238,Cleveland Circle,,,,42.336252,-71.148774,,,,level_median,0,place-clmnl,1,Boston,,,0
-place-symcl,place-symcl,Symphony,,,,42.342687,-71.085056,,,,,1,,2,Boston,,,
-70241,70241,Symphony,,,,42.342687,-71.085056,,,,level_-1_platform,0,place-symcl,2,Boston,,,0
-70242,70242,Symphony,,,,42.342687,-71.085056,,,,level_-1_platform,0,place-symcl,2,Boston,,,0
-place-woodl,place-woodl,Woodland,,,,42.333374,-71.244301,,,,,1,,1,Newton,,,
-70162,70162,Woodland,,,,42.333339,-71.244333,,,,level_ground,0,place-woodl,1,Newton,,,0
-70163,70163,Woodland,,,,42.333372,-71.244303,,,,level_ground,0,place-woodl,1,Newton,,,0
-place-NHRML-0078,place-NHRML-0078,Winchester Center,,,,42.451088,-71.13783,CR-zone-1,,,,1,,2,Winchester,,,
-place-NHRML-0078-0,place-NHRML-0078-0,platform 0,,,,42.451088,-71.13783,CR-zone-1,,,,0,place-NHRML-0078,2,Winchester,,,2
-place-NHRML-0078-1,place-NHRML-0078-1,platform 1,,,,42.451088,-71.13783,CR-zone-1,,,,0,place-NHRML-0078,2,Winchester,,,2
-place-NEC-2203,place-NEC-2203,Hyde Park,,,,42.25503,-71.125526,CR-zone-1,,,,1,,1,Boston,,,
-place-NEC-2203-0,place-NEC-2203-0,platform 0,,,,42.25503,-71.125526,CR-zone-1,,,,0,place-NEC-2203,1,Boston,,,2
-place-NEC-2203-1,place-NEC-2203-1,platform 1,,,,42.25503,-71.125526,CR-zone-1,,,,0,place-NEC-2203,1,Boston,,,2
-place-SB-0189,place-SB-0189,Stoughton,,,,42.124084,-71.103627,CR-zone-4,,,,1,,1,Stoughton,,,
-place-SB-0189-0,place-SB-0189-0,platform 0,,,,42.124084,-71.103627,CR-zone-4,,,,0,place-SB-0189,1,Stoughton,,,2
-place-SB-0189-1,place-SB-0189-1,platform 1,,,,42.124084,-71.103627,CR-zone-4,,,,0,place-SB-0189,1,Stoughton,,,2
-place-FB-0303,place-FB-0303,Forge Park/495,,,,42.089941,-71.43902,CR-zone-6,,,,1,,1,Franklin,,,
-place-FB-0303-0,place-FB-0303-0,platform 0,,,,42.089941,-71.43902,CR-zone-6,,,,0,place-FB-0303,1,Franklin,,,2
-place-FB-0303-1,place-FB-0303-1,platform 1,,,,42.089941,-71.43902,CR-zone-6,,,,0,place-FB-0303,1,Franklin,,,2
-place-GRB-0146,place-GRB-0146,East Weymouth,,,,42.2191,-70.9214,CR-zone-2,,,,1,,1,Weymouth,,,
-place-GRB-0146-0,place-GRB-0146-0,platform 0,,,,42.2191,-70.9214,CR-zone-2,,,,0,place-GRB-0146,1,Weymouth,,,2
-place-GRB-0146-1,place-GRB-0146-1,platform 1,,,,42.2191,-70.9214,CR-zone-2,,,,0,place-GRB-0146,1,Weymouth,,,2
-place-NHRML-0152,place-NHRML-0152,Wilmington,,,,42.546624,-71.174334,CR-zone-3,,,,1,,1,Wilmington,,,
-place-NHRML-0152-0,place-NHRML-0152-0,platform 0,,,,42.546624,-71.174334,CR-zone-3,,,,0,place-NHRML-0152,1,Wilmington,,,2
-place-NHRML-0152-1,place-NHRML-0152-1,platform 1,,,,42.546624,-71.174334,CR-zone-3,,,,0,place-NHRML-0152,1,Wilmington,,,2
-place-NHRML-0116,place-NHRML-0116,Mishawum,,,,42.504402,-71.137618,CR-zone-2,,,,1,,2,Woburn,,,
-Mishawum,Mishawum,Mishawum,,,,42.504402,-71.137618,CR-zone-2,,,,0,place-NHRML-0116,2,Woburn,,,2
-place-rcmnl,place-rcmnl,Roxbury Crossing,,,,42.331397,-71.095451,,,,,1,,1,Boston,,,
-70008,70008,Roxbury Crossing,,,,42.331397,-71.095451,,,,level_-1_platform,0,place-rcmnl,1,Boston,,,1
-70009,70009,Roxbury Crossing,,,,42.331397,-71.095451,,,,level_-1_platform,0,place-rcmnl,1,Boston,,,1
-place-FB-0125,place-FB-0125,Islington,,,,42.22105,-71.183961,CR-zone-3,,,,1,,2,Westwood,,,
-place-FB-0125-0,place-FB-0125-0,platform 0,,,,42.22105,-71.183961,CR-zone-3,,,,0,place-FB-0125,2,Westwood,,,2
-place-FB-0125-1,place-FB-0125-1,platform 1,,,,42.22105,-71.183961,CR-zone-3,,,,0,place-FB-0125,2,Westwood,,,2
-place-lech,place-lech,Lechmere,,,,42.370772,-71.076536,,,,,1,,1,Cambridge,,,
-70209,70209,Lechmere,,,,42.370952,-71.077007,,,,level_ground,0,place-lech,1,Cambridge,,,0
-70210,70210,Lechmere,,,,42.370911,-71.077095,,,,level_ground,0,place-lech,1,Cambridge,,,0
-place-CM-0547,place-CM-0547,Buzzards Bay,,,,41.744805,-70.616226,CF-zone-buzzards,,,,1,,1,Bourne,,,
-place-wlsta,place-wlsta,Wollaston,,,,42.266514,-71.020337,,,,,1,,1,Quincy,,,
-70099,70099,Wollaston,,,,42.266514,-71.020337,,,,level_1_platform,0,place-wlsta,1,Quincy,,,1
-70100,70100,Wollaston,,,,42.266514,-71.020337,,,,level_1_platform,0,place-wlsta,1,Quincy,,,1
-place-NEC-1768,place-NEC-1768,TF Green Airport,,,,41.726599,-71.442453,CR-zone-9,,,,1,,1,Warwick,,,
-place-NEC-1768-0,place-NEC-1768-0,platform 0,,,,41.726599,-71.442453,CR-zone-9,,,,0,place-NEC-1768,1,Warwick,,,2
-place-NEC-1768-1,place-NEC-1768-1,platform 1,,,,41.726599,-71.442453,CR-zone-9,,,,0,place-NEC-1768,1,Warwick,,,2
-place-jfk,place-jfk,JFK/UMass,,,,42.320685,-71.052391,CR-zone-1A,,,,1,,1,Boston,,,
-place-jfk-0,place-jfk-0,platform 0,,,,42.320685,-71.052391,CR-zone-1A,,,,0,place-jfk,1,Boston,,,2
-place-jfk-1,place-jfk-1,platform 1,,,,42.320685,-71.052391,CR-zone-1A,,,,0,place-jfk,1,Boston,,,2
-70085,70085,JFK/UMass,,,,42.320685,-71.052391,,,,level_0_red_platform,0,place-jfk,1,Boston,,,1
-70086,70086,JFK/UMass,,,,42.320685,-71.052391,,,,level_0_red_platform,0,place-jfk,1,Boston,,,1
-70095,70095,JFK/UMass,,,,42.320685,-71.052391,,,,level_0_red_platform,0,place-jfk,1,Boston,,,1
-70096,70096,JFK/UMass,,,,42.320685,-71.052391,,,,level_0_red_platform,0,place-jfk,1,Boston,,,1
-place-ER-0168,place-ER-0168,Salem,,,,42.524792,-70.895876,CR-zone-3,,,,1,,1,Salem,,,
-place-ER-0168-0,place-ER-0168-0,platform 0,,,,42.524792,-70.895876,CR-zone-3,,,,0,place-ER-0168,1,Salem,,,2
-place-ER-0168-1,place-ER-0168-1,platform 1,,,,42.524792,-70.895876,CR-zone-3,,,,0,place-ER-0168,1,Salem,,,2
-place-mlmnl,place-mlmnl,Malden Center,,,,42.426632,-71.07411,CR-zone-1A,,,,1,,1,Malden,,,
-place-mlmnl-0,place-mlmnl-0,platform 0,,,,42.426632,-71.07411,CR-zone-1A,,,,0,place-mlmnl,1,Malden,,,2
-place-mlmnl-1,place-mlmnl-1,platform 1,,,,42.426632,-71.07411,CR-zone-1A,,,,0,place-mlmnl,1,Malden,,,2
-70034,70034,Malden Center,,,,42.426632,-71.07411,,,,level_1_orange_platform,0,place-mlmnl,1,Malden,,,1
-70035,70035,Malden Center,,,,42.426632,-71.07411,,,,level_1_orange_platform,0,place-mlmnl,1,Malden,,,1
-place-MM-0186,place-MM-0186,Montello,,,,42.106555,-71.022001,CR-zone-4,,,,1,,1,Brockton,,,
-place-MM-0186-0,place-MM-0186-0,platform 0,,,,42.106555,-71.022001,CR-zone-4,,,,0,place-MM-0186,1,Brockton,,,2
-place-MM-0186-1,place-MM-0186-1,platform 1,,,,42.106555,-71.022001,CR-zone-4,,,,0,place-MM-0186,1,Brockton,,,2
-place-FR-0147,place-FR-0147,Silver Hill,,,,42.395625,-71.302357,CR-zone-3,,,,1,,2,Weston,,,
-Silver Hill,Silver Hill,Silver Hill,,,,42.395625,-71.302357,CR-zone-3,,,,0,place-FR-0147,2,Weston,,,2
-place-nuniv,place-nuniv,Northeastern University,,,,42.340401,-71.088806,,,,,1,,1,Boston,,,
-70243,70243,Northeastern University,,,,42.339897,-71.09021,,,,level_median,0,place-nuniv,1,Boston,,,0
-70244,70244,Northeastern University,,,,42.340222,-71.0892,,,,level_median,0,place-nuniv,1,Boston,,,0
-place-MM-0200,place-MM-0200,Brockton,,,,42.084659,-71.016534,CR-zone-4,,,,1,,1,Brockton,,,
-place-MM-0200-0,place-MM-0200-0,platform 0,,,,42.084659,-71.016534,CR-zone-4,,,,0,place-MM-0200,1,Brockton,,,2
-place-MM-0200-1,place-MM-0200-1,platform 1,,,,42.084659,-71.016534,CR-zone-4,,,,0,place-MM-0200,1,Brockton,,,2
-place-GRB-0233,place-GRB-0233,North Scituate,,,,42.219528,-70.788602,CR-zone-5,,,,1,,1,Scituate,,,
-place-GRB-0233-0,place-GRB-0233-0,platform 0,,,,42.219528,-70.788602,CR-zone-5,,,,0,place-GRB-0233,1,Scituate,,,2
-place-GRB-0233-1,place-GRB-0233-1,platform 1,,,,42.219528,-70.788602,CR-zone-5,,,,0,place-GRB-0233,1,Scituate,,,2
-place-wtcst,place-wtcst,World Trade Center,,,,42.34863,-71.04246,,,,,1,,1,Boston,,,
-place-newto,place-newto,Newton Centre,,,,42.329391,-71.192429,,,,,1,,1,Newton,,,
-70170,70170,Newton Centre,,,,42.329338,-71.192388,,,,level_ground,0,place-newto,1,Newton,,,0
-70171,70171,Newton Centre,,,,42.329393,-71.19243,,,,level_ground,0,place-newto,1,Newton,,,0
-place-WML-0025,place-WML-0025,Lansdowne,,,,42.347581,-71.099974,CR-zone-1A,,,,1,,1,Boston,,,
-place-WML-0025-0,place-WML-0025-0,platform 0,,,,42.347581,-71.099974,CR-zone-1A,,,,0,place-WML-0025,1,Boston,,,2
-place-WML-0025-1,place-WML-0025-1,platform 1,,,,42.347581,-71.099974,CR-zone-1A,,,,0,place-WML-0025,1,Boston,,,2
-place-aport,place-aport,Airport,,,,42.374262,-71.030395,,,,,1,,1,Boston,,,
-70047,70047,Airport,,,,42.374262,-71.030395,,,,level_0_platform,0,place-aport,1,Boston,,,1
-70048,70048,Airport,,,,42.374262,-71.030395,,,,level_0_platform,0,place-aport,1,Boston,,,1
-place-WR-0163,place-WR-0163,North Wilmington,,,,42.569661,-71.159696,CR-zone-3,,,,1,,2,Wilmington,,,
-North Wilmington,North Wilmington,North Wilmington,,,,42.569661,-71.159696,CR-zone-3,,,,0,place-WR-0163,2,Wilmington,,,2
-place-cool,place-cool,Coolidge Corner,,,,42.342116,-71.121263,,,,,1,,1,Brookline,,,
-70219,70219,Coolidge Corner,,,,42.342274,-71.120915,,,,level_median,0,place-cool,1,Brookline,,,0
-70220,70220,Coolidge Corner,,,,42.342028,-71.121685,,,,level_median,0,place-cool,1,Brookline,,,0
-place-tapst,place-tapst,Tappan Street,,,,42.338459,-71.138702,,,,,1,,2,Brookline,,,
-70231,70231,Tappan Street,,,,42.338498,-71.138731,,,,level_median,0,place-tapst,2,Brookline,,,0
-70232,70232,Tappan Street,,,,42.338567,-71.13819,,,,level_median,0,place-tapst,2,Brookline,,,0
-place-shmnl,place-shmnl,Savin Hill,,,,42.31129,-71.053331,,,,,1,,1,Boston,,,
-70087,70087,Savin Hill,,,,42.31129,-71.053331,,,,level_0_platform,0,place-shmnl,1,Boston,,,1
-70088,70088,Savin Hill,,,,42.31129,-71.053331,,,,level_0_platform,0,place-shmnl,1,Boston,,,1
-place-PB-0281,place-PB-0281,Halifax,,,,42.014739,-70.824263,CR-zone-7,,,,1,,1,Halifax,,,
-place-PB-0281-0,place-PB-0281-0,platform 0,,,,42.014739,-70.824263,CR-zone-7,,,,0,place-PB-0281,1,Halifax,,,2
-place-PB-0281-1,place-PB-0281-1,platform 1,,,,42.014739,-70.824263,CR-zone-7,,,,0,place-PB-0281,1,Halifax,,,2
-place-FB-0230,place-FB-0230,Norfolk,,,,42.120694,-71.325217,CR-zone-5,,,,1,,1,Norfolk,,,
-place-FB-0230-0,place-FB-0230-0,platform 0,,,,42.120694,-71.325217,CR-zone-5,,,,0,place-FB-0230,1,Norfolk,,,2
-place-FB-0230-1,place-FB-0230-1,platform 1,,,,42.120694,-71.325217,CR-zone-5,,,,0,place-FB-0230,1,Norfolk,,,2
-place-harsq,place-harsq,Harvard,,,,42.373362,-71.118956,,,,,1,,1,Cambridge,,,
-70067,70067,Harvard,,,,42.373362,-71.118956,,,,level_-2_southbound_platform,0,place-harsq,1,Cambridge,,,1
-70068,70068,Harvard,,,,42.373362,-71.118956,,,,level_-1_alewife_platform,0,place-harsq,1,Cambridge,,,1
-place-kntst,place-kntst,Kent Street,,,,42.344074,-71.114197,,,,,1,,2,Brookline,,,
-70215,70215,Kent Street,,,,42.344117,-71.114097,,,,level_median,0,place-kntst,2,Brookline,,,0
-70216,70216,Kent Street,,,,42.343927,-71.114569,,,,level_median,0,place-kntst,2,Brookline,,,0
-place-NEC-2040,place-NEC-2040,Mansfield,,,,42.032787,-71.219917,CR-zone-6,,,,1,,1,Mansfield,,,
-place-NEC-2040-0,place-NEC-2040-0,platform 0,,,,42.032787,-71.219917,CR-zone-6,,,,0,place-NEC-2040,1,Mansfield,,,2
-place-NEC-2040-1,place-NEC-2040-1,platform 1,,,,42.032787,-71.219917,CR-zone-6,,,,0,place-NEC-2040,1,Mansfield,,,2
+place-astao,place-astao,Assembly,,,,42.392811,-71.077257,,,,,1,,1,Somerville,,,
+70278,70278,Assembly,,,,42.392811,-71.077257,,,,level_0_platform,0,place-astao,1,Somerville,,,1
+70279,70279,Assembly,,,,42.392811,-71.077257,,,,level_0_platform,0,place-astao,1,Somerville,,,1
+place-FR-0394,place-FR-0394,Shirley,,,,42.545089,-71.648004,CR-zone-8,,,,1,,2,Shirley,,,
+place-FR-0394-0,place-FR-0394-0,platform 0,,,,42.545089,-71.648004,CR-zone-8,,,,0,place-FR-0394,2,Shirley,,,2
+place-FR-0394-1,place-FR-0394-1,platform 1,,,,42.545089,-71.648004,CR-zone-8,,,,0,place-FR-0394,2,Shirley,,,2
 place-brkhl,place-brkhl,Brookline Hills,,,,42.331333,-71.126999,,,,,1,,1,Brookline,,,
 70178,70178,Brookline Hills,,,,42.331238,-71.127012,,,,level_ground,0,place-brkhl,1,Brookline,,,0
 70179,70179,Brookline Hills,,,,42.331333,-71.126998,,,,level_ground,0,place-brkhl,1,Brookline,,,0
+place-NB-0127,place-NB-0127,Needham Center,,,,42.280775,-71.237686,CR-zone-2,,,,1,,1,Needham,,,
+place-NB-0127-0,place-NB-0127-0,platform 0,,,,42.280775,-71.237686,CR-zone-2,,,,0,place-NB-0127,1,Needham,,,2
+place-NB-0127-1,place-NB-0127-1,platform 1,,,,42.280775,-71.237686,CR-zone-2,,,,0,place-NB-0127,1,Needham,,,2
+place-rsmnl,place-rsmnl,Reservoir,,,,42.335027,-71.148952,,,,,1,,1,Brookline,,,
+70174,70174,Reservoir,,,,42.334916,-71.149064,,,,level_-1_platform,0,place-rsmnl,1,Brookline,,,0
+70175,70175,Reservoir,,,,42.334954,-71.149079,,,,level_-1_platform,0,place-rsmnl,1,Brookline,,,0
+place-wtcst,place-wtcst,World Trade Center,,,,42.34863,-71.04246,,,,,1,,1,Boston,,,
+place-FR-0132,place-FR-0132,Kendal Green,,,,42.37897,-71.282411,CR-zone-3,,,,1,,2,Weston,,,
+place-FR-0132-0,place-FR-0132-0,platform 0,,,,42.37897,-71.282411,CR-zone-3,,,,0,place-FR-0132,2,Weston,,,2
+place-FR-0132-1,place-FR-0132-1,platform 1,,,,42.37897,-71.282411,CR-zone-3,,,,0,place-FR-0132,2,Weston,,,2
+place-nuniv,place-nuniv,Northeastern University,,,,42.340401,-71.088806,,,,,1,,1,Boston,,,
+70243,70243,Northeastern University,,,,42.339897,-71.09021,,,,level_median,0,place-nuniv,1,Boston,,,0
+70244,70244,Northeastern University,,,,42.340222,-71.0892,,,,level_median,0,place-nuniv,1,Boston,,,0
+place-cedgr,place-cedgr,Cedar Grove,,,,42.279682,-71.060432,,,,,1,,1,Boston,,,
+place-WML-0147,place-WML-0147,Wellesley Square,,,,42.297526,-71.294173,CR-zone-3,,,,1,,2,Wellesley,,,
+place-WML-0147-0,place-WML-0147-0,platform 0,,,,42.297526,-71.294173,CR-zone-3,,,,0,place-WML-0147,2,Wellesley,,,2
+place-WML-0147-1,place-WML-0147-1,platform 1,,,,42.297526,-71.294173,CR-zone-3,,,,0,place-WML-0147,2,Wellesley,,,2
+place-babck,place-babck,Babcock Street,,,,42.35182,-71.12165,,,,,1,,2,Boston,,,
+70136,70136,Babcock Street,,,,42.351776,-71.12153,,,,level_median,0,place-babck,2,Boston,,,0
+70137,70137,Babcock Street,,,,42.351903,-71.122042,,,,level_median,0,place-babck,2,Boston,,,0
+place-CM-0547,place-CM-0547,Buzzards Bay,,,,41.744805,-70.616226,CF-zone-buzzards,,,,1,,1,Bourne,,,
+place-FB-0303,place-FB-0303,Forge Park/495,,,,42.089941,-71.43902,CR-zone-6,,,,1,,1,Franklin,,,
+place-FB-0303-0,place-FB-0303-0,platform 0,,,,42.089941,-71.43902,CR-zone-6,,,,0,place-FB-0303,1,Franklin,,,2
+place-FB-0303-1,place-FB-0303-1,platform 1,,,,42.089941,-71.43902,CR-zone-6,,,,0,place-FB-0303,1,Franklin,,,2
+place-NB-0076,place-NB-0076,Highland,,,,42.284969,-71.153937,CR-zone-1,,,,1,,1,Boston,,,
+place-NB-0076-0,place-NB-0076-0,platform 0,,,,42.284969,-71.153937,CR-zone-1,,,,0,place-NB-0076,1,Boston,,,2
+place-NB-0076-1,place-NB-0076-1,platform 1,,,,42.284969,-71.153937,CR-zone-1,,,,0,place-NB-0076,1,Boston,,,2
+place-rr-cohasset-center,place-rr-cohasset-center,Cohasset Center,,,,0,0,,,,,1,,1,Cohasset Center,,,
+place-rr-cohasset-center-0,place-rr-cohasset-center-0,platform 0,,,,0,0,,,,,0,place-rr-cohasset-center,1,Cohasset Center,,,2
+place-rr-cohasset-center-1,place-rr-cohasset-center-1,platform 1,,,,0,0,,,,,0,place-rr-cohasset-center,1,Cohasset Center,,,2
+place-asmnl,place-asmnl,Ashmont,,,,42.284652,-71.064489,,,,,1,,1,Boston,,,
+70093,70093,Ashmont,,,,42.284239,-71.063601,,,,level_-1_platform,0,place-asmnl,1,Boston,,,1
+70094,70094,Ashmont,,,,42.284258,-71.063524,,,,level_-1_platform,0,place-asmnl,1,Boston,,,1
+place-GB-0296,place-GB-0296,West Gloucester,,,,42.611933,-70.705417,CR-zone-7,,,,1,,1,Gloucester,,,
+place-GB-0296-0,place-GB-0296-0,platform 0,,,,42.611933,-70.705417,CR-zone-7,,,,0,place-GB-0296,1,Gloucester,,,2
+place-GB-0296-1,place-GB-0296-1,platform 1,,,,42.611933,-70.705417,CR-zone-7,,,,0,place-GB-0296,1,Gloucester,,,2
+place-waban,place-waban,Waban,,,,42.325943,-71.230728,,,,,1,,2,Newton,,,
+70164,70164,Waban,,,,42.325899,-71.230805,,,,level_ground,0,place-waban,2,Newton,,,0
+70165,70165,Waban,,,,42.325943,-71.23073,,,,level_ground,0,place-waban,2,Newton,,,0
+place-conrd,place-conrd,Silver Line Way,,,,42.347154,-71.038385,,,,,1,,1,Boston,,,
+place-mvbcl,place-mvbcl,Maverick,,,,42.369119,-71.03953,,,,,1,,1,Boston,,,
+70045,70045,Maverick,,,,42.369119,-71.03953,,,,level_-1_platform,0,place-mvbcl,1,Boston,,,1
+70046,70046,Maverick,,,,42.369119,-71.03953,,,,level_-1_platform,0,place-mvbcl,1,Boston,,,1
+place-crtst,place-crtst,Courthouse,,,,42.35245,-71.04685,,,,,1,,1,Boston,,,
+place-MM-0186,place-MM-0186,Montello,,,,42.106555,-71.022001,CR-zone-4,,,,1,,1,Brockton,,,
+place-MM-0186-0,place-MM-0186-0,platform 0,,,,42.106555,-71.022001,CR-zone-4,,,,0,place-MM-0186,1,Brockton,,,2
+place-MM-0186-1,place-MM-0186-1,platform 1,,,,42.106555,-71.022001,CR-zone-4,,,,0,place-MM-0186,1,Brockton,,,2
+place-NHRML-0073,place-NHRML-0073,Wedgemere,,,,42.444948,-71.140169,CR-zone-1,,,,1,,1,Winchester,,,
+place-NHRML-0073-0,place-NHRML-0073-0,platform 0,,,,42.444948,-71.140169,CR-zone-1,,,,0,place-NHRML-0073,1,Winchester,,,2
+place-NHRML-0073-1,place-NHRML-0073-1,platform 1,,,,42.444948,-71.140169,CR-zone-1,,,,0,place-NHRML-0073,1,Winchester,,,2
+place-FR-0253,place-FR-0253,South Acton,,,,42.460375,-71.457744,CR-zone-6,,,,1,,1,Acton,,,
+place-FR-0253-0,place-FR-0253-0,platform 0,,,,42.460375,-71.457744,CR-zone-6,,,,0,place-FR-0253,1,Acton,,,2
+place-FR-0253-1,place-FR-0253-1,platform 1,,,,42.460375,-71.457744,CR-zone-6,,,,0,place-FR-0253,1,Acton,,,2
+place-bckhl,place-bckhl,Back of the Hill,,,,42.330139,-71.111313,,,,,1,,2,Boston,,,
+70257,70257,Back of the Hill,,,,42.329369,-71.111046,,,,level_in_street,0,place-bckhl,2,Boston,,,0
+70258,70258,Back of the Hill,,,,42.329399,-71.110931,,,,level_in_street,0,place-bckhl,2,Boston,,,0
+place-davis,place-davis,Davis,,,,42.39674,-71.121815,,,,,1,,1,Somerville,,,
+70063,70063,Davis,,,,42.39674,-71.121815,,,,level_-2_platform,0,place-davis,1,Somerville,,,1
+70064,70064,Davis,,,,42.39674,-71.121815,,,,level_-2_platform,0,place-davis,1,Somerville,,,1
+place-prmnl,place-prmnl,Prudential,,,,42.34557,-71.081696,,,,,1,,1,Boston,,,
+70239,70239,Prudential,,,,42.34557,-71.081696,,,,level_-2_platform,0,place-prmnl,1,Boston,,,0
+70240,70240,Prudential,,,,42.34557,-71.081696,,,,level_-2_platform,0,place-prmnl,1,Boston,,,0
+place-rr-ceylon-park,place-rr-ceylon-park,Ceylon Park,,,,42.3097728,-71.0735888,,,,,1,,1,Boston,,,
+place-rr-ceylon-park-0,place-rr-ceylon-park-0,platform 0,,,,42.3097728,-71.0735888,,,,,0,place-rr-ceylon-park,1,Boston,,,2
+place-rr-ceylon-park-1,place-rr-ceylon-park-1,platform 1,,,,42.3097728,-71.0735888,,,,,0,place-rr-ceylon-park,1,Boston,,,2
+place-WML-0081,place-WML-0081,Newtonville,,,,42.351702,-71.205408,CR-zone-1,,,,1,,2,Newton,,,
+place-WML-0081-0,place-WML-0081-0,platform 0,,,,42.351702,-71.205408,CR-zone-1,,,,0,place-WML-0081,2,Newton,,,2
+place-WML-0081-1,place-WML-0081-1,platform 1,,,,42.351702,-71.205408,CR-zone-1,,,,0,place-WML-0081,2,Newton,,,2
+place-buest,place-buest,Boston University East,,,,42.349735,-71.103889,,,,,1,,1,Boston,,,
+70146,70146,Boston University East,,,,42.349659,-71.103989,,,,level_median,0,place-buest,1,Boston,,,0
+70147,70147,Boston University East,,,,42.349811,-71.104657,,,,level_median,0,place-buest,1,Boston,,,0
+place-FR-0361,place-FR-0361,Ayer,,,,42.559074,-71.588476,CR-zone-8,,,,1,,2,Ayer,,,
+place-FR-0361-0,place-FR-0361-0,platform 0,,,,42.559074,-71.588476,CR-zone-8,,,,0,place-FR-0361,2,Ayer,,,2
+place-FR-0361-1,place-FR-0361-1,platform 1,,,,42.559074,-71.588476,CR-zone-8,,,,0,place-FR-0361,2,Ayer,,,2
+place-GB-0316,place-GB-0316,Gloucester,,,,42.616799,-70.668345,CR-zone-7,,,,1,,1,Gloucester,,,
+place-GB-0316-0,place-GB-0316-0,platform 0,,,,42.616799,-70.668345,CR-zone-7,,,,0,place-GB-0316,1,Gloucester,,,2
+place-GB-0316-1,place-GB-0316-1,platform 1,,,,42.616799,-70.668345,CR-zone-7,,,,0,place-GB-0316,1,Gloucester,,,2
 place-kencl,place-kencl,Kenmore,,,,42.348949,-71.095169,,,,,1,,1,Boston,,,
 70150,70150,Kenmore,,,,42.348949,-71.095169,,,,level_-2_platform,0,place-kencl,1,Boston,,,0
 70151,70151,Kenmore,,,,42.348949,-71.095169,,,,level_-2_platform,0,place-kencl,1,Boston,,,0
 71150,71150,Kenmore,,,,42.348949,-71.095169,,,,level_-2_platform,0,place-kencl,1,Boston,,,0
 71151,71151,Kenmore,,,,42.348949,-71.095169,,,,level_-2_platform,0,place-kencl,1,Boston,,,0
+place-fbkst,place-fbkst,Fairbanks Street,,,,42.339725,-71.131073,,,,,1,,2,Brookline,,,
+70227,70227,Fairbanks Street,,,,42.33969,-71.131228,,,,level_median,0,place-fbkst,2,Brookline,,,0
+70228,70228,Fairbanks Street,,,,42.339644,-71.131078,,,,level_median,0,place-fbkst,2,Brookline,,,0
+place-spmnl,place-spmnl,Science Park/West End,,,,42.366664,-71.067666,,,,,1,,1,Boston,,,
+70207,70207,Science Park/West End,,,,42.366664,-71.067666,,,,level_2_platform,0,place-spmnl,1,Boston,,,0
+70208,70208,Science Park/West End,,,,42.366664,-71.067666,,,,level_2_platform,0,place-spmnl,1,Boston,,,0
+place-gover,place-gover,Government Center,,,,42.359705,-71.059215,,,,,1,,1,Boston,,,
+70039,70039,Government Center,,,,42.359705,-71.059215,,,,level_-2_blue_platform,0,place-gover,1,Boston,,,1
+70040,70040,Government Center,,,,42.359705,-71.059215,,,,level_-2_blue_platform,0,place-gover,1,Boston,,,1
+70201,70201,Government Center,,,,42.359705,-71.059215,,,,level_-1_green_platform,0,place-gover,1,Boston,,,0
+70202,70202,Government Center,,,,42.359705,-71.059215,,,,level_-1_green_platform,0,place-gover,1,Boston,,,0
+place-haecl,place-haecl,Haymarket,,,,42.363021,-71.05829,,,,,1,,1,Boston,,,
+70024,70024,Haymarket,,,,42.363021,-71.05829,,,,level_-1_orange_platform,0,place-haecl,1,Boston,,,1
+70025,70025,Haymarket,,,,42.363021,-71.05829,,,,level_-1_orange_platform,0,place-haecl,1,Boston,,,1
+70203,70203,Haymarket,,,,42.363021,-71.05829,,,,level_-1_green_platform,0,place-haecl,1,Boston,,,0
+70204,70204,Haymarket,,,,42.363021,-71.05829,,,,level_-1_green_platform,0,place-haecl,1,Boston,,,0
+place-WR-0205,place-WR-0205,Ballardvale,,,,42.627356,-71.159962,CR-zone-4,,,,1,,1,Andover,,,
+place-WR-0205-0,place-WR-0205-0,platform 0,,,,42.627356,-71.159962,CR-zone-4,,,,0,place-WR-0205,1,Andover,,,2
+place-WR-0205-1,place-WR-0205-1,platform 1,,,,42.627356,-71.159962,CR-zone-4,,,,0,place-WR-0205,1,Andover,,,2
+place-stplb,place-stplb,Saint Paul Street,,,,42.3512,-71.116104,,,,,1,,2,Boston,,,
+70140,70140,Saint Paul Street,,,,42.35111,-71.116014,,,,level_median,0,place-stplb,2,Boston,,,0
+70141,70141,Saint Paul Street,,,,42.351241,-71.116531,,,,level_median,0,place-stplb,2,Boston,,,0
+place-lech,place-lech,Lechmere,,,,42.370772,-71.076536,,,,,1,,1,Cambridge,,,
+70209,70209,Lechmere,,,,42.370952,-71.077007,,,,level_ground,0,place-lech,1,Cambridge,,,0
+70210,70210,Lechmere,,,,42.370911,-71.077095,,,,level_ground,0,place-lech,1,Cambridge,,,0
+place-wlsta,place-wlsta,Wollaston,,,,42.266514,-71.020337,,,,,1,,1,Quincy,,,
+70099,70099,Wollaston,,,,42.266514,-71.020337,,,,level_1_platform,0,place-wlsta,1,Quincy,,,1
+70100,70100,Wollaston,,,,42.266514,-71.020337,,,,level_1_platform,0,place-wlsta,1,Quincy,,,1
+place-FR-0201,place-FR-0201,Concord,,,,42.456565,-71.357677,CR-zone-5,,,,1,,2,Concord,,,
+place-FR-0201-0,place-FR-0201-0,platform 0,,,,42.456565,-71.357677,CR-zone-5,,,,0,place-FR-0201,2,Concord,,,2
+place-FR-0201-1,place-FR-0201-1,platform 1,,,,42.456565,-71.357677,CR-zone-5,,,,0,place-FR-0201,2,Concord,,,2
+place-NEC-1919,place-NEC-1919,South Attleboro,,,,41.897943,-71.354621,CR-zone-7,,,,1,,1,Attleboro,,,
+place-NEC-1919-0,place-NEC-1919-0,platform 0,,,,41.897943,-71.354621,CR-zone-7,,,,0,place-NEC-1919,1,Attleboro,,,2
+place-NEC-1919-1,place-NEC-1919-1,platform 1,,,,41.897943,-71.354621,CR-zone-7,,,,0,place-NEC-1919,1,Attleboro,,,2
+place-FB-0109,place-FB-0109,Endicott,,,,42.233249,-71.158647,CR-zone-2,,,,1,,2,Dedham,,,
+place-FB-0109-0,place-FB-0109-0,platform 0,,,,42.233249,-71.158647,CR-zone-2,,,,0,place-FB-0109,2,Dedham,,,2
+place-FB-0109-1,place-FB-0109-1,platform 1,,,,42.233249,-71.158647,CR-zone-2,,,,0,place-FB-0109,2,Dedham,,,2
+place-GRB-0162,place-GRB-0162,West Hingham,,,,42.235838,-70.902708,CR-zone-3,,,,1,,1,Hingham,,,
+place-GRB-0162-0,place-GRB-0162-0,platform 0,,,,42.235838,-70.902708,CR-zone-3,,,,0,place-GRB-0162,1,Hingham,,,2
+place-GRB-0162-1,place-GRB-0162-1,platform 1,,,,42.235838,-70.902708,CR-zone-3,,,,0,place-GRB-0162,1,Hingham,,,2
+place-estav,place-estav,Eastern Avenue,,,,42.388374,-71.023859,,,,,1,,1,Chelsea,,,
+place-denrd,place-denrd,Dean Road,,,,42.337807,-71.141853,,,,,1,,2,Brookline,,,
+70233,70233,Dean Road,,,,42.337807,-71.141753,,,,level_median,0,place-denrd,2,Brookline,,,0
+70234,70234,Dean Road,,,,42.337628,-71.142309,,,,level_median,0,place-denrd,2,Brookline,,,0
+place-WR-0325,place-WR-0325,Bradford,,,,42.766912,-71.088411,CR-zone-7,,,,1,,1,Bradford,,,
+place-WR-0325-0,place-WR-0325-0,platform 0,,,,42.766912,-71.088411,CR-zone-7,,,,0,place-WR-0325,1,Bradford,,,2
+place-WR-0325-1,place-WR-0325-1,platform 1,,,,42.766912,-71.088411,CR-zone-7,,,,0,place-WR-0325,1,Bradford,,,2
+place-GB-0222,place-GB-0222,Prides Crossing,,,,42.559446,-70.825541,CR-zone-5,,,,1,,2,Beverly,,,
+place-GB-0222-0,place-GB-0222-0,platform 0,,,,42.559446,-70.825541,CR-zone-5,,,,0,place-GB-0222,2,Beverly,,,2
+place-GB-0222-1,place-GB-0222-1,platform 1,,,,42.559446,-70.825541,CR-zone-5,,,,0,place-GB-0222,2,Beverly,,,2
+place-MM-0200,place-MM-0200,Brockton,,,,42.084659,-71.016534,CR-zone-4,,,,1,,1,Brockton,,,
+place-MM-0200-0,place-MM-0200-0,platform 0,,,,42.084659,-71.016534,CR-zone-4,,,,0,place-MM-0200,1,Brockton,,,2
+place-MM-0200-1,place-MM-0200-1,platform 1,,,,42.084659,-71.016534,CR-zone-4,,,,0,place-MM-0200,1,Brockton,,,2
+place-CM-0790,place-CM-0790,Hyannis,,,,41.660225,-70.276583,CF-zone-hyannis,,,,1,,1,Barnstable,,,
+place-NB-0137,place-NB-0137,Needham Heights,,,,42.293444,-71.236027,CR-zone-2,,,,1,,1,Needham,,,
+place-NB-0137-0,place-NB-0137-0,platform 0,,,,42.293444,-71.236027,CR-zone-2,,,,0,place-NB-0137,1,Needham,,,2
+place-NB-0137-1,place-NB-0137-1,platform 1,,,,42.293444,-71.236027,CR-zone-2,,,,0,place-NB-0137,1,Needham,,,2
+place-forhl,place-forhl,Forest Hills,,,,42.300523,-71.113686,CR-zone-1A,,,,1,,1,Boston,,,
+place-forhl-0,place-forhl-0,platform 0,,,,42.300523,-71.113686,CR-zone-1A,,,,0,place-forhl,1,Boston,,,2
+place-forhl-1,place-forhl-1,platform 1,,,,42.300523,-71.113686,CR-zone-1A,,,,0,place-forhl,1,Boston,,,2
+70001,70001,Forest Hills,,,,42.300523,-71.113686,,,,level_-1_orange_platform,0,place-forhl,1,Boston,,,1
+place-GB-0198,place-GB-0198,Montserrat,,,,42.562171,-70.869254,CR-zone-4,,,,1,,1,Beverly,,,
+place-GB-0198-0,place-GB-0198-0,platform 0,,,,42.562171,-70.869254,CR-zone-4,,,,0,place-GB-0198,1,Beverly,,,2
+place-GB-0198-1,place-GB-0198-1,platform 1,,,,42.562171,-70.869254,CR-zone-4,,,,0,place-GB-0198,1,Beverly,,,2
+place-ER-0362,place-ER-0362,Newburyport,,,,42.797837,-70.87797,CR-zone-8,,,,1,,1,Newburyport,,,
+place-ER-0362-0,place-ER-0362-0,platform 0,,,,42.797837,-70.87797,CR-zone-8,,,,0,place-ER-0362,1,Newburyport,,,2
+place-ER-0362-1,place-ER-0362-1,platform 1,,,,42.797837,-70.87797,CR-zone-8,,,,0,place-ER-0362,1,Newburyport,,,2
+place-DB-2240,place-DB-2240,Talbot Avenue,,,,42.292246,-71.07814,CR-zone-1A,,,,1,,1,Boston,,,
+place-DB-2240-0,place-DB-2240-0,platform 0,,,,42.292246,-71.07814,CR-zone-1A,,,,0,place-DB-2240,1,Boston,,,2
+place-DB-2240-1,place-DB-2240-1,platform 1,,,,42.292246,-71.07814,CR-zone-1A,,,,0,place-DB-2240,1,Boston,,,2
+place-WML-0177,place-WML-0177,Natick Center,,,,42.285719,-71.347133,CR-zone-4,,,,1,,2,Natick,,,
+place-WML-0177-0,place-WML-0177-0,platform 0,,,,42.285719,-71.347133,CR-zone-4,,,,0,place-WML-0177,2,Natick,,,2
+place-WML-0177-1,place-WML-0177-1,platform 1,,,,42.285719,-71.347133,CR-zone-4,,,,0,place-WML-0177,2,Natick,,,2
+place-WML-0199,place-WML-0199,West Natick,,,,42.283064,-71.391797,CR-zone-4,,,,1,,1,Natick,,,
+place-WML-0199-0,place-WML-0199-0,platform 0,,,,42.283064,-71.391797,CR-zone-4,,,,0,place-WML-0199,1,Natick,,,2
+place-WML-0199-1,place-WML-0199-1,platform 1,,,,42.283064,-71.391797,CR-zone-4,,,,0,place-WML-0199,1,Natick,,,2
+place-WML-0340,place-WML-0340,Westborough,,,,42.269644,-71.647076,CR-zone-7,,,,1,,1,Westborough,,,
+place-WML-0340-0,place-WML-0340-0,platform 0,,,,42.269644,-71.647076,CR-zone-7,,,,0,place-WML-0340,1,Westborough,,,2
+place-WML-0340-1,place-WML-0340-1,platform 1,,,,42.269644,-71.647076,CR-zone-7,,,,0,place-WML-0340,1,Westborough,,,2
+place-GRB-0199,place-GRB-0199,Cohasset,,,,42.24421,-70.837529,CR-zone-4,,,,1,,1,Cohasset,,,
+Cohasset,Cohasset,Cohasset,,,,42.24421,-70.837529,CR-zone-4,,,,0,place-GRB-0199,1,Cohasset,,,2
+place-boxdt,place-boxdt,Box District,,,,42.394049,-71.028365,,,,,1,,1,Chelsea,,,
+place-cntsq,place-cntsq,Central,,,,42.365486,-71.103802,,,,,1,,1,Cambridge,,,
+70069,70069,Central,,,,42.365304,-71.103621,,,,level_-1_platform,0,place-cntsq,1,Cambridge,,,1
+70070,70070,Central,,,,42.365379,-71.103554,,,,level_-1_platform,0,place-cntsq,1,Cambridge,,,1
+place-mfa,place-mfa,Museum of Fine Arts,,,,42.337711,-71.095512,,,,,1,,1,Boston,,,
+70245,70245,Museum of Fine Arts,,,,42.337875,-71.09524,,,,level_median,0,place-mfa,1,Boston,,,0
+70246,70246,Museum of Fine Arts,,,,42.338017,-71.094682,,,,level_median,0,place-mfa,1,Boston,,,0
+place-shmnl,place-shmnl,Savin Hill,,,,42.31129,-71.053331,,,,,1,,1,Boston,,,
+70087,70087,Savin Hill,,,,42.31129,-71.053331,,,,level_0_platform,0,place-shmnl,1,Boston,,,1
+70088,70088,Savin Hill,,,,42.31129,-71.053331,,,,level_0_platform,0,place-shmnl,1,Boston,,,1
+place-ogmnl,place-ogmnl,Oak Grove,,,,42.43668,-71.071097,,,,,1,,1,Malden,,,
+70036,70036,Oak Grove,,,,42.43668,-71.071097,,,,level_0_platform,0,place-ogmnl,1,Malden,,,1
+place-state,place-state,State,,,,42.358978,-71.057598,,,,,1,,1,Boston,,,
+70022,70022,State,,,,42.358978,-71.057598,,,,level_-1_up_platform,0,place-state,1,Boston,,,1
+70023,70023,State,,,,42.358978,-71.057598,,,,level_-2_oak_grove_platform,0,place-state,1,Boston,,,1
+70041,70041,State,,,,42.358978,-71.057598,,,,level_-1_up_platform,0,place-state,1,Boston,,,1
+70042,70042,State,,,,42.358978,-71.057598,,,,level_-1_up_platform,0,place-state,1,Boston,,,1
+place-bucen,place-bucen,Boston University Central,,,,42.350082,-71.106865,,,,,1,,1,Boston,,,
+70144,70144,Boston University Central,,,,42.350013,-71.106902,,,,level_median,0,place-bucen,1,Boston,,,0
+70145,70145,Boston University Central,,,,42.350148,-71.107455,,,,level_median,0,place-bucen,1,Boston,,,0
+place-miltt,place-miltt,Milton,,,,42.270306,-71.067673,,,,,1,,1,Milton,,,
+place-cool,place-cool,Coolidge Corner,,,,42.342116,-71.121263,,,,,1,,1,Brookline,,,
+70219,70219,Coolidge Corner,,,,42.342274,-71.120915,,,,level_median,0,place-cool,1,Brookline,,,0
+70220,70220,Coolidge Corner,,,,42.342028,-71.121685,,,,level_median,0,place-cool,1,Brookline,,,0
+place-grigg,place-grigg,Griggs Street,,,,42.348545,-71.134949,,,,,1,,2,Boston,,,
+70128,70128,Griggs Street,,,,42.348747,-71.1345,,,,level_median,0,place-grigg,2,Boston,,,0
+70129,70129,Griggs Street,,,,42.348919,-71.134305,,,,level_median,0,place-grigg,2,Boston,,,0
+place-WR-0329,place-WR-0329,Haverhill,,,,42.773474,-71.086237,CR-zone-7,,,,1,,1,Haverhill,,,
+place-WR-0329-0,place-WR-0329-0,platform 0,,,,42.773474,-71.086237,CR-zone-7,,,,0,place-WR-0329,1,Haverhill,,,2
+place-WR-0329-1,place-WR-0329-1,platform 1,,,,42.773474,-71.086237,CR-zone-7,,,,0,place-WR-0329,1,Haverhill,,,2
+place-river,place-river,Riverside,,,,42.337059,-71.251742,,,,,1,,1,Newton,,,
+70160,70160,Riverside,,,,42.337283,-71.252385,,,,level_1_platform,0,place-river,1,Newton,,,0
+70161,70161,Riverside,,,,42.337321,-71.252357,,,,level_1_platform,0,place-river,1,Newton,,,0
+place-NEC-2173,place-NEC-2173,Route 128,,,,42.210308,-71.147134,CR-zone-2,,,,1,,1,Westwood,,,
+place-NEC-2173-0,place-NEC-2173-0,platform 0,,,,42.210308,-71.147134,CR-zone-2,,,,0,place-NEC-2173,1,Westwood,,,2
+place-NEC-2173-1,place-NEC-2173-1,platform 1,,,,42.210308,-71.147134,CR-zone-2,,,,0,place-NEC-2173,1,Westwood,,,2
+place-FR-0064,place-FR-0064,Belmont,,,,42.395896,-71.17619,CR-zone-1,,,,1,,2,Belmont,,,
+place-FR-0064-0,place-FR-0064-0,platform 0,,,,42.395896,-71.17619,CR-zone-1,,,,0,place-FR-0064,2,Belmont,,,2
+place-FR-0064-1,place-FR-0064-1,platform 1,,,,42.395896,-71.17619,CR-zone-1,,,,0,place-FR-0064,2,Belmont,,,2
+place-GB-0353,place-GB-0353,Rockport,,,,42.655491,-70.627055,CR-zone-8,,,,1,,1,Rockport,,,
+place-GB-0353-0,place-GB-0353-0,platform 0,,,,42.655491,-70.627055,CR-zone-8,,,,0,place-GB-0353,1,Rockport,,,2
+place-GB-0353-1,place-GB-0353-1,platform 1,,,,42.655491,-70.627055,CR-zone-8,,,,0,place-GB-0353,1,Rockport,,,2
+place-FB-0275,place-FB-0275,Franklin,,,,42.083238,-71.396102,CR-zone-6,,,,1,,2,Franklin,,,
+place-FB-0275-0,place-FB-0275-0,platform 0,,,,42.083238,-71.396102,CR-zone-6,,,,0,place-FB-0275,2,Franklin,,,2
+place-FB-0275-1,place-FB-0275-1,platform 1,,,,42.083238,-71.396102,CR-zone-6,,,,0,place-FB-0275,2,Franklin,,,2
+place-rr-bridgewater-center,place-rr-bridgewater-center,Bridgewater Center,,,,0,0,,,,,1,,1,Bridgewater,,,
+place-rr-bridgewater-center-0,place-rr-bridgewater-center-0,platform 0,,,,0,0,,,,,0,place-rr-bridgewater-center,1,Bridgewater,,,2
+place-rr-bridgewater-center-1,place-rr-bridgewater-center-1,platform 1,,,,0,0,,,,,0,place-rr-bridgewater-center,1,Bridgewater,,,2
+place-WR-0228,place-WR-0228,Andover,,,,42.658336,-71.144502,CR-zone-5,,,,1,,1,Andover,,,
+place-WR-0228-0,place-WR-0228-0,platform 0,,,,42.658336,-71.144502,CR-zone-5,,,,0,place-WR-0228,1,Andover,,,2
+place-WR-0228-1,place-WR-0228-1,platform 1,,,,42.658336,-71.144502,CR-zone-5,,,,0,place-WR-0228,1,Andover,,,2
+place-FB-0166,place-FB-0166,Windsor Gardens,,,,42.172127,-71.219366,CR-zone-4,,,,1,,2,Norwood,,,
+place-FB-0166-0,place-FB-0166-0,platform 0,,,,42.172127,-71.219366,CR-zone-4,,,,0,place-FB-0166,2,Norwood,,,2
+place-FB-0166-1,place-FB-0166-1,platform 1,,,,42.172127,-71.219366,CR-zone-4,,,,0,place-FB-0166,2,Norwood,,,2
+place-lake,place-lake,Boston College,,,,42.340081,-71.166769,,,,,1,,1,Boston,,,
+70106,70106,Boston College,,,,42.340149,-71.167029,,,,level_ground,0,place-lake,1,Boston,,,0
+70107,70107,Boston College,,,,42.34024,-71.166849,,,,level_ground,0,place-lake,1,Boston,,,0
+place-NEC-1851,place-NEC-1851,Providence,,,,41.829293,-71.413301,CR-zone-8,,,,1,,1,Providence,,,
+place-NEC-1851-0,place-NEC-1851-0,platform 0,,,,41.829293,-71.413301,CR-zone-8,,,,0,place-NEC-1851,1,Providence,,,2
+place-NEC-1851-1,place-NEC-1851-1,platform 1,,,,41.829293,-71.413301,CR-zone-8,,,,0,place-NEC-1851,1,Providence,,,2
+place-WML-0091,place-WML-0091,West Newton,,,,42.347878,-71.230528,CR-zone-2,,,,1,,2,Newton,,,
+place-WML-0091-0,place-WML-0091-0,platform 0,,,,42.347878,-71.230528,CR-zone-2,,,,0,place-WML-0091,2,Newton,,,2
+place-WML-0091-1,place-WML-0091-1,platform 1,,,,42.347878,-71.230528,CR-zone-2,,,,0,place-WML-0091,2,Newton,,,2
+place-hymnl,place-hymnl,Hynes Convention Center,,,,42.347888,-71.087903,,,,,1,,2,Boston,,,
+70152,70152,Hynes Convention Center,,,,42.347888,-71.087903,,,,level_-2_platform,0,place-hymnl,2,Boston,,,0
+70153,70153,Hynes Convention Center,,,,42.347888,-71.087903,,,,level_-2_platform,0,place-hymnl,2,Boston,,,0
+place-NHRML-0116,place-NHRML-0116,Mishawum,,,,42.504402,-71.137618,CR-zone-2,,,,1,,2,Woburn,,,
+Mishawum,Mishawum,Mishawum,,,,42.504402,-71.137618,CR-zone-2,,,,0,place-NHRML-0116,2,Woburn,,,2
+place-cenav,place-cenav,Central Avenue,,,,42.270027,-71.073334,,,,,1,,1,Milton,,,
+place-eliot,place-eliot,Eliot,,,,42.319023,-71.216713,,,,,1,,2,Newton,,,
+70166,70166,Eliot,,,,42.318957,-71.216776,,,,level_ground,0,place-eliot,2,Newton,,,0
+70167,70167,Eliot,,,,42.319024,-71.216711,,,,level_ground,0,place-eliot,2,Newton,,,0
+place-DB-0095,place-DB-0095,Readville,,,,42.238405,-71.133246,CR-zone-2,,,,1,,1,Boston,,,
+place-DB-0095-0,place-DB-0095-0,platform 0,,,,42.238405,-71.133246,CR-zone-2,,,,0,place-DB-0095,1,Boston,,,2
+place-DB-0095-1,place-DB-0095-1,platform 1,,,,42.238405,-71.133246,CR-zone-2,,,,0,place-DB-0095,1,Boston,,,2
+place-MM-0219,place-MM-0219,Campello,,,,42.060951,-71.011004,CR-zone-5,,,,1,,1,Brockton,,,
+place-MM-0219-0,place-MM-0219-0,platform 0,,,,42.060951,-71.011004,CR-zone-5,,,,0,place-MM-0219,1,Brockton,,,2
+place-MM-0219-1,place-MM-0219-1,platform 1,,,,42.060951,-71.011004,CR-zone-5,,,,0,place-MM-0219,1,Brockton,,,2
+place-aport,place-aport,Airport,,,,42.374262,-71.030395,,,,,1,,1,Boston,,,
+70047,70047,Airport,,,,42.374262,-71.030395,,,,level_0_platform,0,place-aport,1,Boston,,,1
+70048,70048,Airport,,,,42.374262,-71.030395,,,,level_0_platform,0,place-aport,1,Boston,,,1
+place-chhil,place-chhil,Chestnut Hill,,,,42.326653,-71.165314,,,,,1,,2,Newton,,,
+70172,70172,Chestnut Hill,,,,42.326633,-71.165299,,,,level_ground,0,place-chhil,2,Newton,,,0
+70173,70173,Chestnut Hill,,,,42.326654,-71.165316,,,,level_ground,0,place-chhil,2,Newton,,,0
+place-lngmd,place-lngmd,Longwood Medical Area,,,,42.33596,-71.100052,,,,,1,,1,Boston,,,
+70247,70247,Longwood Medical Area,,,,42.33608,-71.099883,,,,level_median,0,place-lngmd,1,Boston,,,0
+70248,70248,Longwood Medical Area,,,,42.336217,-71.099328,,,,level_median,0,place-lngmd,1,Boston,,,0
+place-newto,place-newto,Newton Centre,,,,42.329391,-71.192429,,,,,1,,1,Newton,,,
+70170,70170,Newton Centre,,,,42.329338,-71.192388,,,,level_ground,0,place-newto,1,Newton,,,0
+70171,70171,Newton Centre,,,,42.329393,-71.19243,,,,level_ground,0,place-newto,1,Newton,,,0
+place-ER-0227,place-ER-0227,Hamilton/Wenham,,,,42.609212,-70.874801,CR-zone-5,,,,1,,1,Hamilton,,,
+place-ER-0227-0,place-ER-0227-0,platform 0,,,,42.609212,-70.874801,CR-zone-5,,,,0,place-ER-0227,1,Hamilton,,,2
+place-ER-0227-1,place-ER-0227-1,platform 1,,,,42.609212,-70.874801,CR-zone-5,,,,0,place-ER-0227,1,Hamilton,,,2
+place-boyls,place-boyls,Boylston,,,,42.35302,-71.06459,,,,,1,,2,Boston,,,
+70158,70158,Boylston,,,,42.352531,-71.064682,,,,level_-1_platform,0,place-boyls,2,Boston,,,0
+70159,70159,Boylston,,,,42.353214,-71.064545,,,,level_-1_platform,0,place-boyls,2,Boston,,,0
+place-rr-south-salem,place-rr-south-salem,South Salem,,,,42.5073423,-70.8966044,,,,,1,,1,Salem,,,
+place-rr-south-salem-0,place-rr-south-salem-0,platform 0,,,,42.5073423,-70.8966044,,,,,0,place-rr-south-salem,1,Salem,,,2
+place-rr-south-salem-1,place-rr-south-salem-1,platform 1,,,,42.5073423,-70.8966044,,,,,0,place-rr-south-salem,1,Salem,,,2
+place-WML-0102,place-WML-0102,Auburndale,,,,42.345725,-71.250826,CR-zone-2,,,,1,,2,Newton,,,
+place-WML-0102-0,place-WML-0102-0,platform 0,,,,42.345725,-71.250826,CR-zone-2,,,,0,place-WML-0102,2,Newton,,,2
+place-WML-0102-1,place-WML-0102-1,platform 1,,,,42.345725,-71.250826,CR-zone-2,,,,0,place-WML-0102,2,Newton,,,2
+place-bomnl,place-bomnl,Bowdoin,,,,42.361365,-71.062037,,,,,1,,2,Boston,,,
+70038,70038,Bowdoin,,,,42.361365,-71.062037,,,,level_-1_platform,0,place-bomnl,2,Boston,,,1
+70838,70838,Bowdoin,,,,42.361365,-71.062037,,,,level_-1_platform,0,place-bomnl,2,Boston,,,1
+place-wondl,place-wondl,Wonderland,,,,42.41342,-70.991648,,,,,1,,1,Revere,,,
+70059,70059,Wonderland,,,,42.413513,-70.991737,,,,level_0_platform,0,place-wondl,1,Revere,,,1
+70060,70060,Wonderland,,,,42.413495,-70.991613,,,,level_0_platform,0,place-wondl,1,Revere,,,1
+place-WML-0364,place-WML-0364,Grafton,,,,42.2466,-71.685325,CR-zone-8,,,,1,,1,Grafton,,,
+place-WML-0364-0,place-WML-0364-0,platform 0,,,,42.2466,-71.685325,CR-zone-8,,,,0,place-WML-0364,1,Grafton,,,2
+place-WML-0364-1,place-WML-0364-1,platform 1,,,,42.2466,-71.685325,CR-zone-8,,,,0,place-WML-0364,1,Grafton,,,2
+place-SB-0156,place-SB-0156,Canton Center,,,,42.157095,-71.14628,CR-zone-3,,,,1,,1,Canton,,,
+place-SB-0156-0,place-SB-0156-0,platform 0,,,,42.157095,-71.14628,CR-zone-3,,,,0,place-SB-0156,1,Canton,,,2
+place-SB-0156-1,place-SB-0156-1,platform 1,,,,42.157095,-71.14628,CR-zone-3,,,,0,place-SB-0156,1,Canton,,,2
+place-FB-0177,place-FB-0177,Plimptonville,,,,42.159123,-71.236125,CR-zone-4,,,,1,,2,Walpole,,,
+Plimptonville,Plimptonville,Plimptonville,,,,42.159123,-71.236125,CR-zone-4,,,,0,place-FB-0177,2,Walpole,,,2
+place-bbsta,place-bbsta,Back Bay,,,,42.34735,-71.075727,CR-zone-1A,,,,1,,1,Boston,,,
+place-bbsta-0,place-bbsta-0,platform 0,,,,42.34735,-71.075727,CR-zone-1A,,,,0,place-bbsta,1,Boston,,,2
+place-bbsta-1,place-bbsta-1,platform 1,,,,42.34735,-71.075727,CR-zone-1A,,,,0,place-bbsta,1,Boston,,,2
+70014,70014,Back Bay,,,,42.34735,-71.075727,,,,level_-1_orange_platform,0,place-bbsta,1,Boston,,,1
+70015,70015,Back Bay,,,,42.34735,-71.075727,,,,level_-1_orange_platform,0,place-bbsta,1,Boston,,,1
+place-stpul,place-stpul,Saint Paul Street,,,,42.343327,-71.116997,,,,,1,,2,Brookline,,,
+70217,70217,Saint Paul Street,,,,42.34334,-71.116927,,,,level_median,0,place-stpul,2,Brookline,,,0
+70218,70218,Saint Paul Street,,,,42.343118,-71.117498,,,,level_median,0,place-stpul,2,Brookline,,,0
+place-rr-newton-corner,place-rr-newton-corner,Newton Corner,,,,0,0,,,,,1,,1,Newton,,,
+place-rr-newton-corner-0,place-rr-newton-corner-0,platform 0,,,,0,0,,,,,0,place-rr-newton-corner,1,Newton,,,2
+place-rr-newton-corner-1,place-rr-newton-corner-1,platform 1,,,,0,0,,,,,0,place-rr-newton-corner,1,Newton,,,2
+place-NEC-1768,place-NEC-1768,TF Green Airport,,,,41.726599,-71.442453,CR-zone-9,,,,1,,1,Warwick,,,
+place-NEC-1768-0,place-NEC-1768-0,platform 0,,,,41.726599,-71.442453,CR-zone-9,,,,0,place-NEC-1768,1,Warwick,,,2
+place-NEC-1768-1,place-NEC-1768-1,platform 1,,,,41.726599,-71.442453,CR-zone-9,,,,0,place-NEC-1768,1,Warwick,,,2
+place-rr-weymouth-col-sq,place-rr-weymouth-col-sq,Weymouth Columbian Square,,,,0,0,,,,,1,,1,Weymouth,,,
+place-rr-weymouth-col-sq-0,place-rr-weymouth-col-sq-0,platform 0,,,,0,0,,,,,0,place-rr-weymouth-col-sq,1,Weymouth,,,2
+place-rr-weymouth-col-sq-1,place-rr-weymouth-col-sq-1,platform 1,,,,0,0,,,,,0,place-rr-weymouth-col-sq,1,Weymouth,,,2
+place-FR-0137,place-FR-0137,Hastings,,,,42.385755,-71.289203,CR-zone-3,,,,1,,2,Weston,,,
+Hastings,Hastings,Hastings,,,,42.385755,-71.289203,CR-zone-3,,,,0,place-FR-0137,2,Weston,,,2
+place-aqucl,place-aqucl,Aquarium,,,,42.359784,-71.051652,,,,,1,,1,Boston,,,
+70043,70043,Aquarium,,,,42.359784,-71.051652,,,,level_-2_platform,0,place-aqucl,1,Boston,,,1
+70044,70044,Aquarium,,,,42.359784,-71.051652,,,,level_-2_platform,0,place-aqucl,1,Boston,,,1
+place-chmnl,place-chmnl,Charles/MGH,,,,42.361166,-71.070628,,,,,1,,1,Boston,,,
+70073,70073,Charles/MGH,,,,42.361166,-71.070628,,,,level_1_platform,0,place-chmnl,1,Boston,,,1
+70074,70074,Charles/MGH,,,,42.361166,-71.070628,,,,level_1_platform,0,place-chmnl,1,Boston,,,1
+place-sstat,place-sstat,South Station,,,,42.352271,-71.055242,CR-zone-1A,,,,1,,1,Boston,,,
+place-sstat-0,place-sstat-0,platform 0,,,,42.352271,-71.055242,CR-zone-1A,,,,0,place-sstat,1,Boston,,,2
+place-sstat-1,place-sstat-1,platform 1,,,,42.352271,-71.055242,CR-zone-1A,,,,0,place-sstat,1,Boston,,,2
+70079,70079,South Station,,,,42.352271,-71.055242,,,,level_-3_red_platform,0,place-sstat,1,Boston,,,1
+70080,70080,South Station,,,,42.352271,-71.055242,,,,level_-3_red_platform,0,place-sstat,1,Boston,,,1
+place-DB-2222,place-DB-2222,Blue Hill Avenue,,,,42.271466,-71.095782,CR-zone-1A,,,,1,,1,Boston,,,
+place-DB-2222-0,place-DB-2222-0,platform 0,,,,42.271466,-71.095782,CR-zone-1A,,,,0,place-DB-2222,1,Boston,,,2
+place-DB-2222-1,place-DB-2222-1,platform 1,,,,42.271466,-71.095782,CR-zone-1A,,,,0,place-DB-2222,1,Boston,,,2
+place-MM-0356,place-MM-0356,Middleborough/Lakeville,,,,41.87821,-70.918444,CR-zone-8,,,,1,,1,Lakeville,,,
+place-MM-0356-0,place-MM-0356-0,platform 0,,,,41.87821,-70.918444,CR-zone-8,,,,0,place-MM-0356,1,Lakeville,,,2
+place-MM-0356-1,place-MM-0356-1,platform 1,,,,41.87821,-70.918444,CR-zone-8,,,,0,place-MM-0356,1,Lakeville,,,2
+place-wimnl,place-wimnl,Wood Island,,,,42.37964,-71.022865,,,,,1,,1,Boston,,,
+70049,70049,Wood Island,,,,42.37964,-71.022865,,,,level_0_platform,0,place-wimnl,1,Boston,,,1
+70050,70050,Wood Island,,,,42.37964,-71.022865,,,,level_0_platform,0,place-wimnl,1,Boston,,,1
 place-rugg,place-rugg,Ruggles,,,,42.336377,-71.088961,CR-zone-1A,,,,1,,1,Boston,,,
 place-rugg-0,place-rugg-0,platform 0,,,,42.336377,-71.088961,CR-zone-1A,,,,0,place-rugg,1,Boston,,,2
 place-rugg-1,place-rugg-1,platform 1,,,,42.336377,-71.088961,CR-zone-1A,,,,0,place-rugg,1,Boston,,,2
 70010,70010,Ruggles,,,,42.336377,-71.088961,,,,level_0_orange_platform,0,place-rugg,1,Boston,,,1
 70011,70011,Ruggles,,,,42.336377,-71.088961,,,,level_0_orange_platform,0,place-rugg,1,Boston,,,1
-place-FR-0201,place-FR-0201,Concord,,,,42.456565,-71.357677,CR-zone-5,,,,1,,2,Concord,,,
-place-FR-0201-0,place-FR-0201-0,platform 0,,,,42.456565,-71.357677,CR-zone-5,,,,0,place-FR-0201,2,Concord,,,2
-place-FR-0201-1,place-FR-0201-1,platform 1,,,,42.456565,-71.357677,CR-zone-5,,,,0,place-FR-0201,2,Concord,,,2
-place-WML-0091,place-WML-0091,West Newton,,,,42.347878,-71.230528,CR-zone-2,,,,1,,2,Newton,,,
-place-WML-0091-0,place-WML-0091-0,platform 0,,,,42.347878,-71.230528,CR-zone-2,,,,0,place-WML-0091,2,Newton,,,2
-place-WML-0091-1,place-WML-0091-1,platform 1,,,,42.347878,-71.230528,CR-zone-2,,,,0,place-WML-0091,2,Newton,,,2
-place-alfcl,place-alfcl,Alewife,,,,42.395428,-71.142483,,,,,1,,1,Cambridge,,,
-70061,70061,Alewife,,,,42.395428,-71.142483,,,,level_-2_platform,0,place-alfcl,1,Cambridge,,,1
-place-NHRML-0073,place-NHRML-0073,Wedgemere,,,,42.444948,-71.140169,CR-zone-1,,,,1,,1,Winchester,,,
-place-NHRML-0073-0,place-NHRML-0073-0,platform 0,,,,42.444948,-71.140169,CR-zone-1,,,,0,place-NHRML-0073,1,Winchester,,,2
-place-NHRML-0073-1,place-NHRML-0073-1,platform 1,,,,42.444948,-71.140169,CR-zone-1,,,,0,place-NHRML-0073,1,Winchester,,,2
+place-FR-0451,place-FR-0451,North Leominster,,,,42.539017,-71.739186,CR-zone-8,,,,1,,1,Leominster,,,
+place-FR-0451-0,place-FR-0451-0,platform 0,,,,42.539017,-71.739186,CR-zone-8,,,,0,place-FR-0451,1,Leominster,,,2
+place-FR-0451-1,place-FR-0451-1,platform 1,,,,42.539017,-71.739186,CR-zone-8,,,,0,place-FR-0451,1,Leominster,,,2
+place-symcl,place-symcl,Symphony,,,,42.342687,-71.085056,,,,,1,,2,Boston,,,
+70241,70241,Symphony,,,,42.342687,-71.085056,,,,level_-1_platform,0,place-symcl,2,Boston,,,0
+70242,70242,Symphony,,,,42.342687,-71.085056,,,,level_-1_platform,0,place-symcl,2,Boston,,,0
+place-WML-0442,place-WML-0442,Worcester,,,,42.261461,-71.794888,CR-zone-8,,,,1,,1,Worcester,,,
+place-WML-0442-0,place-WML-0442-0,platform 0,,,,42.261461,-71.794888,CR-zone-8,,,,0,place-WML-0442,1,Worcester,,,2
+place-WML-0442-1,place-WML-0442-1,platform 1,,,,42.261461,-71.794888,CR-zone-8,,,,0,place-WML-0442,1,Worcester,,,2
+place-NB-0109,place-NB-0109,Hersey,,,,42.275648,-71.215528,CR-zone-2,,,,1,,1,Needham,,,
+place-NB-0109-0,place-NB-0109-0,platform 0,,,,42.275648,-71.215528,CR-zone-2,,,,0,place-NB-0109,1,Needham,,,2
+place-NB-0109-1,place-NB-0109-1,platform 1,,,,42.275648,-71.215528,CR-zone-2,,,,0,place-NB-0109,1,Needham,,,2
+place-harvd,place-harvd,Harvard Avenue,,,,42.350243,-71.131355,,,,,1,,1,Boston,,,
+70130,70130,Harvard Avenue,,,,42.350263,-71.131298,,,,level_median,0,place-harvd,1,Boston,,,0
+70131,70131,Harvard Avenue,,,,42.350602,-71.130727,,,,level_median,0,place-harvd,1,Boston,,,0
+place-WML-0274,place-WML-0274,Southborough,,,,42.267024,-71.524371,CR-zone-6,,,,1,,1,Southborough,,,
+place-WML-0274-0,place-WML-0274-0,platform 0,,,,42.267024,-71.524371,CR-zone-6,,,,0,place-WML-0274,1,Southborough,,,2
+place-WML-0274-1,place-WML-0274-1,platform 1,,,,42.267024,-71.524371,CR-zone-6,,,,0,place-WML-0274,1,Southborough,,,2

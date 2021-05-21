@@ -76,6 +76,7 @@ const getTravelSegment = (
             arriveAtThisStopTime
         ),
         routeId: nextState.trip.routeId,
+        routePatternId: nextState.trip.routePatternId,
     };
 };
 
