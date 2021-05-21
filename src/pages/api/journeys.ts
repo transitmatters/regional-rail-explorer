@@ -3,7 +3,7 @@ import {
     JourneyInfo,
     NetworkTime,
     NetworkDayKind,
-    Amenity,
+    AmenityName,
     Journey,
     Station,
     CrowdingLevel,
@@ -15,22 +15,22 @@ import { getStationsByIds } from "server/network";
 import { getArrivalTimesForJourney } from "server/navigation/arrivals";
 import { mapScenarios } from "server/scenarios";
 import { HOUR, MINUTE } from "time";
+import { isRegionalRail } from "routes";
 
-const calculateAmenities = (scenario: Scenario, journey: Journey): Amenity[] => {
-    const { amenitiesByRoute, amenitiesByStation } = scenario;
-    const foundAmenties = [];
+const calculateAmenities = (scenario: Scenario, journey: Journey): AmenityName[] => {
+    const {
+        network: { amenitiesByRoutePatternId },
+    } = scenario;
+    const foundAmenties: AmenityName[] = [];
     journey.forEach((segment) => {
         if (segment.type === "travel") {
-            const { fromStation, toStation, routeId } = segment;
-            [fromStation, toStation].forEach((station) => {
-                const stationAmenities = amenitiesByStation[station.id];
-                if (stationAmenities) {
-                    foundAmenties.push(...stationAmenities);
-                }
-            });
-            const routeAmenities = amenitiesByRoute[routeId];
-            if (routeAmenities) {
-                foundAmenties.push(...routeAmenities);
+            const { routeId, routePatternId, levelBoarding } = segment;
+            if (levelBoarding && isRegionalRail(routeId)) {
+                foundAmenties.push("levelBoarding");
+            }
+            const routePatternAmenities = amenitiesByRoutePatternId?.[routePatternId];
+            if (routePatternAmenities) {
+                foundAmenties.push(...(Object.keys(routePatternAmenities) as AmenityName[]));
             }
         }
     });
@@ -82,7 +82,7 @@ const getJourneyInfoForScenario = (
     // TODO(ian): dedupe this nonsense from /api/arrivals
     const toStationIds = journey
         .map((seg) => seg.type === "travel" && seg.toStation.id)
-        .filter((x) => x);
+        .filter((x): x is string => !!x);
     const toStations = getStationsByIds(network, ...toStationIds);
     const arrivals = getArrivalTimesForJourney(fromStation, toStations, day);
     return {

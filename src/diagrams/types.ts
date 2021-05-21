@@ -21,9 +21,9 @@ export type PathCommand = (t: Turtle) => PathSegment;
 
 export interface StationRange {
     type: "stationRange";
-    start?: string;
-    end?: string;
-    stations?: string[];
+    start: null | string;
+    end: null | string;
+    stations: null | string[];
     commands: PathCommand[];
 }
 

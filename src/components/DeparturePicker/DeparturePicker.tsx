@@ -13,7 +13,7 @@ interface Props {
     baselineArrivals: NetworkTime[];
     spanFullDay?: boolean;
     timePadding?: number;
-    time?: number;
+    time: null | number;
     disabled?: boolean;
 }
 
@@ -78,9 +78,9 @@ const DeparturePicker = (props: Props) => {
         time,
         timePadding = 0,
     } = props;
-    const [cursorTime, setCursorTime] = useState(null);
+    const [cursorTime, setCursorTime] = useState<null | number>(null);
     const hasSelected = typeof time === "number";
-    const wrapper = useRef<HTMLDivElement>(null);
+    const wrapper = useRef<null | HTMLDivElement>(null);
     const timeRange = getTimeRange(
         [...baselineArrivals, ...enhancedArrivals],
         spanFullDay,
@@ -89,13 +89,13 @@ const DeparturePicker = (props: Props) => {
 
     const handleClick = useCallback(
         (evt: MouseEvent) =>
-            onSelectTime(getTimeFromCursorPosition(evt.clientX, timeRange, wrapper.current)),
+            onSelectTime(getTimeFromCursorPosition(evt.clientX, timeRange, wrapper.current!)),
         [timeRange]
     );
 
     const handleMouseMove = useCallback(
         (evt: MouseEvent) =>
-            setCursorTime(getTimeFromCursorPosition(evt.clientX, timeRange, wrapper.current)),
+            setCursorTime(getTimeFromCursorPosition(evt.clientX, timeRange, wrapper.current!)),
         [timeRange]
     );
 

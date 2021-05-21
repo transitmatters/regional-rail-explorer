@@ -5,16 +5,19 @@ import StationListing, { StationsByLine } from "components/StationListing/Statio
 
 import styles from "./StationPicker.module.scss";
 
+type StationListingProps = React.ComponentProps<typeof StationListing>;
+
 type Props = {
     children?: ReactNode;
     lockBodyScroll?: boolean;
-} & React.ComponentProps<typeof StationListing>;
+    onSelectStation: Exclude<StationListingProps["onSelectStation"], undefined>;
+} & StationListingProps;
 
 const StationPicker = (props: Props) => {
     const { children, onSelectStation, lockBodyScroll, ...stationListingProps } = props;
-    const [disclosureBounds, setDisclosureBounds] = useState(null);
-    const searchRef = useRef<HTMLInputElement>();
-    const innerRef = useRef<HTMLDivElement>();
+    const [disclosureBounds, setDisclosureBounds] = useState<any>(null);
+    const searchRef = useRef<null | HTMLInputElement>(null);
+    const innerRef = useRef<null | HTMLDivElement>(null);
     const disclosure = useDisclosureState({ visible: false });
     // Using data-station-id instead of generating a closure for each station's callback is a
     // performance enhancement recommended by Reakit when using a Composite with many items.

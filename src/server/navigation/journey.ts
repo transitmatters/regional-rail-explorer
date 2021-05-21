@@ -61,11 +61,13 @@ const getTravelSegment = (
     state: NavigationState,
     nextState: StopNavigationState
 ): JourneyTravelSegment => {
-    const { departPreviousStopTime, arriveAtThisStopTime, trip, stop } = nextState;
+    const { departPreviousStopTime, arriveAtThisStopTime, trip, stop, previousStop } = nextState;
+    const { levelBoarding } = previousStop;
     const fromStation = state.type === "start" ? state.station : state.stop.parentStation;
     const toStation = stop.parentStation;
     return {
         type: "travel",
+        levelBoarding,
         departureTime: departPreviousStopTime.time,
         arrivalTime: arriveAtThisStopTime.time,
         fromStation: getJourneyStation(fromStation),

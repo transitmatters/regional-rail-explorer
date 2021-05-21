@@ -15,7 +15,7 @@ type Props = {
     onSelectStation?: (stationId: string) => any;
     previouslySelectedStationId?: string;
     stationsByLine: StationsByLine;
-    searchRef?: React.MutableRefObject<HTMLInputElement>;
+    searchRef?: React.MutableRefObject<null | HTMLInputElement>;
     showSearch?: boolean;
     searchTerm?: string;
     linkToStations?: boolean;
@@ -27,7 +27,7 @@ const noop = () => {};
 const focusSearch = (el) => el?.focus();
 
 const getIsHighlightedLine = (
-    previouslySelectedStationId: string,
+    previouslySelectedStationId: undefined | string,
     line: string,
     stations: Station[]
 ) => {
@@ -36,7 +36,7 @@ const getIsHighlightedLine = (
     );
 };
 
-const sortRegionalRailEntriesFirst = (previouslySelectedStationId: string) => (
+const sortRegionalRailEntriesFirst = (previouslySelectedStationId?: string) => (
     [lineA, stationsA]: [string, Station[]],
     [lineB, stationsB]: [string, Station[]]
 ) => {
@@ -88,7 +88,7 @@ const StationListing = React.forwardRef((props: Props, ref: any) => {
         linkToStations = false,
         searchTerm: providedSearchTerm = null,
     } = props;
-    const [ownSearchTerm, setOwnSearchTerm] = useState(null);
+    const [ownSearchTerm, setOwnSearchTerm] = useState("");
     const composite = useCompositeState({ currentId: null, loop: true });
     const searchResults = useCompositeState({ currentId: null, loop: true });
     const stationsToColor = useMemo(() => getStationsToColorMap(stationsByLine), [stationsByLine]);
@@ -98,7 +98,7 @@ const StationListing = React.forwardRef((props: Props, ref: any) => {
     // performance enhancement recommended by Reakit when using a Composite with many items.
     const handleSelectStation = useCallback(
         (evt) => {
-            const stationId = (evt.target as HTMLElement).getAttribute("data-station-id");
+            const stationId = (evt.target as HTMLElement).getAttribute("data-station-id")!;
             onSelectStation(stationId);
         },
         [onSelectStation]

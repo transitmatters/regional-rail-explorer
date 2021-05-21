@@ -8,8 +8,8 @@ interface UseSvgLayoutOptions {
 export const useSvgLayout = (options: UseSvgLayoutOptions = {}) => {
     const { paddingX = 4, paddingY = 4 } = options;
 
-    const [viewBox, setViewBox] = useState(undefined);
-    const [svg, setSvg] = useState(null);
+    const [viewBox, setViewBox] = useState<undefined | string>(undefined);
+    const [svg, setSvg] = useState<any>(null);
 
     useLayoutEffect(() => {
         if (svg) {

@@ -1,8 +1,6 @@
-import { BranchMap } from "types";
 import {
     line as anyLine,
     start,
-    stationRange,
     curve as anyCurve,
     RoutePatternDescriptor,
     prerenderRoutePatterns,

@@ -93,7 +93,7 @@ const LiveRouteVisualizer = (props: Props) => {
                 <Select
                     disclosureProps={{ outline: true }}
                     items={selectItems}
-                    selectedItem={selectItems.find((item) => item.id === scenario)}
+                    selectedItem={selectItems.find((item) => item.id === scenario)!}
                     onSelect={(item) => setScenario(item.id)}
                 />
                 <div className={styles.time}>

@@ -16,5 +16,7 @@ export const Default = () => (
                 Ouch
             </a>,
         ]}
-    />
+    >
+        {null}
+    </AppFrame>
 );

@@ -18,7 +18,7 @@ const getLeftOffset = (range: NetworkTimeRange, time: NetworkTime): string => {
 };
 
 const getHourTicks = (range: NetworkTimeRange) => {
-    const ticks = [];
+    const ticks: {time: number, label: string}[] = [];
     const [start, end] = range;
     let now = start;
     while (now < end) {

@@ -9,8 +9,8 @@ export const generateTimesByClockfaceSchedule = (
     schedule: FrequencySchedule,
     clockfaceOffsetMinutes: number = 0
 ): NetworkTime[] => {
-    const times = [];
-    let previousRangeEnd = null;
+    const times: number[] = [];
+    let previousRangeEnd: null | number = null;
 
     Object.entries(schedule).forEach(([timeOrRangeString, frequency]) => {
         const interval = HOUR / frequency;
@@ -18,8 +18,8 @@ export const generateTimesByClockfaceSchedule = (
         const [rangeStart, rangeEnd] = isRange
             ? parseTimeRange(timeOrRangeString)
             : [previousRangeEnd, parseTime(timeOrRangeString)];
-        const latest = times[times.length - 1] || rangeStart + MINUTE * clockfaceOffsetMinutes;
-        let now = previousRangeEnd ? previousRangeEnd + interval : latest;
+        const latest = times[times.length - 1] || rangeStart! + MINUTE * clockfaceOffsetMinutes;
+        let now = previousRangeEnd ? previousRangeEnd! + interval : latest;
         while (now <= rangeEnd) {
             times.push(now);
             now += interval;

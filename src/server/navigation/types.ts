@@ -15,6 +15,7 @@ export interface StopNavigationState extends BaseNavigationState {
     type: "stop";
     trip: Trip;
     stop: Stop;
+    previousStop: Stop;
     fromTransfer: null | Transfer;
     departPreviousStopTime: NetworkDayTime;
     arriveAtThisStopTime: NetworkDayTime;

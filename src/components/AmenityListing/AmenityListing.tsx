@@ -4,26 +4,26 @@ import { FaAccessibleIcon, FaGasPump } from "react-icons/fa";
 import { GiElectric } from "react-icons/gi";
 import { IoMdSpeedometer } from "react-icons/io";
 
-import { Amenity } from "types";
+import { AmenityName } from "types";
 
 import styles from "./AmenityListing.module.scss";
 
 const amenityToString: Record<
-    Amenity,
+    AmenityName,
     { presence: string; absence: string; icon: any; absenceIcon?: any }
 > = {
-    "electric-trains": {
+    electricTrains: {
         icon: (props) => <GiElectric {...props} size="1.4em" />,
         absenceIcon: (props) => <FaGasPump {...props} size="0.95em" />,
         presence: "Fast, quiet, and reliable electric train",
         absence: "Legacy diesel train",
     },
-    "level-boarding": {
+    levelBoarding: {
         icon: (props) => <FaAccessibleIcon {...props} size="1.1em" />,
         presence: "High platforms for quick and accessible boarding",
         absence: "Step-up platform creates delays in boarding",
     },
-    "increased-top-speed": {
+    increasedTopSpeed: {
         icon: (props) => (
             <IoMdSpeedometer {...props} size="1.25em" style={{ transform: "scaleX(-1)" }} />
         ),
@@ -34,14 +34,15 @@ const amenityToString: Record<
 };
 
 type Props = {
-    present?: Amenity[];
-    absent?: Amenity[];
+    present?: AmenityName[];
+    absent?: AmenityName[];
 };
 
 const AmenityListing = (props: Props) => {
     const { present = [], absent = [] } = props;
 
-    const renderAmenity = (amenity: Amenity, present: boolean) => {
+    const renderAmenity = (amenity: AmenityName, present: boolean) => {
+        console.log("A2S", amenityToString, amenity);
         const { presence, absence, icon, absenceIcon } = amenityToString[amenity];
         const Icon = !present && absenceIcon ? absenceIcon : icon;
         const showSlash = !present && !absenceIcon;

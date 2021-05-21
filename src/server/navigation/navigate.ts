@@ -1,18 +1,17 @@
 import Heap from "heap";
 
-import { Stop, NetworkDayTime, Station, Transfer } from "types";
+import { Stop, NetworkDayTime, Station, Transfer, StopTime } from "types";
 import { compareTimes, stringifyTime, matchDayOfWeek } from "time";
 import { NavigationFailedError } from "errors";
 
 import { NavigationState, StopNavigationState } from "./types";
-import { summarizeState } from "./util";
 
 const getSuccessorStatesFromStop = (
     state: NavigationState,
     location: Stop,
     dayTime: NetworkDayTime,
     goal: Station,
-    fromTransfer?: Transfer,
+    fromTransfer: null | Transfer = null,
     excludeRoutePatternId?: string
 ): StopNavigationState[] => {
     const { seen, parents } = state;
@@ -40,7 +39,7 @@ const getSuccessorStatesFromStop = (
             )
         )
         .flat()
-        .filter((x) => x);
+        .filter((x): x is StopTime => !!x);
 
     return nextStopTimeForEachServiceAndDirection
         .map((boardingStopTime) => {
@@ -58,6 +57,7 @@ const getSuccessorStatesFromStop = (
                 return {
                     fromTransfer,
                     type: "stop" as const,
+                    previousStop: boardingStopTime.stop,
                     stop: alightingStopTime.stop,
                     trip: trip,
                     seen: new Set([...seen, alightingStopTime.stop]),
@@ -110,6 +110,7 @@ const getSuccessorStates = (state: NavigationState, goal: Station): NavigationSt
             .flat();
         return [...fromSameStop, ...fromTransfer];
     }
+    throw new Error("In navigation: Invalid state.type");
 };
 
 const createInitialState = (station: Station, dayTime: NetworkDayTime): NavigationState => {

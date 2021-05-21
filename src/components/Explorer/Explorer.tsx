@@ -23,11 +23,11 @@ const Explorer = () => {
     const [{ fromStationId, toStationId, day, time }, updateJourneyParams] = useRouterBoundState(
         {
             fromStationId: {
-                initial: null as string,
+                initial: null as null | string,
                 param: "from",
             },
             toStationId: {
-                initial: null as string,
+                initial: null as null | string,
                 param: "to",
             },
             day: {
@@ -35,7 +35,7 @@ const Explorer = () => {
                 param: "day",
             },
             time: {
-                initial: null as number,
+                initial: null as null | number,
                 param: "time",
                 decode: parseInt,
                 encode: (t) => t?.toString(),
@@ -50,9 +50,9 @@ const Explorer = () => {
             };
         }
     );
-    const [arrivals, setArrivals] = useState<NetworkTime[][]>(null);
-    const [journeys, setJourneys] = useState<JourneyApiResult>(null);
-    const [requestedTimeOfDay, setRequestedTimeOfDay] = useState<TimeOfDay>(null);
+    const [arrivals, setArrivals] = useState<null | NetworkTime[][]>(null);
+    const [journeys, setJourneys] = useState<null | JourneyApiResult>(null);
+    const [requestedTimeOfDay, setRequestedTimeOfDay] = useState<null | TimeOfDay>(null);
     const [isJourneyPending, wrapJourneyPending] = usePendingPromise();
 
     useEffect(() => {
@@ -81,7 +81,7 @@ const Explorer = () => {
                 requestedTimeOfDay,
                 baselineArrivals,
                 enhancedArrivals
-            );
+            )!;
             setRequestedTimeOfDay(null);
             updateJourneyParams({ time });
         }

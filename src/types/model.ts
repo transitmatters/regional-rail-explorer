@@ -38,6 +38,7 @@ export interface Stop {
     serviceIds: string[];
     routeIds: string[];
     parentStation: Station;
+    levelBoarding: boolean;
 }
 
 export interface Station {
@@ -51,6 +52,8 @@ export interface Amenities {
     electricTrains: boolean;
     increasedTopSpeed: boolean;
 }
+
+export type AmenityName = keyof Amenities;
 
 export type Network = ReturnType<typeof loadGtfsNetwork>;
 

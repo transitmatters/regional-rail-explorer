@@ -1,4 +1,4 @@
-import { Amenities, ScenarioInfo } from "./model";
+import { AmenityName, ScenarioInfo } from "./model";
 import { NetworkDayKind, NetworkTime } from "./time";
 
 export enum CrowdingLevel {
@@ -31,6 +31,7 @@ export interface JourneyTravelSegment {
     }[];
     routeId: string;
     routePatternId: string;
+    levelBoarding: boolean;
 }
 
 export interface JourneyTransferSegment {
@@ -46,7 +47,7 @@ export type Journey = JourneySegment[];
 export interface JourneyInfo {
     scenario: ScenarioInfo;
     segments: JourneySegment[];
-    amenities: Amenities;
+    amenities: AmenityName[];
     arrivals: Record<string, { station: JourneyStation; times: NetworkTime[] }>;
     platformCrowding: Record<string, { station: JourneyStation; crowdingLevel: CrowdingLevel }>;
 }

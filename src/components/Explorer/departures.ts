@@ -13,7 +13,7 @@ const getCandidateDepartureTimes = (
     halfInterval: Duration
 ) => {
     const boundedArrivals = arrivals.filter((t) => Math.abs(t - center) <= halfInterval);
-    const candidates = [];
+    const candidates: number[] = [];
     for (let i = 0; i < boundedArrivals.length - 1; i++) {
         const first = boundedArrivals[i];
         const second = boundedArrivals[i + 1];
@@ -31,10 +31,10 @@ const getBestCandidateDepartureTime = (
     candidates: NetworkTime[],
     enhancedArrivals: NetworkTime[]
 ) => {
-    let bestCandidate = null;
+    let bestCandidate: null | number = null;
     let bestDifference = Infinity;
     candidates.forEach((candidate) => {
-        const nextEnhancedArrival = enhancedArrivals.find((t) => t >= candidate);
+        const nextEnhancedArrival = enhancedArrivals.find((t) => t >= candidate)!;
         const difference = nextEnhancedArrival - candidate;
         if (difference < bestDifference) {
             bestDifference = difference;
@@ -49,7 +49,7 @@ export const getAdvantageousDepartureTime = (
     baselineArrivals: NetworkTime[],
     enhancedArrivals: NetworkTime[],
     halfInterval: Duration = HOUR * 0.75
-): NetworkTime => {
+): null | NetworkTime => {
     const center = centers[timeOfDay];
     const candidates = getCandidateDepartureTimes(baselineArrivals, center, halfInterval);
     return getBestCandidateDepartureTime(candidates, enhancedArrivals);

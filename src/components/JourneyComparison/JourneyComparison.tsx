@@ -23,14 +23,10 @@ const JourneyComparison = (props: ComparisonProps) => {
     const baselineTotalDuration = getTotalJourneyDuration(baseline);
     const enhancedTotalDuration = getTotalJourneyDuration(enhanced);
     const enhancedTotalFraction = 1 - enhancedTotalDuration / baselineTotalDuration;
-
     const showDelayRow =
-        enhanced.amenities.includes("electric-trains") &&
-        !baseline.amenities.includes("electric-trains");
-
-    const baselineMissingAmenities = enhanced.amenities.filter(
-        (amenity) => !baseline.amenities.includes(amenity)
-    );
+        enhanced.amenities.includes("electricTrains") &&
+        !baseline.amenities.includes("electricTrains");
+    const amenitiesDiff = enhanced.amenities.filter((a) => !baseline.amenities.includes(a));
 
     return (
         <div className={styles.journeyComparison}>
@@ -68,8 +64,8 @@ const JourneyComparison = (props: ComparisonProps) => {
             <WaitComparison {...props} />
             <ComparisonRow
                 title="Your ride"
-                baseline={<AmenityListing absent={baselineMissingAmenities} />}
-                enhanced={<AmenityListing present={enhanced.amenities} />}
+                baseline={<AmenityListing absent={amenitiesDiff} />}
+                enhanced={<AmenityListing present={amenitiesDiff} />}
             />
             {showDelayRow && (
                 <ComparisonRow

@@ -53,8 +53,8 @@ const getStationIdsWithinRange = (stationRange: StationRange, stationIds: string
     if (stations) {
         return stations;
     }
-    const startIndex = stationIds.indexOf(start);
-    const endIndex = stationIds.indexOf(end);
+    const startIndex = stationIds.indexOf(start!);
+    const endIndex = stationIds.indexOf(end!);
     if (startIndex === -1 || endIndex === -1) {
         throw new Error(
             `Improper use of {start=${start}, end=${end}} properties for stationRange. ` +
@@ -98,7 +98,7 @@ const prerenderRoutePattern = (shape: PathShape, stationIds: string[]) => {
     entries.forEach((entry) => {
         if (pathEntryIsStationRange(entry)) {
             const initialLength = totalLength;
-            const segmentsInRange = [];
+            const segmentsInRange: PathSegment[] = [];
             const stationIdsWithinRange = getStationIdsWithinRange(entry, stationIds);
 
             entry.commands.forEach((command) => {

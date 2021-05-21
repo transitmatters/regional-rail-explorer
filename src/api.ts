@@ -1,4 +1,4 @@
-import { ApiResult, JourneyApiResult, JourneyInfo, NetworkDayKind, NetworkTime } from "types";
+import { JourneyApiResult, NetworkDayKind, NetworkTime } from "types";
 
 const apiFetch = (route, params) => {
     const urlParams = new URLSearchParams(params);

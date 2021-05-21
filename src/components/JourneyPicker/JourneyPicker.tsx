@@ -15,14 +15,14 @@ interface Station {
 }
 interface Props {
     day: NetworkDayKind;
-    fromStationId: string;
+    fromStationId: null | string;
+    toStationId: null | string;
     onSelectDay: (day: NetworkDayKind) => unknown;
     onSelectJourney: (params: Partial<JourneyParams>) => any;
     onSelectTimeOfDay: (time: TimeOfDay) => unknown;
     stationsById: Record<string, Station>;
     stationsByLine: StationsByLine;
-    time: NetworkTime;
-    toStationId: string;
+    time: null | NetworkTime;
     disabled?: boolean;
 }
 
@@ -76,17 +76,20 @@ const JourneyPicker = (props: Props) => {
 
     const [timeOfDay, setTimeOfDay] = useState(timeOfDayPickerOptions[0]);
 
-    const fromStation = stationsById[fromStationId];
-    const toStation = stationsById[toStationId];
+    const fromStation = fromStationId ? stationsById[fromStationId] : null;
+    const toStation = toStationId ? stationsById[toStationId] : null;
 
-    const swapStations = useCallback(
-        () => onSelectJourney({ fromStationId: toStationId, toStationId: fromStationId }),
-        [onSelectJourney, fromStationId, toStationId]
-    );
+    const swapStations = useCallback(() => {
+        if (fromStationId && toStationId) {
+            onSelectJourney({ fromStationId: toStationId, toStationId: fromStationId });
+        }
+    }, [onSelectJourney, fromStationId, toStationId]);
 
     useEffect(() => {
-        const index = time > 17 * HOUR ? 2 : time > 11 * HOUR ? 1 : 0;
-        setTimeOfDay(timeOfDayPickerOptions[index]);
+        if (typeof time === "number") {
+            const index = time > 17 * HOUR ? 2 : time > 11 * HOUR ? 1 : 0;
+            setTimeOfDay(timeOfDayPickerOptions[index]);
+        }
     }, [time]);
 
     return (
@@ -131,7 +134,7 @@ const JourneyPicker = (props: Props) => {
                     disclosureProps={{ large: true, disabled }}
                     aria-label="Choose a day of the week"
                     items={dayKindOptions}
-                    selectedItem={dayKindOptions.find((item) => item.id === day)}
+                    selectedItem={dayKindOptions.find((item) => item.id === day)!}
                     onSelect={(item) => onSelectDay(item.id)}
                 />
             </div>

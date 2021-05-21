@@ -1,6 +1,6 @@
 import React from "react";
 
-import { JourneyInfo, JourneyTransferSegment, CrowdingLevel } from "types";
+import { JourneyInfo, JourneyTransferSegment, CrowdingLevel, JourneySegment, JourneyStation } from "types";
 import { CrowdingIllustration } from "components";
 
 import { stringifyDuration } from "time";
@@ -27,7 +27,7 @@ const getRegionalRailWaitDuration = (journey: JourneyInfo) => {
             }
             return { duration, previousSegment: segment };
         },
-        { duration: 0, previousSegment: null }
+        { duration: 0, previousSegment: null as null | JourneySegment }
     ).duration;
 };
 
@@ -36,23 +36,23 @@ const WaitInfo = (props: WaitInfoProps) => {
     const serviceType = isRegionalRail ? "Regional Rail" : "Commuter Rail";
     const waitDuration = getRegionalRailWaitDuration(journey);
     const unfavorableWaitDuration =
-        compareFavorablyTo && getRegionalRailWaitDuration(compareFavorablyTo);
-    const favorableWaitFraction = compareFavorablyTo && 1 - waitDuration / unfavorableWaitDuration;
+        (compareFavorablyTo && getRegionalRailWaitDuration(compareFavorablyTo))!;
+    const favorableWaitFraction = compareFavorablyTo && 1 - waitDuration / unfavorableWaitDuration
     const worstCrowdingStations = Object.values(journey.platformCrowding).reduce((worst, next) => {
         if (worst.length === 0 || next.crowdingLevel > worst[0].crowdingLevel) {
             return [...worst, next];
         }
         return worst;
-    }, []);
+    }, [] as {station: JourneyStation, crowdingLevel: CrowdingLevel}[]);
     const worstCrowdingLevel =
         worstCrowdingStations.length > 0 && worstCrowdingStations[0].crowdingLevel;
     return (
         <>
             <div className="duration">
                 {stringifyDuration(waitDuration)} waiting for {serviceType} trains
-                {favorableWaitFraction > 0 && (
+                {favorableWaitFraction! > 0 && (
                     <div className="bubble offset-left green">
-                        {Math.round(100 * favorableWaitFraction)}% less
+                        {Math.round(100 * favorableWaitFraction!)}% less
                     </div>
                 )}
             </div>
@@ -62,7 +62,7 @@ const WaitInfo = (props: WaitInfoProps) => {
                     {joinOxford(worstCrowdingStations.map((wcs) => wcs.station.name))}.
                 </div>
             )}
-            <CrowdingIllustration crowding={15 * worstCrowdingLevel} height={30} perLayer={15} />
+            <CrowdingIllustration crowding={15 * (worstCrowdingLevel as number)} height={30} perLayer={15} />
         </>
     );
 };

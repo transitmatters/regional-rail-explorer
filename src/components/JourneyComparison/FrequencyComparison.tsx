@@ -52,7 +52,7 @@ const FrequencyInfo = (props: FrequencyInfoProps) => {
         },
     } = journey;
     const arriveAtPlatform = (segments[0] as JourneyTransferSegment).startTime;
-    const now = times.find((time) => time >= arriveAtPlatform);
+    const now = times.find((time) => time >= arriveAtPlatform)!;
     const shownTimes = times.filter((time) => Math.abs(time - now) <= halfInterval);
     const nextHeadwayIndex = shownTimes.findIndex((time) => time >= now);
     const subsequentHeadway = getSubsequentHeadway(journey, arrivalStationId);

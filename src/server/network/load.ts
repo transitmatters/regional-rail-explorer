@@ -19,13 +19,12 @@ const loadCsv = <T>(filePath: string): T[] => {
     return records.map(camelize);
 };
 
-export type GtfsLoader = ReturnType<typeof createGtfsLoader>;
-
 export const createGtfsLoader = (basePath: string) => {
-    const reader = <T>(filename) => () => loadCsv<T>(path.join(basePath, filename + ".txt"));
+    const resolvePath = (filename: string) => path.join(basePath, filename + ".txt");
+    const reader = <T>(filename: string) => () => loadCsv<T>(resolvePath(filename));
 
-    const optionalReader = <T>(filename) => {
-        if (fs.existsSync(filename)) {
+    const optionalReader = <T>(filename: string) => {
+        if (fs.existsSync(resolvePath(filename))) {
             return reader<T>(filename);
         }
         return null;
@@ -43,3 +42,5 @@ export const createGtfsLoader = (basePath: string) => {
         amenities: optionalReader<GtfsRoutePatternAmenities>("amenities"),
     };
 };
+
+export type GtfsLoader = ReturnType<typeof createGtfsLoader>;

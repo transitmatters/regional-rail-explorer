@@ -44,7 +44,7 @@ const getBuckets = (
     widthPx: number
 ): NetworkTimeRange[] => {
     const [startTime, endTime] = timeRange;
-    const buckets = [];
+    const buckets: [number, number][] = [];
     const timeMinutesWidth = (endTime - startTime) / MINUTE;
     let bucketWidthMinutes = bucketMinMinutes;
     while (true) {
@@ -96,7 +96,7 @@ const FrequencyHistogram = ({
     bucketMinMinutes = 60,
     bucketMaxMinutes = 120,
 }: Props) => {
-    const [width, setWidth] = useState(null);
+    const [width, setWidth] = useState<null | number>(null);
 
     const renderInner = () => {
         if (width === null) {

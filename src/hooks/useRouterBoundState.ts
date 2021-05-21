@@ -10,7 +10,7 @@ type EncodedField<T> = {
 type StringField = { initial: null | string; param: string };
 type Field<T> = StringField | EncodedField<T>;
 type Fields = Record<string, Field<any>>;
-type State<F extends Fields> = { [k in keyof F]?: F[k]["initial"] };
+type State<F extends Fields> = { [k in keyof F]: F[k]["initial"] };
 
 interface RouterTransitionOptions {
     replace: boolean;
@@ -29,13 +29,17 @@ const defaultRouterTransitionFn = () => {
     };
 };
 
-const normalizeQuery = (query: Record<string, string | string[]>): Record<string, string> => {
+const normalizeQuery = (
+    query: Record<string, string | string[] | undefined>
+): Record<string, string> => {
     const normalized: Record<string, string> = {};
     Object.entries(query).forEach(([key, value]) => {
-        if (Array.isArray(value)) {
-            normalized[key] = value[0];
-        } else {
-            normalized[key] = value;
+        if (value) {
+            if (Array.isArray(value)) {
+                normalized[key] = value[0];
+            } else {
+                normalized[key] = value;
+            }
         }
     });
     return normalized;

@@ -11,8 +11,8 @@ import styles from "./RouteVisualizer.module.scss";
 interface Props {
     branchMap: BranchMap;
     stationNames: Record<string, string>;
-    trips?: SerializableTrip[];
-    now?: NetworkTime;
+    trips: SerializableTrip[];
+    now: NetworkTime;
     innerStrokeClassName?: string;
     lineClassName?: string;
     labelClassName?: string;
@@ -56,7 +56,7 @@ const createTripIdToRoutePatternMap = (
                     stationIds.every((stationId) =>
                         Object.keys(rp.stationOffsets).includes(stationId)
                     )
-            );
+            )!;
             cache[tripString] = matchingRoutePattern;
         }
         map[trip.id] = cache[tripString];

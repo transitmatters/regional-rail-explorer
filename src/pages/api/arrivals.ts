@@ -17,7 +17,7 @@ export default async (req, res) => {
             });
             const toStationIds = exemplarJourney
                 .map((seg) => seg.type === "travel" && seg.toStation.id)
-                .filter((x) => x);
+                .filter((x): x is string => !!x);
             const toStations = getStationsByIds(network, ...toStationIds);
             return getArrivalTimesForJourney(fromStation, toStations, day);
         },

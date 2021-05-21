@@ -49,8 +49,8 @@ const getStationIdsForRoutePatternIds = (tripMap: Record<string, SerializableTri
     for (const [routePatternId, trips] of Object.entries(tripMap)) {
         const exemplarTrip = trips
             .filter((trip) => isRegionalRailTerminus(trip.stopTimes[0].stationId))
-            .reduce((best, next) => {
-                if (!best || next.stopTimes.length > best.stopTimes.length) {
+            .reduce((best: null | SerializableTrip, next: SerializableTrip) => {
+                if (!best || next.stopTimes.length > best!.stopTimes.length) {
                     return next;
                 }
                 return best;

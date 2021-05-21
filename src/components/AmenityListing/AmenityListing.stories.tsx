@@ -8,16 +8,14 @@ export default {
 };
 
 export const Default = () => {
-    return (
-        <AmenityListing present={["electric-trains", "increased-top-speed", "level-boarding"]} />
-    );
+    return <AmenityListing present={["electricTrains", "increasedTopSpeed", "levelBoarding"]} />;
 };
 
 export const Absence = () => {
     return (
         <AmenityListing
-            present={["electric-trains", "increased-top-speed"]}
-            absent={["level-boarding"]}
+            present={["electricTrains", "increasedTopSpeed"]}
+            absent={["levelBoarding"]}
         />
     );
 };

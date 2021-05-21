@@ -31,6 +31,7 @@ module.exports = {
         "@typescript-eslint/no-empty-interface": 0,
         "@typescript-eslint/no-explicit-any": 0,
         "@typescript-eslint/no-inferrable-types": 0,
+        "@typescript-eslint/no-non-null-assertion": 0,
         "@typescript-eslint/no-unused-vars": ["error", { varsIgnorePattern: "^_+$" }],
         "@typescript-eslint/no-use-before-define": 0,
         "@typescript-eslint/explicit-module-boundary-types": 0,

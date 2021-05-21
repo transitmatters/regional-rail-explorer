@@ -13,6 +13,7 @@ export default {
 
 const baselineInfo: JourneyInfo = {
     scenario: {
+        id: "present-day",
         name: "Today's Commuter Rail",
     },
     segments: baseline,
@@ -39,6 +40,7 @@ const baselineInfo: JourneyInfo = {
 
 const enhancedInfo: JourneyInfo = {
     scenario: {
+        id: "phase-one",
         name: "Regional Rail Phase 1",
     },
     segments: enhanced,
@@ -60,7 +62,7 @@ const enhancedInfo: JourneyInfo = {
             times: enhancedArrivals,
         },
     },
-    amenities: ["electric-trains", "level-boarding", "increased-top-speed"],
+    amenities: ["electricTrains", "levelBoarding", "increasedTopSpeed"],
 };
 
 export const Default = () => <JourneyComparison baseline={baselineInfo} enhanced={enhancedInfo} />;

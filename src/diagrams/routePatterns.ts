@@ -61,7 +61,7 @@ const describeRoutePatternsInner = (
         const subRoutePatternMaps: Record<string, RoutePatternDescriptor>[] = [];
         const widths: number[] = [];
 
-        for (const branch of branchMap.branches) {
+        for (const branch of branchMap.branches!) {
             const { routePatterns: subRoutePatternMap, width } = describeRoutePatternsInner(
                 branch,
                 options
