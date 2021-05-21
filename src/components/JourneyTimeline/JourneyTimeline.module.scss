@@ -1,7 +1,10 @@
+@import '../../styles/base.scss';
+
 $stem-width: 8px;
 $text-offset: 25px;
 $travel-transfer-station-size: 20px;
 $travel-passed-station-size: 6px;
+$expand-control-size: 30px;
 $start-point-size: 14px;
 
 @mixin circle-on-line-with-label($circle-size) {
@@ -15,6 +18,7 @@ $start-point-size: 14px;
         height: $circle-size;
         border-radius: $circle-size / 2;
         background-color: white;
+        box-sizing: border-box;
         flex-shrink: 0;
     }
 
@@ -63,6 +67,33 @@ $start-point-size: 14px;
     :global(.label) {
         height: 0.9em;
         font-size: 0.9em;
+    }
+}
+
+.travelStationExpandControl {
+    @include circle-on-line-with-label($expand-control-size);
+    position: relative;
+
+    :global(.circle) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 3px solid;
+        color: currentColor;
+    }
+
+    :global(.label) {
+        font-size: 0.9em;
+        font-style: italic;
+        margin-left: 10px;
+        color: black;
+    }
+
+    &:hover {
+        cursor: pointer;
+        :global(.label) {
+            text-decoration: underline;
+        }
     }
 }
 
@@ -140,7 +171,6 @@ $start-point-size: 14px;
         flex-grow: 1;
         font-size: 0.9em;
         font-style: italic;
-        
     }
 }
 

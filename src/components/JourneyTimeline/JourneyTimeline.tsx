@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import classNames from "classnames";
+import { BsChevronExpand } from "react-icons/bs";
 
+import { Button } from "reakit";
 import {
     JourneySegment,
     JourneyStation,
@@ -17,6 +19,9 @@ type Props = {
     journey: JourneySegment[];
 };
 
+const desiredStationSpacingPx = 50;
+const expandControlSpacingPx = 100;
+
 const stringifyTime = (time) => globalStringifyTime(time, { use12Hour: true });
 
 const getSegmentHeight = (segment: JourneySegment) => {
@@ -25,13 +30,16 @@ const getSegmentHeight = (segment: JourneySegment) => {
             ? segment.arrivalTime - segment.departureTime
             : segment.waitDuration + segment.transferDuration;
     const elapsedMinutes = elapsedSeconds / MINUTE;
-    return elapsedMinutes * 5 + 50;
+    return elapsedMinutes * 5 + 25;
 };
 
 const TravelSegment = (props: { segment: JourneyTravelSegment }) => {
     const { segment } = props;
     const { fromStation, toStation, departureTime, arrivalTime, routeId } = segment;
     const color = getColorForRouteId(routeId);
+    const height = getSegmentHeight(segment);
+    const canCollapse = height / segment.passedStations.length < desiredStationSpacingPx;
+    const [expanded, setExpanded] = useState(!canCollapse);
 
     const renderStationName = (station: JourneyStation) => {
         return (
@@ -41,8 +49,8 @@ const TravelSegment = (props: { segment: JourneyTravelSegment }) => {
         );
     };
 
-    const renderInnerContents = () => {
-        return segment.passedStations.map((passedStation) => {
+    const renderInnerStations = (stations: JourneyTravelSegment["passedStations"]) => {
+        return stations.map((passedStation) => {
             return (
                 <div key={passedStation.station.id} className={styles.travelSegmentPassedStation}>
                     <div className="circle" />
@@ -50,6 +58,47 @@ const TravelSegment = (props: { segment: JourneyTravelSegment }) => {
                 </div>
             );
         });
+    };
+
+    const renderExpandControl = (numHiddenStations: number) => {
+        return (
+            <Button
+                as="div"
+                className={styles.travelStationExpandControl}
+                onClick={() => setExpanded(true)}
+            >
+                <div className="circle">
+                    <BsChevronExpand strokeWidth={1} size={18} />
+                </div>
+                <div className="label">Show {numHiddenStations} more</div>
+            </Button>
+        );
+    };
+
+    const renderInnerContents = () => {
+        const { passedStations } = segment;
+        if (expanded) {
+            return renderInnerStations(passedStations);
+        }
+        const availableSpaceForShownStations = height - expandControlSpacingPx;
+        const shownStationsPerSide = Math.floor(
+            availableSpaceForShownStations / desiredStationSpacingPx
+        );
+        const startStations = passedStations.slice(0, shownStationsPerSide);
+        const endStations = passedStations.slice(passedStations.length - shownStationsPerSide);
+        const hiddenStationsCount =
+            passedStations.length - (startStations.length + endStations.length);
+        console.log(shownStationsPerSide, startStations, endStations);
+        if (hiddenStationsCount < 3) {
+            return renderInnerStations(passedStations);
+        }
+        return (
+            <>
+                {renderInnerStations(startStations)}
+                {renderExpandControl(hiddenStationsCount)}
+                {renderInnerStations(endStations)}
+            </>
+        );
     };
 
     const renderEndpoint = (station, time) => {
@@ -65,13 +114,12 @@ const TravelSegment = (props: { segment: JourneyTravelSegment }) => {
     };
 
     return (
-        <div
-            className={classNames(styles.travelSegment, textColor(color))}
-            style={{ minHeight: getSegmentHeight(segment) }}
-        >
+        <div className={classNames(styles.travelSegment, textColor(color))}>
             <div className="stem" />
             {renderEndpoint(fromStation, departureTime)}
-            <div className="inner">{renderInnerContents()}</div>
+            <div className="inner" style={expanded ? { minHeight: height } : { height }}>
+                {renderInnerContents()}
+            </div>
             {renderEndpoint(toStation, arrivalTime)}
         </div>
     );
