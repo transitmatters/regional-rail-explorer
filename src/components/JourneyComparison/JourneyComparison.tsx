@@ -8,6 +8,7 @@ import { ComparisonProps } from "./types";
 import ComparisonRow from "./ComparisonRow";
 import WaitComparison from "./WaitComparison";
 import FrequencyComparison from "./FrequencyComparison";
+import FareComparison from "./FareComparison";
 
 import styles from "./JourneyComparison.module.scss";
 
@@ -67,6 +68,7 @@ const JourneyComparison = (props: ComparisonProps) => {
                 baseline={<AmenityListing absent={amenitiesDiff} />}
                 enhanced={<AmenityListing present={amenitiesDiff} />}
             />
+            <FareComparison {...props} />
             {showDelayRow && (
                 <ComparisonRow
                     title="Reliability"
