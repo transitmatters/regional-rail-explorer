@@ -8,6 +8,7 @@ import {
     Station,
     CrowdingLevel,
     JourneyApiResult,
+    JourneyTravelSegment,
 } from "types";
 
 import { navigate } from "server/navigation";
@@ -15,25 +16,37 @@ import { getStationsByIds } from "server/network";
 import { getArrivalTimesForJourney } from "server/navigation/arrivals";
 import { mapScenarios } from "server/scenarios";
 import { HOUR, MINUTE } from "time";
-import { isRegionalRail } from "routes";
 
 const calculateAmenities = (scenario: Scenario, journey: Journey): AmenityName[] => {
     const {
         network: { amenitiesByRoutePatternId },
     } = scenario;
     const foundAmenties: AmenityName[] = [];
+    const journeyHasLevelBoarding = journey
+        .filter((segment): segment is JourneyTravelSegment => segment.type === "travel")
+        .every(
+            (segment) =>
+                segment.levelBoarding ||
+                amenitiesByRoutePatternId?.[segment.routePatternId].levelBoarding
+        );
     journey.forEach((segment) => {
         if (segment.type === "travel") {
-            const { routeId, routePatternId, levelBoarding } = segment;
-            if (levelBoarding && isRegionalRail(routeId)) {
-                foundAmenties.push("levelBoarding");
-            }
+            const { routePatternId } = segment;
             const routePatternAmenities = amenitiesByRoutePatternId?.[routePatternId];
             if (routePatternAmenities) {
-                foundAmenties.push(...(Object.keys(routePatternAmenities) as AmenityName[]));
+                const { electricTrains, increasedTopSpeed } = routePatternAmenities;
+                if (electricTrains) {
+                    foundAmenties.push("electricTrains");
+                }
+                if (increasedTopSpeed) {
+                    foundAmenties.push("increasedTopSpeed");
+                }
             }
         }
     });
+    if (journeyHasLevelBoarding) {
+        foundAmenties.push("levelBoarding");
+    }
     return [...new Set(foundAmenties)];
 };
 

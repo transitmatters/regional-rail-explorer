@@ -88,7 +88,6 @@ const TravelSegment = (props: { segment: JourneyTravelSegment }) => {
         const endStations = passedStations.slice(passedStations.length - shownStationsPerSide);
         const hiddenStationsCount =
             passedStations.length - (startStations.length + endStations.length);
-        console.log(shownStationsPerSide, startStations, endStations);
         if (hiddenStationsCount < 3 || shownStationsPerSide === 0) {
             return renderInnerStations(passedStations);
         }

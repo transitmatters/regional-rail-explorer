@@ -42,7 +42,6 @@ const AmenityListing = (props: Props) => {
     const { present = [], absent = [] } = props;
 
     const renderAmenity = (amenity: AmenityName, present: boolean) => {
-        console.log("A2S", amenityToString, amenity);
         const { presence, absence, icon, absenceIcon } = amenityToString[amenity];
         const Icon = !present && absenceIcon ? absenceIcon : icon;
         const showSlash = !present && !absenceIcon;
