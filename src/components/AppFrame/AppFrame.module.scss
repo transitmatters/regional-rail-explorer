@@ -4,6 +4,9 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    @include mobile {
+        font-size: 15px;
+    }
 }
 
 .globalNav {
@@ -13,6 +16,7 @@
     padding: 0 10px;
     background: $rr-purple-dark;
     color: white;
+    overflow: hidden;
 }
 
 .breadcrumbs {

@@ -21,7 +21,7 @@ const ComparisonRow = (props: RowProps) => {
                 isHeader && "header"
             )}
         >
-            <div className="title">{title}</div>
+            {title && <div className="title">{title}</div>}
             <div className="baseline">{baseline}</div>
             <div className="enhanced">{enhanced}</div>
         </div>

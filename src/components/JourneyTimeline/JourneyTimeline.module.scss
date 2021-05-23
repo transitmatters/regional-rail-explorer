@@ -27,6 +27,12 @@ $start-point-size: 14px;
     }
 }
 
+.journeyTimeline {
+    @include mobile {
+        font-size: 13px;
+    }
+}
+
 .travelSegment {
     display: flex;
     flex-direction: column;
@@ -120,6 +126,7 @@ $start-point-size: 14px;
         :global(.time) {
             font-weight: normal;
             margin-left: 0.5em;
+            white-space: nowrap;
         }
     }
 }
@@ -147,9 +154,10 @@ $start-point-size: 14px;
             height: 1em;
             font-weight: bold;
             display: flex;
-            :global .time {
+            :global(.time) {
                 font-weight: normal;
                 margin-left: 0.5em;
+                white-space: nowrap;
             }
         }
     }

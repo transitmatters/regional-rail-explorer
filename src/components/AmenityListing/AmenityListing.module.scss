@@ -28,6 +28,10 @@ $icon-wrapper-size: 2em;
         background: #bbb;
         box-sizing: border-box;
 
+        @include mobile {
+            align-self: flex-start;
+        }
+
         &:global(.present) {
             background: $rr-gold;
             & > :global(.slash) {
