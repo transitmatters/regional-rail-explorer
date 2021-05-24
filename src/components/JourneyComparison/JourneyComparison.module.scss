@@ -19,9 +19,13 @@
         &:global(.offset-left) {
             margin-left: 6px;
             @include mobile {
-                margin-left: 0px;
-                margin-top: 4px;
+                margin-left: 0;
             }
+        }
+        @include mobile {
+            display: block;
+            margin: 0px;
+            margin-top: 4px;
         }
     }
 
@@ -32,6 +36,9 @@
 
     :global(.duration) {
         font-size: 18px;
+        @include mobile {
+            font-size: 15px;
+        }
     }
 
     :global(.crowding-illustration) {
@@ -131,7 +138,7 @@
 
         > :global(.baseline),
         > :global(.enhanced) {
-            border-top-width: 6px;
+            border-top-width: 2px;
             border-top-style: solid;
             padding: 20px 10px;
         }
@@ -171,6 +178,12 @@
         height: 1em;
         position: relative;
         margin-bottom: 20px;
+
+        @include mobile {
+            padding: 2px 0;
+            margin-bottom: 10px;
+        }
+
         mask-image: linear-gradient(
             90deg,
             rgba(0, 0, 0, 0) 0%,

@@ -61,17 +61,17 @@ const DeparturePicker = (props: Props) => {
         timelineWrapper.current
     );
 
-    const handleMouseDown = (evt: React.MouseEvent<HTMLDivElement>) => {
-        captureMouseX.current = evt.clientX;
+    const startCapture = (offsetX: number) => {
+        captureMouseX.current = offsetX;
         setIsCapturing(true);
     };
 
-    const handleMouseMove = (evt: React.MouseEvent<HTMLDivElement>) => {
+    const updateCapture = (offsetX: number) => {
         if (isCapturing) {
             const [start, end] = timeRange;
             const timeDelta = getTimeDeltaForMouseOffset(
                 captureMouseX.current!,
-                evt.clientX,
+                offsetX,
                 timeRange,
                 sensitivity,
                 timelineWrapper.current!
@@ -81,7 +81,7 @@ const DeparturePicker = (props: Props) => {
         }
     };
 
-    const handleMouseUp = () => {
+    const endCapture = () => {
         setIsCapturing(false);
         onSelectTime(capturedTime);
     };
@@ -89,9 +89,12 @@ const DeparturePicker = (props: Props) => {
     return (
         <div
             className={styles.departurePickerMobile}
-            onMouseDown={handleMouseDown}
-            onMouseUp={handleMouseUp}
-            onMouseMove={handleMouseMove}
+            onMouseDown={(e) => startCapture(e.clientX)}
+            onTouchStart={(e) => startCapture(e.touches[0].clientX)}
+            onMouseMove={(e) => updateCapture(e.clientX)}
+            onTouchMove={(e) => updateCapture(e.touches[0].clientX)}
+            onMouseUp={endCapture}
+            onTouchEnd={endCapture}
         >
             <DeparturePickerChrome disabled={disabled} indicatorPositionFraction={0.5}>
                 <div
