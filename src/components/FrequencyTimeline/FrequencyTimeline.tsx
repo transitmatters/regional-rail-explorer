@@ -31,7 +31,9 @@ const getHourTicks = (range: NetworkTimeRange) => {
     return ticks;
 };
 
-const FrequencyTimeline = ({ timeRange, baselineArrivals, enhancedArrivals }: Props) => {
+const FrequencyTimeline = (props: Props) => {
+    const { timeRange, baselineArrivals, enhancedArrivals } = props;
+
     const renderTicks = () => {
         const ticks = getHourTicks(timeRange);
         return ticks.map((tick) => {

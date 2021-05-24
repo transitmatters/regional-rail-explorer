@@ -1,30 +1,23 @@
-import React, { useState, useRef, useCallback } from "react";
-import classNames from "classnames";
+import React from "react";
 
+import { useViewport } from "hooks";
 import { NetworkTime, NetworkTimeRange } from "types";
-import { DAY, HOUR, stringifyTime } from "time";
-import FrequencyTimeline from "components/FrequencyTimeline/FrequencyTimeline";
+import { DAY, roundToNearestHour } from "time";
+import { FrequencyTimeline } from "components";
 
-import styles from "./DeparturePicker.module.scss";
+import DeparturePickerDesktop from "./DeparturePickerDesktop";
+import DeparturePickerMobile from "./DeparturePickerMobile";
+import { DeparturePickerImplProps } from "./types";
 
 interface Props {
-    onSelectTime: (time: NetworkTime) => any;
     enhancedArrivals: NetworkTime[];
     baselineArrivals: NetworkTime[];
     spanFullDay?: boolean;
     timePadding?: number;
-    time: null | number;
     disabled?: boolean;
+    time: number | null;
+    onSelectTime: (time: number) => unknown;
 }
-
-const roundToNearestHour = (time: NetworkTime): NetworkTime => {
-    const hoursPart = Math.floor(time / HOUR);
-    const minutesPart = time % HOUR;
-    if (minutesPart >= HOUR / 2) {
-        return HOUR * (hoursPart + 1);
-    }
-    return HOUR * hoursPart;
-};
 
 const getTimeRange = (
     allArrivals: NetworkTime[],
@@ -43,125 +36,47 @@ const getTimeRange = (
     return [roundToNearestHour(min) - padding, roundToNearestHour(max) + padding];
 };
 
-const getTimeFromCursorPosition = (
-    cursorClientX: number,
-    timeRange: NetworkTimeRange,
-    wrapperElement: HTMLElement
-) => {
-    const [start, end] = timeRange;
-    const { width, left } = wrapperElement.getBoundingClientRect();
-    const progress = (cursorClientX - left) / width;
-    return Math.floor(start + (end - start) * progress);
-};
-
-const getCursorTransformForTime = (
-    time: NetworkTime,
-    timeRange: NetworkTimeRange,
-    wrapperElement: HTMLElement
-) => {
-    const { width } = wrapperElement.getBoundingClientRect();
-    const [start, end] = timeRange;
-    const progress = (time - start) / (end - start);
-    const left = progress * width;
-    const buffer = 5;
-    const offset = Math.max(buffer, Math.min(width - buffer, left));
-    return `translateX(${offset}px)`;
-};
-
 const DeparturePicker = (props: Props) => {
     const {
-        spanFullDay = false,
-        disabled = false,
         baselineArrivals,
         enhancedArrivals,
-        onSelectTime,
-        time,
+        spanFullDay = false,
         timePadding = 0,
+        disabled = false,
+        time,
+        onSelectTime,
     } = props;
-    const [cursorTime, setCursorTime] = useState<null | number>(null);
-    const hasSelected = typeof time === "number";
-    const wrapper = useRef<null | HTMLDivElement>(null);
+
+    const { viewportWidth } = useViewport();
+
     const timeRange = getTimeRange(
         [...baselineArrivals, ...enhancedArrivals],
         spanFullDay,
         timePadding
     );
 
-    const handleClick = useCallback(
-        (evt: MouseEvent) =>
-            onSelectTime(getTimeFromCursorPosition(evt.clientX, timeRange, wrapper.current!)),
-        [timeRange]
-    );
-
-    const handleMouseMove = useCallback(
-        (evt: MouseEvent) =>
-            setCursorTime(getTimeFromCursorPosition(evt.clientX, timeRange, wrapper.current!)),
-        [timeRange]
-    );
-
-    const renderIndicator = () => {
-        if (wrapper.current && time) {
-            return (
-                <div
-                    className={classNames(styles.indicator, !hasSelected && styles.invisible)}
-                    style={{
-                        transform: getCursorTransformForTime(time, timeRange, wrapper.current),
-                    }}
-                >
-                    <div className={styles.indicatorInner}>
-                        <div className={styles.topTriangle} />
-                        <div className={styles.needle} />
-                        <div className={styles.bottomTriangle} />
-                    </div>
-                </div>
-            );
-        }
+    if (viewportWidth === null) {
         return null;
+    }
+
+    const implProps: DeparturePickerImplProps = {
+        timeRange,
+        time,
+        onSelectTime,
+        disabled,
+        timeline: (
+            <FrequencyTimeline
+                baselineArrivals={baselineArrivals}
+                enhancedArrivals={enhancedArrivals}
+                timeRange={timeRange}
+            />
+        ),
     };
 
-    const renderCursor = () => {
-        if (wrapper.current && cursorTime) {
-            return (
-                <div
-                    className={styles.cursor}
-                    style={{
-                        transform: getCursorTransformForTime(
-                            cursorTime,
-                            timeRange,
-                            wrapper.current
-                        ),
-                    }}
-                >
-                    <div className={styles.cursorNeedle} />
-                    <span className={styles.cursorTime}>
-                        {stringifyTime(cursorTime, { use12Hour: true })}
-                    </span>
-                </div>
-            );
-        }
-        return null;
-    };
-
-    return (
-        <div
-            ref={wrapper}
-            className={classNames(styles.departurePicker, disabled && styles.disabled)}
-            onMouseMove={(evt) => handleMouseMove(evt.nativeEvent)}
-            onClick={(evt) => handleClick(evt.nativeEvent)}
-        >
-            <div className={styles.top} />
-            <div className={styles.container}>
-                <FrequencyTimeline
-                    baselineArrivals={baselineArrivals}
-                    enhancedArrivals={enhancedArrivals}
-                    timeRange={timeRange}
-                />
-                {renderCursor()}
-                {renderIndicator()}
-            </div>
-            <div className={styles.bottom} />
-        </div>
-    );
+    if (viewportWidth > 700) {
+        return <DeparturePickerDesktop {...implProps} />;
+    }
+    return <DeparturePickerMobile {...implProps} time={time || 0} />;
 };
 
 export default DeparturePicker;

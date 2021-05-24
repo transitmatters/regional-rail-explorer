@@ -2,9 +2,9 @@ import React from "react";
 import useState from "storybook-addon-state";
 
 import * as salem from "storydata/salem";
+import { HOUR } from "time";
 
 import DeparturePicker from "./DeparturePicker";
-import { HOUR } from "time";
 
 export default {
     title: "DeparturePicker",

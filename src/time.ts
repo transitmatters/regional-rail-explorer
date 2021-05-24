@@ -108,6 +108,15 @@ export const compareTimes = (first: NetworkTime, second: NetworkTime): number =>
     return first > second ? 1 : -1;
 };
 
+export const roundToNearestHour = (time: NetworkTime): NetworkTime => {
+    const hoursPart = Math.floor(time / HOUR);
+    const minutesPart = time % HOUR;
+    if (minutesPart >= HOUR / 2) {
+        return HOUR * (hoursPart + 1);
+    }
+    return HOUR * hoursPart;
+};
+
 export const MINUTE = 60;
 export const HOUR = 60 * MINUTE;
 export const DAY = 24 * HOUR;

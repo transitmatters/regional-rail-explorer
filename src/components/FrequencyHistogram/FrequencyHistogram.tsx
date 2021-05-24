@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import { NetworkTime, NetworkTimeRange } from "types";
-import { HOUR, DAY, MINUTE, stringifyTime } from "time";
+import { DAY, MINUTE, stringifyTime, roundToNearestHour } from "time";
 
 import styles from "./FrequencyHistogram.module.scss";
 
@@ -14,15 +14,6 @@ type Props = {
 };
 
 const MIN_BUCKET_WIDTH_PX = 35;
-
-const roundToNearestHour = (time: NetworkTime): NetworkTime => {
-    const hoursPart = Math.floor(time / HOUR);
-    const minutesPart = time % HOUR;
-    if (minutesPart >= HOUR / 2) {
-        return HOUR * (hoursPart + 1);
-    }
-    return HOUR * hoursPart;
-};
 
 const getTimeRange = (allArrivals: NetworkTime[], spanFullDay: boolean): NetworkTimeRange => {
     if (spanFullDay) {

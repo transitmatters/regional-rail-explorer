@@ -40,7 +40,6 @@ $arrival-width: var(--arrival-width);
         user-select: none;
         @include mobile {
             font-size: 10px;
-            transform: translateY(100%) rotate(45deg);
         }
     }
 }

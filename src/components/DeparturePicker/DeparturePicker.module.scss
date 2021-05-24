@@ -7,7 +7,7 @@ $bottom-color: $rr-purple-dark;
 
 @mixin picker-triangle($color, $size: 8px) {
     position: absolute;
-    z-index: 1;
+    z-index: 2;
     left: -$size;
     @include triangle($color, $size);
 }
@@ -20,6 +20,12 @@ $bottom-color: $rr-purple-dark;
         .cursor {
             opacity: 1;
         }
+    }
+}
+
+.departurePickerMobile {
+    :global(.frequency-timeline) {
+        left: 50%;
     }
 }
 
@@ -52,7 +58,7 @@ $bottom-color: $rr-purple-dark;
     position: absolute;
     height: calc(100% + 20px);
     top: 0;
-    transition: 200ms transform cubic-bezier(1, 0, 0, 1);
+    transition: 200ms left cubic-bezier(1, 0, 0, 1);
 }
 
 .invisible {
@@ -90,6 +96,14 @@ $bottom-color: $rr-purple-dark;
             rgba(255, 255, 255, 0) 100%
         );
     }
+}
+
+.cursorMobile {
+    top: 0;
+    left: 50%;
+    z-index: 1;
+    opacity: 1;
+    font-size: 0.9em;
 }
 
 .indicatorInner {
