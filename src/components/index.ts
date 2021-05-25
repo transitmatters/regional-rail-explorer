@@ -1,4 +1,4 @@
-export { default as AppFrame } from "./AppFrame/AppFrame";
+export { default as AppFrame, AppFrameContext } from "./AppFrame";
 export { default as AmenityListing } from "./AmenityListing/AmenityListing";
 export { default as Button } from "./Button/Button";
 export { default as CrowdingIllustration } from "./CrowdingIllustration/CrowdingIllustration";

@@ -1,8 +1,6 @@
-@use 'sass:color';
-
 @import 'styles/base.scss';
 
-$top-color: color.adjust($rr-gold, $saturation: -25%);
+$top-color: $rr-gold;
 $bottom-color: $rr-purple-dark;
 
 @mixin picker-triangle($color, $size: 8px) {
@@ -15,6 +13,8 @@ $bottom-color: $rr-purple-dark;
 .departurePicker {
     overflow-x: hidden;
     transition: 0.2s opacity ease-in-out;
+    background: white;
+
     &:not(.disabled):hover {
         cursor: pointer;
         .cursor {
@@ -24,9 +24,8 @@ $bottom-color: $rr-purple-dark;
 }
 
 .departurePickerMobile {
-    :global(.frequency-timeline) {
-        left: 50%;
-    }
+    position: sticky;
+    top: 0;
 }
 
 .disabled {
@@ -48,10 +47,13 @@ $bottom-color: $rr-purple-dark;
 .bottom {
     width: 100%;
     height: 8px;
-    box-shadow: $global-shadow;
     margin-top: 20px;
     background: $bottom-color;
     box-shadow: 0px -1px 2px rgba(0, 0, 0, 0.1);
+    @include mobile {
+        background: $top-color;
+        box-shadow: $global-shadow;
+    }
 }
 
 .indicator {
@@ -128,4 +130,7 @@ $bottom-color: $rr-purple-dark;
 .bottomTriangle {
     @include picker-triangle($bottom-color);
     bottom: 0;
+    @include mobile {
+        @include picker-triangle($top-color);
+    }
 }

@@ -19,6 +19,11 @@
     &::placeholder {
         color: rgba(white, 0.5);
     }
+    @include mobile {
+        font-size: 18px;
+        height: 35px;
+        margin: 0;
+    }
 }
 
 .smaller {

@@ -25,6 +25,7 @@ $station-padding: 7px;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
+    overflow: hidden;
 }
 
 .header {

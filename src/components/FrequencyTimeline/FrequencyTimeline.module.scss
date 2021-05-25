@@ -4,6 +4,12 @@
     --arrival-width: 8px;
 }
 
+@include mobile {
+    :root {
+        --arrival-width: 6px;
+    }
+}
+
 $arrival-width: var(--arrival-width);
 
 .timeline {

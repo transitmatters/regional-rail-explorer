@@ -64,6 +64,7 @@ const DeparturePicker = (props: Props) => {
     const startCapture = (offsetX: number) => {
         captureMouseX.current = offsetX;
         setIsCapturing(true);
+        document.body.style.overflow = "hidden";
     };
 
     const updateCapture = (offsetX: number) => {
@@ -84,6 +85,7 @@ const DeparturePicker = (props: Props) => {
     const endCapture = () => {
         setIsCapturing(false);
         onSelectTime(capturedTime);
+        document.body.style.overflow = "visible";
     };
 
     return (

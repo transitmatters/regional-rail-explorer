@@ -1,5 +1,6 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { GrDown, GrUp } from "react-icons/gr";
+import classNames from "classnames";
 
 import { Button, Select } from "components";
 import StationPicker, { StationsByLine } from "components/StationPicker/StationPicker";
@@ -8,6 +9,7 @@ import { JourneyParams, NetworkDayKind, NetworkTime, TimeOfDay } from "types";
 import styles from "./JourneyPicker.module.scss";
 import { HOUR } from "time";
 import { MdSwapCalls } from "react-icons/md";
+import { AppFrameContext } from "components/AppFrame";
 
 interface Station {
     id: string;
@@ -40,8 +42,9 @@ const dayKindOptions = [
 
 // eslint-disable-next-line react/prop-types
 const StationPickerWithDisclosure = ({ label, disabled, ...restProps }) => {
+    const { globalNav } = useContext(AppFrameContext);
     return (
-        <StationPicker {...(restProps as any)}>
+        <StationPicker discloseBelowElement={globalNav} {...(restProps as any)}>
             {(disclosureProps) => {
                 const { "aria-expanded": open } = disclosureProps;
                 return (
@@ -57,6 +60,16 @@ const StationPickerWithDisclosure = ({ label, disabled, ...restProps }) => {
                 );
             }}
         </StationPicker>
+    );
+};
+
+// eslint-disable-next-line react/prop-types
+const LabeledControl = ({ label, children, className = "" }) => {
+    return (
+        <div className={classNames(styles.labeledControl, className)}>
+            <div className="label">{label}</div>
+            {children}
+        </div>
     );
 };
 
@@ -94,24 +107,28 @@ const JourneyPicker = (props: Props) => {
 
     return (
         <div className={styles.journeyPicker}>
-            <div className="group">
-                <div className="label">From</div>
-                <StationPickerWithDisclosure
-                    lockBodyScroll
-                    disabled={disabled}
-                    label={fromStation?.name ?? "Choose a station"}
-                    onSelectStation={(stationId) => onSelectJourney({ fromStationId: stationId })}
-                    stationsByLine={stationsByLine}
-                />
-                <div className="label">to</div>
-                <StationPickerWithDisclosure
-                    lockBodyScroll
-                    disabled={disabled}
-                    label={toStation?.name ?? "Choose a station"}
-                    onSelectStation={(stationId) => onSelectJourney({ toStationId: stationId })}
-                    stationsByLine={stationsByLine}
-                    previouslySelectedStationId={fromStation && fromStation.id}
-                />
+            <div className="group from-to-stations">
+                <LabeledControl label="From" className="from-station">
+                    <StationPickerWithDisclosure
+                        lockBodyScroll
+                        disabled={disabled}
+                        label={fromStation?.name ?? "Choose a station"}
+                        onSelectStation={(stationId) =>
+                            onSelectJourney({ fromStationId: stationId })
+                        }
+                        stationsByLine={stationsByLine}
+                    />
+                </LabeledControl>
+                <LabeledControl label="to" className="to-station">
+                    <StationPickerWithDisclosure
+                        lockBodyScroll
+                        disabled={disabled}
+                        label={toStation?.name ?? "Choose a station"}
+                        onSelectStation={(stationId) => onSelectJourney({ toStationId: stationId })}
+                        stationsByLine={stationsByLine}
+                        previouslySelectedStationId={fromStation && fromStation.id}
+                    />
+                </LabeledControl>
                 <Button large outline className="swap-stations-button" onClick={swapStations}>
                     <MdSwapCalls size="1.3em" />
                 </Button>

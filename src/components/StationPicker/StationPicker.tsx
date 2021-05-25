@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState, useCallback, ReactNode } from "react";
 import { Disclosure, DisclosureContent, useDisclosureState } from "reakit";
+import classNames from "classnames";
 
 import StationListing, { StationsByLine } from "components/StationListing/StationListing";
 
@@ -11,10 +12,17 @@ type Props = {
     children?: ReactNode;
     lockBodyScroll?: boolean;
     onSelectStation: Exclude<StationListingProps["onSelectStation"], undefined>;
+    discloseBelowElement: HTMLElement;
 } & StationListingProps;
 
 const StationPicker = (props: Props) => {
-    const { children, onSelectStation, lockBodyScroll, ...stationListingProps } = props;
+    const {
+        children,
+        onSelectStation,
+        lockBodyScroll,
+        discloseBelowElement,
+        ...stationListingProps
+    } = props;
     const [disclosureBounds, setDisclosureBounds] = useState<any>(null);
     const searchRef = useRef<null | HTMLInputElement>(null);
     const innerRef = useRef<null | HTMLDivElement>(null);
@@ -29,8 +37,8 @@ const StationPicker = (props: Props) => {
         [onSelectStation]
     );
 
-    const updateDisclosureBounds = (el) => {
-        if (el && !disclosureBounds) {
+    const updateDisclosureBounds = useCallback((el) => {
+        if (el) {
             const rect = el.getBoundingClientRect();
             setDisclosureBounds({
                 bottom: rect.bottom + window.scrollY,
@@ -38,7 +46,11 @@ const StationPicker = (props: Props) => {
                 width: rect.width,
             });
         }
-    };
+    }, []);
+
+    useEffect(() => {
+        updateDisclosureBounds(discloseBelowElement);
+    }, [discloseBelowElement]);
 
     useEffect(() => {
         if (disclosure.visible) {
@@ -81,16 +93,13 @@ const StationPicker = (props: Props) => {
             <div
                 className={styles.inner}
                 ref={innerRef}
-                style={disclosureBounds && { height: window.innerHeight - disclosureBounds.bottom }}
-            >
-                <div
-                    className={styles.triangle}
-                    style={
-                        disclosureBounds && {
-                            marginLeft: disclosureBounds.left + disclosureBounds.width / 2,
-                        }
+                style={
+                    disclosureBounds && {
+                        height: window.innerHeight - disclosureBounds.bottom,
+                        bottom: 0,
                     }
-                />
+                }
+            >
                 <StationListing
                     onSelectStation={handleSelectStation}
                     searchRef={searchRef}
@@ -101,10 +110,8 @@ const StationPicker = (props: Props) => {
     };
 
     return (
-        <div className={styles.stationPicker}>
-            <Disclosure {...disclosure} ref={updateDisclosureBounds}>
-                {children}
-            </Disclosure>
+        <div className={classNames("station-picker", styles.stationPicker)}>
+            <Disclosure {...disclosure}>{children}</Disclosure>
             <DisclosureContent {...disclosure}>{renderDisclosureContent()}</DisclosureContent>
         </div>
     );

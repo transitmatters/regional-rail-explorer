@@ -17,6 +17,12 @@
     background: $rr-purple-dark;
     color: white;
     overflow: hidden;
+    @include mobile {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px;
+        height: auto;
+    }
 }
 
 .breadcrumbs {
@@ -45,8 +51,11 @@
 }
 
 .controls {
-    margin-left: 10px;
     flex-grow: 1;
+    @include mobile {
+        width: 100%;
+        margin-top: 10px;
+    }
 }
 
 .container {
