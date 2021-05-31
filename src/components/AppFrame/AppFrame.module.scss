@@ -17,6 +17,7 @@
     background: $rr-purple-dark;
     color: white;
     overflow: hidden;
+    z-index: 2;
     @include mobile {
         flex-direction: column;
         align-items: flex-start;
