@@ -1,11 +1,11 @@
 import {
-    NetworkDayTime,
     Station,
     Trip,
     JourneyStation,
     JourneyTravelSegment,
     JourneyTransferSegment,
     JourneySegment,
+    NetworkTime,
 } from "types";
 
 import { NavigationState, StopNavigationState } from "./types";
@@ -17,11 +17,9 @@ const getJourneyStation = (station: Station): JourneyStation => {
 
 const getPassedJourneyStationsOnTrip = (
     trip: Trip,
-    afterDayTime: NetworkDayTime,
-    beforeDayTime: NetworkDayTime
+    afterTime: NetworkTime,
+    beforeTime: NetworkTime
 ) => {
-    const { time: afterTime } = afterDayTime;
-    const { time: beforeTime } = beforeDayTime;
     return trip.stopTimes
         .filter(({ time }) => time > afterTime && time < beforeTime)
         .map(({ time, stop }) => {
@@ -40,17 +38,16 @@ const getTransferSegment = (
         return {
             type: "transfer",
             startTime: state.dayTime.time,
-            waitDuration: nextState.departPreviousStopTime.time - state.dayTime.time,
+            waitDuration: nextState.boardingTime - state.dayTime.time,
             transferDuration: 0,
         };
     } else {
-        const { departPreviousStopTime, fromTransfer } = nextState;
-        const totalInStationDuration =
-            departPreviousStopTime.time - state.arriveAtThisStopTime.time;
+        const { boardingTime, alightingTime, fromTransfer } = nextState;
+        const totalInStationDuration = boardingTime - state.alightingTime;
         const transferDuration = (fromTransfer && fromTransfer.minWalkTime) || 0;
         return {
             type: "transfer",
-            startTime: state.arriveAtThisStopTime.time,
+            startTime: alightingTime,
             transferDuration: transferDuration,
             waitDuration: totalInStationDuration - transferDuration,
         };
@@ -61,22 +58,18 @@ const getTravelSegment = (
     state: NavigationState,
     nextState: StopNavigationState
 ): JourneyTravelSegment => {
-    const { departPreviousStopTime, arriveAtThisStopTime, trip, stop, previousStop } = nextState;
+    const { boardingTime, alightingTime, trip, stop, previousStop } = nextState;
     const { levelBoarding } = previousStop;
     const fromStation = state.type === "start" ? state.station : state.stop.parentStation;
     const toStation = stop.parentStation;
     return {
         type: "travel",
         levelBoarding,
-        departureTime: departPreviousStopTime.time,
-        arrivalTime: arriveAtThisStopTime.time,
+        departureTime: boardingTime,
+        arrivalTime: alightingTime,
         fromStation: getJourneyStation(fromStation),
         toStation: getJourneyStation(toStation),
-        passedStations: getPassedJourneyStationsOnTrip(
-            trip,
-            departPreviousStopTime,
-            arriveAtThisStopTime
-        ),
+        passedStations: getPassedJourneyStationsOnTrip(trip, boardingTime, alightingTime),
         routeId: nextState.trip.routeId,
         routePatternId: nextState.trip.routePatternId,
     };

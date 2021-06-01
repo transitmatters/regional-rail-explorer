@@ -1,8 +1,9 @@
-import { Stop, NetworkDayTime, Station, Trip, Transfer } from "../../types";
+import { Stop, NetworkDayTime, Station, Trip, Transfer, NetworkTime } from "../../types";
 
 type BaseNavigationState = {
     dayTime: NetworkDayTime;
     seen: Set<Stop>;
+    seenRoutePatternIds: Set<string>;
     parents: NavigationState[];
 };
 
@@ -17,8 +18,8 @@ export interface StopNavigationState extends BaseNavigationState {
     stop: Stop;
     previousStop: Stop;
     fromTransfer: null | Transfer;
-    departPreviousStopTime: NetworkDayTime;
-    arriveAtThisStopTime: NetworkDayTime;
+    boardingTime: NetworkTime;
+    alightingTime: NetworkTime;
 }
 
 export type NavigationState = StartNavigationState | StopNavigationState;
