@@ -36,20 +36,20 @@ const getTransferSegment = (
 ): JourneyTransferSegment => {
     if (state.type === "start") {
         return {
-            type: "transfer",
+            kind: "transfer",
             startTime: state.dayTime.time,
             waitDuration: nextState.boardingTime - state.dayTime.time,
-            transferDuration: 0,
+            walkDuration: 0,
         };
     } else {
         const { boardingTime, alightingTime, fromTransfer } = nextState;
         const totalInStationDuration = boardingTime - state.alightingTime;
-        const transferDuration = (fromTransfer && fromTransfer.minWalkTime) || 0;
+        const walkDuration = (fromTransfer && fromTransfer.minWalkTime) || 0;
         return {
-            type: "transfer",
+            kind: "transfer",
             startTime: alightingTime,
-            transferDuration: transferDuration,
-            waitDuration: totalInStationDuration - transferDuration,
+            walkDuration,
+            waitDuration: totalInStationDuration - walkDuration,
         };
     }
 };
@@ -63,12 +63,12 @@ const getTravelSegment = (
     const fromStation = state.type === "start" ? state.station : state.stop.parentStation;
     const toStation = stop.parentStation;
     return {
-        type: "travel",
+        kind: "travel",
         levelBoarding,
         departureTime: boardingTime,
         arrivalTime: alightingTime,
-        fromStation: getJourneyStation(fromStation),
-        toStation: getJourneyStation(toStation),
+        startStation: getJourneyStation(fromStation),
+        endStation: getJourneyStation(toStation),
         passedStations: getPassedJourneyStationsOnTrip(trip, boardingTime, alightingTime),
         routeId: nextState.trip.routeId,
         routePatternId: nextState.trip.routePatternId,

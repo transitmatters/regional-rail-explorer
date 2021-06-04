@@ -11,9 +11,9 @@ import {
     JourneyTravelSegment,
 } from "types";
 
-import { navigate } from "server/navigation";
+import { navigate } from "server/navigationNew";
 import { getStationsByIds } from "server/network";
-import { getArrivalTimesForJourney } from "server/navigation/arrivals";
+import { getArrivalTimesForJourney } from "server/navigationNew/arrivals";
 import { mapScenarios } from "server/scenarios";
 import { HOUR, MINUTE } from "time";
 
@@ -23,14 +23,14 @@ const calculateAmenities = (scenario: Scenario, journey: Journey): AmenityName[]
     } = scenario;
     const foundAmenties: AmenityName[] = [];
     const journeyHasLevelBoarding = journey
-        .filter((segment): segment is JourneyTravelSegment => segment.type === "travel")
+        .filter((segment): segment is JourneyTravelSegment => segment.kind === "travel")
         .every(
             (segment) =>
                 segment.levelBoarding ||
                 amenitiesByRoutePatternId?.[segment.routePatternId].levelBoarding
         );
     journey.forEach((segment) => {
-        if (segment.type === "travel") {
+        if (segment.kind === "travel") {
             const { routePatternId } = segment;
             const routePatternAmenities = amenitiesByRoutePatternId?.[routePatternId];
             if (routePatternAmenities) {
@@ -95,7 +95,7 @@ const getJourneyInfoForScenario = (
     const journey = navigate(fromStation, toStation, { time, day }, backwards);
     // TODO(ian): dedupe this nonsense from /api/arrivals
     const toStationIds = journey
-        .map((seg) => seg.type === "travel" && seg.toStation.id)
+        .map((seg) => seg.kind === "travel" && seg.endStation.id)
         .filter((x): x is string => !!x);
     const toStations = getStationsByIds(network, ...toStationIds);
     const arrivals = getArrivalTimesForJourney(fromStation, toStations, day);

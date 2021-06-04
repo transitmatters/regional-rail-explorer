@@ -1,5 +1,5 @@
 import { getStationsByIds } from "server/network";
-import { getStopTimesAtStation } from "server/navigation/arrivals";
+import { getStopTimesAtStation } from "server/navigationNew/arrivals";
 import { mapScenarios } from "server/scenarios";
 import { DepartureBoardEntry } from "types";
 

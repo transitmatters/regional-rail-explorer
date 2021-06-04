@@ -1,7 +1,7 @@
 import { parseTime } from "time";
 import { getStationsByIds } from "server/network";
-import { getArrivalTimesForJourney } from "server/navigation/arrivals";
-import { navigate } from "server/navigation";
+import { getArrivalTimesForJourney } from "server/navigationNew/arrivals";
+import { navigate } from "server/navigationNew";
 import { mapScenarios } from "server/scenarios";
 
 export default async (req, res) => {
@@ -16,7 +16,7 @@ export default async (req, res) => {
                 day,
             });
             const toStationIds = exemplarJourney
-                .map((seg) => seg.type === "travel" && seg.toStation.id)
+                .map((seg) => seg.kind === "travel" && seg.endStation.id)
                 .filter((x): x is string => !!x);
             const toStations = getStationsByIds(network, ...toStationIds);
             return getArrivalTimesForJourney(fromStation, toStations, day);
