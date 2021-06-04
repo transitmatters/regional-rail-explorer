@@ -243,8 +243,8 @@ export const navigateBetweenStations = (
     const startState = createStartState({
         today: initialDayTime.day,
         initialTime: initialDayTime.time,
-        origin,
-        goal,
+        origin: backwards ? goal : origin,
+        goal: backwards ? origin : goal,
         backwards,
     });
     const stateHeap = getStatePriorityHeap();
@@ -256,6 +256,8 @@ export const navigateBetweenStations = (
         const nextBestStates = getBestStatesFromHeap(stateHeap);
         for (const state of nextBestStates) {
             stateCount++;
+            console.log("~~~~~~~~~~");
+            printTripFromState(state);
             if (state.kind === "travel") {
                 if (visitedStations.has(state.to.stop.parentStation)) {
                     continue;
@@ -263,7 +265,6 @@ export const navigateBetweenStations = (
                 visitedStations.add(state.to.stop.parentStation);
             }
             if (isGoalState(state)) {
-                printTripFromState(state);
                 console.log(
                     `explored ${stateCount} states in ${Math.round(Date.now() - startTime)}ms (new)`
                 );

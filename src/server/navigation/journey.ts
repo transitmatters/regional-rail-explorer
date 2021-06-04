@@ -84,5 +84,11 @@ const createJourneySegmentFromState = (state: NavigationState): null | JourneySe
 
 export const createJourneyFromState = (finalState: NavigationState): JourneySegment[] => {
     const states = [...finalState.parents, finalState];
-    return states.map(createJourneySegmentFromState).filter((x): x is JourneyTravelSegment => !!x);
+    const segments = states
+        .map(createJourneySegmentFromState)
+        .filter((x): x is JourneyTravelSegment => !!x);
+    if (finalState.context.backwards) {
+        return segments.reverse();
+    }
+    return segments;
 };
