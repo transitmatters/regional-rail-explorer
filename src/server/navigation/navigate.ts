@@ -18,7 +18,7 @@ const isStopTimeToday = (stopTime: StopTime, searchTime: NetworkDayTime) => {
 const isUsefulStopToExplore = (stop: Stop, goal: Station) => {
     return (
         stop.parentStation === goal ||
-        stop.parentStation.stops.map((stop) => stop.routeIds.length).flat().length > 1
+        stop.parentStation.stops.map((stop) => stop.routes.length).flat().length > 1
     );
 };
 
@@ -77,10 +77,10 @@ const getSuccessorStatesFromStop = (
 
     const nextStopTimeForEachServiceAndDirection = ["0", "1"]
         .map((directionId) =>
-            location.routeIds.map((routeId) =>
+            location.routes.map((route) =>
                 boardableStopTimes.find(
                     (stopTime) =>
-                        stopTime.trip.routeId === routeId &&
+                        stopTime.trip.routeId === route.id &&
                         stopTime.trip.directionId === directionId
                 )
             )
@@ -189,15 +189,19 @@ export const navigateBetweenStations = (
     const stateHeap: Heap<NavigationState> = new Heap((a, b) => a.dayTime.time - b.dayTime.time);
     const visited = new Set<Station>([origin]);
     stateHeap.push(initialState);
+    let i = 0;
+    const t = Date.now();
     while (!stateHeap.empty()) {
         const nextBestStates = getBestStatesFromHeap(stateHeap);
         for (const state of nextBestStates) {
+            i++;
             // console.log(summarizeState(state));
             if (state.type === "stop") {
                 visited.add(state.stop.parentStation);
             }
             if (state.type === "stop" && state.stop.parentStation === goal) {
                 printTripFromState(state);
+                console.log(`explored ${i} states in ${Math.round(Date.now() - t)}ms (old)`);
                 return state;
             }
             getSuccessorStates(state, goal, backwards)

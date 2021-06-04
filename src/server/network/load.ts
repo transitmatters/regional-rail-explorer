@@ -6,6 +6,7 @@ import { camelize } from "@ridi/object-case-converter";
 import {
     GtfsService,
     GtfsRoute,
+    GtfsRoutePattern,
     GtfsTrip,
     GtfsStop,
     GtfsStopTime,
@@ -33,6 +34,7 @@ export const createGtfsLoader = (basePath: string) => {
     return {
         basePath,
         routes: reader<GtfsRoute>("routes"),
+        routePatterns: reader<GtfsRoutePattern>("route_patterns"),
         trips: reader<GtfsTrip>("trips"),
         stops: reader<GtfsStop>("stops"),
         services: reader<GtfsService>("calendar"),
