@@ -37,6 +37,7 @@ export interface Stop {
     transfers: Transfer[];
     serviceIds: string[];
     routeIds: string[];
+    routePatternIds: string[];
     parentStation: Station;
     levelBoarding: boolean;
 }

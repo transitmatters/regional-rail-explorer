@@ -39,6 +39,7 @@ const createStop = (gtfsStop: GtfsStop, parentStation: Station): Stop => {
         stopTimes: [],
         transfers: [],
         serviceIds: [],
+        routePatternIds: [],
         routeIds: [],
         parentStation: parentStation,
         levelBoarding: gtfsStop.wheelchairBoarding === "1",
@@ -162,6 +163,9 @@ export const buildNetworkFromGtfs = (loader: GtfsLoader) => {
                 .filter((x): x is Transfer => !!x);
             stop.serviceIds = [...new Set(stop.stopTimes.map((st) => st.trip.serviceId).flat())];
             stop.routeIds = [...new Set(stop.stopTimes.map((st) => st.trip.routeId).flat())];
+            stop.routePatternIds = [
+                ...new Set(stop.stopTimes.map((st) => st.trip.routePatternId).flat()),
+            ];
         });
     });
     trips.forEach((trip) => trip.stopTimes.sort((a, b) => compareTimes(a.time, b.time)));
