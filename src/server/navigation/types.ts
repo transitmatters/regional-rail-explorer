@@ -1,25 +1,39 @@
-import { Stop, NetworkDayTime, Station, Trip, Transfer, NetworkTime } from "../../types";
+import { Duration, NetworkDay, NetworkDayKind, NetworkTime, Station, StopTime } from "types";
+
+export type NavigationContext = Readonly<{
+    today: NetworkDayKind | NetworkDay;
+    initialTime: NetworkTime;
+    origin: Station;
+    goal: Station;
+    backwards: boolean;
+}>;
 
 type BaseNavigationState = {
-    dayTime: NetworkDayTime;
-    seen: Set<Stop>;
-    seenRoutePatternIds: Set<string>;
+    context: NavigationContext;
+    time: NetworkTime;
     parents: NavigationState[];
+    boardedAtStations: Set<Station>;
+    boardedRoutePatternIds: Set<string>;
 };
 
-export interface StartNavigationState extends BaseNavigationState {
-    type: "start";
-    station: Station;
-}
+export type StartNavigationState = BaseNavigationState & {
+    kind: "start";
+};
 
-export interface StopNavigationState extends BaseNavigationState {
-    type: "stop";
-    trip: Trip;
-    stop: Stop;
-    previousStop: Stop;
-    fromTransfer: null | Transfer;
-    boardingTime: NetworkTime;
-    alightingTime: NetworkTime;
-}
+export type TransferNavigationState = BaseNavigationState & {
+    kind: "transfer";
+    walkDuration: Duration;
+    from: null | StopTime;
+    to: StopTime;
+};
 
-export type NavigationState = StartNavigationState | StopNavigationState;
+export type TravelNavigationState = BaseNavigationState & {
+    kind: "travel";
+    from: StopTime;
+    to: StopTime;
+};
+
+export type NavigationState =
+    | StartNavigationState
+    | TransferNavigationState
+    | TravelNavigationState;

@@ -1,7 +1,7 @@
 import { parseTime } from "time";
 import { getStationsByIds } from "server/network";
-import { getArrivalTimesForJourney } from "server/navigationNew/arrivals";
-import { navigate } from "server/navigationNew";
+import { getArrivalTimesForJourney } from "server/navigation/arrivals";
+import { navigate } from "server/navigation";
 import { mapScenarios } from "server/scenarios";
 
 export default async (req, res) => {

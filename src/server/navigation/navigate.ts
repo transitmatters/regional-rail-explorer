@@ -1,212 +1,275 @@
 import Heap from "heap";
 
-import { Stop, NetworkDayTime, Station, Transfer, StopTime, NetworkTime } from "types";
-import { compareTimes, stringifyTime, matchDayOfWeek } from "time";
+import { compareTimes, matchDayOfWeek, stringifyTime } from "time";
 import { NavigationFailedError } from "errors";
+import {
+    Duration,
+    NetworkDay,
+    NetworkDayKind,
+    NetworkDayTime,
+    NetworkTime,
+    Station,
+    Stop,
+    StopTime,
+    Transfer,
+} from "types";
+import { isRegionalRail } from "routes";
 
-import { NavigationState, StopNavigationState } from "./types";
+import {
+    NavigationContext,
+    NavigationState,
+    StartNavigationState,
+    TransferNavigationState,
+    TravelNavigationState,
+} from "./types";
+
+const scoreState = (state: NavigationState) => {
+    return Math.abs(state.time - state.context.initialTime);
+};
+
+const getStatePriorityHeap = (): Heap<NavigationState> => {
+    return new Heap((a: NavigationState, b: NavigationState) => scoreState(a) - scoreState(b));
+};
+
+const getSelfTransfer = (stop: Stop): Transfer => {
+    return {
+        fromStop: stop,
+        toStop: stop,
+        minWalkTime: 0,
+    };
+};
+
+const getNextStopTimesForServiceAndDirection = (stopTimes: StopTime[], stop: Stop) => {
+    return ["0", "1"]
+        .map((directionId) => {
+            return stop.routes
+                .map((route) => {
+                    const shouldExploreRoutePatterns = isRegionalRail(route.id);
+                    if (shouldExploreRoutePatterns) {
+                        return route.routePatternIds.map((routePatternId) =>
+                            stopTimes.find(
+                                (stopTime) =>
+                                    stopTime.trip.routePatternId === routePatternId &&
+                                    stopTime.trip.directionId === directionId
+                            )
+                        );
+                    }
+                    return stopTimes.find(
+                        (stopTime) =>
+                            stopTime.trip.routeId === route.id &&
+                            stopTime.trip.directionId === directionId
+                    );
+                })
+                .flat();
+        })
+        .flat()
+        .filter((x): x is StopTime => !!x);
+};
+
+const displaceTime = (start: NetworkTime, duration: Duration, backwards: boolean): NetworkTime => {
+    return start + duration * (backwards ? -1 : 1);
+};
 
 const isSuccessorTime = (first: NetworkTime, second: NetworkTime, backwards: boolean) => {
     const comparison = compareTimes(first, second);
     return backwards ? comparison <= 0 : comparison >= 0;
 };
 
-const isStopTimeToday = (stopTime: StopTime, searchTime: NetworkDayTime) => {
-    return stopTime.trip.serviceDays.some((day) => matchDayOfWeek(day, searchTime.day));
+const isStopTimeToday = (stopTime: StopTime, today: NetworkDayKind | NetworkDay) => {
+    return stopTime.trip.serviceDays.some((day) => matchDayOfWeek(day, today));
 };
 
 const isUsefulStopToExplore = (stop: Stop, goal: Station) => {
     return (
         stop.parentStation === goal ||
-        stop.parentStation.stops.map((stop) => stop.routes.length).flat().length > 1
+        stop.parentStation.stops.map((stop) => stop.routes).flat().length > 1
     );
 };
 
-const isRegionalRailTerminus = (station: Station) => {
-    return station.id === "place-north" || station.id === "place-sstat";
+const isGoalState = (state: NavigationState) => {
+    return state.kind === "travel" && state.to.stop.parentStation === state.context.goal;
 };
 
-const resolveBoardingAndAlightingStopTimes = (
-    predecessor: StopTime,
-    successor: StopTime,
-    backwards: boolean
-) => {
-    if (backwards) {
-        return {
-            boarding: successor,
-            alighting: predecessor,
-        };
+const createStartState = (context: NavigationContext): StartNavigationState => {
+    return {
+        kind: "start",
+        context,
+        boardedAtStations: new Set(),
+        boardedRoutePatternIds: new Set(),
+        time: context.initialTime,
+        parents: [],
+    };
+};
+
+const createTransferState = (
+    parent: NavigationState,
+    stopTime: StopTime,
+    from: null | StopTime,
+    walkDuration: number
+): TransferNavigationState => {
+    const { boardedAtStations, boardedRoutePatternIds, parents, context } = parent;
+    return {
+        kind: "transfer" as const,
+        context,
+        parents: [...parents, parent],
+        from,
+        to: stopTime,
+        time: stopTime.time,
+        boardedAtStations: new Set([...boardedAtStations, stopTime.stop.parentStation]),
+        boardedRoutePatternIds: new Set([...boardedRoutePatternIds, stopTime.trip.routePatternId]),
+        walkDuration,
+    };
+};
+
+const getNextVisitableStopTimes = (state: NavigationState, stop: Stop, now: NetworkTime) => {
+    const { boardedAtStations, boardedRoutePatternIds, context } = state;
+    const { backwards, today } = context;
+    const { stopTimes } = stop;
+
+    if (boardedAtStations.has(stop.parentStation)) {
+        return [];
     }
-    return {
-        boarding: predecessor,
-        alighting: successor,
-    };
-};
-
-const getTransferTime = (
-    dayTime: NetworkDayTime,
-    backwards: boolean,
-    transfer: null | Transfer
-) => {
-    const multiplier = backwards ? -1 : 1;
-    return {
-        day: dayTime.day,
-        time: dayTime.time + multiplier * (transfer ? transfer.minWalkTime : 0),
-    };
-};
-
-const getSuccessorStatesFromStop = (
-    state: NavigationState,
-    location: Stop,
-    dayTime: NetworkDayTime,
-    goal: Station,
-    backwards: boolean,
-    fromTransfer: null | Transfer = null
-): StopNavigationState[] => {
-    const { seen, parents, seenRoutePatternIds } = state;
-    const { stopTimes } = location;
-    const searchTime = getTransferTime(dayTime, backwards, fromTransfer);
 
     const boardableStopTimes = stopTimes.filter((stopTime) => {
         return (
-            isStopTimeToday(stopTime, searchTime) &&
-            isSuccessorTime(stopTime.time, searchTime.time, backwards) &&
-            !seenRoutePatternIds.has(stopTime.trip.routePatternId)
+            isStopTimeToday(stopTime, today) &&
+            isSuccessorTime(stopTime.time, now, backwards) &&
+            !boardedRoutePatternIds.has(stopTime.trip.routePatternId)
         );
     });
 
-    const nextStopTimeForEachServiceAndDirection = ["0", "1"]
-        .map((directionId) =>
-            location.routes.map((route) =>
-                boardableStopTimes.find(
-                    (stopTime) =>
-                        stopTime.trip.routeId === route.id &&
-                        stopTime.trip.directionId === directionId
-                )
-            )
-        )
-        .flat()
-        .filter((x): x is StopTime => !!x);
+    return getNextStopTimesForServiceAndDirection(boardableStopTimes, stop);
+};
 
-    return nextStopTimeForEachServiceAndDirection
-        .map((currentStopTime) => {
-            const { trip, time } = currentStopTime;
-            const validStopsTimesOnTrip = trip.stopTimes.filter((stopOnSameTrip) => {
-                const isSuccessor = isSuccessorTime(stopOnSameTrip.time, time, backwards);
-                const isUsefulStop = isUsefulStopToExplore(stopOnSameTrip.stop, goal);
-                return isSuccessor && isUsefulStop && !seen.has(stopOnSameTrip.stop);
-            });
-            return validStopsTimesOnTrip.map((successorStopTime) => {
-                const { boarding, alighting } = resolveBoardingAndAlightingStopTimes(
-                    currentStopTime,
-                    successorStopTime,
-                    backwards
-                );
-                return {
-                    fromTransfer,
-                    type: "stop" as const,
-                    previousStop: boarding.stop,
-                    stop: alighting.stop,
-                    trip: trip,
-                    seen: new Set([...seen, successorStopTime.stop]),
-                    seenRoutePatternIds: new Set([...seenRoutePatternIds, trip.routePatternId]),
-                    parents: [...parents, state],
-                    boardingTime: boarding.time,
-                    alightingTime: alighting.time,
-                    dayTime: {
-                        day: dayTime.day,
-                        time: successorStopTime.time,
-                    },
-                };
+const getTransferStates = (parent: TravelNavigationState): TransferNavigationState[] => {
+    const { to, context } = parent;
+    return [
+        ...to.stop.transfers.filter((tr) => tr.fromStop.id === to.stop.id),
+        getSelfTransfer(to.stop),
+    ]
+        .map((transfer) => {
+            const walkDuration = transfer.minWalkTime;
+            const now = displaceTime(to.time, walkDuration, context.backwards);
+            const visitableStopTimes = getNextVisitableStopTimes(parent, transfer.toStop, now);
+            return visitableStopTimes.map((stopTime) => {
+                return createTransferState(parent, stopTime, to, walkDuration);
             });
         })
         .flat();
 };
 
-const getSuccessorStates = (
-    state: NavigationState,
-    goal: Station,
-    backwards: boolean
-): NavigationState[] => {
-    const { dayTime } = state;
-    if (state.type === "start") {
-        const { station } = state;
-        return station.stops
-            .map((stop) => getSuccessorStatesFromStop(state, stop, dayTime, goal, backwards))
-            .flat();
-    }
-    if (state.type === "stop") {
-        const { stop } = state;
-        const fromSameStop = isRegionalRailTerminus(stop.parentStation)
-            ? getSuccessorStatesFromStop(state, stop, dayTime, goal, backwards)
-            : [];
-        const fromTransfer = stop.transfers
-            .map((tr) => getSuccessorStatesFromStop(state, tr.toStop, dayTime, goal, backwards, tr))
-            .flat();
-        return [...fromSameStop, ...fromTransfer];
-    }
-    throw new Error("In navigation: Invalid state.type");
+const getTravelStates = (parent: TransferNavigationState): TravelNavigationState[] => {
+    const { to, context, boardedRoutePatternIds, boardedAtStations, parents } = parent;
+
+    const candidateEndStopsOnTrip = to.trip.stopTimes.filter((stopTime) => {
+        return (
+            isSuccessorTime(stopTime.time, to.time, context.backwards) &&
+            isUsefulStopToExplore(stopTime.stop, context.goal)
+        );
+    });
+
+    return candidateEndStopsOnTrip.map((stopTime) => {
+        return {
+            kind: "travel" as const,
+            context,
+            parents: [...parents, parent],
+            from: to,
+            to: stopTime,
+            time: stopTime.time,
+            boardedAtStations,
+            boardedRoutePatternIds,
+        };
+    });
 };
 
-const createInitialState = (station: Station, dayTime: NetworkDayTime): NavigationState => {
-    return {
-        type: "start",
-        seen: new Set(),
-        seenRoutePatternIds: new Set(),
-        station: station,
-        dayTime: dayTime,
-        parents: [],
-    };
+const getTransferStatesFromStartState = (
+    parent: StartNavigationState
+): TransferNavigationState[] => {
+    const { context } = parent;
+    const { origin, initialTime } = context;
+    return origin.stops
+        .map((stop) => {
+            const visitableStopTimes = getNextVisitableStopTimes(parent, stop, initialTime);
+            return visitableStopTimes.map((stopTime) => {
+                return createTransferState(parent, stopTime, null, 0);
+            });
+        })
+        .flat();
 };
 
-const getBestStatesFromHeap = (heap: any): NavigationState[] => {
+const getSuccessorStates = (state: NavigationState): NavigationState[] => {
+    if (state.kind === "start") {
+        return getTransferStatesFromStartState(state);
+    }
+    if (state.kind === "travel") {
+        return getTransferStates(state);
+    }
+    return getTravelStates(state);
+};
+
+const getBestStatesFromHeap = (heap: Heap<NavigationState>): NavigationState[] => {
     const firstState = heap.pop();
     const equallyGoodStates: NavigationState[] = [firstState];
-    while (!heap.empty() && heap.peek().dayTime.time === firstState.dayTime.time) {
+    while (!heap.empty() && heap.peek().time === firstState.time) {
         equallyGoodStates.push(heap.pop());
     }
     return equallyGoodStates.sort((a, b) => a.parents.length - b.parents.length);
 };
 
-const printTripFromState = (navState: NavigationState) => {
-    [...navState.parents, navState].forEach((state) => {
-        console.log(
-            stringifyTime(state.dayTime.time),
-            state.type === "start"
-                ? state.station.name
-                : [state.stop.parentStation.name, state.trip.serviceId, state.trip.id].join(" ")
-        );
+const printTripFromState = (state: NavigationState) => {
+    [...state.parents, state].forEach((state) => {
+        const time = stringifyTime(state.time);
+        if (state.kind === "start") {
+            console.log(time, state.context.origin.name);
+        }
+        if (state.kind === "travel" || state.kind === "transfer") {
+            console.log(
+                time,
+                state.kind,
+                state.from?.stop.parentStation.name || "<start>",
+                "->",
+                state.to.stop.parentStation.name
+            );
+        }
     });
 };
 
 export const navigateBetweenStations = (
     origin: Station,
     goal: Station,
-    initialTime: NetworkDayTime,
+    initialDayTime: NetworkDayTime,
     backwards: boolean = false
 ) => {
-    const initialState = createInitialState(origin, initialTime);
-    const stateHeap: Heap<NavigationState> = new Heap((a, b) => a.dayTime.time - b.dayTime.time);
-    const visited = new Set<Station>([origin]);
-    stateHeap.push(initialState);
-    let i = 0;
-    const t = Date.now();
+    const startState = createStartState({
+        today: initialDayTime.day,
+        initialTime: initialDayTime.time,
+        origin,
+        goal,
+        backwards,
+    });
+    const stateHeap = getStatePriorityHeap();
+    const visitedStations = new Set<Station>([origin]);
+    stateHeap.push(startState);
+    let stateCount = 0;
+    const startTime = Date.now();
     while (!stateHeap.empty()) {
         const nextBestStates = getBestStatesFromHeap(stateHeap);
         for (const state of nextBestStates) {
-            i++;
-            // console.log(summarizeState(state));
-            if (state.type === "stop") {
-                visited.add(state.stop.parentStation);
+            stateCount++;
+            if (state.kind === "travel") {
+                if (visitedStations.has(state.to.stop.parentStation)) {
+                    continue;
+                }
+                visitedStations.add(state.to.stop.parentStation);
             }
-            if (state.type === "stop" && state.stop.parentStation === goal) {
+            if (isGoalState(state)) {
                 printTripFromState(state);
-                console.log(`explored ${i} states in ${Math.round(Date.now() - t)}ms (old)`);
+                console.log(
+                    `explored ${stateCount} states in ${Math.round(Date.now() - startTime)}ms (new)`
+                );
                 return state;
             }
-            getSuccessorStates(state, goal, backwards)
-                .filter((state) => state.type === "start" || !visited.has(state.stop.parentStation))
-                .forEach((newState) => stateHeap.push(newState));
+            getSuccessorStates(state).forEach((newState) => stateHeap.push(newState));
         }
     }
     throw new NavigationFailedError();

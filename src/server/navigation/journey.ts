@@ -1,88 +1,88 @@
 import {
-    Station,
-    Trip,
-    JourneyStation,
-    JourneyTravelSegment,
-    JourneyTransferSegment,
     JourneySegment,
+    JourneyStation,
+    JourneyTransferSegment,
+    JourneyTravelSegment,
     NetworkTime,
+    Stop,
+    Trip,
 } from "types";
+import { NavigationState, TransferNavigationState, TravelNavigationState } from "./types";
 
-import { NavigationState, StopNavigationState } from "./types";
+const resolveTemporalOrder = <T>(from: T, to: T, backwards: boolean) => {
+    if (backwards) {
+        return [to, from];
+    }
+    return [from, to];
+};
 
-const getJourneyStation = (station: Station): JourneyStation => {
-    const { name, id } = station;
+const getJourneyStation = (stop: Stop): JourneyStation => {
+    const { name, id } = stop.parentStation;
     return { name, id };
 };
 
 const getPassedJourneyStationsOnTrip = (
     trip: Trip,
-    afterTime: NetworkTime,
-    beforeTime: NetworkTime
+    startTime: NetworkTime,
+    endTime: NetworkTime
 ) => {
     return trip.stopTimes
-        .filter(({ time }) => time > afterTime && time < beforeTime)
+        .filter(({ time }) => time > startTime && time < endTime)
         .map(({ time, stop }) => {
             return {
                 time: time,
-                station: getJourneyStation(stop.parentStation),
+                station: getJourneyStation(stop),
             };
         });
 };
 
-const getTransferSegment = (
-    state: NavigationState,
-    nextState: StopNavigationState
-): JourneyTransferSegment => {
-    if (state.type === "start") {
-        return {
-            kind: "transfer",
-            startTime: state.dayTime.time,
-            waitDuration: nextState.boardingTime - state.dayTime.time,
-            walkDuration: 0,
-        };
-    } else {
-        const { boardingTime, alightingTime, fromTransfer } = nextState;
-        const totalInStationDuration = boardingTime - state.alightingTime;
-        const walkDuration = (fromTransfer && fromTransfer.minWalkTime) || 0;
-        return {
-            kind: "transfer",
-            startTime: alightingTime,
-            walkDuration,
-            waitDuration: totalInStationDuration - walkDuration,
-        };
-    }
+const createJourneyTransferSegment = (state: TransferNavigationState): JourneyTransferSegment => {
+    const { from, to, context, walkDuration } = state;
+    const [startTime, endTime] = resolveTemporalOrder(
+        // if the state lacks a 'from', assume it's the inital segment of the journey
+        from?.time || context.initialTime,
+        to.time,
+        context.backwards
+    );
+    const totalDuration = endTime - startTime;
+    const waitDuration = totalDuration - walkDuration;
+    return {
+        kind: "transfer",
+        startTime,
+        waitDuration,
+        walkDuration,
+    };
 };
 
-const getTravelSegment = (
-    state: NavigationState,
-    nextState: StopNavigationState
-): JourneyTravelSegment => {
-    const { boardingTime, alightingTime, trip, stop, previousStop } = nextState;
-    const { levelBoarding } = previousStop;
-    const fromStation = state.type === "start" ? state.station : state.stop.parentStation;
-    const toStation = stop.parentStation;
+const createJourneyTravelSegment = (state: TravelNavigationState): JourneyTravelSegment => {
+    const { from, to, context } = state;
+    const [startStopTime, endStopTime] = resolveTemporalOrder(from, to, context.backwards);
+    const { levelBoarding } = startStopTime.stop;
+    const { trip } = startStopTime;
     return {
         kind: "travel",
         levelBoarding,
-        departureTime: boardingTime,
-        arrivalTime: alightingTime,
-        startStation: getJourneyStation(fromStation),
-        endStation: getJourneyStation(toStation),
-        passedStations: getPassedJourneyStationsOnTrip(trip, boardingTime, alightingTime),
-        routeId: nextState.trip.routeId,
-        routePatternId: nextState.trip.routePatternId,
+        departureTime: startStopTime.time,
+        arrivalTime: endStopTime.time,
+        startStation: getJourneyStation(startStopTime.stop),
+        endStation: getJourneyStation(endStopTime.stop),
+        passedStations: getPassedJourneyStationsOnTrip(trip, startStopTime.time, endStopTime.time),
+        routeId: trip.routeId,
+        routePatternId: trip.routePatternId,
     };
+};
+
+const createJourneySegmentFromState = (state: NavigationState): null | JourneySegment => {
+    if (state.kind === "transfer") {
+        return createJourneyTransferSegment(state);
+    }
+    if (state.kind === "travel") {
+        return createJourneyTravelSegment(state);
+    }
+    return null;
 };
 
 export const createJourneyFromState = (finalState: NavigationState): JourneySegment[] => {
     const states = [...finalState.parents, finalState];
-    const segments: JourneySegment[] = [];
-    for (let i = 0; i < states.length - 1; i++) {
-        const state = states[i];
-        const nextState = states[i + 1] as StopNavigationState;
-        segments.push(getTransferSegment(state, nextState));
-        segments.push(getTravelSegment(state, nextState));
-    }
-    return segments;
+    return states.map(createJourneySegmentFromState).filter((x): x is JourneyTravelSegment => !!x);
 };

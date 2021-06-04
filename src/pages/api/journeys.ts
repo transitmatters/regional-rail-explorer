@@ -11,9 +11,9 @@ import {
     JourneyTravelSegment,
 } from "types";
 
-import { navigate } from "server/navigationNew";
+import { navigate } from "server/navigation";
 import { getStationsByIds } from "server/network";
-import { getArrivalTimesForJourney } from "server/navigationNew/arrivals";
+import { getArrivalTimesForJourney } from "server/navigation/arrivals";
 import { mapScenarios } from "server/scenarios";
 import { HOUR, MINUTE } from "time";
 
