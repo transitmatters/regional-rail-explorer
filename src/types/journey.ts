@@ -21,8 +21,8 @@ export interface JourneyStation {
 
 export interface JourneyTravelSegment {
     kind: "travel";
-    departureTime: NetworkTime;
-    arrivalTime: NetworkTime;
+    startTime: NetworkTime;
+    endTime: NetworkTime;
     startStation: JourneyStation;
     endStation: JourneyStation;
     passedStations: {
@@ -37,6 +37,7 @@ export interface JourneyTravelSegment {
 export interface JourneyTransferSegment {
     kind: "transfer";
     startTime: NetworkTime;
+    endTime: NetworkTime;
     waitDuration: NetworkTime;
     walkDuration: NetworkTime;
 }

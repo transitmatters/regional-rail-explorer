@@ -43,6 +43,7 @@ const createJourneyTransferSegment = (state: TransferNavigationState): JourneyTr
     return {
         kind: "transfer",
         startTime,
+        endTime,
         waitDuration,
         walkDuration,
     };
@@ -56,8 +57,8 @@ const createJourneyTravelSegment = (state: TravelNavigationState): JourneyTravel
     return {
         kind: "travel",
         levelBoarding,
-        departureTime: startStopTime.time,
-        arrivalTime: endStopTime.time,
+        startTime: startStopTime.time,
+        endTime: endStopTime.time,
         startStation: getJourneyStation(startStopTime.stop),
         endStation: getJourneyStation(endStopTime.stop),
         passedStations: getPassedJourneyStationsOnTrip(trip, startStopTime.time, endStopTime.time),

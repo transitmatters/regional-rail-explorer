@@ -13,9 +13,9 @@ import FareComparison from "./FareComparison";
 import styles from "./JourneyComparison.module.scss";
 
 const getTotalJourneyDuration = (journey: JourneyInfo) => {
-    const first = journey.segments[0] as JourneyTransferSegment;
-    const last = journey.segments[journey.segments.length - 1] as JourneyTravelSegment;
-    return last.arrivalTime - first.startTime;
+    const first = journey.segments[0];
+    const last = journey.segments[journey.segments.length - 1];
+    return last.endTime - first.startTime;
 };
 
 const JourneyComparison = (props: ComparisonProps) => {

@@ -5,7 +5,7 @@ $text-offset: 25px;
 $travel-transfer-station-size: 20px;
 $travel-passed-station-size: 6px;
 $expand-control-size: 30px;
-$start-point-size: 14px;
+$start-end-point-size: 14px;
 
 @mixin circle-on-line-with-label($circle-size) {
     $circle-left: ($travel-transfer-station-size - $circle-size) / 2;
@@ -138,13 +138,18 @@ $start-point-size: 14px;
 
     &:global(.start) {
         :global(.stem) {
-            top: $start-point-size;
-            height: calc(100% - #{$start-point-size});
+            top: $start-end-point-size;
         }
     }
 
-    :global(.start-point) {
-        @include circle-on-line-with-label($start-point-size);
+    &:global(.start-end) {
+        :global(.stem) {
+            height: calc(100% - #{$start-end-point-size});
+        }
+    }
+
+    :global(.start-end-point) {
+        @include circle-on-line-with-label($start-end-point-size);
         :global(.circle) {
             box-sizing: border-box;
             background: white;
