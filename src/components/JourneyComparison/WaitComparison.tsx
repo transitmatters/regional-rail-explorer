@@ -25,7 +25,7 @@ interface WaitInfoProps {
 const getRegionalRailWaitDuration = (journey: JourneyInfo) => {
     return journey.segments.reduce(
         ({ previousSegment, duration }, segment) => {
-            if (segment.type === "travel" && isRegionalRail(segment.routeId)) {
+            if (segment.kind === "travel" && isRegionalRail(segment.routeId)) {
                 return {
                     duration: duration + (previousSegment as JourneyTransferSegment).waitDuration,
                     previousSegment: segment,

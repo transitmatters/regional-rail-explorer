@@ -1,19 +1,20 @@
 import {
+    Amenities,
+    Duration,
+    GtfsRoute,
+    GtfsRoutePattern,
+    GtfsRoutePatternAmenities,
     GtfsService,
     GtfsStop,
     GtfsStopTime,
     GtfsTrip,
     Indexed,
+    Route,
     Station,
     Stop,
     StopTime,
-    Trip,
-    Duration,
     Transfer,
-    GtfsRoute,
-    Route,
-    GtfsRoutePatternAmenities,
-    Amenities,
+    Trip,
 } from "types";
 import { daysOfWeek, parseTime, compareTimes } from "time";
 
@@ -39,7 +40,7 @@ const createStop = (gtfsStop: GtfsStop, parentStation: Station): Stop => {
         stopTimes: [],
         transfers: [],
         serviceIds: [],
-        routeIds: [],
+        routes: [],
         parentStation: parentStation,
         levelBoarding: gtfsStop.wheelchairBoarding === "1",
     };
@@ -53,7 +54,12 @@ const createStation = (gtfsStop: GtfsStop): Station => {
     };
 };
 
-const createTrip = (gtfsTrip: GtfsTrip, services: GtfsService[]): null | Trip => {
+const createTrip = (
+    gtfsTrip: GtfsTrip,
+    services: GtfsService[],
+    routesById: Record<string, Route>
+): null | Trip => {
+    const route = routesById[gtfsTrip.routeId];
     const matchingService = services.find((service) => service.serviceId === gtfsTrip.serviceId)!;
     const serviceDays = daysOfWeek.filter((day) => matchingService[day] === "1");
     if (serviceDays.length === 0) {
@@ -68,6 +74,7 @@ const createTrip = (gtfsTrip: GtfsTrip, services: GtfsService[]): null | Trip =>
         directionId: gtfsTrip.directionId,
         serviceDays,
         stopTimes: [],
+        route,
     };
 };
 
@@ -94,11 +101,22 @@ const createTransfer = (fromStop: Stop, toStop: Stop, minWalkTime: Duration): nu
     return null;
 };
 
-const createRoute = (gtfsRoute: GtfsRoute): Route => {
-    return {
-        id: gtfsRoute.routeId,
-        name: gtfsRoute.routeLongName,
-    };
+const createRoutes = (gtfsRoutes: GtfsRoute[], gtfsRoutePatterns: GtfsRoutePattern[]): Route[] => {
+    const patternsByRouteId: Record<string, GtfsRoutePattern[]> = {};
+    gtfsRoutePatterns.forEach((pattern) => {
+        const patternsForRoute = patternsByRouteId[pattern.routeId] || [];
+        patternsForRoute.push(pattern);
+        patternsByRouteId[pattern.routeId] = patternsForRoute;
+    });
+    return gtfsRoutes.map((route) => {
+        const patternsForRoute = patternsByRouteId[route.routeId];
+        const routePatternIds = patternsForRoute?.map((pattern) => pattern.routePatternId) || [];
+        return {
+            id: route.routeId,
+            name: route.routeLongName,
+            routePatternIds,
+        };
+    });
 };
 
 const indexAmenities = (gtfsAmenities?: GtfsRoutePatternAmenities[]) => {
@@ -117,11 +135,14 @@ export const buildNetworkFromGtfs = (loader: GtfsLoader) => {
     const gtfsStops = loader.stops();
     const gtfsStopTimes = loader.relevantStopTimes();
     const gtfsTransfers = loader.transfers();
-    const routes = loader.routes().map(createRoute);
+    const gtfsRoutes = loader.routes();
+    const gtfsRoutePatterns = loader.routePatterns();
     const gtfsAmenities = loader.amenities?.();
+    const routes = createRoutes(gtfsRoutes, gtfsRoutePatterns);
+    const indexedRoutes = index(routes, "id");
     const trips = loader
         .trips()
-        .map((trip) => createTrip(trip, gtfsServices))
+        .map((trip) => createTrip(trip, gtfsServices, indexedRoutes))
         .filter((x): x is Trip => !!x);
     const stations = gtfsStops.filter((stop) => stop.locationType === "1").map(createStation);
     const indexedTrips = index(trips, "id");
@@ -161,12 +182,11 @@ export const buildNetworkFromGtfs = (loader: GtfsLoader) => {
                 )
                 .filter((x): x is Transfer => !!x);
             stop.serviceIds = [...new Set(stop.stopTimes.map((st) => st.trip.serviceId).flat())];
-            stop.routeIds = [...new Set(stop.stopTimes.map((st) => st.trip.routeId).flat())];
+            stop.routes = [...new Set(stop.stopTimes.map((st) => st.trip.route).flat())];
         });
     });
     trips.forEach((trip) => trip.stopTimes.sort((a, b) => compareTimes(a.time, b.time)));
     const stationsById = index(stations, "id", true);
-    const routesById = index(routes, "id", true);
     return {
         trips: indexedTrips,
         stationsById,
@@ -175,7 +195,7 @@ export const buildNetworkFromGtfs = (loader: GtfsLoader) => {
         regionalRailRouteInfo: getSerializedRouteInfoByRegionalRailRouteId(
             trips,
             stationsById,
-            routesById
+            indexedRoutes
         ),
     };
 };

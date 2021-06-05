@@ -20,11 +20,11 @@ export interface JourneyStation {
 }
 
 export interface JourneyTravelSegment {
-    type: "travel";
+    kind: "travel";
     departureTime: NetworkTime;
     arrivalTime: NetworkTime;
-    fromStation: JourneyStation;
-    toStation: JourneyStation;
+    startStation: JourneyStation;
+    endStation: JourneyStation;
     passedStations: {
         time: NetworkTime;
         station: JourneyStation;
@@ -35,10 +35,10 @@ export interface JourneyTravelSegment {
 }
 
 export interface JourneyTransferSegment {
-    type: "transfer";
+    kind: "transfer";
     startTime: NetworkTime;
     waitDuration: NetworkTime;
-    transferDuration: NetworkTime;
+    walkDuration: NetworkTime;
 }
 
 export type JourneySegment = JourneyTransferSegment | JourneyTravelSegment;

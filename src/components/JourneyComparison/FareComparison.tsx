@@ -11,7 +11,7 @@ type FareRegime = "subway" | "commuterRail";
 const getNonUnifiedFareSegmentsCount = (journey: JourneyInfo) => {
     const segments = journey.segments.reduce(
         (partialSegments: FareRegime[], journeySegment: JourneySegment) => {
-            if (journeySegment.type === "transfer") {
+            if (journeySegment.kind === "transfer") {
                 return partialSegments;
             }
             const previousFareRegime = partialSegments[partialSegments.length - 1];
