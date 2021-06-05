@@ -22,6 +22,7 @@ import {
     TransferNavigationState,
     TravelNavigationState,
 } from "./types";
+import { resolveTemporalOrder } from "./util";
 
 const scoreState = (state: NavigationState) => {
     return Math.abs(state.time - state.context.initialTime);
@@ -80,10 +81,11 @@ const isStopTimeToday = (stopTime: StopTime, today: NetworkDayKind | NetworkDay)
 };
 
 const isUsefulStopToExplore = (stop: Stop, goal: Station) => {
-    return (
-        stop.parentStation === goal ||
-        stop.parentStation.stops.map((stop) => stop.routes).flat().length > 1
-    );
+    if (stop.parentStation === goal) {
+        return true;
+    }
+    const uniqueRoutes = new Set(stop.parentStation.stops.map((stop) => stop.routes).flat());
+    return uniqueRoutes.size > 1;
 };
 
 const isGoalState = (state: NavigationState) => {
@@ -138,7 +140,10 @@ const getNextVisitableStopTimes = (state: NavigationState, stop: Stop, now: Netw
         );
     });
 
-    return getNextStopTimesForServiceAndDirection(boardableStopTimes, stop);
+    return getNextStopTimesForServiceAndDirection(
+        state.context.backwards ? boardableStopTimes.reverse() : boardableStopTimes,
+        stop
+    );
 };
 
 const getTransferStates = (parent: TravelNavigationState): TransferNavigationState[] => {
@@ -235,29 +240,25 @@ const printTripFromState = (state: NavigationState) => {
 };
 
 export const navigateBetweenStations = (
-    origin: Station,
-    goal: Station,
+    journeyFromStation: Station,
+    journeyToStation: Station,
     initialDayTime: NetworkDayTime,
     backwards: boolean = false
 ) => {
+    const [origin, goal] = resolveTemporalOrder(journeyFromStation, journeyToStation, backwards);
     const startState = createStartState({
         today: initialDayTime.day,
         initialTime: initialDayTime.time,
-        origin: backwards ? goal : origin,
-        goal: backwards ? origin : goal,
+        origin,
+        goal,
         backwards,
     });
     const stateHeap = getStatePriorityHeap();
     const visitedStations = new Set<Station>([origin]);
     stateHeap.push(startState);
-    let stateCount = 0;
-    const startTime = Date.now();
     while (!stateHeap.empty()) {
         const nextBestStates = getBestStatesFromHeap(stateHeap);
         for (const state of nextBestStates) {
-            stateCount++;
-            console.log("~~~~~~~~~~");
-            printTripFromState(state);
             if (state.kind === "travel") {
                 if (visitedStations.has(state.to.stop.parentStation)) {
                     continue;
@@ -265,9 +266,6 @@ export const navigateBetweenStations = (
                 visitedStations.add(state.to.stop.parentStation);
             }
             if (isGoalState(state)) {
-                console.log(
-                    `explored ${stateCount} states in ${Math.round(Date.now() - startTime)}ms (new)`
-                );
                 return state;
             }
             getSuccessorStates(state).forEach((newState) => stateHeap.push(newState));
