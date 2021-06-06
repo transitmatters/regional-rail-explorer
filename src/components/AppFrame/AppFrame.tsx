@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import classNames from "classnames";
 import Head from "next/head";
+import { Provider as RkProvider } from "reakit";
 
 import { Mode } from "modes";
 import { GlobalNav } from "components";
@@ -20,24 +21,28 @@ const AppFrame = (props: Props) => {
     const controlsRef = useRef<null | HTMLDivElement>(null);
 
     return (
-        <AppFrameContext.Provider value={{ controlsContainer: controlsRef.current }}>
-            <div className={styles.appFrame}>
-                <Head>
-                    <meta
-                        name="viewport"
-                        content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0"
-                    />
-                    <title>Regional Rail Explorer</title>
-                </Head>
-                <GlobalNav />
-                {controls && (
-                    <div className={styles.controls} ref={controlsRef}>
-                        {controls}
+        <RkProvider>
+            <AppFrameContext.Provider value={{ controlsContainer: controlsRef.current }}>
+                <div className={styles.appFrame}>
+                    <Head>
+                        <meta
+                            name="viewport"
+                            content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0"
+                        />
+                        <title>Regional Rail Explorer</title>
+                    </Head>
+                    <GlobalNav />
+                    {controls && (
+                        <div className={styles.controls} ref={controlsRef}>
+                            {controls}
+                        </div>
+                    )}
+                    <div className={classNames(styles.container, containerClassName)}>
+                        {children}
                     </div>
-                )}
-                <div className={classNames(styles.container, containerClassName)}>{children}</div>
-            </div>
-        </AppFrameContext.Provider>
+                </div>
+            </AppFrameContext.Provider>
+        </RkProvider>
     );
 };
 

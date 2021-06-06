@@ -10,11 +10,12 @@ import styles from "./GlobalNav.module.scss";
 
 type NavLink = {
     title: string;
+    key: string;
 } & ({ pathname: string } | { href: string });
 
 const navLinks: NavLink[] = [
-    { title: "Plan a trip", pathname: "/" },
-    { title: "Read the Reports", href: "//regionalrail.net" },
+    { title: "Plan a trip", pathname: "/", key: "trip" },
+    { title: "Read the Reports", href: "//regionalrail.net", key: "reports" },
 ];
 
 const renderNavLink = (link: NavLink, router: NextRouter) => {
@@ -22,7 +23,7 @@ const renderNavLink = (link: NavLink, router: NextRouter) => {
     const isActive = "pathname" in link && link.pathname === router.pathname;
     const isExternal = "href" in link;
     return (
-        <Link href={href} passHref={isExternal}>
+        <Link href={href} passHref={isExternal} key={link.key}>
             <a
                 className={classNames(styles.link, isActive && styles.active)}
                 target={isExternal ? "_blank" : undefined}
