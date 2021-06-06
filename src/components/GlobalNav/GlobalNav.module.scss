@@ -72,8 +72,13 @@ $logo-colors: $rr-purple, $rr-gold, white;
     }
 }
 
-.tmLogo {
+.rightElement {
+    display: flex;
+    align-items: center;
     margin-left: auto;
     margin-right: 15px;
+}
+
+.tmLogo {
     height: 20px;
 }

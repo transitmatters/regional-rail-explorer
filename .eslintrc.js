@@ -37,6 +37,7 @@ module.exports = {
         "@typescript-eslint/explicit-module-boundary-types": 0,
         "no-constant-condition": 0,
         "prettier/prettier": "error",
+        "react/jsx-no-target-blank": 0,
     },
     settings: {
         react: {

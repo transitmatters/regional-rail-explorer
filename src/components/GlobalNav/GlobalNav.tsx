@@ -20,12 +20,15 @@ const navLinks: NavLink[] = [
 const renderNavLink = (link: NavLink, router: NextRouter) => {
     const href = "pathname" in link ? { pathname: link.pathname } : link.href;
     const isActive = "pathname" in link && link.pathname === router.pathname;
-    const showExternalIcon = "href" in link;
+    const isExternal = "href" in link;
     return (
-        <Link href={href} passHref={"href" in link}>
-            <a className={classNames(styles.link, isActive && styles.active)}>
+        <Link href={href} passHref={isExternal}>
+            <a
+                className={classNames(styles.link, isActive && styles.active)}
+                target={isExternal ? "_blank" : undefined}
+            >
                 {link.title}
-                {showExternalIcon && <FiArrowUpRight className={styles.linkIcon} size={18} />}
+                {isExternal && <FiArrowUpRight className={styles.linkIcon} size={18} />}
             </a>
         </Link>
     );
@@ -47,7 +50,9 @@ const GlobalNav = () => {
             <div className={styles.links}>
                 {navLinks.map((link) => renderNavLink(link, router))}
             </div>
-            <img className={styles.tmLogo} src="/tm-logo.svg" />
+            <a className={styles.rightElement} href="//transitmatters.org" target="_blank">
+                <img className={styles.tmLogo} src="/tm-logo.svg" />
+            </a>
         </div>
     );
 };
