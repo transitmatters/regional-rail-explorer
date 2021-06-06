@@ -5,7 +5,8 @@ The Regional Rail Explorer is a tool to demonstrate the impact of Regional Rail 
 
 This project is in the early stages of development.
 
-<img width="1904" alt="Screen Shot 2020-09-29 at 7 49 28 AM" src="https://user-images.githubusercontent.com/2208769/94554912-c743f880-0228-11eb-8a95-e925d8705c64.png">
+![Screenshot_2021-06-06 Regional Rail Explorer](https://user-images.githubusercontent.com/2208769/120929859-b8b3b800-c6b8-11eb-8ed3-84a73ddff88b.png)
+
 
 ## Setup
 
