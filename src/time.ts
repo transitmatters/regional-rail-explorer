@@ -75,9 +75,10 @@ export const stringifyTime = (
 };
 
 export const stringify12Hour = (time: NetworkTime) => {
-    const hours = Math.floor(time / HOUR);
-    const isPM = hours >= 12 && hours < 24;
-    return `${hours > 12 ? hours - 12 : hours} ${isPM ? "PM" : "AM"}`;
+    const hours = Math.floor(time / HOUR) % 24;
+    const isPM = hours >= 12;
+    const resolvedHours = hours > 12 ? hours - 12 : hours === 0 ? 12 : hours;
+    return `${resolvedHours} ${isPM ? "PM" : "AM"}`;
 };
 
 export const stringifyDuration = (duration: Duration, useFull = false) => {
