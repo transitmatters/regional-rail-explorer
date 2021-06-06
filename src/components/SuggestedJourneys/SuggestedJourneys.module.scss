@@ -1,6 +1,6 @@
 @import '../../styles/base.scss';
 
-.journey1 {
+.journey {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -10,6 +10,34 @@
     h2 {
         margin: 0;
     }
+
+    a {
+        //position: relative;
+        color: rgba(255, 255, 255, 1);
+        text-decoration: none;
+        background-color: rgb(243, 190, 74);
+        font-weight: 250;
+        font-size: 3em;
+        display: block;
+        padding: 4px;
+        -webkit-border-radius: 8px;
+        -moz-border-radius: 8px;
+        border-radius: 8px;
+        box-shadow: $global-shadow;
+        margin: 100px auto;
+        -webkit-transition: all .1s ease;
+        -moz-transition: all .1s ease;
+        -ms-transition: all .1s ease;
+        -o-transition: all .1s ease;
+        transition: all .1s ease;
+        }
+        a:active {
+        -webkit-box-shadow: 0px 3px 6px rgba(0, 0, 0, .9);
+        -moz-box-shadow: 0px 3px 6px rgba(0, 0, 0, .9);
+        box-shadow: 0px 3px 6px rgba(0, 0, 0, .9);
+        position: relative;
+        top: 6px;
+        }
 }
 
 // .button {
@@ -63,30 +91,3 @@
 // }
 
 
-a {
-//position: relative;
-color: rgba(255, 255, 255, 1);
-text-decoration: none;
-background-color: rgb(243, 190, 74);
-font-weight: 250;
-font-size: 3em;
-display: block;
-padding: 4px;
--webkit-border-radius: 8px;
--moz-border-radius: 8px;
-border-radius: 8px;
-box-shadow: $global-shadow;
-margin: 100px auto;
--webkit-transition: all .1s ease;
--moz-transition: all .1s ease;
--ms-transition: all .1s ease;
--o-transition: all .1s ease;
-transition: all .1s ease;
-}
-a:active {
--webkit-box-shadow: 0px 3px 0px rgba(219, 31, 5, 1), 0px 3px 6px rgba(0, 0, 0, .9);
--moz-box-shadow: 0px 3px 0px rgba(219, 31, 5, 1), 0px 3px 6px rgba(0, 0, 0, .9);
-box-shadow: 0px 3px 0px rgba(219, 31, 5, 1), 0px 3px 6px rgba(0, 0, 0, .9);
-position: relative;
-top: 6px;
-}
