@@ -9,12 +9,12 @@
     }
 }
 
-.globalNav {
+.controls {
     display: flex;
     align-items: center;
     height: 60px;
     padding: 0 10px;
-    background: $rr-purple-dark;
+    background: $rr-purple-secondary;
     color: white;
     overflow: hidden;
     z-index: 2;
@@ -48,14 +48,6 @@
     > span {
         line-height: 1em;
         margin: 0 10px;
-    }
-}
-
-.controls {
-    flex-grow: 1;
-    @include mobile {
-        width: 100%;
-        margin-top: 10px;
     }
 }
 

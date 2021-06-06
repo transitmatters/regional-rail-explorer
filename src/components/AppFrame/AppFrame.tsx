@@ -1,16 +1,14 @@
 import React, { useRef } from "react";
 import classNames from "classnames";
 import Head from "next/head";
-import { HiHome, HiChevronRight } from "react-icons/hi";
 
-import { ModeSelect } from "components";
 import { Mode } from "modes";
+import { GlobalNav } from "components";
 
 import styles from "./AppFrame.module.scss";
 import { AppFrameContext } from "./AppFrameContext";
 
 type Props = {
-    breadcrumbs?: React.ReactNode[];
     children: React.ReactNode;
     containerClassName?: string;
     controls?: React.ReactNode;
@@ -18,25 +16,11 @@ type Props = {
 };
 
 const AppFrame = (props: Props) => {
-    const {
-        controls = null,
-        breadcrumbs: providedBreadcrumbs = [],
-        mode,
-        children,
-        containerClassName,
-    } = props;
-    const globalNavRef = useRef<null | HTMLDivElement>(null);
-
-    const breadcrumbs = [
-        <a href="/" key={0}>
-            <HiHome size={20} />
-        </a>,
-        mode && <ModeSelect mode={mode} />,
-        ...providedBreadcrumbs,
-    ].filter((x) => x);
+    const { controls = null, children, containerClassName } = props;
+    const controlsRef = useRef<null | HTMLDivElement>(null);
 
     return (
-        <AppFrameContext.Provider value={{ globalNav: globalNavRef.current }}>
+        <AppFrameContext.Provider value={{ controlsContainer: controlsRef.current }}>
             <div className={styles.appFrame}>
                 <Head>
                     <meta
@@ -45,19 +29,12 @@ const AppFrame = (props: Props) => {
                     />
                     <title>Regional Rail Explorer</title>
                 </Head>
-                <div className={styles.globalNav} ref={globalNavRef}>
-                    <div className={styles.breadcrumbs}>
-                        {breadcrumbs.map((breadcrumb, index) => (
-                            <div className={styles.breadcrumb} key={index}>
-                                <span>{breadcrumb}</span>
-                                {(index < breadcrumbs.length - 1 || controls) && (
-                                    <HiChevronRight size={24} />
-                                )}
-                            </div>
-                        ))}
+                <GlobalNav />
+                {controls && (
+                    <div className={styles.controls} ref={controlsRef}>
+                        {controls}
                     </div>
-                    {controls && <div className={styles.controls}>{controls}</div>}
-                </div>
+                )}
                 <div className={classNames(styles.container, containerClassName)}>{children}</div>
             </div>
         </AppFrameContext.Provider>

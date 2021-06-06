@@ -1,7 +1,9 @@
 import React from "react";
 
 type AppFrameContextType = {
-    globalNav: null | HTMLDivElement;
+    controlsContainer: null | HTMLDivElement;
 };
 
-export const AppFrameContext = React.createContext<AppFrameContextType>({ globalNav: null });
+export const AppFrameContext = React.createContext<AppFrameContextType>({
+    controlsContainer: null,
+});

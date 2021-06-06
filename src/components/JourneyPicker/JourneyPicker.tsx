@@ -42,9 +42,9 @@ const dayKindOptions = [
 
 // eslint-disable-next-line react/prop-types
 const StationPickerWithDisclosure = ({ label, disabled, ...restProps }) => {
-    const { globalNav } = useContext(AppFrameContext);
+    const { controlsContainer } = useContext(AppFrameContext);
     return (
-        <StationPicker discloseBelowElement={globalNav} {...(restProps as any)}>
+        <StationPicker discloseBelowElement={controlsContainer} {...(restProps as any)}>
             {(disclosureProps) => {
                 const { "aria-expanded": open } = disclosureProps;
                 return (
