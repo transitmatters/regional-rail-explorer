@@ -1,12 +1,6 @@
 import React from "react";
 
-import {
-    JourneyInfo,
-    JourneyTransferSegment,
-    CrowdingLevel,
-    JourneySegment,
-    JourneyStation,
-} from "types";
+import { JourneyInfo, CrowdingLevel, JourneySegment, JourneyStation } from "types";
 import { CrowdingIllustration } from "components";
 
 import { stringifyDuration } from "time";

@@ -1,0 +1,79 @@
+@import '../../styles/base.scss';
+
+$logo-colors: $rr-purple, $rr-gold, white;
+
+.globalNav {
+    display: flex;
+    color: white;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    box-sizing: border-box;
+    background: darken($rr-purple, 12%);
+}
+
+.logoContainer {
+    display: flex;
+    align-items: center;
+    margin-left: 15px;
+    > .text {
+        user-select: none;
+        margin-left: 5px;
+        > .top {
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.1ch;
+            text-align: center;
+        }
+        > .bottom {
+            font-size: 17px;
+            text-transform: uppercase;
+            font-weight: 300;
+            font-style: italic;
+        }
+    }
+}
+
+.logo {
+    height: 34px;
+    @for $i from 1 through length($logo-colors) {
+        path:nth-child(#{$i}) {
+            fill: nth($logo-colors, $i);
+        }
+    }
+}
+
+.links {
+    display: flex;
+    align-items: center;
+    margin-left: 15px;
+    height: 100%;
+}
+
+.link {
+    display: flex;
+    align-items: center;
+    color: white;
+    text-decoration: none;
+    padding: 0px 16px;
+    height: 100%;
+    box-sizing: border-box;
+    border-top: 4px solid transparent;
+    &.active {
+        background: $rr-purple-secondary;
+    }
+    &:not(.active) {
+        &:hover {
+            background: rgba(white, 0.1);
+        }
+    }
+    .linkIcon {
+        margin-left: 3px;
+    }
+}
+
+.tmLogo {
+    margin-left: auto;
+    margin-right: 15px;
+    height: 20px;
+}

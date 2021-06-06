@@ -1,6 +1,6 @@
 import React from "react";
 
-import { JourneyInfo, JourneyTravelSegment, JourneyTransferSegment } from "types";
+import { JourneyInfo } from "types";
 import { AmenityListing, JourneyTimeline } from "components";
 import { stringifyDuration } from "time";
 
