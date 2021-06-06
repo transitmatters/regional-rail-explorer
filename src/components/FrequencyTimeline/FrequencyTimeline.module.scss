@@ -54,7 +54,7 @@ $arrival-width: var(--arrival-width);
     width: $arrival-width;
     height: $arrival-width;
     transform: translateX(calc(#{$arrival-width} / -2));
-    border-radius: 2px;
+    border-radius: $arrival-width;
     margin-bottom: 5px;
     box-sizing: border-box;
 }
