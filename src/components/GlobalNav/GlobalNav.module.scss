@@ -9,6 +9,7 @@ $logo-colors: $rr-purple, $rr-gold, white;
     width: 100%;
     height: 50px;
     box-sizing: border-box;
+    overflow: hidden;
     background: darken($rr-purple, 12%);
 }
 

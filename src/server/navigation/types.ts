@@ -5,7 +5,7 @@ export type NavigationContext = Readonly<{
     initialTime: NetworkTime;
     origin: Station;
     goal: Station;
-    backwards: boolean;
+    reverse: boolean;
 }>;
 
 type BaseNavigationState = {

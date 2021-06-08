@@ -88,11 +88,11 @@ const getJourneyInfoForScenario = (
     toStationId: string,
     time: NetworkTime,
     day: NetworkDayKind,
-    backwards: boolean
+    reverse: boolean
 ): JourneyInfo => {
     const { id, name, network } = scenario;
     const [fromStation, toStation] = getStationsByIds(network, fromStationId, toStationId);
-    const journey = navigate(fromStation, toStation, { time, day }, backwards);
+    const journey = navigate(fromStation, toStation, { time, day }, reverse);
     // TODO(ian): dedupe this nonsense from /api/arrivals
     const toStationIds = journey
         .map((seg) => seg.kind === "travel" && seg.endStation.id)
@@ -119,7 +119,7 @@ const getJourneyInfoForScenario = (
 };
 
 export default async (req, res) => {
-    const { fromStationId, toStationId, day, time, scenarioNames, backwards } = req.query;
+    const { fromStationId, toStationId, day, time, scenarioNames, reverse } = req.query;
     const journeys: JourneyApiResult = mapScenarios(
         scenarioNames.split(","),
         (scenario) =>
@@ -129,7 +129,7 @@ export default async (req, res) => {
                 toStationId,
                 parseInt(time, 10),
                 day,
-                backwards
+                reverse
             ),
         (_, scenario) => ({
             error: true,

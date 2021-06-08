@@ -36,7 +36,7 @@ const createJourneyTransferSegment = (state: TransferNavigationState): JourneyTr
         // if the state lacks a 'from', assume it's the inital segment of the journey
         from?.time || context.initialTime,
         to.time,
-        context.backwards
+        context.reverse
     );
     const totalDuration = endTime - startTime;
     const waitDuration = totalDuration - walkDuration;
@@ -51,7 +51,7 @@ const createJourneyTransferSegment = (state: TransferNavigationState): JourneyTr
 
 const createJourneyTravelSegment = (state: TravelNavigationState): JourneyTravelSegment => {
     const { from, to, context } = state;
-    const [startStopTime, endStopTime] = resolveTemporalOrder(from, to, context.backwards);
+    const [startStopTime, endStopTime] = resolveTemporalOrder(from, to, context.reverse);
     const { levelBoarding } = startStopTime.stop;
     const { trip } = startStopTime;
     return {
@@ -82,7 +82,7 @@ export const createJourneyFromState = (finalState: NavigationState): JourneySegm
     const segments = states
         .map(createJourneySegmentFromState)
         .filter((x): x is JourneyTravelSegment => !!x);
-    if (finalState.context.backwards) {
+    if (finalState.context.reverse) {
         return segments.reverse();
     }
     return segments;

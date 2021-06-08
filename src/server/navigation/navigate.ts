@@ -36,7 +36,7 @@ const getSelfTransfer = (stop: Stop): Transfer => {
     return {
         fromStop: stop,
         toStop: stop,
-        minWalkTime: 0,
+        minWalkTime: 60,
     };
 };
 
@@ -67,13 +67,13 @@ const getNextStopTimesForServiceAndDirection = (stopTimes: StopTime[], stop: Sto
         .filter((x): x is StopTime => !!x);
 };
 
-const displaceTime = (start: NetworkTime, duration: Duration, backwards: boolean): NetworkTime => {
-    return start + duration * (backwards ? -1 : 1);
+const displaceTime = (start: NetworkTime, duration: Duration, reverse: boolean): NetworkTime => {
+    return start + duration * (reverse ? -1 : 1);
 };
 
-const isSuccessorTime = (first: NetworkTime, second: NetworkTime, backwards: boolean) => {
+const isSuccessorTime = (first: NetworkTime, second: NetworkTime, reverse: boolean) => {
     const comparison = compareTimes(first, second);
-    return backwards ? comparison <= 0 : comparison >= 0;
+    return reverse ? comparison <= 0 : comparison >= 0;
 };
 
 const isStopTimeToday = (stopTime: StopTime, today: NetworkDayKind | NetworkDay) => {
@@ -125,7 +125,7 @@ const createTransferState = (
 
 const getNextVisitableStopTimes = (state: NavigationState, stop: Stop, now: NetworkTime) => {
     const { boardedAtStations, boardedRoutePatternIds, context } = state;
-    const { backwards, today } = context;
+    const { reverse, today } = context;
     const { stopTimes } = stop;
 
     if (boardedAtStations.has(stop.parentStation)) {
@@ -135,13 +135,13 @@ const getNextVisitableStopTimes = (state: NavigationState, stop: Stop, now: Netw
     const boardableStopTimes = stopTimes.filter((stopTime) => {
         return (
             isStopTimeToday(stopTime, today) &&
-            isSuccessorTime(stopTime.time, now, backwards) &&
+            isSuccessorTime(stopTime.time, now, reverse) &&
             !boardedRoutePatternIds.has(stopTime.trip.routePatternId)
         );
     });
 
     return getNextStopTimesForServiceAndDirection(
-        state.context.backwards ? boardableStopTimes.reverse() : boardableStopTimes,
+        state.context.reverse ? boardableStopTimes.reverse() : boardableStopTimes,
         stop
     );
 };
@@ -154,7 +154,7 @@ const getTransferStates = (parent: TravelNavigationState): TransferNavigationSta
     ]
         .map((transfer) => {
             const walkDuration = transfer.minWalkTime;
-            const now = displaceTime(to.time, walkDuration, context.backwards);
+            const now = displaceTime(to.time, walkDuration, context.reverse);
             const visitableStopTimes = getNextVisitableStopTimes(parent, transfer.toStop, now);
             return visitableStopTimes.map((stopTime) => {
                 return createTransferState(parent, stopTime, to, walkDuration);
@@ -168,7 +168,7 @@ const getTravelStates = (parent: TransferNavigationState): TravelNavigationState
 
     const candidateEndStopsOnTrip = to.trip.stopTimes.filter((stopTime) => {
         return (
-            isSuccessorTime(stopTime.time, to.time, context.backwards) &&
+            isSuccessorTime(stopTime.time, to.time, context.reverse) &&
             isUsefulStopToExplore(stopTime.stop, context.goal)
         );
     });
@@ -243,15 +243,15 @@ export const navigateBetweenStations = (
     journeyFromStation: Station,
     journeyToStation: Station,
     initialDayTime: NetworkDayTime,
-    backwards: boolean = false
+    reverse: boolean = false
 ) => {
-    const [origin, goal] = resolveTemporalOrder(journeyFromStation, journeyToStation, backwards);
+    const [origin, goal] = resolveTemporalOrder(journeyFromStation, journeyToStation, reverse);
     const startState = createStartState({
         today: initialDayTime.day,
         initialTime: initialDayTime.time,
         origin,
         goal,
-        backwards,
+        reverse,
     });
     const stateHeap = getStatePriorityHeap();
     const visitedStations = new Set<Station>([origin]);

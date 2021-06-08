@@ -12,6 +12,7 @@ export interface JourneyParams {
     toStationId: string;
     day: NetworkDayKind;
     time?: NetworkTime;
+    reverse?: boolean;
 }
 
 export interface JourneyStation {

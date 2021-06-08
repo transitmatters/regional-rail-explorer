@@ -28,6 +28,7 @@ $start-end-point-size: 14px;
 }
 
 .journeyTimeline {
+    position: relative;
     @include mobile {
         font-size: 13px;
     }
@@ -60,7 +61,6 @@ $start-end-point-size: 14px;
 .travelSegmentPassedStation {
     @include circle-on-line-with-label($travel-passed-station-size);
     position: relative;
-    z-index: 1;
     color: black;
     display: flex;
     align-items: center;
@@ -105,7 +105,6 @@ $start-end-point-size: 14px;
 
 .travelSegmentEndpoint {
     position: relative;
-    z-index: 1;
     display: flex;
     align-items: center;
 

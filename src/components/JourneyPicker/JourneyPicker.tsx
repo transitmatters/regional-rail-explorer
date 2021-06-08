@@ -11,6 +11,7 @@ import { HOUR } from "time";
 import { MdSwapCalls } from "react-icons/md";
 import { AppFrameContext } from "components/AppFrame";
 
+type NavigationKind = "depart-now" | "depart-at" | "arrive-by";
 interface Station {
     id: string;
     name: string;
@@ -40,6 +41,12 @@ const dayKindOptions = [
     { id: "sunday" as NetworkDayKind, label: "Sunday" },
 ];
 
+const navigationKindOptions = [
+    // { id: "depart-now" as NavigationKind, label: "Depart now" },
+    { id: "depart-at" as NavigationKind, label: "Depart at" },
+    { id: "arrive-by" as NavigationKind, label: "Arrive by" },
+];
+
 // eslint-disable-next-line react/prop-types
 const StationPickerWithDisclosure = ({ label, disabled, ...restProps }) => {
     const { controlsContainer } = useContext(AppFrameContext);
@@ -67,7 +74,7 @@ const StationPickerWithDisclosure = ({ label, disabled, ...restProps }) => {
 const LabeledControl = ({ label, children, className = "" }) => {
     return (
         <div className={classNames(styles.labeledControl, className)}>
-            <div className="label">{label}</div>
+            <div className={styles.label}>{label}</div>
             {children}
         </div>
     );
@@ -88,6 +95,7 @@ const JourneyPicker = (props: Props) => {
     } = props;
 
     const [timeOfDay, setTimeOfDay] = useState(timeOfDayPickerOptions[0]);
+    const [navigationKind, setNavigationKind] = useState(navigationKindOptions[0]);
 
     const fromStation = fromStationId ? stationsById[fromStationId] : null;
     const toStation = toStationId ? stationsById[toStationId] : null;
@@ -104,6 +112,11 @@ const JourneyPicker = (props: Props) => {
             setTimeOfDay(timeOfDayPickerOptions[index]);
         }
     }, [time]);
+
+    useEffect(() => {
+        const reverse = navigationKind.id === "arrive-by";
+        onSelectJourney({ reverse });
+    }, [navigationKind]);
 
     return (
         <div className={styles.journeyPicker}>
@@ -133,8 +146,16 @@ const JourneyPicker = (props: Props) => {
                     <MdSwapCalls size="1.3em" />
                 </Button>
             </div>
-            <div className="group">
-                <div className="label">Leave during</div>
+            <div className="group time-details">
+                <Select
+                    className={styles.dropdown}
+                    disclosureProps={{ large: true, disabled: disabled }}
+                    aria-label="Choose when you want to depart or arrive"
+                    items={navigationKindOptions}
+                    selectedItem={navigationKind}
+                    onSelect={(item) => setNavigationKind(item)}
+                />
+                <div className={styles.spacer} />
                 <Select
                     className={styles.dropdown}
                     disclosureProps={{ large: true, disabled: disabled }}
@@ -146,7 +167,7 @@ const JourneyPicker = (props: Props) => {
                         onSelectTimeOfDay(item.id);
                     }}
                 />
-                <div className="label">on a</div>
+                <div className={styles.label}>on a</div>
                 <Select
                     disclosureProps={{ large: true, disabled }}
                     aria-label="Choose a day of the week"
