@@ -2,7 +2,7 @@ import React from "react";
 
 import { JourneyInfo } from "types";
 import { AmenityListing, JourneyTimeline } from "components";
-import { stringifyDuration } from "time";
+import { stringifyDuration, stringifyTime } from "time";
 
 import { ComparisonProps } from "./types";
 import ComparisonRow from "./ComparisonRow";
@@ -18,6 +18,16 @@ const getTotalJourneyDuration = (journey: JourneyInfo) => {
     return last.endTime - first.startTime;
 };
 
+const renderJourneyDuration = (journey: JourneyInfo) => {
+    const first = journey.segments[0];
+    const last = journey.segments[journey.segments.length - 1];
+    return (
+        stringifyTime(first.startTime, { use12Hour: true }) +
+        "—" +
+        stringifyTime(last.endTime, { use12Hour: true })
+    );
+};
+
 const JourneyComparison = (props: ComparisonProps) => {
     const { baseline, enhanced } = props;
 
@@ -27,6 +37,7 @@ const JourneyComparison = (props: ComparisonProps) => {
     const showDelayRow =
         enhanced.amenities.includes("electricTrains") &&
         !baseline.amenities.includes("electricTrains");
+    const showWaitRow = !baseline.reverse;
     const amenitiesDiff = enhanced.amenities.filter((a) => !baseline.amenities.includes(a));
 
     return (
@@ -49,20 +60,26 @@ const JourneyComparison = (props: ComparisonProps) => {
             <ComparisonRow
                 title="Total time"
                 baseline={
-                    <span className="duration">{stringifyDuration(baselineTotalDuration)}</span>
+                    <>
+                        <div className="duration">{stringifyDuration(baselineTotalDuration)}</div>
+                        <div className="secondary">{renderJourneyDuration(baseline)}</div>
+                    </>
                 }
                 enhanced={
-                    <div className="duration">
-                        {stringifyDuration(enhancedTotalDuration)}
-                        {enhancedTotalFraction > 0 && (
-                            <div className="bubble offset-left green">
-                                {Math.round(100 * enhancedTotalFraction)}% faster
-                            </div>
-                        )}
-                    </div>
+                    <>
+                        <div className="duration">
+                            {stringifyDuration(enhancedTotalDuration)}
+                            {enhancedTotalFraction > 0 && (
+                                <div className="bubble offset-left green">
+                                    {Math.round(100 * enhancedTotalFraction)}% faster
+                                </div>
+                            )}
+                        </div>
+                        <div className="secondary">{renderJourneyDuration(enhanced)}</div>
+                    </>
                 }
             />
-            <WaitComparison {...props} />
+            {showWaitRow && <WaitComparison {...props} />}
             <ComparisonRow
                 title="Your ride"
                 baseline={<AmenityListing absent={amenitiesDiff} />}

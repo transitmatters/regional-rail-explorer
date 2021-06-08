@@ -106,6 +106,7 @@ const Explorer = () => {
                     baselineArrivals={baselineArrivals}
                     enhancedArrivals={enhancedArrivals}
                     spanFullDay={false}
+                    showArrivals={!reverse}
                     onSelectTime={(time) => updateJourneyParams({ time })}
                     time={time}
                     disabled={isJourneyPending}

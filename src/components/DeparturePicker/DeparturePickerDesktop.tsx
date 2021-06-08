@@ -1,7 +1,7 @@
 import React, { useState, useRef, useCallback } from "react";
 
 import { NetworkTime, NetworkTimeRange } from "types";
-import { stringifyTime } from "time";
+import { HOUR, MINUTE, snapTime, stringifyTime } from "time";
 
 import DeparturePickerChrome from "./DeparturePickerChrome";
 import { DeparturePickerImplProps } from "./types";
@@ -16,7 +16,7 @@ const getTimeFromCursorPosition = (
     const [start, end] = timeRange;
     const { width, left } = wrapperElement.getBoundingClientRect();
     const progress = (cursorClientX - left) / width;
-    return Math.floor(start + (end - start) * progress);
+    return snapTime(Math.floor(start + (end - start) * progress), HOUR / 4, MINUTE * 4);
 };
 
 const getCursorTransformForTime = (

@@ -52,4 +52,5 @@ export interface JourneyInfo {
     amenities: AmenityName[];
     arrivals: Record<string, { station: JourneyStation; times: NetworkTime[] }>;
     platformCrowding: Record<string, { station: JourneyStation; crowdingLevel: CrowdingLevel }>;
+    reverse: boolean;
 }

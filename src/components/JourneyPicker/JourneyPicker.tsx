@@ -44,7 +44,7 @@ const dayKindOptions = [
 const navigationKindOptions = [
     // { id: "depart-now" as NavigationKind, label: "Depart now" },
     { id: "depart-at" as NavigationKind, label: "Depart at" },
-    { id: "arrive-by" as NavigationKind, label: "Arrive by" },
+    { id: "arrive-by" as NavigationKind, label: "Arrive at" },
 ];
 
 // eslint-disable-next-line react/prop-types

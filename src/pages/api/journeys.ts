@@ -100,6 +100,7 @@ const getJourneyInfoForScenario = (
     const toStations = getStationsByIds(network, ...toStationIds);
     const arrivals = getArrivalTimesForJourney(fromStation, toStations, day);
     return {
+        reverse,
         scenario: { id, name },
         segments: journey,
         amenities: calculateAmenities(scenario, journey),

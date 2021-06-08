@@ -1,4 +1,5 @@
 import React from "react";
+import classNames from "classnames";
 
 import { NetworkTime, NetworkTimeRange } from "types";
 import { HOUR, stringify12Hour } from "time";
@@ -9,6 +10,7 @@ export type Props = {
     baselineArrivals: NetworkTime[];
     enhancedArrivals: NetworkTime[];
     timeRange: NetworkTimeRange;
+    showArrivals: boolean;
 };
 
 const getLeftOffset = (range: NetworkTimeRange, time: NetworkTime): string => {
@@ -32,7 +34,7 @@ const getHourTicks = (range: NetworkTimeRange) => {
 };
 
 const FrequencyTimeline = (props: Props) => {
-    const { timeRange, baselineArrivals, enhancedArrivals } = props;
+    const { timeRange, baselineArrivals, enhancedArrivals, showArrivals } = props;
 
     const renderTicks = () => {
         const ticks = getHourTicks(timeRange);
@@ -67,10 +69,14 @@ const FrequencyTimeline = (props: Props) => {
     };
 
     return (
-        <div className={styles.timeline}>
+        <div className={classNames(styles.timeline, showArrivals && styles.withArrivals)}>
             {renderTicks()}
-            {renderArrivalRow(baselineArrivals, styles.baselineArrival)}
-            {renderArrivalRow(enhancedArrivals, styles.enhancedArrival)}
+            {showArrivals && (
+                <>
+                    {renderArrivalRow(baselineArrivals, styles.baselineArrival)}
+                    {renderArrivalRow(enhancedArrivals, styles.enhancedArrival)}
+                </>
+            )}
         </div>
     );
 };

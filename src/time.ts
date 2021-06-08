@@ -118,6 +118,14 @@ export const roundToNearestHour = (time: NetworkTime): NetworkTime => {
     return HOUR * hoursPart;
 };
 
+export const snapTime = (time: NetworkTime, period: Duration, sensitivity: Duration) => {
+    const periodMod = time % period;
+    if (periodMod < sensitivity || periodMod > period - sensitivity) {
+        return Math.round(time / period) * period;
+    }
+    return time;
+};
+
 export const MINUTE = 60;
 export const HOUR = 60 * MINUTE;
 export const DAY = 24 * HOUR;
