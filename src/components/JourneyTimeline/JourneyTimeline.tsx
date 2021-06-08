@@ -133,7 +133,7 @@ const TransferSegment = (props: {
     const walkDurationRounded = Math.floor(segment.walkDuration / MINUTE);
     const waitDurationRounded = Math.floor(segment.waitDuration / MINUTE);
     const endTime = segment.startTime + segment.waitDuration + segment.walkDuration;
-    if (isEnd && endTime === segment.startTime) {
+    if (isEnd && endTime - segment.startTime < MINUTE * 5) {
         return null;
     }
     return (
