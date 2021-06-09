@@ -106,17 +106,20 @@ const JourneyPicker = (props: Props) => {
         }
     }, [onSelectJourney, fromStationId, toStationId]);
 
+    const updateNavigationKind = useCallback(
+        (kind: typeof navigationKindOptions[number]) => {
+            setNavigationKind(kind);
+            onSelectJourney({ reverse: kind.id === "arrive-by" });
+        },
+        [setNavigationKind]
+    );
+
     useEffect(() => {
         if (typeof time === "number") {
             const index = time > 17 * HOUR ? 2 : time > 11 * HOUR ? 1 : 0;
             setTimeOfDay(timeOfDayPickerOptions[index]);
         }
     }, [time]);
-
-    useEffect(() => {
-        const reverse = navigationKind.id === "arrive-by";
-        onSelectJourney({ reverse });
-    }, [navigationKind]);
 
     return (
         <div className={styles.journeyPicker}>
@@ -153,7 +156,7 @@ const JourneyPicker = (props: Props) => {
                     aria-label="Choose when you want to depart or arrive"
                     items={navigationKindOptions}
                     selectedItem={navigationKind}
-                    onSelect={(item) => setNavigationKind(item)}
+                    onSelect={(item) => updateNavigationKind(item)}
                 />
                 <div className={styles.spacer} />
                 <Select

@@ -21,7 +21,7 @@ const scenarioIds = ["present", "phase_one"];
 
 const Explorer = () => {
     const [
-        { fromStationId, toStationId, day, time, reverse },
+        { fromStationId, toStationId, day, time, reverse = false },
         updateJourneyParams,
     ] = useRouterBoundState(
         {
