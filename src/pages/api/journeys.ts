@@ -23,14 +23,14 @@ const calculateAmenities = (scenario: Scenario, journey: Journey): AmenityName[]
     } = scenario;
     const foundAmenties: AmenityName[] = [];
     const journeyHasLevelBoarding = journey
-        .filter((segment): segment is JourneyTravelSegment => segment.type === "travel")
+        .filter((segment): segment is JourneyTravelSegment => segment.kind === "travel")
         .every(
             (segment) =>
                 segment.levelBoarding ||
                 amenitiesByRoutePatternId?.[segment.routePatternId].levelBoarding
         );
     journey.forEach((segment) => {
-        if (segment.type === "travel") {
+        if (segment.kind === "travel") {
             const { routePatternId } = segment;
             const routePatternAmenities = amenitiesByRoutePatternId?.[routePatternId];
             if (routePatternAmenities) {
@@ -87,18 +87,20 @@ const getJourneyInfoForScenario = (
     fromStationId: string,
     toStationId: string,
     time: NetworkTime,
-    day: NetworkDayKind
+    day: NetworkDayKind,
+    reverse: boolean
 ): JourneyInfo => {
     const { id, name, network } = scenario;
     const [fromStation, toStation] = getStationsByIds(network, fromStationId, toStationId);
-    const journey = navigate(fromStation, toStation, { time, day });
+    const journey = navigate(fromStation, toStation, { time, day }, reverse);
     // TODO(ian): dedupe this nonsense from /api/arrivals
     const toStationIds = journey
-        .map((seg) => seg.type === "travel" && seg.toStation.id)
+        .map((seg) => seg.kind === "travel" && seg.endStation.id)
         .filter((x): x is string => !!x);
     const toStations = getStationsByIds(network, ...toStationIds);
     const arrivals = getArrivalTimesForJourney(fromStation, toStations, day);
     return {
+        reverse,
         scenario: { id, name },
         segments: journey,
         amenities: calculateAmenities(scenario, journey),
@@ -118,7 +120,7 @@ const getJourneyInfoForScenario = (
 };
 
 export default async (req, res) => {
-    const { fromStationId, toStationId, day, time, scenarioNames } = req.query;
+    const { fromStationId, toStationId, day, time, scenarioNames, reverse } = req.query;
     const journeys: JourneyApiResult = mapScenarios(
         scenarioNames.split(","),
         (scenario) =>
@@ -127,7 +129,8 @@ export default async (req, res) => {
                 fromStationId,
                 toStationId,
                 parseInt(time, 10),
-                day
+                day,
+                reverse
             ),
         (_, scenario) => ({
             error: true,

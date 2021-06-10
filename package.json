@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start -p $PORT",
     "storybook": "start-storybook -p 3001 -c .storybook",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "typecheck": "tsc",
+    "check": "npm run lint && npm run typecheck",
+    "install-git-hooks": "rm -f ./.git/hooks/* && cp ./.githooks/* ./.git/hooks && chmod +x ./.git/hooks/*"
   },
   "dependencies": {
     "@ridi/object-case-converter": "^2.0.4",

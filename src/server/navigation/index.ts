@@ -6,8 +6,9 @@ import { createJourneyFromState } from "./journey";
 export const navigate = (
     origin: Station,
     goal: Station,
-    startTime: NetworkDayTime
+    initialTime: NetworkDayTime,
+    reverse: boolean = false
 ): JourneySegment[] => {
-    const finalNavigationState = navigateBetweenStations(origin, goal, startTime);
+    const finalNavigationState = navigateBetweenStations(origin, goal, initialTime, reverse);
     return createJourneyFromState(finalNavigationState);
 };

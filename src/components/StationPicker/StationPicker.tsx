@@ -12,7 +12,7 @@ type Props = {
     children?: ReactNode;
     lockBodyScroll?: boolean;
     onSelectStation: Exclude<StationListingProps["onSelectStation"], undefined>;
-    discloseBelowElement: HTMLElement;
+    discloseBelowElement?: HTMLElement;
 } & StationListingProps;
 
 const StationPicker = (props: Props) => {
@@ -37,19 +37,19 @@ const StationPicker = (props: Props) => {
         [onSelectStation]
     );
 
-    const updateDisclosureBounds = useCallback((el) => {
-        if (el) {
-            const rect = el.getBoundingClientRect();
-            setDisclosureBounds({
-                bottom: rect.bottom + window.scrollY,
-                left: rect.left + window.scrollX,
-                width: rect.width,
-            });
-        }
+    const updateDisclosureBounds = useCallback((el: HTMLElement) => {
+        const rect = el.getBoundingClientRect();
+        setDisclosureBounds({
+            bottom: rect.bottom + window.scrollY,
+            left: rect.left + window.scrollX,
+            width: rect.width,
+        });
     }, []);
 
     useEffect(() => {
-        updateDisclosureBounds(discloseBelowElement);
+        if (discloseBelowElement) {
+            updateDisclosureBounds(discloseBelowElement);
+        }
     }, [discloseBelowElement]);
 
     useEffect(() => {

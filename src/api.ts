@@ -1,6 +1,6 @@
 import { JourneyApiResult, NetworkDayKind, NetworkTime } from "types";
 
-const apiFetch = (route, params) => {
+const apiFetch = (route: string, params: Record<string, string>) => {
     const urlParams = new URLSearchParams(params);
     return fetch(`/api/${route}?${urlParams.toString()}`).then((res) => res.json());
 };
@@ -24,13 +24,15 @@ export const journeys = (
     toStationId: string,
     day: NetworkDayKind,
     time: NetworkTime,
+    reverse: boolean,
     scenarioNames: string[]
 ): Promise<JourneyApiResult> => {
     return apiFetch("journeys", {
         fromStationId,
         toStationId,
         day,
-        time,
+        time: time.toString(),
         scenarioNames: scenarioNames.join(","),
+        ...(reverse && { reverse: "true" }),
     });
 };

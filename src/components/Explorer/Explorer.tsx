@@ -20,7 +20,10 @@ import { getAdvantageousDepartureTime } from "./departures";
 const scenarioIds = ["present", "phase_one"];
 
 const Explorer = () => {
-    const [{ fromStationId, toStationId, day, time }, updateJourneyParams] = useRouterBoundState(
+    const [
+        { fromStationId, toStationId, day, time, reverse = false },
+        updateJourneyParams,
+    ] = useRouterBoundState(
         {
             fromStationId: {
                 initial: null as null | string,
@@ -39,6 +42,12 @@ const Explorer = () => {
                 param: "time",
                 decode: parseInt,
                 encode: (t) => t?.toString(),
+            },
+            reverse: {
+                initial: null as null | boolean,
+                param: "reverse",
+                decode: (s) => s === "1",
+                encode: (b) => (b ? "1" : "0"),
             },
         },
         (previousState, nextState) => {
@@ -69,10 +78,12 @@ const Explorer = () => {
         setJourneys(null);
         if (fromStationId && toStationId && day && time) {
             wrapJourneyPending(
-                api.journeys(fromStationId, toStationId, day, time, scenarioIds).then(setJourneys)
+                api
+                    .journeys(fromStationId, toStationId, day, time, !!reverse, scenarioIds)
+                    .then(setJourneys)
             );
         }
-    }, [fromStationId, toStationId, day, time]);
+    }, [fromStationId, toStationId, day, time, reverse]);
 
     useEffect(() => {
         if (requestedTimeOfDay && arrivals) {
@@ -95,6 +106,7 @@ const Explorer = () => {
                     baselineArrivals={baselineArrivals}
                     enhancedArrivals={enhancedArrivals}
                     spanFullDay={false}
+                    showArrivals={!reverse}
                     onSelectTime={(time) => updateJourneyParams({ time })}
                     time={time}
                     disabled={isJourneyPending}

@@ -4,6 +4,11 @@ export interface GtfsRoute {
     routeId: string;
     routeLongName: string;
 }
+
+export interface GtfsRoutePattern {
+    routePatternId: string;
+    routeId: string;
+}
 export interface GtfsTrip {
     routeId: string;
     routePatternId: string;

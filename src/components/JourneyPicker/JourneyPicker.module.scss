@@ -7,6 +7,7 @@
     @include mobile {
         flex-direction: column;
         align-items: flex-start;
+        display: grid; // Fixes a Safari height: 100% issue with the swap stations button
     }
 
     > :global(.labeled-control) {
@@ -33,7 +34,7 @@
             grid-template-areas:
                 'from swap'
                 'to swap';
-            grid-template-columns: 1fr 50px;
+            grid-template-columns: minmax(0, 1fr) 50px;
             row-gap: 10px;
             column-gap: 10px;
 
@@ -74,23 +75,28 @@
         }
     }
 
+    :global(.group.time-details) {
+        @include mobile {
+            overflow: scroll;
+        }
+    }
+
     :global(.swap-stations-button) {
         margin-left: 10px;
     }
+}
 
-    > :global(.label),
-    > :global(.group) > :global(.label) {
-        color: white;
-        margin: 0 10px;
-        white-space: nowrap;
-    }
+.spacer {
+    width: 10px;
+}
+
+.label {
+    color: white;
+    margin: 0 10px;
+    white-space: nowrap;
 }
 
 .labeledControl {
     display: flex;
     align-items: center;
-    margin: 0 5px;
-    > *:not(:last-child) {
-        margin-right: 10px;
-    }
 }

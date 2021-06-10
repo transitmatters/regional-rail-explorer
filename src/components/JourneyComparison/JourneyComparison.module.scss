@@ -9,7 +9,6 @@
         color: white;
         padding: 3px 6px;
         margin-top: -3px;
-        border-radius: 4px;
         &:global(.green) {
             background: #579f6b;
         }
@@ -59,7 +58,7 @@
             display: inline;
             height: 0.8em;
             width: 0.8em;
-            border-radius: 4px;
+            border-radius: 100px;
             &:global(.baseline) {
                 background: $rr-light;
             }

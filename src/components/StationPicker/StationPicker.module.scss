@@ -38,12 +38,12 @@ $station-padding: 7px;
 }
 
 .triangle {
-    @include triangle($rr-purple-dark);
+    @include triangle($rr-purple-secondary);
     transform: translateX(-50%);
 }
 
 .header {
-    background: $rr-purple-dark;
+    background: $rr-purple-secondary;
     padding: 10px $inner-padding;
 }
 

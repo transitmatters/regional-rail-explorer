@@ -1,7 +1,7 @@
 @import 'styles/base.scss';
 
 $top-color: $rr-gold;
-$bottom-color: $rr-purple-dark;
+$bottom-color: $rr-purple-secondary;
 
 @mixin picker-triangle($color, $size: 8px) {
     position: absolute;
@@ -26,6 +26,7 @@ $bottom-color: $rr-purple-dark;
 .departurePickerMobile {
     position: sticky;
     top: 0;
+    z-index: 1;
 }
 
 .disabled {

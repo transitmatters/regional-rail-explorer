@@ -5,7 +5,7 @@ $text-offset: 25px;
 $travel-transfer-station-size: 20px;
 $travel-passed-station-size: 6px;
 $expand-control-size: 30px;
-$start-point-size: 14px;
+$start-end-point-size: 14px;
 
 @mixin circle-on-line-with-label($circle-size) {
     $circle-left: ($travel-transfer-station-size - $circle-size) / 2;
@@ -28,6 +28,7 @@ $start-point-size: 14px;
 }
 
 .journeyTimeline {
+    position: relative;
     @include mobile {
         font-size: 13px;
     }
@@ -60,7 +61,6 @@ $start-point-size: 14px;
 .travelSegmentPassedStation {
     @include circle-on-line-with-label($travel-passed-station-size);
     position: relative;
-    z-index: 1;
     color: black;
     display: flex;
     align-items: center;
@@ -105,7 +105,6 @@ $start-point-size: 14px;
 
 .travelSegmentEndpoint {
     position: relative;
-    z-index: 1;
     display: flex;
     align-items: center;
 
@@ -138,13 +137,18 @@ $start-point-size: 14px;
 
     &:global(.start) {
         :global(.stem) {
-            top: $start-point-size;
-            height: calc(100% - #{$start-point-size});
+            top: $start-end-point-size;
         }
     }
 
-    :global(.start-point) {
-        @include circle-on-line-with-label($start-point-size);
+    &:global(.start-end) {
+        :global(.stem) {
+            height: calc(100% - #{$start-end-point-size});
+        }
+    }
+
+    :global(.start-end-point) {
+        @include circle-on-line-with-label($start-end-point-size);
         :global(.circle) {
             box-sizing: border-box;
             background: white;

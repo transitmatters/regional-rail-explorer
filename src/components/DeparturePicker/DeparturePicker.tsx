@@ -17,6 +17,7 @@ interface Props {
     disabled?: boolean;
     time: number | null;
     onSelectTime: (time: number) => unknown;
+    showArrivals?: boolean;
 }
 
 const getTimeRange = (
@@ -45,6 +46,7 @@ const DeparturePicker = (props: Props) => {
         disabled = false,
         time,
         onSelectTime,
+        showArrivals = true,
     } = props;
 
     const { viewportWidth } = useViewport();
@@ -69,6 +71,7 @@ const DeparturePicker = (props: Props) => {
                 baselineArrivals={baselineArrivals}
                 enhancedArrivals={enhancedArrivals}
                 timeRange={timeRange}
+                showArrivals={showArrivals}
             />
         ),
     };

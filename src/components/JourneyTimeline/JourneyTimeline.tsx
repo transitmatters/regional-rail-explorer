@@ -26,16 +26,16 @@ const stringifyTime = (time) => globalStringifyTime(time, { use12Hour: true });
 
 const getSegmentHeight = (segment: JourneySegment) => {
     const elapsedSeconds =
-        segment.type === "travel"
-            ? segment.arrivalTime - segment.departureTime
-            : segment.waitDuration + segment.transferDuration;
+        segment.kind === "travel"
+            ? segment.endTime - segment.startTime
+            : segment.waitDuration + segment.walkDuration;
     const elapsedMinutes = elapsedSeconds / MINUTE;
     return elapsedMinutes * 5 + 25;
 };
 
 const TravelSegment = (props: { segment: JourneyTravelSegment }) => {
     const { segment } = props;
-    const { fromStation, toStation, departureTime, arrivalTime, routeId } = segment;
+    const { startStation, endStation, startTime, endTime, routeId } = segment;
     const color = getColorForRouteId(routeId);
     const height = getSegmentHeight(segment);
     const canCollapse = height / segment.passedStations.length < desiredStationSpacingPx;
@@ -115,26 +115,38 @@ const TravelSegment = (props: { segment: JourneyTravelSegment }) => {
     return (
         <div className={classNames(styles.travelSegment, textColor(color))}>
             <div className="stem" />
-            {renderEndpoint(fromStation, departureTime)}
+            {renderEndpoint(startStation, startTime)}
             <div className="inner" style={expanded ? { minHeight: height } : { height }}>
                 {renderInnerContents()}
             </div>
-            {renderEndpoint(toStation, arrivalTime)}
+            {renderEndpoint(endStation, endTime)}
         </div>
     );
 };
 
-const TransferSegment = (props: { isStart: boolean; segment: JourneyTransferSegment }) => {
-    const { segment, isStart } = props;
-    const transferDurationRounded = Math.floor(segment.transferDuration / MINUTE);
+const TransferSegment = (props: {
+    isStart: boolean;
+    isEnd: boolean;
+    segment: JourneyTransferSegment;
+}) => {
+    const { segment, isStart, isEnd } = props;
+    const walkDurationRounded = Math.floor(segment.walkDuration / MINUTE);
     const waitDurationRounded = Math.floor(segment.waitDuration / MINUTE);
+    const endTime = segment.startTime + segment.waitDuration + segment.walkDuration;
+    if (isEnd && endTime - segment.startTime < MINUTE * 5) {
+        return null;
+    }
     return (
         <div
-            className={classNames(styles.transferSegment, isStart && "start")}
+            className={classNames(
+                styles.transferSegment,
+                isStart && "start",
+                (isStart || isEnd) && "start-end"
+            )}
             style={{ minHeight: getSegmentHeight(segment) }}
         >
             {isStart && (
-                <div className="start-point">
+                <div className="start-end-point">
                     <div className="circle" />
                     <div className="label">
                         <div className="name">Start</div>
@@ -144,11 +156,18 @@ const TransferSegment = (props: { isStart: boolean; segment: JourneyTransferSegm
             )}
             <div className="stem" />
             <div className="label">
-                {transferDurationRounded > 0 && (
-                    <div>{transferDurationRounded} minute transfer</div>
-                )}
+                {walkDurationRounded > 0 && <div>{walkDurationRounded} minute transfer</div>}
                 {waitDurationRounded > 0 && <div>{waitDurationRounded} minute wait</div>}
             </div>
+            {isEnd && (
+                <div className="start-end-point">
+                    <div className="circle" />
+                    <div className="label">
+                        <div className="name">End</div>
+                        <div className="time">{stringifyTime(endTime)}</div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
@@ -158,10 +177,17 @@ const JourneyTimeline = (props: Props) => {
     return (
         <div className={styles.journeyTimeline}>
             {journey.map((segment, index) => {
-                if (segment.type === "travel") {
+                if (segment.kind === "travel") {
                     return <TravelSegment key={index} segment={segment} />;
                 }
-                return <TransferSegment key={index} segment={segment} isStart={index === 0} />;
+                return (
+                    <TransferSegment
+                        key={index}
+                        segment={segment}
+                        isStart={index === 0}
+                        isEnd={index === journey.length - 1}
+                    />
+                );
             })}
         </div>
     );

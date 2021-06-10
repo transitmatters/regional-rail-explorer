@@ -1,12 +1,6 @@
 import React from "react";
 
-import {
-    JourneyInfo,
-    JourneyTransferSegment,
-    CrowdingLevel,
-    JourneySegment,
-    JourneyStation,
-} from "types";
+import { JourneyInfo, CrowdingLevel, JourneySegment, JourneyStation } from "types";
 import { CrowdingIllustration } from "components";
 
 import { stringifyDuration } from "time";
@@ -25,9 +19,13 @@ interface WaitInfoProps {
 const getRegionalRailWaitDuration = (journey: JourneyInfo) => {
     return journey.segments.reduce(
         ({ previousSegment, duration }, segment) => {
-            if (segment.type === "travel" && isRegionalRail(segment.routeId)) {
+            if (
+                segment.kind === "travel" &&
+                previousSegment?.kind === "transfer" &&
+                isRegionalRail(segment.routeId)
+            ) {
                 return {
-                    duration: duration + (previousSegment as JourneyTransferSegment).waitDuration,
+                    duration: duration + previousSegment.waitDuration,
                     previousSegment: segment,
                 };
             }

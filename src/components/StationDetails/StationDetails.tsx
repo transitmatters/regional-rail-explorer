@@ -18,7 +18,7 @@ type Props = {
 
 const StationDetail = (props: Props) => {
     const { stationScenarioInfo } = props;
-    const [baseline, enhanced] = stationScenarioInfo;
+    const [baseline] = stationScenarioInfo;
     return (
         <div className={styles.stationDetails}>
             <div className={styles.inner}>

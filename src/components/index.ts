@@ -6,6 +6,7 @@ export { default as DeparturePicker } from "./DeparturePicker";
 export { default as Explorer } from "./Explorer/Explorer";
 export { default as FrequencyHistogram } from "./FrequencyHistogram/FrequencyHistogram";
 export { default as FrequencyTimeline } from "./FrequencyTimeline/FrequencyTimeline";
+export { default as GlobalNav } from "./GlobalNav/GlobalNav";
 export { default as JourneyComparison } from "./JourneyComparison/JourneyComparison";
 export { default as JourneyPicker } from "./JourneyPicker/JourneyPicker";
 export { default as JourneyTimeline } from "./JourneyTimeline/JourneyTimeline";

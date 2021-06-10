@@ -14,30 +14,7 @@ const journeyParams1: JourneyParams = { fromStationId: "place-NEC-2173", toStati
 const journeyParams2: JourneyParams = { fromStationId: "place-DB-2222", toStationId: "place-sstat",
                                         day: "weekday", time: 32010};
 
-// const journeyQueue: journeyMap = [
-//     {
-//         params: journeyParams1,
-//         fromStationName: "Route 128",
-//         toStationName: "Back Bay",
-//     },
-//     {
-//         params: journeyParams2,
-//         fromStationName: "Blue Hill Avenue",
-//         toStationName: "South Station",
-//     }
-// ]
-const journey = [
-    {
-        params: journeyParams1,
-        fromStationName: "Route 128", 
-        toStationName: "Back Bay"
-    },
-    {
-        params: journeyParams2,
-        fromStationName: "Blue Hill Avenue", 
-        toStationName: "South Station"
-    }
-];
+const journey = [journeyParams1, journeyParams2];
 
 
 

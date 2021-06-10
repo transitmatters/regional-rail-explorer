@@ -11,6 +11,7 @@ export interface StopTime {
 export interface Route {
     id: string;
     name: string;
+    routePatternIds: string[];
 }
 
 export interface Trip {
@@ -21,6 +22,7 @@ export interface Trip {
     directionId: string;
     serviceDays: NetworkDay[];
     stopTimes: StopTime[];
+    route: Route;
 }
 
 export interface Transfer {
@@ -36,7 +38,7 @@ export interface Stop {
     stopTimes: StopTime[];
     transfers: Transfer[];
     serviceIds: string[];
-    routeIds: string[];
+    routes: Route[];
     parentStation: Station;
     levelBoarding: boolean;
 }

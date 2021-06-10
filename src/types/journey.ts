@@ -12,6 +12,7 @@ export interface JourneyParams {
     toStationId: string;
     day: NetworkDayKind;
     time?: NetworkTime;
+    reverse?: boolean;
 }
 
 export interface JourneyStation {
@@ -20,11 +21,11 @@ export interface JourneyStation {
 }
 
 export interface JourneyTravelSegment {
-    type: "travel";
-    departureTime: NetworkTime;
-    arrivalTime: NetworkTime;
-    fromStation: JourneyStation;
-    toStation: JourneyStation;
+    kind: "travel";
+    startTime: NetworkTime;
+    endTime: NetworkTime;
+    startStation: JourneyStation;
+    endStation: JourneyStation;
     passedStations: {
         time: NetworkTime;
         station: JourneyStation;
@@ -35,10 +36,11 @@ export interface JourneyTravelSegment {
 }
 
 export interface JourneyTransferSegment {
-    type: "transfer";
+    kind: "transfer";
     startTime: NetworkTime;
+    endTime: NetworkTime;
     waitDuration: NetworkTime;
-    transferDuration: NetworkTime;
+    walkDuration: NetworkTime;
 }
 
 export type JourneySegment = JourneyTransferSegment | JourneyTravelSegment;
@@ -50,4 +52,5 @@ export interface JourneyInfo {
     amenities: AmenityName[];
     arrivals: Record<string, { station: JourneyStation; times: NetworkTime[] }>;
     platformCrowding: Record<string, { station: JourneyStation; crowdingLevel: CrowdingLevel }>;
+    reverse: boolean;
 }

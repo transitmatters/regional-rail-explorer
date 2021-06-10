@@ -13,6 +13,7 @@ export default {
 export const Default = () => {
     return (
         <FrequencyTimeline
+            showArrivals
             timeRange={[0, DAY]}
             enhancedArrivals={salem.enhancedArrivals}
             baselineArrivals={salem.baselineArrivals}

@@ -7,16 +7,4 @@ export default {
     component: AppFrame,
 };
 
-export const Default = () => (
-    <AppFrame
-        mode="journey"
-        breadcrumbs={[
-            "Oof",
-            <a key={0} href="#">
-                Ouch
-            </a>,
-        ]}
-    >
-        {null}
-    </AppFrame>
-);
+export const Default = () => <AppFrame mode="journey">{null}</AppFrame>;
