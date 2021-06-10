@@ -12,7 +12,7 @@ interface Props {
 
 const RoutePage = (props: Props) => {
     const { routeInfo } = props;
-    const [baseline, enhanced] = routeInfo;
+    const [enhanced] = routeInfo;
     return (
         <div className={styles.routePage}>
             <h1>{enhanced.name} </h1>

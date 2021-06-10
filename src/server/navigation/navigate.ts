@@ -221,7 +221,7 @@ const getBestStatesFromHeap = (heap: Heap<NavigationState>): NavigationState[] =
     return equallyGoodStates.sort((a, b) => a.parents.length - b.parents.length);
 };
 
-const printTripFromState = (state: NavigationState) => {
+export const printTripFromState = (state: NavigationState) => {
     [...state.parents, state].forEach((state) => {
         const time = stringifyTime(state.time);
         if (state.kind === "start") {

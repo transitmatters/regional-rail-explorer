@@ -4,6 +4,10 @@ export const routeInfo: SerializableRouteInfo[] = [
   {
     "id": "CR-Newburyport",
     "name": "Newburyport/Rockport Line",
+    "routePatternIds": [
+      "CR-Newburyport-0-0",
+      "CR-Newburyport-1-0"
+    ],
     "branchMap": {
       "routePatternIds": [
         "CR-Newburyport-0-0",
@@ -3531,6 +3535,10 @@ export const routeInfo: SerializableRouteInfo[] = [
   {
     "id": "CR-Newburyport",
     "name": "Newburyport/Rockport Line",
+    "routePatternIds": [
+      "CR-Newburyport-0-0",
+      "CR-Newburyport-0-1"
+    ],
     "branchMap": {
       "routePatternIds": [
         "CR-Newburyport-0-0",

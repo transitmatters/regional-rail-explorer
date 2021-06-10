@@ -35,7 +35,7 @@ export async function getServerSideProps(context) {
 export default function Route(props: Props) {
     const { stationScenarioInfo } = props;
     return (
-        <AppFrame mode="stations" breadcrumbs={[stationScenarioInfo[0].station.name]}>
+        <AppFrame mode="stations">
             <StationDetails stationScenarioInfo={stationScenarioInfo} />
         </AppFrame>
     );
