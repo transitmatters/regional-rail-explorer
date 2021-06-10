@@ -4,10 +4,9 @@ import { JourneyParams } from "types";
 
 import styles from "./SuggestedJourneys.module.scss";
 
-
-type Props = { 
+type Props = {
     journeys: JourneyParams[];
-}
+};
 
 export function getJourneyUrl(journey: JourneyParams) {
     return `/?from=${journey["fromStationId"]}&to=${journey["toStationId"]}&day=${journey["day"]}&time=${journey["time"]}`;
@@ -15,18 +14,19 @@ export function getJourneyUrl(journey: JourneyParams) {
 
 const SuggestedJourneys = (props: Props) => {
     const { journeys } = props;
-    let divArr = [] as any;
+    const divArr = [] as any;
     for (let i = 0; i < journeys.length; ++i) {
         divArr.push(
-            <div className={styles.journey}> 
-                 <a href={getJourneyUrl(journeys[i])}>
-                 <h2>Journey Option {i + 1}:</h2>
-                 <p>Depart from: { stationsById[journeys[i]["fromStationName"]].name }</p>
-                 <p>Arrive at: { stationsById[journeys[i]["toStationName"]].name }</p></a>
-             </div>
+            <div className={styles.journey}>
+                <a href={getJourneyUrl(journeys[i])}>
+                    <h2>Journey Option {i + 1}:</h2>
+                    <p>Depart from: {stationsById[journeys[i]["fromStationId"]].name}</p>
+                    <p>Arrive at: {stationsById[journeys[i]["toStationId"]].name}</p>
+                </a>
+            </div>
         );
-    } 
+    }
     return divArr;
 };
 
-export default SuggestedJourneys; 
+export default SuggestedJourneys;
