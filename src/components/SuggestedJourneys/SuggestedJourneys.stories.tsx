@@ -29,7 +29,7 @@ const journeyParams3: JourneyParams = {
     time: 73358,
 };
 
-const journey = [journeyParams1, journeyParams2,journeyParams3];
+const journey = [journeyParams1, journeyParams2, journeyParams3];
 
 export const Default = () => {
     return <SuggestedJourneys journeys={journey} />;

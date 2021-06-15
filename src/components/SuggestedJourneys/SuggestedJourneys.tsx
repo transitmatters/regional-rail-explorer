@@ -13,14 +13,14 @@ export function getJourneyUrl(journey: JourneyParams) {
 }
 
 function getClass(time: JourneyParams) {
-    let times = time["time"];
+    const times = time["time"];
     if (times === undefined) {
         return styles.midday;
-    }else if (times >= 18000 && times <= 39600) {
+    } else if (times >= 18000 && times <= 39600) {
         return styles.morning;
-    }else if (times > 39600 && times <= 61200) {
+    } else if (times > 39600 && times <= 61200) {
         return styles.midday;
-    }else return styles.evening; 
+    } else return styles.evening;
 }
 
 const SuggestedJourneys = (props: Props) => {
@@ -30,14 +30,13 @@ const SuggestedJourneys = (props: Props) => {
         divArr.push(
             <div className={styles.journey}>
                 <div className={getClass(journeys[i])}>
-                    <a href={getJourneyUrl(journeys[i])} >
+                    <a href={getJourneyUrl(journeys[i])}>
                         <h2>Journey Option {i + 1}:</h2>
                         <p>Depart from: {stationsById[journeys[i]["fromStationId"]].name}</p>
                         <p>Arrive at: {stationsById[journeys[i]["toStationId"]].name}</p>
                     </a>
                 </div>
-             </div>
-
+            </div>
         );
     }
     return divArr;
