@@ -14,7 +14,6 @@
     a {
         color: rgba(255, 255, 255, 1);
         text-decoration: none;
-        background-color: rgb(243, 190, 74);
         font-weight: 250;
         font-size: 3em;
         display: block;
@@ -28,4 +27,21 @@
         position: relative;
         top: 6px;
         }
+}
+.morning {
+    a {
+        background-color: rgb(235, 201, 13);
+    } 
+}
+
+.midday {
+    a {
+        background-color: rgb(74, 142, 243);
+     }
+}
+
+.evening {
+    a {
+        background-color: rgb(159,75,194);
+    }
 }
