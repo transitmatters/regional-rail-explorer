@@ -12,7 +12,6 @@ export function getJourneyUrl(journey: JourneyParams) {
     return `/?from=${journey["fromStationId"]}&to=${journey["toStationId"]}&day=${journey["day"]}&time=${journey["time"]}`;
 }
 
-
 function getTimeOfDayClass(params: JourneyParams) {
     const { time } = params;
     if (time === undefined) {
