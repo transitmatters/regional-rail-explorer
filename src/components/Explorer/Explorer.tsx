@@ -4,13 +4,14 @@ import { CgSpinner } from "react-icons/cg";
 import { stationsByLine, stationsById } from "stations";
 
 import * as api from "api";
-import { JourneyInfo, NetworkTime, NetworkDayKind, TimeOfDay, JourneyApiResult } from "types";
+import { JourneyInfo, NetworkTime, NetworkDayKind, TimeOfDay, JourneyApiResult, JourneyParams, } from "types"; //added Journey Params
 import {
     DeparturePicker,
     JourneyPicker,
     JourneyComparison,
     JourneyErrorState,
     AppFrame,
+    SuggestedJourneys, //added SJ
 } from "components";
 import { useRouterBoundState, usePendingPromise } from "hooks";
 
@@ -138,6 +139,36 @@ const Explorer = () => {
         return null;
     };
 
+    //Kayla added START
+    const journeyParams1: JourneyParams = {
+        fromStationId: "place-NEC-2173",
+        toStationId: "place-bbsta",
+        day: "weekday",
+        time: 32010,
+    };
+    
+    const journeyParams2: JourneyParams = {
+        fromStationId: "place-DB-2222",
+        toStationId: "place-sstat",
+        day: "weekday",
+        time: 51300,
+    };
+    
+    const journeyParams3: JourneyParams = {
+        fromStationId: "place-KB-0351",
+        toStationId: "place-PB-0356",
+        day: "weekday",
+        time: 73358,
+    };
+    
+    const journey = [journeyParams1, journeyParams2, journeyParams3];
+
+    const renderSuggestedJourneys = () => {
+        return <SuggestedJourneys journeys={journey} />
+    }
+
+    //Kayla added END
+
     return (
         <AppFrame
             mode="journey"
@@ -157,9 +188,11 @@ const Explorer = () => {
                 />
             }
         >
+            {renderSuggestedJourneys()} 
             {renderDeparturePicker()}
             {renderJourneyComparison()}
         </AppFrame>
+
     );
 };
 

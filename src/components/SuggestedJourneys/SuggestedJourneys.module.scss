@@ -14,13 +14,16 @@
     a {
         color: rgba(255, 255, 255, 1);
         text-decoration: none;
-        font-weight: 250;
-        font-size: 3em;
+        font-weight: 100;
+        font-size: 1em;
         display: block;
-        padding: 4px;
+        padding: 2px;
         box-shadow: $global-shadow;
-        margin: 100px auto;
+        // margin: 1px;
+        width: 1000px;
         transition: all .1s ease;
+        text-align: center;
+        border-radius: 5px;
         }
         a:active {
         box-shadow: 0px 3px 6px rgba(0, 0, 0, .9);

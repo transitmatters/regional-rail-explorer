@@ -32,8 +32,8 @@ const SuggestedJourneys = (props: Props) => {
                 <div className={getTimeOfDayClass(journeys[i])}>
                     <a href={getJourneyUrl(journeys[i])}>
                         <h2>Journey Option {i + 1}:</h2>
-                        <p>Depart from: {stationsById[journeys[i]["fromStationId"]].name}</p>
-                        <p>Arrive at: {stationsById[journeys[i]["toStationId"]].name}</p>
+                        <p><i>Depart from:</i> {stationsById[journeys[i]["fromStationId"]].name} &emsp; &emsp; 
+                        <i>Arrive at:</i> {stationsById[journeys[i]["toStationId"]].name}</p>
                     </a>
                 </div>
             </div>
