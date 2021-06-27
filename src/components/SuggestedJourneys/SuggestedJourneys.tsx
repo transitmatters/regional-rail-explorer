@@ -1,6 +1,7 @@
 import React from "react";
 import { stationsById } from "stations";
 import { JourneyParams } from "types";
+import { BsArrowRight } from "react-icons/bs";
 
 import styles from "./SuggestedJourneys.module.scss";
 
@@ -23,17 +24,39 @@ function getTimeOfDayClass(params: JourneyParams) {
     } else return styles.evening;
 }
 
+function getTimeofDay(params: JourneyParams) {
+    const { time } = params;
+    if (time === undefined) {
+        return "Midday";
+    } else if (time >= 18000 && time <= 39600) {
+        return "Morning";
+    } else if (time > 39600 && time <= 61200) {
+        return "Midday";
+    } else return "Evening";
+}
+
 const SuggestedJourneys = (props: Props) => {
     const { journeys } = props;
     const divArr = [] as any;
     for (let i = 0; i < journeys.length; ++i) {
+        const journey = journeys[i];
         divArr.push(
             <div className={styles.journey} key={i}>
-                <div className={getTimeOfDayClass(journeys[i])}>
-                    <a href={getJourneyUrl(journeys[i])}>
-                        <h2>Journey Option {i + 1}:</h2>
-                        <p><i>Depart from:</i> {stationsById[journeys[i]["fromStationId"]].name} &emsp; &emsp; 
-                        <i>Arrive at:</i> {stationsById[journeys[i]["toStationId"]].name}</p>
+                <div className={getTimeOfDayClass(journey)}>
+                    <a href={getJourneyUrl(journey)}>
+                        <h4>
+                            {" "}
+                            <p>
+                                <span>
+                                    Departs: <i>{getTimeofDay(journey)} </i>
+                                </span>
+                            </p>
+                        </h4>
+                        <p>
+                            <strong>{stationsById[journey["fromStationId"]].name} &emsp; </strong>{" "}
+                            <BsArrowRight /> &emsp;
+                            <strong>{stationsById[journey["toStationId"]].name}</strong>
+                        </p>
                     </a>
                 </div>
             </div>
