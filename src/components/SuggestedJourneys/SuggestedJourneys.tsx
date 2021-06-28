@@ -24,7 +24,6 @@ function getTimeOfDayClass(params: JourneyParams) {
     } else return styles.evening;
 }
 
-
 function getTimeofDay(params: JourneyParams) {
     const { time } = params;
     if (time === undefined) {
