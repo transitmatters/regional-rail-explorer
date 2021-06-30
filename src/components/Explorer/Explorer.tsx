@@ -11,14 +11,14 @@ import {
     TimeOfDay,
     JourneyApiResult,
     JourneyParams,
-} from "types"; //added Journey Params
+} from "types"; 
 import {
     DeparturePicker,
     JourneyPicker,
     JourneyComparison,
     JourneyErrorState,
     AppFrame,
-    SuggestedJourneys, //added SJ
+    SuggestedJourneys, 
 } from "components";
 import { useRouterBoundState, usePendingPromise } from "hooks";
 
@@ -146,7 +146,6 @@ const Explorer = () => {
         return null;
     };
 
-    //Kayla added START
     const journeyParams1: JourneyParams = {
         fromStationId: "place-NEC-2173",
         toStationId: "place-bbsta",
@@ -173,8 +172,6 @@ const Explorer = () => {
     const renderSuggestedJourneys = () => {
         return <SuggestedJourneys journeys={journey} />;
     };
-
-    //Kayla added END
 
     return (
         <AppFrame
