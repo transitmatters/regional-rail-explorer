@@ -11,14 +11,14 @@ import {
     TimeOfDay,
     JourneyApiResult,
     JourneyParams,
-} from "types"; 
+} from "types";
 import {
     DeparturePicker,
     JourneyPicker,
     JourneyComparison,
     JourneyErrorState,
     AppFrame,
-    SuggestedJourneys, 
+    SuggestedJourneys,
 } from "components";
 import { useRouterBoundState, usePendingPromise } from "hooks";
 
