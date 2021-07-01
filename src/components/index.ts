@@ -17,4 +17,5 @@ export { default as ModeSelect } from "./ModeSelect/ModeSelect";
 export { default as RoutePage } from "./RoutePage/RoutePage";
 export { default as StationDetails } from "./StationDetails/StationDetails";
 export { default as StationPicker } from "./StationPicker/StationPicker";
+export { default as SuggestedJourneys } from "./SuggestedJourneys/SuggestedJourneys";
 export { StationSearchBar, StationListing } from "./StationListing";

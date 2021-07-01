@@ -1,11 +1,12 @@
 import React from "react";
 import { stationsById } from "stations";
 import { JourneyParams } from "types";
+import { BsArrowRight } from "react-icons/bs";
 
 import styles from "./SuggestedJourneys.module.scss";
 
 type Props = {
-    journeys: JourneyParams[];
+    suggestedJourneys: JourneyParams[];
 };
 
 export function getJourneyUrl(journey: JourneyParams) {
@@ -23,17 +24,38 @@ function getTimeOfDayClass(params: JourneyParams) {
     } else return styles.evening;
 }
 
+function getTimeofDay(params: JourneyParams) {
+    const { time } = params;
+    if (time === undefined) {
+        return "Midday";
+    } else if (time >= 18000 && time <= 39600) {
+        return "Morning";
+    } else if (time > 39600 && time <= 61200) {
+        return "Midday";
+    } else return "Evening";
+}
+
 const SuggestedJourneys = (props: Props) => {
-    const { journeys } = props;
+    const { suggestedJourneys } = props;
     const divArr = [] as any;
-    for (let i = 0; i < journeys.length; ++i) {
+    for (let i = 0; i < suggestedJourneys.length; ++i) {
+        const journey = suggestedJourneys[i];
         divArr.push(
             <div className={styles.journey} key={i}>
-                <div className={getTimeOfDayClass(journeys[i])}>
-                    <a href={getJourneyUrl(journeys[i])}>
-                        <h2>Journey Option {i + 1}:</h2>
-                        <p>Depart from: {stationsById[journeys[i]["fromStationId"]].name}</p>
-                        <p>Arrive at: {stationsById[journeys[i]["toStationId"]].name}</p>
+                <div className={getTimeOfDayClass(journey)}>
+                    <a href={getJourneyUrl(journey)}>
+                        <h4>
+                            <p>
+                                <span>
+                                    Departs: <i>{getTimeofDay(journey)} </i>
+                                </span>
+                            </p>
+                        </h4>
+                        <p>
+                            <strong>{stationsById[journey["fromStationId"]].name} &emsp; </strong>{" "}
+                            <BsArrowRight /> &emsp;
+                            <strong>{stationsById[journey["toStationId"]].name}</strong>
+                        </p>
                     </a>
                 </div>
             </div>
