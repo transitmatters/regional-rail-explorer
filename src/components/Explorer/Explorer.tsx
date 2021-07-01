@@ -169,13 +169,12 @@ const Explorer = () => {
         return null;
     };
 
-
     const renderSuggestedJourneys = () => {
         if (!journeys) {
             return <SuggestedJourneys suggestedJourneys={journey} />;
         } else {
             return null;
-        } 
+        }
     };
 
     return (
