@@ -32,5 +32,5 @@ const journeyParams3: JourneyParams = {
 const journey = [journeyParams1, journeyParams2, journeyParams3];
 
 export const Default = () => {
-    return <SuggestedJourneys journeys={journey} />;
+    return <SuggestedJourneys suggestedJourneys={journey} />;
 };

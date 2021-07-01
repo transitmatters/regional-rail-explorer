@@ -6,7 +6,7 @@ import { BsArrowRight } from "react-icons/bs";
 import styles from "./SuggestedJourneys.module.scss";
 
 type Props = {
-    journeys: JourneyParams[];
+    suggestedJourneys: JourneyParams[];
 };
 
 export function getJourneyUrl(journey: JourneyParams) {
@@ -36,10 +36,10 @@ function getTimeofDay(params: JourneyParams) {
 }
 
 const SuggestedJourneys = (props: Props) => {
-    const { journeys } = props;
+    const { suggestedJourneys } = props;
     const divArr = [] as any;
-    for (let i = 0; i < journeys.length; ++i) {
-        const journey = journeys[i];
+    for (let i = 0; i < suggestedJourneys.length; ++i) {
+        const journey = suggestedJourneys[i];
         divArr.push(
             <div className={styles.journey} key={i}>
                 <div className={getTimeOfDayClass(journey)}>
