@@ -45,7 +45,6 @@ const SuggestedJourneys = (props: Props) => {
                 <div className={getTimeOfDayClass(journey)}>
                     <a href={getJourneyUrl(journey)}>
                         <h4>
-                            {" "}
                             <p>
                                 <span>
                                     Departs: <i>{getTimeofDay(journey)} </i>
