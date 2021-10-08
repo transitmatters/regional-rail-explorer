@@ -170,6 +170,7 @@ const Explorer = () => {
     };
 
     const renderSuggestedJourneys = () => {
+        return null;
         if (!journeys) {
             return <SuggestedJourneys suggestedJourneys={journey} />;
         } else {
