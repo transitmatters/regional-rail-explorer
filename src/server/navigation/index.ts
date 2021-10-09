@@ -1,24 +1,20 @@
-import { Station, NetworkDayTime, JourneySegment } from "types";
+import { JourneySegment } from "types";
 import { MINUTE } from "time";
 
 import { navigateBetweenStations } from "./navigate";
 import { createJourneyFromState } from "./journey";
+import { NavigationOptions } from "./types";
 
-export const navigate = (
-    origin: Station,
-    goal: Station,
-    initialTime: NetworkDayTime,
-    reverse: boolean = false
-): JourneySegment[] => {
-    const finalNavigationState = navigateBetweenStations(origin, goal, initialTime, reverse);
+export const navigate = (options: NavigationOptions): JourneySegment[] => {
+    const { reverse, initialDayTime } = options;
+    const finalNavigationState = navigateBetweenStations(options);
     if (reverse) {
-        const { day, time: originalEndTime } = initialTime;
-        const reverseOptimizedJourney = navigate(
-            origin,
-            goal,
-            { day, time: finalNavigationState.time },
-            false
-        );
+        const { day, time: originalEndTime } = initialDayTime;
+        const reverseOptimizedJourney = navigate({
+            ...options,
+            reverse: false,
+            initialDayTime: { day, time: finalNavigationState.time },
+        });
         const finalSegment = reverseOptimizedJourney[reverseOptimizedJourney.length - 1];
         const waitDuration = originalEndTime - finalSegment.endTime;
         if (finalSegment.kind === "travel" && waitDuration >= 5 * MINUTE) {

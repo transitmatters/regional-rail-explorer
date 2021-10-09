@@ -90,9 +90,15 @@ const getJourneyInfoForScenario = (
     day: NetworkDayKind,
     reverse: boolean
 ): JourneyInfo => {
-    const { id, name, network } = scenario;
+    const { id, name, network, unifiedFares } = scenario;
     const [fromStation, toStation] = getStationsByIds(network, fromStationId, toStationId);
-    const journey = navigate(fromStation, toStation, { time, day }, reverse);
+    const journey = navigate({
+        fromStation,
+        toStation,
+        initialDayTime: { time, day },
+        unifiedFares,
+        reverse,
+    });
     // TODO(ian): dedupe this nonsense from /api/arrivals
     const toStationIds = journey
         .map((seg) => seg.kind === "travel" && seg.endStation.id)

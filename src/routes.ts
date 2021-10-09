@@ -1,21 +1,21 @@
-export const getColorForRouteId = (routeId) => {
+export const getColorForRouteId = (routeId: string) => {
     if (routeId.startsWith("Green-")) {
         return "green";
     } else if (routeId.startsWith("7")) {
         return "silver";
-    } else if (isRegionalRail(routeId)) {
+    } else if (isRegionalRailRouteId(routeId)) {
         return "regional-rail";
     }
     return routeId.toLowerCase();
 };
 
-export const isRegionalRail = (routeId: string) =>
+export const isRegionalRailRouteId = (routeId: string) =>
     routeId.startsWith("CR-") || routeId.startsWith("RR-");
 
-export const textColor = (line) => {
+export const textColor = (line: string) => {
     return "text-" + line.toLowerCase();
 };
 
-export const bkgColor = (line) => {
+export const bkgColor = (line: string) => {
     return "bkg-" + line.toLowerCase();
 };

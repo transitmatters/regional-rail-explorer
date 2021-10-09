@@ -6,17 +6,17 @@ import {
     Duration,
     NetworkDay,
     NetworkDayKind,
-    NetworkDayTime,
     NetworkTime,
     Station,
     Stop,
     StopTime,
     Transfer,
 } from "types";
-import { isRegionalRail } from "routes";
+import { isRegionalRailRouteId } from "routes";
 
 import {
     NavigationContext,
+    NavigationOptions,
     NavigationState,
     StartNavigationState,
     TransferNavigationState,
@@ -45,7 +45,7 @@ const getNextStopTimesForServiceAndDirection = (stopTimes: StopTime[], stop: Sto
         .map((directionId) => {
             return stop.routes
                 .map((route) => {
-                    const shouldExploreRoutePatterns = isRegionalRail(route.id);
+                    const shouldExploreRoutePatterns = isRegionalRailRouteId(route.id);
                     if (shouldExploreRoutePatterns) {
                         return route.routePatternIds.map((routePatternId) =>
                             stopTimes.find(
@@ -98,6 +98,7 @@ const createStartState = (context: NavigationContext): StartNavigationState => {
         context,
         boardedAtStations: new Set(),
         boardedRoutePatternIds: new Set(),
+        boardedRouteIds: new Set(),
         time: context.initialTime,
         parents: [],
     };
@@ -109,7 +110,7 @@ const createTransferState = (
     from: null | StopTime,
     walkDuration: number
 ): TransferNavigationState => {
-    const { boardedAtStations, boardedRoutePatternIds, parents, context } = parent;
+    const { boardedAtStations, boardedRoutePatternIds, boardedRouteIds, parents, context } = parent;
     return {
         kind: "transfer" as const,
         context,
@@ -118,15 +119,18 @@ const createTransferState = (
         to: stopTime,
         time: stopTime.time,
         boardedAtStations: new Set([...boardedAtStations, stopTime.stop.parentStation]),
+        boardedRouteIds: new Set([...boardedRouteIds, stopTime.trip.routeId]),
         boardedRoutePatternIds: new Set([...boardedRoutePatternIds, stopTime.trip.routePatternId]),
         walkDuration,
     };
 };
 
 const getNextVisitableStopTimes = (state: NavigationState, stop: Stop, now: NetworkTime) => {
-    const { boardedAtStations, boardedRoutePatternIds, context } = state;
+    const { boardedAtStations, boardedRouteIds, boardedRoutePatternIds, context } = state;
     const { reverse, today } = context;
     const { stopTimes } = stop;
+    const hasBoardedRegionalRail = [...boardedRouteIds].some(isRegionalRailRouteId);
+    const shouldAvoidRegionalRailTransfer = !state.context.unifiedFares && hasBoardedRegionalRail;
 
     if (boardedAtStations.has(stop.parentStation)) {
         return [];
@@ -136,6 +140,7 @@ const getNextVisitableStopTimes = (state: NavigationState, stop: Stop, now: Netw
         return (
             isStopTimeToday(stopTime, today) &&
             isSuccessorTime(stopTime.time, now, reverse) &&
+            !(shouldAvoidRegionalRailTransfer && isRegionalRailRouteId(stopTime.trip.routeId)) &&
             !boardedRoutePatternIds.has(stopTime.trip.routePatternId)
         );
     });
@@ -164,7 +169,14 @@ const getTransferStates = (parent: TravelNavigationState): TransferNavigationSta
 };
 
 const getTravelStates = (parent: TransferNavigationState): TravelNavigationState[] => {
-    const { to, context, boardedRoutePatternIds, boardedAtStations, parents } = parent;
+    const {
+        to,
+        context,
+        boardedRoutePatternIds,
+        boardedRouteIds,
+        boardedAtStations,
+        parents,
+    } = parent;
 
     const candidateEndStopsOnTrip = to.trip.stopTimes.filter((stopTime) => {
         return (
@@ -183,6 +195,7 @@ const getTravelStates = (parent: TransferNavigationState): TravelNavigationState
             time: stopTime.time,
             boardedAtStations,
             boardedRoutePatternIds,
+            boardedRouteIds,
         };
     });
 };
@@ -239,19 +252,16 @@ export const printTripFromState = (state: NavigationState) => {
     });
 };
 
-export const navigateBetweenStations = (
-    journeyFromStation: Station,
-    journeyToStation: Station,
-    initialDayTime: NetworkDayTime,
-    reverse: boolean = false
-) => {
-    const [origin, goal] = resolveTemporalOrder(journeyFromStation, journeyToStation, reverse);
+export const navigateBetweenStations = (options: NavigationOptions) => {
+    const { fromStation, toStation, initialDayTime, unifiedFares, reverse = false } = options;
+    const [origin, goal] = resolveTemporalOrder(fromStation, toStation, reverse);
     const startState = createStartState({
         today: initialDayTime.day,
         initialTime: initialDayTime.time,
         origin,
         goal,
         reverse,
+        unifiedFares,
     });
     const stateHeap = getStatePriorityHeap();
     const visitedStations = new Set<Station>([origin]);

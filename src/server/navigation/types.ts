@@ -1,4 +1,20 @@
-import { Duration, NetworkDay, NetworkDayKind, NetworkTime, Station, StopTime } from "types";
+import {
+    Duration,
+    NetworkDay,
+    NetworkDayKind,
+    NetworkDayTime,
+    NetworkTime,
+    Station,
+    StopTime,
+} from "types";
+
+export type NavigationOptions = {
+    fromStation: Station;
+    toStation: Station;
+    initialDayTime: NetworkDayTime;
+    unifiedFares: boolean;
+    reverse?: boolean;
+};
 
 export type NavigationContext = Readonly<{
     today: NetworkDayKind | NetworkDay;
@@ -6,6 +22,7 @@ export type NavigationContext = Readonly<{
     origin: Station;
     goal: Station;
     reverse: boolean;
+    unifiedFares: boolean;
 }>;
 
 type BaseNavigationState = {
@@ -14,6 +31,7 @@ type BaseNavigationState = {
     parents: NavigationState[];
     boardedAtStations: Set<Station>;
     boardedRoutePatternIds: Set<string>;
+    boardedRouteIds: Set<string>;
 };
 
 export type StartNavigationState = BaseNavigationState & {

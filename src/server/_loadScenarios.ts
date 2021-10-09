@@ -13,11 +13,13 @@ export const loadScenarios = () => {
         {
             id: "present",
             name: "Today's commuter rail",
+            unifiedFares: false,
             network: gtfsNetwork("gtfs-2019"),
         },
         {
             id: "phase_one",
             name: "Regional Rail Phase One",
+            unifiedFares: true,
             network: gtfsNetwork("gtfs-phase-one"),
         },
     ];

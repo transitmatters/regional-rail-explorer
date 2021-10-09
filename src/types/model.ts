@@ -65,5 +65,6 @@ export interface ScenarioInfo {
 }
 
 export interface Scenario extends ScenarioInfo {
+    unifiedFares: boolean;
     network: Network;
 }

@@ -9,11 +9,16 @@ export default async (req, res) => {
     const scenarios = scenarioNames.split(",");
     const arrivals = mapScenarios(
         scenarios,
-        ({ network }) => {
+        ({ network, unifiedFares }) => {
             const [fromStation, toStation] = getStationsByIds(network, fromStationId, toStationId);
-            const exemplarJourney = navigate(fromStation, toStation, {
-                time: parseTime("09:00"),
-                day,
+            const exemplarJourney = navigate({
+                fromStation,
+                toStation,
+                unifiedFares,
+                initialDayTime: {
+                    time: parseTime("09:00"),
+                    day,
+                },
             });
             const toStationIds = exemplarJourney
                 .map((seg) => seg.kind === "travel" && seg.endStation.id)

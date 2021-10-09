@@ -7,7 +7,7 @@ import {
     Route,
 } from "../../types";
 import { matchDayOfWeek } from "../../time";
-import { isRegionalRail } from "routes";
+import { isRegionalRailRouteId } from "routes";
 
 const flatten = <T>(arr: T[][]): T[] => arr.reduce((a, b) => [...a, ...b], []);
 
@@ -136,7 +136,7 @@ export const getSerializedRouteInfoByRegionalRailRouteId = (
     const tripsByRouteId = indexBy(trips, "routeId");
     const routeInfoByRouteId: Record<string, SerializableRouteInfo> = {};
     for (const [routeId, trips] of Object.entries(tripsByRouteId)) {
-        if (isRegionalRail(routeId)) {
+        if (isRegionalRailRouteId(routeId)) {
             routeInfoByRouteId[routeId] = {
                 ...routesById[routeId],
                 ...getRouteInfoFromTrips(trips, stationsById),
