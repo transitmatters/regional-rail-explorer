@@ -2,9 +2,10 @@ import React, { useState, useRef } from "react";
 
 import { NetworkTime, NetworkTimeRange } from "types";
 
-import styles from "./DeparturePicker.module.scss";
 import DeparturePickerChrome from "./DeparturePickerChrome";
 import { DeparturePickerImplProps } from "./types";
+
+import styles from "./DeparturePicker.module.scss";
 
 type Props = DeparturePickerImplProps & {
     sensitivity?: number;
@@ -39,7 +40,7 @@ const getOffsetForTime = (
     return 0;
 };
 
-const DeparturePicker = (props: Props) => {
+const DeparturePickerMobile = (props: Props) => {
     const {
         disabled = false,
         onSelectTime,
@@ -115,4 +116,4 @@ const DeparturePicker = (props: Props) => {
     );
 };
 
-export default DeparturePicker;
+export default DeparturePickerMobile;

@@ -16,7 +16,8 @@ const getTimeFromCursorPosition = (
     const [start, end] = timeRange;
     const { width, left } = wrapperElement.getBoundingClientRect();
     const progress = (cursorClientX - left) / width;
-    return snapTime(Math.floor(start + (end - start) * progress), HOUR / 4, MINUTE * 4);
+    const time = Math.floor(start + (end - start) * progress);
+    return snapTime(time, HOUR / 4, MINUTE * 4);
 };
 
 const getCursorTransformForTime = (
