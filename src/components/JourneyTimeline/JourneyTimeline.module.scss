@@ -5,7 +5,7 @@ $text-offset: 25px;
 $travel-transfer-station-size: 20px;
 $travel-passed-station-size: 6px;
 $expand-control-size: 30px;
-$start-end-point-size: 14px;
+$start-end-point-size: 16px;
 
 @mixin circle-on-line-with-label($circle-size) {
     $circle-left: ($travel-transfer-station-size - $circle-size) / 2;
@@ -23,6 +23,8 @@ $start-end-point-size: 14px;
     }
 
     > :global(.label) {
+        display: flex;
+        align-items: baseline;
         margin-left: $text-offset - $circle-size - $circle-left;
     }
 }
@@ -122,10 +124,18 @@ $start-end-point-size: 14px;
         color: black;
         font-weight: bold;
         line-height: 1em;
+
+        @include mobile {
+            flex-grow: 1;
+        }
+
         :global(.time) {
             font-weight: normal;
             margin-left: 0.5em;
             white-space: nowrap;
+            @include mobile {
+                margin-left: auto;
+            }
         }
     }
 }
