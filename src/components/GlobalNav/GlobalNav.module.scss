@@ -25,12 +25,21 @@ $logo-colors: $rr-purple, $rr-gold, white;
             font-weight: 500;
             letter-spacing: 0.1ch;
             text-align: center;
+            white-space: nowrap;
         }
         > .bottom {
             font-size: 17px;
             text-transform: uppercase;
             font-weight: 300;
             font-style: italic;
+        }
+    }
+    @include mobile {
+        > .top {
+            font-size: 11px;
+        }
+        > .bottom {
+            font-size: 15px;
         }
     }
 }
@@ -42,6 +51,9 @@ $logo-colors: $rr-purple, $rr-gold, white;
             fill: nth($logo-colors, $i);
         }
     }
+    @include mobile {
+        height: 28px;
+    }
 }
 
 .links {
@@ -49,6 +61,9 @@ $logo-colors: $rr-purple, $rr-gold, white;
     align-items: center;
     margin-left: 15px;
     height: 100%;
+    @include mobile {
+        display: none;
+    }
 }
 
 .link {
