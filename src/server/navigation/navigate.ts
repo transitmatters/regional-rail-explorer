@@ -126,11 +126,12 @@ const createTransferState = (
 };
 
 const getNextVisitableStopTimes = (state: NavigationState, stop: Stop, now: NetworkTime) => {
-    const { boardedAtStations, boardedRouteIds, boardedRoutePatternIds, context } = state;
+    const { boardedAtStations, boardedRoutePatternIds, context } = state;
     const { reverse, today } = context;
     const { stopTimes } = stop;
-    const hasBoardedRegionalRail = [...boardedRouteIds].some(isRegionalRailRouteId);
-    const shouldAvoidRegionalRailTransfer = !state.context.unifiedFares && hasBoardedRegionalRail;
+    const justAlightedRegionalRail =
+        state.kind === "travel" && isRegionalRailRouteId(state.to.trip.routeId);
+    const shouldAvoidRegionalRailTransfer = !state.context.unifiedFares && justAlightedRegionalRail;
 
     if (boardedAtStations.has(stop.parentStation)) {
         return [];
