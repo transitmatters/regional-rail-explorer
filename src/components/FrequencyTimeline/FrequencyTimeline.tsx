@@ -11,6 +11,13 @@ export type Props = {
     enhancedArrivals: NetworkTime[];
     timeRange: NetworkTimeRange;
     showArrivals: boolean;
+    includeQuarterHourTicks?: boolean;
+};
+
+type Tick = {
+    time: NetworkTime;
+    label: null | string;
+    isFullSize: boolean;
 };
 
 const getLeftOffset = (range: NetworkTimeRange, time: NetworkTime): string => {
@@ -19,31 +26,37 @@ const getLeftOffset = (range: NetworkTimeRange, time: NetworkTime): string => {
     return `${percentage}%`;
 };
 
-const getHourTicks = (range: NetworkTimeRange) => {
-    const ticks: { time: number; label: string }[] = [];
+const getTicks = (range: NetworkTimeRange, ticksPerHour: number) => {
+    const ticks: Tick[] = [];
     const [start, end] = range;
-    let now = start;
-    while (now < end) {
-        ticks.push({
-            time: now,
-            label: stringify12Hour(now),
-        });
-        now += HOUR;
+    const interval = HOUR / ticksPerHour;
+    let time = start;
+    while (time < end) {
+        const isFullSize = time % HOUR === 0;
+        const label = isFullSize ? stringify12Hour(time) : null;
+        ticks.push({ time, label, isFullSize });
+        time += interval;
     }
     return ticks;
 };
 
 const FrequencyTimeline = (props: Props) => {
-    const { timeRange, baselineArrivals, enhancedArrivals, showArrivals } = props;
+    const {
+        timeRange,
+        baselineArrivals,
+        enhancedArrivals,
+        showArrivals,
+        includeQuarterHourTicks = false,
+    } = props;
 
     const renderTicks = () => {
-        const ticks = getHourTicks(timeRange);
+        const ticks = getTicks(timeRange, includeQuarterHourTicks ? 4 : 1);
         return ticks.map((tick) => {
-            const { time, label } = tick;
+            const { time, label, isFullSize } = tick;
             return (
                 <div
-                    key={label}
-                    className={styles.tick}
+                    key={time}
+                    className={classNames(styles.tick, isFullSize && styles.fullSizeTick)}
                     style={{ left: getLeftOffset(timeRange, time) }}
                 >
                     <div className="hairline">

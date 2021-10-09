@@ -1,7 +1,7 @@
 import React from "react";
 
 import { JourneyInfo, JourneySegment } from "types";
-import { isRegionalRail } from "routes";
+import { isRegionalRailRouteId } from "routes";
 
 import { ComparisonProps } from "./types";
 import ComparisonRow from "./ComparisonRow";
@@ -15,7 +15,7 @@ const getNonUnifiedFareSegmentsCount = (journey: JourneyInfo) => {
                 return partialSegments;
             }
             const previousFareRegime = partialSegments[partialSegments.length - 1];
-            const fareRegime: FareRegime = isRegionalRail(journeySegment.routeId)
+            const fareRegime: FareRegime = isRegionalRailRouteId(journeySegment.routeId)
                 ? "commuterRail"
                 : "subway";
             if (fareRegime === "subway" && previousFareRegime === "subway") {

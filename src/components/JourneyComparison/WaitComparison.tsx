@@ -4,7 +4,7 @@ import { JourneyInfo, CrowdingLevel, JourneySegment, JourneyStation } from "type
 import { CrowdingIllustration } from "components";
 
 import { stringifyDuration } from "time";
-import { isRegionalRail } from "routes";
+import { isRegionalRailRouteId } from "routes";
 import { joinOxford } from "strings";
 
 import { ComparisonProps } from "./types";
@@ -22,7 +22,7 @@ const getRegionalRailWaitDuration = (journey: JourneyInfo) => {
             if (
                 segment.kind === "travel" &&
                 previousSegment?.kind === "transfer" &&
-                isRegionalRail(segment.routeId)
+                isRegionalRailRouteId(segment.routeId)
             ) {
                 return {
                     duration: duration + previousSegment.waitDuration,

@@ -138,6 +138,7 @@ const Explorer = () => {
                     enhancedArrivals={enhancedArrivals}
                     spanFullDay={false}
                     showArrivals={!reverse}
+                    includeQuarterHourTicks={!!reverse}
                     onSelectTime={(time) => updateJourneyParams({ time })}
                     time={time}
                     disabled={isJourneyPending}

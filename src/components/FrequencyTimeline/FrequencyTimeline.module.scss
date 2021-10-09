@@ -14,8 +14,8 @@ $arrival-width: var(--arrival-width);
 
 .timeline {
     display: flex;
-    flex-direction: column;
     justify-content: space-around;
+    flex-direction: column;
     position: relative;
     width: 100%;
     min-height: 20px;
@@ -27,7 +27,9 @@ $arrival-width: var(--arrival-width);
 
 .tick {
     position: absolute;
-    height: 100%;
+    top: 0;
+    height: 60%;
+    transform: translateX(-1px);
     :global(.hairline) {
         position: relative;
         height: 100%;
@@ -46,6 +48,10 @@ $arrival-width: var(--arrival-width);
             font-size: 10px;
         }
     }
+}
+
+.fullSizeTick {
+    height: 100%;
 }
 
 .row {

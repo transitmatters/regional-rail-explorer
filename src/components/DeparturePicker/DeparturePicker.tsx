@@ -12,6 +12,7 @@ import { DeparturePickerImplProps } from "./types";
 interface Props {
     enhancedArrivals: NetworkTime[];
     baselineArrivals: NetworkTime[];
+    includeQuarterHourTicks?: boolean;
     spanFullDay?: boolean;
     timePadding?: number;
     disabled?: boolean;
@@ -47,6 +48,7 @@ const DeparturePicker = (props: Props) => {
         time,
         onSelectTime,
         showArrivals = true,
+        includeQuarterHourTicks = false,
     } = props;
 
     const { viewportWidth } = useViewport();
@@ -72,6 +74,7 @@ const DeparturePicker = (props: Props) => {
                 enhancedArrivals={enhancedArrivals}
                 timeRange={timeRange}
                 showArrivals={showArrivals}
+                includeQuarterHourTicks={includeQuarterHourTicks}
             />
         ),
     };
