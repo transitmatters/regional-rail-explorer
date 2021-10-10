@@ -30,7 +30,7 @@ const getSegmentHeight = (segment: JourneySegment) => {
             ? segment.endTime - segment.startTime
             : segment.waitDuration + segment.walkDuration;
     const elapsedMinutes = elapsedSeconds / MINUTE;
-    return elapsedMinutes * 5 + 25;
+    return elapsedMinutes * 4.5 + 50;
 };
 
 const TravelSegment = (props: { segment: JourneyTravelSegment }) => {

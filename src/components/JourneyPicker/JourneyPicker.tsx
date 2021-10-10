@@ -30,21 +30,21 @@ interface Props {
 }
 
 const timeOfDayPickerOptions = [
-    { id: "morning" as TimeOfDay, label: "Morning" },
-    { id: "midday" as TimeOfDay, label: "Midday" },
-    { id: "evening" as TimeOfDay, label: "Evening" },
+    { id: "morning" as TimeOfDay, label: "morning" },
+    { id: "midday" as TimeOfDay, label: "midday" },
+    { id: "evening" as TimeOfDay, label: "evening" },
 ];
 
 const dayKindOptions = [
-    { id: "weekday" as NetworkDayKind, label: "Weekday" },
+    { id: "weekday" as NetworkDayKind, label: "weekday" },
     { id: "saturday" as NetworkDayKind, label: "Saturday" },
     { id: "sunday" as NetworkDayKind, label: "Sunday" },
 ];
 
 const navigationKindOptions = [
     // { id: "depart-now" as NavigationKind, label: "Depart now" },
-    { id: "depart-at" as NavigationKind, label: "Depart at" },
-    { id: "arrive-by" as NavigationKind, label: "Arrive at" },
+    { id: "depart-at" as NavigationKind, label: "depart at..." },
+    { id: "arrive-by" as NavigationKind, label: "arrive by..." },
 ];
 
 // eslint-disable-next-line react/prop-types
@@ -150,13 +150,13 @@ const JourneyPicker = (props: Props) => {
                 </Button>
             </div>
             <div className="group time-details">
+                <div className={styles.label}>Leave on a</div>
                 <Select
-                    className={styles.dropdown}
-                    disclosureProps={{ large: true, disabled: disabled }}
-                    aria-label="Choose when you want to depart or arrive"
-                    items={navigationKindOptions}
-                    selectedItem={navigationKind}
-                    onSelect={(item) => updateNavigationKind(item)}
+                    disclosureProps={{ large: true, disabled }}
+                    aria-label="Choose a day of the week"
+                    items={dayKindOptions}
+                    selectedItem={dayKindOptions.find((item) => item.id === day)!}
+                    onSelect={(item) => onSelectDay(item.id)}
                 />
                 <div className={styles.spacer} />
                 <Select
@@ -170,14 +170,16 @@ const JourneyPicker = (props: Props) => {
                         onSelectTimeOfDay(item.id);
                     }}
                 />
-                <div className={styles.label}>on a</div>
+                <div className={styles.label}>and</div>
                 <Select
-                    disclosureProps={{ large: true, disabled }}
-                    aria-label="Choose a day of the week"
-                    items={dayKindOptions}
-                    selectedItem={dayKindOptions.find((item) => item.id === day)!}
-                    onSelect={(item) => onSelectDay(item.id)}
+                    className={styles.dropdown}
+                    disclosureProps={{ large: true, disabled: disabled }}
+                    aria-label="Choose when you want to depart or arrive"
+                    items={navigationKindOptions}
+                    selectedItem={navigationKind}
+                    onSelect={(item) => updateNavigationKind(item)}
                 />
+                <div className={styles.spacer} />
             </div>
         </div>
     );
