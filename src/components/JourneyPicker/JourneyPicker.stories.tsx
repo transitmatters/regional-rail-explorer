@@ -13,6 +13,7 @@ export const Default = () => {
         <JourneyPicker
             fromStationId={null}
             toStationId={null}
+            reverse={false}
             stationsByLine={stationsByLine}
             stationsById={stationsById}
             onSelectJourney={(j) => void j}
