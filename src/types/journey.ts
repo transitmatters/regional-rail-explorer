@@ -41,6 +41,7 @@ export interface JourneyTransferSegment {
     endTime: NetworkTime;
     waitDuration: NetworkTime;
     walkDuration: NetworkTime;
+    isWaitAtDestination?: boolean;
 }
 
 export type JourneySegment = JourneyTransferSegment | JourneyTravelSegment;

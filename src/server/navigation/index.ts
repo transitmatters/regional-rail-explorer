@@ -26,6 +26,7 @@ export const navigate = (options: NavigationOptions): JourneySegment[] => {
                     endTime: originalEndTime,
                     waitDuration,
                     walkDuration: 0,
+                    isWaitAtDestination: true,
                 },
             ];
         }

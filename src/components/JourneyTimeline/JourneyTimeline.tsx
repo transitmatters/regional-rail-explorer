@@ -14,6 +14,7 @@ import { stringifyTime as globalStringifyTime, MINUTE } from "time";
 import styles from "./JourneyTimeline.module.scss";
 import { getColorForRouteId, textColor } from "routes";
 import { getLinkToStation } from "stations";
+import { pluralize } from "strings";
 
 type Props = {
     journey: JourneySegment[];
@@ -157,7 +158,18 @@ const TransferSegment = (props: {
             <div className="stem" />
             <div className="label">
                 {walkDurationRounded > 0 && <div>{walkDurationRounded} minute transfer</div>}
-                {waitDurationRounded > 0 && <div>{waitDurationRounded} minute wait</div>}
+                {waitDurationRounded > 0 && (
+                    <div>
+                        {segment.isWaitAtDestination ? (
+                            <>
+                                Arrive {waitDurationRounded}{" "}
+                                {pluralize("minute", waitDurationRounded)} early
+                            </>
+                        ) : (
+                            <>{waitDurationRounded} minute wait</>
+                        )}
+                    </div>
+                )}
             </div>
             {isEnd && (
                 <div className="start-end-point">
