@@ -186,6 +186,7 @@ const Explorer = () => {
             controls={
                 <JourneyPicker
                     disabled={isJourneyPending}
+                    reverse={!!reverse}
                     time={time}
                     day={day}
                     stationsById={stationsById}
