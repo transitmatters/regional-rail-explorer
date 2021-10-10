@@ -27,7 +27,7 @@ const calculateAmenities = (scenario: Scenario, journey: Journey): AmenityName[]
         .every(
             (segment) =>
                 segment.levelBoarding ||
-                amenitiesByRoutePatternId?.[segment.routePatternId].levelBoarding
+                amenitiesByRoutePatternId?.[segment.routePatternId]?.levelBoarding
         );
     journey.forEach((segment) => {
         if (segment.kind === "travel") {
