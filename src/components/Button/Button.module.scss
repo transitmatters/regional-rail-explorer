@@ -8,6 +8,7 @@
     color: inherit;
     border: none;
     padding: 5px 10px;
+    margin: 0; // unset Safari
     cursor: pointer;
     background: whitesmoke;
     box-shadow: $global-shadow;
@@ -29,6 +30,11 @@
         font-size: 1em;
         height: 1.8em;
         padding: 8 16px;
+    }
+
+    > .icon {
+        display: flex;
+        padding-right: 0.25em;
     }
 
     > .rightIcon {

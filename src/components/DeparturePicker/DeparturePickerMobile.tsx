@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 
 import { NetworkTime, NetworkTimeRange } from "types";
+import { useLockBodyScroll } from "hooks";
 
 import DeparturePickerChrome from "./DeparturePickerChrome";
 import { DeparturePickerImplProps } from "./types";
@@ -61,6 +62,8 @@ const DeparturePickerMobile = (props: Props) => {
         timeRange,
         timelineWrapper.current
     );
+
+    useLockBodyScroll(isCapturing);
 
     const startCapture = (offsetX: number) => {
         captureMouseX.current = offsetX;

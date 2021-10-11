@@ -1,15 +1,15 @@
 import React, { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { GrDown, GrUp } from "react-icons/gr";
+import { MdSwapCalls } from "react-icons/md";
 import classNames from "classnames";
 
+import { HOUR } from "time";
 import { Button, Select } from "components";
 import StationPicker, { StationsByLine } from "components/StationPicker/StationPicker";
 import { JourneyParams, NetworkDayKind, NetworkTime, TimeOfDay } from "types";
+import { AppFrameContext } from "components/AppFrame";
 
 import styles from "./JourneyPicker.module.scss";
-import { HOUR } from "time";
-import { MdSwapCalls } from "react-icons/md";
-import { AppFrameContext } from "components/AppFrame";
 
 type NavigationKind = "depart-at" | "arrive-by";
 

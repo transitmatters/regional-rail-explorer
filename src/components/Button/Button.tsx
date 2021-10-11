@@ -9,11 +9,12 @@ interface Props extends React.HTMLAttributes<HTMLButtonElement> {
     className?: string;
     large?: boolean;
     outline?: boolean;
+    icon?: ReactNode;
     rightIcon?: ReactNode;
 }
 
 const Button = React.forwardRef((props: Props, ref) => {
-    const { className, children, large, rightIcon, outline, ...restProps } = props;
+    const { className, children, large, icon, rightIcon, outline, ...restProps } = props;
     return (
         <RKButton
             className={classNames(
@@ -25,6 +26,7 @@ const Button = React.forwardRef((props: Props, ref) => {
             ref={ref as any}
             {...restProps}
         >
+            {icon && <div className={styles.icon}>{icon}</div>}
             {children}
             {rightIcon && <div className={styles.rightIcon}>{rightIcon}</div>}
         </RKButton>

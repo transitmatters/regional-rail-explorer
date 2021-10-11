@@ -146,14 +146,13 @@ $start-end-point-size: 16px;
 
     &:global(.start) {
         :global(.stem) {
-            top: $start-end-point-size;
+            top: 2 + $start-end-point-size;
         }
     }
 
     &:global(.start-end) {
         :global(.stem) {
-            height: calc(100% - #{$start-end-point-size});
-            z-index: -1;
+            height: calc(100% - #{$start-end-point-size + 3});
         }
     }
 

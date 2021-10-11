@@ -3,7 +3,7 @@ import { Disclosure, DisclosureContent, useDisclosureState } from "reakit";
 import classNames from "classnames";
 
 import StationListing, { StationsByLine } from "components/StationListing/StationListing";
-import { useViewport } from "hooks";
+import { useLockBodyScroll, useViewport } from "hooks";
 
 import styles from "./StationPicker.module.scss";
 
@@ -20,8 +20,8 @@ const StationPicker = (props: Props) => {
     const {
         children,
         onSelectStation,
-        lockBodyScroll,
         discloseBelowElement,
+        lockBodyScroll = false,
         ...stationListingProps
     } = props;
     const [disclosureBounds, setDisclosureBounds] = useState<any>(null);
@@ -81,14 +81,7 @@ const StationPicker = (props: Props) => {
         }
     }, [disclosure.visible]);
 
-    useEffect(() => {
-        if (lockBodyScroll && disclosure.visible) {
-            document.body.style.overflow = "hidden";
-            return () => {
-                document.body.style.overflow = "initial";
-            };
-        }
-    }, [lockBodyScroll, disclosure.visible]);
+    useLockBodyScroll(lockBodyScroll && disclosure.visible);
 
     const renderDisclosureContent = () => {
         return (
