@@ -25,6 +25,13 @@
         }
     }
 
+    &.minimal {
+        background: none;
+        padding: 0;
+        color: whitesmoke;
+        box-shadow: none;
+    }
+
     &.large {
         font-size: inherit;
         font-size: 1em;

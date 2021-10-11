@@ -7,7 +7,8 @@ import { Mode } from "modes";
 import { GlobalNav } from "components";
 
 import styles from "./AppFrame.module.scss";
-import { AppFrameContext } from "./AppFrameContext";
+import { AppContext } from "./AppContext";
+import { useViewport } from "hooks";
 
 type Props = {
     children: React.ReactNode;
@@ -19,10 +20,13 @@ type Props = {
 const AppFrame = (props: Props) => {
     const { controls = null, children, containerClassName } = props;
     const controlsRef = useRef<null | HTMLDivElement>(null);
-
+    const globalNavRef = useRef<null | HTMLDivElement>(null);
+    const { viewportWidth } = useViewport();
+    const isMobile = !!(viewportWidth && viewportWidth <= 700);
+    const stationPickerDiscloseBelowElement = (isMobile ? globalNavRef : controlsRef).current;
     return (
         <RkProvider>
-            <AppFrameContext.Provider value={{ controlsContainer: controlsRef.current }}>
+            <AppContext.Provider value={{ stationPickerDiscloseBelowElement, isMobile }}>
                 <div className={styles.appFrame}>
                     <Head>
                         <meta
@@ -31,7 +35,7 @@ const AppFrame = (props: Props) => {
                         />
                         <title>Regional Rail Explorer</title>
                     </Head>
-                    <GlobalNav />
+                    <GlobalNav ref={globalNavRef} />
                     {controls && (
                         <div className={styles.controls} ref={controlsRef}>
                             {controls}
@@ -41,7 +45,7 @@ const AppFrame = (props: Props) => {
                         {children}
                     </div>
                 </div>
-            </AppFrameContext.Provider>
+            </AppContext.Provider>
         </RkProvider>
     );
 };

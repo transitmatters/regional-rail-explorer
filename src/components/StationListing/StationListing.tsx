@@ -1,11 +1,14 @@
 import React, { useState, useMemo, useCallback } from "react";
 import { Composite, CompositeItem, useCompositeState } from "reakit";
 import classNames from "classnames";
+import { MdClose } from "react-icons/md";
+
+import { Button } from "components";
+import { getLinkToStation } from "stations";
 
 import StationSearchBar from "./StationSearchBar";
 
 import styles from "./StationListing.module.scss";
-import { getLinkToStation } from "stations";
 
 type Station = { id: string; name: string };
 export type StationsByLine = { [line: string]: Station[] };
@@ -13,6 +16,7 @@ export type StationsByLine = { [line: string]: Station[] };
 type Props = {
     excludeColorLines?: boolean;
     onSelectStation?: (stationId: string) => any;
+    onClose?: null | (() => unknown);
     previouslySelectedStationId?: string;
     stationsByLine: StationsByLine;
     searchRef?: React.MutableRefObject<null | HTMLInputElement>;
@@ -83,6 +87,7 @@ const StationListing = React.forwardRef((props: Props, ref: any) => {
         excludeColorLines,
         previouslySelectedStationId,
         onSelectStation = noop,
+        onClose,
         searchRef = focusSearch,
         showSearch = true,
         linkToStations = false,
@@ -199,6 +204,11 @@ const StationListing = React.forwardRef((props: Props, ref: any) => {
                             onChange={setOwnSearchTerm}
                             ref={searchRef}
                         />
+                        {onClose && (
+                            <Button large minimal onClick={onClose}>
+                                <MdClose size="1.3em" />
+                            </Button>
+                        )}
                     </div>
                 </div>
             )}

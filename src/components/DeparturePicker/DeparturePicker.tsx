@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useViewport } from "hooks";
+import { useAppContext } from "hooks";
 import { NetworkTime, NetworkTimeRange } from "types";
 import { DAY, roundToNearestHour } from "time";
 import { FrequencyTimeline } from "components";
@@ -51,17 +51,13 @@ const DeparturePicker = (props: Props) => {
         includeQuarterHourTicks = false,
     } = props;
 
-    const { viewportWidth } = useViewport();
+    const { isMobile } = useAppContext();
 
     const timeRange = getTimeRange(
         [...baselineArrivals, ...enhancedArrivals],
         spanFullDay,
         timePadding
     );
-
-    if (viewportWidth === null) {
-        return null;
-    }
 
     const implProps: DeparturePickerImplProps = {
         timeRange,
@@ -79,10 +75,10 @@ const DeparturePicker = (props: Props) => {
         ),
     };
 
-    if (viewportWidth > 700) {
-        return <DeparturePickerDesktop {...implProps} />;
+    if (isMobile) {
+        return <DeparturePickerMobile {...implProps} time={time || 0} />;
     }
-    return <DeparturePickerMobile {...implProps} time={time || 0} />;
+    return <DeparturePickerDesktop {...implProps} />;
 };
 
 export default DeparturePicker;

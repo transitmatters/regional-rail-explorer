@@ -1,4 +1,4 @@
-export { default as AppFrame, AppFrameContext } from "./AppFrame";
+export { default as AppFrame, AppContext } from "./AppFrame";
 export { default as AmenityListing } from "./AmenityListing/AmenityListing";
 export { default as Button } from "./Button/Button";
 export { default as CrowdingIllustration } from "./CrowdingIllustration/CrowdingIllustration";
@@ -19,3 +19,4 @@ export { default as StationDetails } from "./StationDetails/StationDetails";
 export { default as StationPicker } from "./StationPicker/StationPicker";
 export { default as SuggestedJourneys } from "./SuggestedJourneys/SuggestedJourneys";
 export { StationSearchBar, StationListing } from "./StationListing";
+export type { StationsByLine } from "./StationListing";

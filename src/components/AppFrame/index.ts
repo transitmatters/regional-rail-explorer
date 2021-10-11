@@ -1,2 +1,2 @@
 export { default } from "./AppFrame";
-export { AppFrameContext } from "./AppFrameContext";
+export { AppContext } from "./AppContext";

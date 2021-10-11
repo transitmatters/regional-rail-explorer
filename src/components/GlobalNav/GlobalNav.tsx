@@ -35,10 +35,10 @@ const renderNavLink = (link: NavLink, router: NextRouter) => {
     );
 };
 
-const GlobalNav = () => {
+const GlobalNav = React.forwardRef((_, ref: React.Ref<HTMLDivElement>) => {
     const router = useRouter();
     return (
-        <div className={styles.globalNav}>
+        <div className={styles.globalNav} ref={ref}>
             <Link href="/">
                 <div className={styles.logoContainer}>
                     {logo}
@@ -56,6 +56,6 @@ const GlobalNav = () => {
             </a>
         </div>
     );
-};
+});
 
 export default GlobalNav;

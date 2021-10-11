@@ -2,8 +2,8 @@ import React, { useRef, useEffect, useState, useCallback, ReactNode } from "reac
 import { Disclosure, DisclosureContent, useDisclosureState } from "reakit";
 import classNames from "classnames";
 
-import StationListing, { StationsByLine } from "components/StationListing/StationListing";
-import { useLockBodyScroll, useViewport } from "hooks";
+import { useAppContext, useLockBodyScroll, useViewport } from "hooks";
+import { StationListing, StationsByLine } from "components";
 
 import styles from "./StationPicker.module.scss";
 
@@ -13,7 +13,7 @@ type Props = {
     children?: ReactNode;
     lockBodyScroll?: boolean;
     onSelectStation: (stationId: string) => unknown;
-    discloseBelowElement?: HTMLElement;
+    discloseBelowElement?: null | HTMLElement;
 } & StationListingProps;
 
 const StationPicker = (props: Props) => {
@@ -29,6 +29,7 @@ const StationPicker = (props: Props) => {
     const innerRef = useRef<null | HTMLDivElement>(null);
     const disclosure = useDisclosureState({ visible: false });
     const { viewportHeight } = useViewport();
+    const { isMobile } = useAppContext();
     // Using data-station-id instead of generating a closure for each station's callback is a
     // performance enhancement recommended by Reakit when using a Composite with many items.
     const handleSelectStation = useCallback(
@@ -87,6 +88,7 @@ const StationPicker = (props: Props) => {
         return (
             <div className={styles.inner} ref={innerRef} style={disclosureBounds}>
                 <StationListing
+                    onClose={isMobile ? disclosure.toggle : null}
                     onSelectStation={handleSelectStation}
                     searchRef={searchRef}
                     {...stationListingProps}

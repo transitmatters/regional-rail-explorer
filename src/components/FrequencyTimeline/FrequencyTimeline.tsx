@@ -70,7 +70,7 @@ const FrequencyTimeline = (props: Props) => {
     const renderArrivalRow = (times: NetworkTime[], className) => {
         return (
             <div className={styles.row}>
-                {times.map((time) => (
+                {[...new Set(times)].map((time) => (
                     <div
                         key={time}
                         className={className}

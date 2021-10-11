@@ -1,13 +1,13 @@
-import React, { useCallback, useContext, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import classNames from "classnames";
 import { GrDown, GrUp } from "react-icons/gr";
 import { MdSwapCalls } from "react-icons/md";
-import classNames from "classnames";
 
 import { HOUR } from "time";
 import { Button, Select } from "components";
-import StationPicker, { StationsByLine } from "components/StationPicker/StationPicker";
 import { JourneyParams, NetworkDayKind, NetworkTime, TimeOfDay } from "types";
-import { AppFrameContext } from "components/AppFrame";
+import { StationPicker, StationsByLine } from "components";
+import { useAppContext } from "hooks";
 
 import styles from "./JourneyPicker.module.scss";
 
@@ -50,9 +50,12 @@ const navigationKindOptions = [
 
 // eslint-disable-next-line react/prop-types
 const StationPickerWithDisclosure = ({ label, disabled, ...restProps }) => {
-    const { controlsContainer } = useContext(AppFrameContext);
+    const { stationPickerDiscloseBelowElement } = useAppContext();
     return (
-        <StationPicker discloseBelowElement={controlsContainer} {...(restProps as any)}>
+        <StationPicker
+            discloseBelowElement={stationPickerDiscloseBelowElement}
+            {...(restProps as any)}
+        >
             {(disclosureProps) => {
                 const { "aria-expanded": open } = disclosureProps;
                 return (
