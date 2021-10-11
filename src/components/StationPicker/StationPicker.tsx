@@ -3,6 +3,7 @@ import { Disclosure, DisclosureContent, useDisclosureState } from "reakit";
 import classNames from "classnames";
 
 import StationListing, { StationsByLine } from "components/StationListing/StationListing";
+import { useViewport } from "hooks";
 
 import styles from "./StationPicker.module.scss";
 
@@ -27,6 +28,7 @@ const StationPicker = (props: Props) => {
     const searchRef = useRef<null | HTMLInputElement>(null);
     const innerRef = useRef<null | HTMLDivElement>(null);
     const disclosure = useDisclosureState({ visible: false });
+    const { viewportHeight } = useViewport();
     // Using data-station-id instead of generating a closure for each station's callback is a
     // performance enhancement recommended by Reakit when using a Composite with many items.
     const handleSelectStation = useCallback(
@@ -37,20 +39,20 @@ const StationPicker = (props: Props) => {
         [onSelectStation]
     );
 
-    const updateDisclosureBounds = useCallback((el: HTMLElement) => {
+    const updateDisclosureBounds = useCallback((el: HTMLElement, viewportHeight: number) => {
         const rect = el.getBoundingClientRect();
+        const bottom = rect.bottom + window.scrollY;
         setDisclosureBounds({
-            bottom: rect.bottom + window.scrollY,
-            left: rect.left + window.scrollX,
-            width: rect.width,
+            height: viewportHeight - bottom,
+            top: bottom,
         });
     }, []);
 
     useEffect(() => {
-        if (discloseBelowElement) {
-            updateDisclosureBounds(discloseBelowElement);
+        if (discloseBelowElement && viewportHeight) {
+            updateDisclosureBounds(discloseBelowElement, viewportHeight);
         }
-    }, [discloseBelowElement]);
+    }, [discloseBelowElement, viewportHeight]);
 
     useEffect(() => {
         if (disclosure.visible) {
@@ -90,16 +92,7 @@ const StationPicker = (props: Props) => {
 
     const renderDisclosureContent = () => {
         return (
-            <div
-                className={styles.inner}
-                ref={innerRef}
-                style={
-                    disclosureBounds && {
-                        height: window.innerHeight - disclosureBounds.bottom,
-                        bottom: 0,
-                    }
-                }
-            >
+            <div className={styles.inner} ref={innerRef} style={disclosureBounds}>
                 <StationListing
                     onSelectStation={handleSelectStation}
                     searchRef={searchRef}
