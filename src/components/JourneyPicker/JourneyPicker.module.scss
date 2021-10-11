@@ -42,10 +42,11 @@
             .labeledControl {
                 margin: 0;
                 > :first-child {
-                    width: 30px;
+                    width: 35px;
                     text-transform: capitalize;
                     text-align: right;
                     flex-shrink: 0;
+                    margin-left: 0;
                 }
                 > :nth-child(2) {
                     flex-grow: 1;
