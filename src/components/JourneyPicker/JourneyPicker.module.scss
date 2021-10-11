@@ -103,6 +103,9 @@
     color: white;
     margin: 0 10px;
     white-space: nowrap;
+}
+
+.labelHiddenOnMobile {
     @include mobile {
         display: none;
     }

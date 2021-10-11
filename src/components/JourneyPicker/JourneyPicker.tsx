@@ -151,7 +151,9 @@ const JourneyPicker = (props: Props) => {
                 </Button>
             </div>
             <div className="group time-details">
-                <div className={styles.label}>Leave on a</div>
+                <div className={classNames(styles.label, styles.labelHiddenOnMobile)}>
+                    Leave on a
+                </div>
                 <Select
                     disclosureProps={{ large: true, disabled }}
                     aria-label="Choose a day of the week"
@@ -171,7 +173,7 @@ const JourneyPicker = (props: Props) => {
                         onSelectTimeOfDay(item.id);
                     }}
                 />
-                <div className={styles.label}>and</div>
+                <div className={classNames(styles.label, styles.labelHiddenOnMobile)}>and</div>
                 <div className={styles.mobileSpacer} />
                 <Select
                     className={styles.dropdown}
