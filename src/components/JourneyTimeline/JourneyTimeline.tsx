@@ -131,10 +131,10 @@ const TransferSegment = (props: {
     segment: JourneyTransferSegment;
 }) => {
     const { segment, isStart, isEnd } = props;
-    const walkDurationRounded = Math.floor(segment.walkDuration / MINUTE);
-    const waitDurationRounded = Math.floor(segment.waitDuration / MINUTE);
-    const endTime = segment.startTime + segment.waitDuration + segment.walkDuration;
-    if (isEnd && endTime - segment.startTime < MINUTE * 5) {
+    const { startTime, endTime, walkDuration, waitDuration, isWaitAtDestination } = segment;
+    const walkDurationRounded = Math.floor(walkDuration / MINUTE);
+    const waitDurationRounded = Math.floor(waitDuration / MINUTE);
+    if (isEnd && endTime - startTime < MINUTE * 5) {
         return null;
     }
     return (
@@ -151,7 +151,7 @@ const TransferSegment = (props: {
                     <div className="circle" />
                     <div className="label">
                         <div className="name">Start</div>
-                        <div className="time">{stringifyTime(segment.startTime)}</div>
+                        <div className="time">{stringifyTime(startTime)}</div>
                     </div>
                 </div>
             )}
@@ -160,7 +160,7 @@ const TransferSegment = (props: {
                 {walkDurationRounded > 0 && <div>{walkDurationRounded} minute transfer</div>}
                 {waitDurationRounded > 0 && (
                     <div>
-                        {segment.isWaitAtDestination ? (
+                        {isWaitAtDestination ? (
                             <>
                                 Arrive {waitDurationRounded}{" "}
                                 {pluralize("minute", waitDurationRounded)} early
