@@ -12,7 +12,7 @@ type StationListingProps = React.ComponentProps<typeof StationListing>;
 type Props = {
     children?: ReactNode;
     lockBodyScroll?: boolean;
-    onSelectStation: Exclude<StationListingProps["onSelectStation"], undefined>;
+    onSelectStation: (stationId: string) => unknown;
     discloseBelowElement?: HTMLElement;
 } & StationListingProps;
 

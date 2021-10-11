@@ -44,8 +44,8 @@ const dayKindOptions = [
 ];
 
 const navigationKindOptions = [
-    { id: "depart-at" as NavigationKind, label: "depart at..." },
-    { id: "arrive-by" as NavigationKind, label: "arrive by..." },
+    { id: "depart-at" as NavigationKind, label: "depart at" },
+    { id: "arrive-by" as NavigationKind, label: "arrive by" },
 ];
 
 // eslint-disable-next-line react/prop-types
@@ -183,7 +183,6 @@ const JourneyPicker = (props: Props) => {
                     selectedItem={navigationKind}
                     onSelect={(kind) => onSelectJourney({ reverse: kind.id === "arrive-by" })}
                 />
-                <div className={styles.spacer} />
             </div>
         </div>
     );

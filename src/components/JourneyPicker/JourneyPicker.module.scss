@@ -42,7 +42,7 @@
             .labeledControl {
                 margin: 0;
                 > :first-child {
-                    width: 40px;
+                    width: 30px;
                     text-transform: capitalize;
                     text-align: right;
                     flex-shrink: 0;
@@ -80,6 +80,10 @@
     :global(.group.time-details) {
         @include mobile {
             overflow: scroll;
+            justify-content: space-between;
+            button {
+                flex-grow: 1;
+            }
         }
     }
 
