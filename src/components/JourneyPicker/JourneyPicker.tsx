@@ -172,6 +172,7 @@ const JourneyPicker = (props: Props) => {
                     }}
                 />
                 <div className={styles.label}>and</div>
+                <div className={styles.mobileSpacer} />
                 <Select
                     className={styles.dropdown}
                     disclosureProps={{ large: true, disabled: disabled }}
