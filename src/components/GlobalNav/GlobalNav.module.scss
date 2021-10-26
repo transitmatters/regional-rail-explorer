@@ -17,6 +17,7 @@ $logo-colors: $rr-purple, $rr-gold, white;
     display: flex;
     align-items: center;
     margin-left: 15px;
+    cursor: pointer;
     > .text {
         user-select: none;
         margin-left: 5px;
