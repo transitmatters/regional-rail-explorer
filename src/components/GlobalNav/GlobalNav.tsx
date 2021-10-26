@@ -14,7 +14,7 @@ type NavLink = {
 } & ({ pathname: string } | { href: string });
 
 const navLinks: NavLink[] = [
-    { title: "Plan a trip", pathname: "/", key: "trip" },
+    { title: "Plan a trip", pathname: "/explore", key: "trip" },
     { title: "Read the Reports", href: "//regionalrail.net", key: "reports" },
 ];
 
