@@ -1,5 +1,5 @@
-import { Explorer } from "components";
+import { Home } from "components";
 
 export default function Index() {
-    return <Explorer />;
+    return <Home />;
 }

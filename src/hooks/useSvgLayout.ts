@@ -25,6 +25,6 @@ export const useSvgLayout = (options: UseSvgLayoutOptions = {}) => {
     return {
         viewBox,
         ref: setSvg,
-        preserveaspectratio: "xMidYMin",
+        preserveAspectRatio: "xMidYMin",
     };
 };

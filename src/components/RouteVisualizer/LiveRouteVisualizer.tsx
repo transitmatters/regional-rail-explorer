@@ -1,17 +1,18 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import classNames from "classnames";
 
 import { HOUR, MINUTE, stringifyTime } from "time";
 import { Duration, NetworkTime, SerializableRouteInfo, SerializableTrip } from "types";
+import { useIncrementingTime } from "hooks";
 import { Select } from "components";
 
 import RouteVisualizer from "./RouteVisualizer";
 import styles from "./LiveRouteVisualizer.module.scss";
 
-interface Props {
+type Props = {
     routeInfo: SerializableRouteInfo[];
     initialTime?: NetworkTime;
-}
+};
 
 const getTimeBounds = (trips: SerializableTrip[]): [NetworkTime, NetworkTime] => {
     let earliest = Infinity;
@@ -22,34 +23,6 @@ const getTimeBounds = (trips: SerializableTrip[]): [NetworkTime, NetworkTime] =>
         latest = Math.max(latest, ...stopTimes);
     }
     return [earliest, latest];
-};
-
-interface UseIncrementingTimeOptions {
-    minutesPerSecond: number;
-    ticksPerSecond: number;
-    setTime: (setter: (n: number) => number) => void;
-    timeBounds: [NetworkTime, NetworkTime];
-}
-
-const useIncrementingTime = (options: UseIncrementingTimeOptions) => {
-    const { minutesPerSecond, ticksPerSecond, setTime, timeBounds } = options;
-    const [earliest, latest] = timeBounds;
-    const intervalMs = 1000 / ticksPerSecond;
-    const minutesPerTick = minutesPerSecond / ticksPerSecond;
-    useEffect(() => {
-        const intervalHandle = setInterval(
-            () =>
-                setTime((prev) => {
-                    const next = prev + minutesPerTick * MINUTE;
-                    if (next > latest) {
-                        return earliest;
-                    }
-                    return next;
-                }),
-            intervalMs
-        );
-        return () => clearInterval(intervalHandle);
-    }, [earliest, latest, intervalMs, minutesPerTick]);
 };
 
 const roundToNearestTimeIncrement = (now: NetworkTime, increment: Duration = MINUTE * 10) => {

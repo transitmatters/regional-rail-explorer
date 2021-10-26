@@ -7,6 +7,7 @@ export { default as Explorer } from "./Explorer/Explorer";
 export { default as FrequencyHistogram } from "./FrequencyHistogram/FrequencyHistogram";
 export { default as FrequencyTimeline } from "./FrequencyTimeline/FrequencyTimeline";
 export { default as GlobalNav } from "./GlobalNav/GlobalNav";
+export { default as Home } from "./Home/Home";
 export { default as JourneyComparison } from "./JourneyComparison/JourneyComparison";
 export { default as JourneyPicker } from "./JourneyPicker/JourneyPicker";
 export { default as JourneyTimeline } from "./JourneyTimeline/JourneyTimeline";
@@ -14,6 +15,8 @@ export { default as JourneyErrorState } from "./JourneyErrorState/JourneyErrorSt
 export { RouteVisualizer, LiveRouteVisualizer } from "./RouteVisualizer";
 export { Menu, MenuItem, MenuItemDivider, Select } from "./Menu";
 export { default as ModeSelect } from "./ModeSelect/ModeSelect";
+export { NetworkVisualizer, LiveNetworkVisualizer } from "./NetworkVisualizer";
+export { default as PowerText } from "./PowerText/PowerText";
 export { default as RoutePage } from "./RoutePage/RoutePage";
 export { default as StationDetails } from "./StationDetails/StationDetails";
 export { default as StationPicker } from "./StationPicker/StationPicker";

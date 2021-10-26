@@ -1,57 +1,46 @@
 @import '../../styles/base.scss';
 
+$morning: rgb(235, 201, 13);
+$midday: rgb(74, 142, 243);
+$evening: rgb(159, 75, 194);
+
 .journey {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     flex-grow: 1;
-    margin: auto;
-
-    h4 {
-        margin: 0;
-    }
-
-    span{
-        font-weight: normal;
-    }
-
-    a {
-        color: rgba(255, 255, 255, 1);
-        text-decoration: none;
-        font-weight: 100;
-        font-size: 1em;
-        display: block;
-        padding: 2px;
-        box-shadow: auto;
-        margin: 5px;
-        width: 40vw;
-        max-width: 800px;
-        min-width: 400px;
-        transition: all .1s ease;
-        text-align: center;
-        border-radius: 5px;
-        }
-        a:active {
-        box-shadow: 1px rgba(0, 0, 0, .9);
-        position: relative;
-        top: -2px;
-        }
+    color: white;
+    text-decoration: none;
+    padding: 20px;
+    margin-bottom: 10px;
+    width: 40vw;
+    max-width: 800px;
+    min-width: 400px;
+    min-height: 80px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    cursor: pointer;
 }
+
+.stations {
+    margin-top: 2px;
+    font-size: 20px;
+}
+
 .morning {
-    a {
-        background-color: rgb(235, 201, 13);
-    } 
+    background: $morning;
 }
 
 .midday {
-    a {
-        background-color: rgb(74, 142, 243);
-     }
+    background: $midday;
 }
 
 .evening {
-    a {
-        background-color: rgb(159,75,194);
-    }
+    background: $evening;
+}
+
+.customJourney {
+    border: 2px solid white;
+    font-size: 20px;
 }

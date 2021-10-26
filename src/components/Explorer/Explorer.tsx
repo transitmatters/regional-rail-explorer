@@ -4,21 +4,13 @@ import { CgSpinner } from "react-icons/cg";
 import { stationsByLine, stationsById } from "stations";
 
 import * as api from "api";
-import {
-    JourneyInfo,
-    NetworkTime,
-    NetworkDayKind,
-    TimeOfDay,
-    JourneyApiResult,
-    JourneyParams,
-} from "types";
+import { JourneyInfo, NetworkTime, NetworkDayKind, TimeOfDay, JourneyApiResult } from "types";
 import {
     DeparturePicker,
     JourneyPicker,
     JourneyComparison,
     JourneyErrorState,
     AppFrame,
-    SuggestedJourneys,
 } from "components";
 import { useRouterBoundState, usePendingPromise } from "hooks";
 
@@ -26,29 +18,6 @@ import styles from "./Explorer.module.scss";
 import { getAdvantageousDepartureTime } from "./departures";
 
 const scenarioIds = ["present", "phase_one"];
-
-const journeyParams1: JourneyParams = {
-    fromStationId: "place-NEC-2173",
-    toStationId: "place-bbsta",
-    day: "weekday",
-    time: 32010,
-};
-
-const journeyParams2: JourneyParams = {
-    fromStationId: "place-DB-2222",
-    toStationId: "place-sstat",
-    day: "weekday",
-    time: 51300,
-};
-
-const journeyParams3: JourneyParams = {
-    fromStationId: "place-KB-0351",
-    toStationId: "place-PB-0356",
-    day: "weekday",
-    time: 73358,
-};
-
-const journey = [journeyParams1, journeyParams2, journeyParams3];
 
 const Explorer = () => {
     const [
@@ -170,15 +139,6 @@ const Explorer = () => {
         return null;
     };
 
-    const renderSuggestedJourneys = () => {
-        return null;
-        if (!journeys) {
-            return <SuggestedJourneys suggestedJourneys={journey} />;
-        } else {
-            return null;
-        }
-    };
-
     return (
         <AppFrame
             mode="journey"
@@ -199,7 +159,6 @@ const Explorer = () => {
                 />
             }
         >
-            {renderSuggestedJourneys()}
             {renderDeparturePicker()}
             {renderJourneyComparison()}
         </AppFrame>

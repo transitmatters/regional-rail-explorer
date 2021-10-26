@@ -1,0 +1,34 @@
+@import '../../styles/base.scss';
+
+@mixin offset($position, $shadow: false) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translateX($position) translateY(if($shadow, 0.5 * $position, 0));
+    user-select: none;
+    z-index: -1;
+
+}
+
+.outer {
+    position: relative;
+    z-index: 0;
+    > * {
+        margin: 0;
+        font-weight: 600;
+        font-style: italic;
+        text-transform: uppercase;
+        font-size: 48px;
+    }
+}
+
+.middle {
+    @include offset(-0.06em, true);
+    color: $rr-gold;
+}
+
+.bottom {
+    @include offset(0.06em, true);
+    color: $rr-pink;
+}
+

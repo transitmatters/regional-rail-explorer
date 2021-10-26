@@ -29,7 +29,7 @@ export interface StationRange {
 
 export type PathShape = readonly [PathStart, ...(StationRange | PathCommand)[]];
 
-export type PathInterpolator = (frac: number) => Turtle;
+export type PathInterpolator = (progress: number) => Turtle;
 
 export const pathEntryIsStationRange = (el: PathShape[number]): el is StationRange =>
     el && typeof el === "object" && el.type === "stationRange";
@@ -41,5 +41,6 @@ export interface RoutePatternDescriptor {
 export interface PrerenderedRoutePattern {
     id: string;
     pathInterpolator: PathInterpolator;
+    progressPathInterpolator: PathInterpolator;
     stationOffsets: Record<string, number>;
 }

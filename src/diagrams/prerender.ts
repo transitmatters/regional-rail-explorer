@@ -120,10 +120,15 @@ const prerenderRoutePattern = (shape: PathShape, stationIds: string[]) => {
         }
     });
 
+    const pathDirective = pathBuilder.get();
+    const pathInterpolator = createInterpolatorForSegments(segments);
+    const progressPathInterpolator = (progress: number) => pathInterpolator(progress * totalLength);
+
     return {
         stationOffsets,
-        pathDirective: pathBuilder.get(),
-        pathInterpolator: createInterpolatorForSegments(segments),
+        pathDirective,
+        pathInterpolator,
+        progressPathInterpolator,
     };
 };
 
@@ -138,15 +143,18 @@ export const prerenderRoutePatterns = (routePatterns: Record<string, RoutePatter
     let stationPositions: Record<string, Turtle> = {};
 
     for (const [routePatternId, { shape, stationIds }] of Object.entries(routePatterns)) {
-        const { pathInterpolator, stationOffsets, pathDirective } = prerenderRoutePattern(
-            shape,
-            stationIds
-        );
+        const {
+            pathInterpolator,
+            progressPathInterpolator,
+            stationOffsets,
+            pathDirective,
+        } = prerenderRoutePattern(shape, stationIds);
 
         const routePattern: PrerenderedRoutePattern = {
             id: routePatternId,
             pathInterpolator,
             stationOffsets,
+            progressPathInterpolator,
         };
 
         stationPositions = {

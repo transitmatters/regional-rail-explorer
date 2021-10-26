@@ -1,19 +1,42 @@
 import React from "react";
+import classNames from "classnames";
+
 import { stationsById } from "stations";
 import { JourneyParams } from "types";
-import { BsArrowRight } from "react-icons/bs";
 
 import styles from "./SuggestedJourneys.module.scss";
 
 type Props = {
-    suggestedJourneys: JourneyParams[];
+    suggestedJourneys?: JourneyParams[];
 };
 
-export function getJourneyUrl(journey: JourneyParams) {
-    return `/?from=${journey["fromStationId"]}&to=${journey["toStationId"]}&day=${journey["day"]}&time=${journey["time"]}`;
-}
+const defaultSuggestedJourneys: JourneyParams[] = [
+    {
+        fromStationId: "place-ER-0168",
+        toStationId: "place-bbsta",
+        day: "weekday",
+        time: 32010,
+    },
+    {
+        fromStationId: "place-DB-2222",
+        toStationId: "place-knncl",
+        day: "weekday",
+        time: 51300,
+    },
+    {
+        fromStationId: "place-chels",
+        toStationId: "place-NEC-1851",
+        day: "weekday",
+        time: 73358,
+    },
+];
 
-function getTimeOfDayClass(params: JourneyParams) {
+const getJourneyUrl = (params: JourneyParams) => {
+    const { fromStationId, toStationId, day, time } = params;
+    return `/explore?from=${fromStationId}&to=${toStationId}&day=${day}&time=${time}`;
+};
+
+const getTimeOfDayClass = (params: JourneyParams) => {
     const { time } = params;
     if (time === undefined) {
         return styles.midday;
@@ -22,9 +45,9 @@ function getTimeOfDayClass(params: JourneyParams) {
     } else if (time > 39600 && time <= 61200) {
         return styles.midday;
     } else return styles.evening;
-}
+};
 
-function getTimeofDay(params: JourneyParams) {
+const getTimeofDay = (params: JourneyParams) => {
     const { time } = params;
     if (time === undefined) {
         return "Midday";
@@ -33,35 +56,38 @@ function getTimeofDay(params: JourneyParams) {
     } else if (time > 39600 && time <= 61200) {
         return "Midday";
     } else return "Evening";
-}
+};
 
 const SuggestedJourneys = (props: Props) => {
-    const { suggestedJourneys } = props;
-    const divArr = [] as any;
-    for (let i = 0; i < suggestedJourneys.length; ++i) {
-        const journey = suggestedJourneys[i];
-        divArr.push(
-            <div className={styles.journey} key={i}>
-                <div className={getTimeOfDayClass(journey)}>
-                    <a href={getJourneyUrl(journey)}>
-                        <h4>
-                            <p>
-                                <span>
-                                    Departs: <i>{getTimeofDay(journey)} </i>
-                                </span>
-                            </p>
-                        </h4>
-                        <p>
-                            <strong>{stationsById[journey["fromStationId"]].name} &emsp; </strong>{" "}
-                            <BsArrowRight /> &emsp;
-                            <strong>{stationsById[journey["toStationId"]].name}</strong>
-                        </p>
-                    </a>
+    const { suggestedJourneys = defaultSuggestedJourneys } = props;
+    const renderedSuggestedJourneys = suggestedJourneys.map((journey, i) => {
+        const { fromStationId, toStationId } = journey;
+        const fromStation = stationsById[fromStationId];
+        const toStation = stationsById[toStationId];
+        return (
+            <a
+                className={classNames(styles.journey, getTimeOfDayClass(journey))}
+                href={getJourneyUrl(journey)}
+                key={i}
+            >
+                <div className={styles.departure}>
+                    Departs: <i>{getTimeofDay(journey)} </i>
                 </div>
-            </div>
+                <div className={styles.stations}>
+                    <strong>{fromStation.name}</strong> &rarr; <strong>{toStation.name}</strong>
+                </div>
+            </a>
         );
-    }
-    return divArr;
+    });
+
+    return (
+        <>
+            {renderedSuggestedJourneys}
+            <a className={classNames(styles.journey, styles.customJourney)} href="/explore">
+                Choose your own commute
+            </a>
+        </>
+    );
 };
 
 export default SuggestedJourneys;

@@ -12,7 +12,7 @@ export const prerenderNetwork = (curveRadius = 10) => {
     const cw = curve(45);
     const ccw = curve(-45);
 
-    const southStation = start(0, 0, 90);
+    const southStation = start(0, 20, 90);
     const northStation = start(0, -0, -90);
 
     const toBeverly = [northStation, line(20), cw, line(20), cw, line(40), ccw, line(100)] as const;
@@ -64,7 +64,7 @@ export const prerenderNetwork = (curveRadius = 10) => {
     };
 
     const worcester: RoutePatternDescriptor = {
-        shape: [...toBackBay, cw, line(35), ccw, line(70), ccw, line(150)],
+        shape: [...toBackBay, cw, line(35), ccw, line(200)],
         stationIds: [],
     };
 
