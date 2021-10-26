@@ -24,7 +24,7 @@ const defaultSuggestedJourneys: JourneyParams[] = [
         time: 51300,
     },
     {
-        fromStationId: "place-chels",
+        fromStationId: "ER-0046",
         toStationId: "place-NEC-1851",
         day: "weekday",
         time: 73358,
