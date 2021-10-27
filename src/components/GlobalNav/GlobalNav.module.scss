@@ -10,7 +10,7 @@ $logo-colors: $rr-purple, $rr-gold, white;
     height: 50px;
     box-sizing: border-box;
     overflow: hidden;
-    background: darken($rr-purple, 12%);
+    background: $darker-rr-purple;
 }
 
 .logoContainer {

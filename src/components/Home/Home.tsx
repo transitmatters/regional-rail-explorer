@@ -46,7 +46,7 @@ const Home = () => {
                 </div>
                 <div id="details" className={classNames(styles.screen, styles.detailsScreen)}>
                     <PowerText cool={false}>What is Regional Rail?</PowerText>
-                    <p>TransitMatters' plan imagines a MBTA Commuter Rail network that is:</p>
+                    <p>TransitMatters' plan imagines an MBTA Commuter Rail network that is:</p>
                     <div className={classNames(styles.section, styles.overview)}>
                         <div className={styles.overviewEntry}>
                             <OverviewCircle>

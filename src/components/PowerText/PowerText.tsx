@@ -8,7 +8,7 @@ type Props = {
 };
 
 const PowerText = (props: Props) => {
-    const { children, cool = true } = props;
+    const { children, cool = false } = props;
     return (
         <div className={styles.outer}>
             {cool && (

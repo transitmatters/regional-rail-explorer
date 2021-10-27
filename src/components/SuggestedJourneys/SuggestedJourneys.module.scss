@@ -1,46 +1,85 @@
 @import '../../styles/base.scss';
 
-$morning: rgb(235, 201, 13);
-$midday: rgb(74, 142, 243);
-$evening: rgb(159, 75, 194);
+.journeys {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 20px;
+    row-gap: 20px;
+    width: 100%;
+}
 
 .journey {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    flex-grow: 1;
-    color: white;
+    color: black;
     text-decoration: none;
-    padding: 20px;
-    margin-bottom: 10px;
-    width: 40vw;
-    max-width: 800px;
-    min-width: 400px;
-    min-height: 80px;
-    border-radius: 5px;
+    height: 120px;
+    border-radius: 4px;
+    overflow: hidden;
     box-sizing: border-box;
     cursor: pointer;
+    background: white;
+
+    &:hover {
+        .inner {
+            border-color: var(--accent-color);
+        }
+    }
+}
+
+.band {
+    width: 20px;
+    flex-shrink: 0;
+    background: var(--accent-color);
+}
+
+.inner {
+    position: relative;
+    flex-grow: 1;
+    flex-shrink: 0;
+    padding: 20px;
+    box-sizing: border-box;
+    border: 2px solid transparent;
+    border-left: none;
+    font-size: 14px;
+    transition: 100ms ease-out border;
+}
+
+.iconsContainer {
+    position: absolute;
+    bottom: 10px;
+    right: 10px
+}
+
+.iconsContainerInner {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.qr {
+    position: absolute;
+    color: black;
+    opacity: 0.2;
 }
 
 .stations {
-    margin-top: 2px;
+    margin-bottom: 2px;
     font-size: 20px;
-}
-
-.morning {
-    background: $morning;
-}
-
-.midday {
-    background: $midday;
-}
-
-.evening {
-    background: $evening;
 }
 
 .customJourney {
+    background: none;
     border: 2px solid white;
+    color: white;
     font-size: 20px;
+    align-items: center;
+    justify-content: center;
+    transition: 100ms ease-out border;
+
+    &:hover {
+        border-width: 4px;
+    }
 }

@@ -1,4 +1,6 @@
-export const stationsByLine = {
+type Station = { id: string; name: string };
+
+export const stationsByLine: Record<string, Station[]> = {
     Fairmount: [
         { id: "place-DB-0095", name: "Readville" },
         { id: "place-DB-2205", name: "Fairmount" },
@@ -340,16 +342,23 @@ export const stationsByLine = {
     ],
 };
 
-export const stationsById: Record<string, { id: string; name: string }> = Object.values(
-    stationsByLine
-).reduce((allStations: Record<string, any>, lineStations) => {
-    lineStations.forEach((station) => {
-        if (!allStations[station.id]) {
-            allStations[station.id] = station;
-        }
-    });
-    return allStations;
-}, {});
+const indexStationsByProperty = (property: keyof Station) => {
+    return Object.values(stationsByLine).reduce(
+        (allStations: Record<string, Station>, lineStations) => {
+            lineStations.forEach((station) => {
+                const propertyValue = station[property];
+                if (!allStations[propertyValue]) {
+                    allStations[propertyValue] = station;
+                }
+            });
+            return allStations;
+        },
+        {}
+    );
+};
+
+export const stationsById = indexStationsByProperty("id");
+export const stationsByName = indexStationsByProperty("name");
 
 export const getLinkToStation = (station: { id: string }) => {
     return `/station/${station.id}`;

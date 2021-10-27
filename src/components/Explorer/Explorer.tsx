@@ -11,6 +11,8 @@ import {
     JourneyComparison,
     JourneyErrorState,
     AppFrame,
+    PowerText,
+    SuggestedJourneys,
 } from "components";
 import { useRouterBoundState, usePendingPromise } from "hooks";
 
@@ -139,6 +141,19 @@ const Explorer = () => {
         return null;
     };
 
+    const renderFooter = () => {
+        if (journeys) {
+            return (
+                <div className={styles.footer}>
+                    <div className={styles.footerInner}>
+                        <PowerText>Where to next?</PowerText>
+                        <SuggestedJourneys />
+                    </div>
+                </div>
+            );
+        }
+    };
+
     return (
         <AppFrame
             mode="journey"
@@ -161,6 +176,7 @@ const Explorer = () => {
         >
             {renderDeparturePicker()}
             {renderJourneyComparison()}
+            {renderFooter()}
         </AppFrame>
     );
 };

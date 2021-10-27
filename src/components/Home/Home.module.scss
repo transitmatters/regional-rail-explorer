@@ -1,18 +1,17 @@
 @import '../../styles/base.scss';
 
-$darkest-purple: darken($rr-purple, 10%);
-$lightest-purple: lighten($rr-purple, 10%);
-
 .home {
     width: 100%;
     min-height: 100vh;
-    background: $darkest-purple;
+    background: $darker-rr-purple;
     color: white;
 }
 
 .screen {
     width: 100%;
     min-height: 100vh;
+    padding: 50px 0;
+    box-sizing: border-box;
     display: flex;
     position: relative;
     align-items: center;
@@ -71,15 +70,15 @@ $lightest-purple: lighten($rr-purple, 10%);
     font-style: italic;
     font-weight: bold;
     letter-spacing: 0.01em;
-    
+
     &:hover {
         background: white;
-        color: $darkest-purple;
+        color: $darker-rr-purple;
     }
 }
 
 .detailsScreen {
-    background: $darkest-purple;
+    background: $darker-rr-purple;
 
     hr {
         width: 100%;
@@ -90,7 +89,8 @@ $lightest-purple: lighten($rr-purple, 10%);
 
 .section {
     margin: 50px 0;
-    padding: 0px 100px;
+    box-sizing: border-box;
+    width: calc(100% - 100px);
     max-width: 1200px;
     display: flex;
     flex-direction: column;
@@ -129,7 +129,7 @@ $lightest-purple: lighten($rr-purple, 10%);
     align-items: center;
     justify-content: center;
     box-shadow: $global-shadow;
-    
+
     svg {
         width: 60px;
         height: 60px;

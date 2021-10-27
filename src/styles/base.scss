@@ -2,6 +2,7 @@
 
 $rr-purple: #742573;
 $rr-purple-secondary: #80276c;
+$darker-rr-purple: darken($rr-purple, 10%);
 $rr-pink: #e424ba;
 $rr-gold: #e5b24b;
 $rr-light: color.mix($rr-purple, white, 30%);
