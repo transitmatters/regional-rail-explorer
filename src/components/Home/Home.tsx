@@ -23,7 +23,9 @@ const Home = () => {
         return (
             <div className={styles.home}>
                 <div className={styles.screen}>
-                    <img className={styles.tmLogo} src="/tm-logo.svg" />
+                    <a href="//transitmatters.org">
+                        <img className={styles.tmLogo} src="/tm-logo.svg" />
+                    </a>
                     <LiveNetworkVisualizer
                         className={styles.network}
                         trainClassName={styles.train}
