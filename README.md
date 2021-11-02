@@ -24,7 +24,7 @@ To start the application on our server:
 git pull
 npm install
 NODE_OPTIONS="--max-old-space-size=2048" npm build
-cp regional-rail-explorer.conf /etc/supervisor/conf.d/regional-rail-explorer.conf
+cp regional-rail-explorer.supervisor.conf /etc/supervisor/conf.d/regional-rail-explorer.conf
 sudo supervisorctl restart regional-rail-explorer # a supervisorctl reload may be required if the .conf was changed
 ```
 
