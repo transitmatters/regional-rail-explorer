@@ -19,6 +19,15 @@ npm run build && npm start
 ```
 Then navigate to http://localhost:3000.
 
+To start the application on our server:
+```
+git pull
+npm install
+NODE_OPTIONS="--max-old-space-size=2048" npm run build
+cp regional-rail-explorer.supervisor.conf /etc/supervisor/conf.d/regional-rail-explorer.conf
+sudo supervisorctl restart regional-rail-explorer # a supervisorctl reload may be required if the .conf was changed
+```
+
 Initial API requests will be quite slow for now as the server must load and parse several large GTFS bundles.
 
 ## Storybook
