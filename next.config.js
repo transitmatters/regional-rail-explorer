@@ -25,9 +25,9 @@ const hackStylesToSupportNonPureDeclarations = (config) => {
 };
 
 const loadScenariosIntoConfig = () => {
-    if (process.env.NODE_ENV === "production") {
-        return {};
-    }
+    // if (process.env.NODE_ENV === "production") {
+    //     return {};
+    // }
 
     // eslint-disable-next-line no-global-assign
     require = require("esm")(module);
