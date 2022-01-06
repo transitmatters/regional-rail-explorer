@@ -6,7 +6,8 @@
 import path from "path";
 import { loadGtfsNetwork } from "./network";
 
-const gtfsNetwork = (subpath) => loadGtfsNetwork(path.resolve(process.cwd(), "data", subpath));
+const gtfsNetwork = (networkName: string) =>
+    loadGtfsNetwork(path.resolve(process.cwd(), "data", networkName + ".tar.gz"));
 
 export const loadScenarios = () => {
     return [
