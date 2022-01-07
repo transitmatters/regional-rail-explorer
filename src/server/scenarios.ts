@@ -1,13 +1,12 @@
-import { parse } from "flatted";
 import getConfig from "next/config";
 
 import { Scenario } from "types";
 
 const {
-    serverRuntimeConfig: { scenarios: scenariosString },
+    serverRuntimeConfig: { scenarios: scenariosFromConfig },
 } = getConfig();
 
-export const scenarios: Scenario[] = scenariosString ? parse(scenariosString) : [];
+export const scenarios: Scenario[] = scenariosFromConfig || [];
 
 export const mapScenarios = <T, E>(
     scenarioIds: string[],

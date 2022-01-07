@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const fs = require("fs");
 const path = require("path");
-const { stringify } = require("flatted");
+const { stringify, parse } = require("flatted");
 const {
     PHASE_PRODUCTION_BUILD,
     PHASE_PRODUCTION_SERVER,
@@ -35,7 +35,7 @@ const loadScenariosStringFromFile = () => {
     return fs.readFileSync(scenariosFilePath);
 };
 
-const createScenariosString = () => {
+const loadScenarios = () => {
     // eslint-disable-next-line no-global-assign
     require = require("esm")(module);
     require("tsconfig-paths").register({ baseUrl: `${process.cwd()}/src`, paths: {} });
@@ -44,12 +44,12 @@ const createScenariosString = () => {
             baseUrl: `${process.cwd()}/src`,
         },
     });
-    return stringify(require("./src/server/_loadScenarios").loadScenarios());
+    return require("./src/server/_loadScenarios").loadScenarios();
 };
 
 const createWriteScenariosPlugin = () => {
     const createFile = () => {
-        fs.writeFileSync(scenariosFilePath, createScenariosString());
+        fs.writeFileSync(scenariosFilePath, stringify(loadScenarios()));
     };
 
     return {
@@ -65,9 +65,9 @@ const createWriteScenariosPlugin = () => {
 
 const getServerRuntimeConfig = (phase) => {
     if (phase === PHASE_PRODUCTION_SERVER) {
-        return { scenarios: loadScenariosStringFromFile() };
+        return { scenarios: parse(loadScenariosStringFromFile()) };
     } else if (phase === PHASE_DEVELOPMENT_SERVER) {
-        return { scenarios: createScenariosString() };
+        return { scenarios: loadScenarios() };
     }
     return {};
 };
