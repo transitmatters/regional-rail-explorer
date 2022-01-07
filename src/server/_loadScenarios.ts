@@ -15,7 +15,7 @@ export const loadScenarios = () => {
             id: "present",
             name: "Today's commuter rail",
             unifiedFares: false,
-            network: gtfsNetwork("gtfs-2019"),
+            network: gtfsNetwork("gtfs-2021"),
         },
         {
             id: "phase_one",
