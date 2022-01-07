@@ -1,5 +1,14 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
+const fs = require("fs");
+const path = require("path");
 const { stringify } = require("flatted");
+const {
+    PHASE_PRODUCTION_BUILD,
+    PHASE_PRODUCTION_SERVER,
+    PHASE_DEVELOPMENT_SERVER,
+} = require("next/constants");
+
+const scenariosFilePath = path.join(".", "scenarios.json");
 
 // See https://github.com/vercel/next.js/issues/10142#issuecomment-648974042
 const hackStylesToSupportNonPureDeclarations = (config) => {
@@ -20,15 +29,13 @@ const hackStylesToSupportNonPureDeclarations = (config) => {
             }
         });
     }
-
-    return config;
 };
 
-const loadScenariosIntoConfig = () => {
-    // if (process.env.NODE_ENV === "production") {
-    //     return {};
-    // }
+const loadScenariosStringFromFile = () => {
+    return fs.readFileSync(scenariosFilePath);
+};
 
+const createScenariosString = () => {
     // eslint-disable-next-line no-global-assign
     require = require("esm")(module);
     require("tsconfig-paths").register({ baseUrl: `${process.cwd()}/src`, paths: {} });
@@ -37,17 +44,48 @@ const loadScenariosIntoConfig = () => {
             baseUrl: `${process.cwd()}/src`,
         },
     });
-    return { scenarios: stringify(require("./src/server/_loadScenarios").loadScenarios()) };
+    return stringify(require("./src/server/_loadScenarios").loadScenarios());
 };
 
-module.exports = {
-    serverRuntimeConfig: {
-        ...loadScenariosIntoConfig(),
-    },
-    webpack: (config) => {
-        return hackStylesToSupportNonPureDeclarations(config);
-    },
-    typescript: {
-        ignoreBuildErrors: true,
-    },
+const createWriteScenariosPlugin = () => {
+    const createFile = () => {
+        fs.writeFileSync(scenariosFilePath, createScenariosString());
+    };
+
+    return {
+        apply: (compiler) => {
+            if (compiler.hooks) {
+                compiler.hooks.done.tap("CreateWriteScenariosWebpack", createFile);
+            } else {
+                compiler.plugin("done", createFile);
+            }
+        },
+    };
+};
+
+const getServerRuntimeConfig = (phase) => {
+    if (phase === PHASE_PRODUCTION_SERVER) {
+        return { scenarios: loadScenariosStringFromFile() };
+    } else if (phase === PHASE_DEVELOPMENT_SERVER) {
+        return { scenarios: createScenariosString() };
+    }
+    return {};
+};
+
+module.exports = (phase) => {
+    const shouldWriteScenariosWithWebpack = phase === PHASE_PRODUCTION_BUILD;
+    const serverRuntimeConfig = getServerRuntimeConfig(phase);
+    return {
+        serverRuntimeConfig,
+        webpack: (config) => {
+            if (shouldWriteScenariosWithWebpack) {
+                config.plugins.push(createWriteScenariosPlugin());
+            }
+            hackStylesToSupportNonPureDeclarations(config);
+            return config;
+        },
+        typescript: {
+            ignoreBuildErrors: true,
+        },
+    };
 };

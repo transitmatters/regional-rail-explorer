@@ -2,14 +2,12 @@ import { parse } from "flatted";
 import getConfig from "next/config";
 
 import { Scenario } from "types";
-import { loadScenarios } from "./_loadScenarios";
 
 const {
     serverRuntimeConfig: { scenarios: scenariosString },
 } = getConfig();
 
-export const scenarios: Scenario[] =
-    process.env.NODE_ENV === "production" ? loadScenarios() : parse(scenariosString);
+export const scenarios: Scenario[] = scenariosString ? parse(scenariosString) : [];
 
 export const mapScenarios = <T, E>(
     scenarioIds: string[],
