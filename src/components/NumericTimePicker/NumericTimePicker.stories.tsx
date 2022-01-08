@@ -10,7 +10,7 @@ export default {
 };
 
 export const Default = () => {
-    const [time, setTime] = useState(HOUR * 11.5);
+    const [time, setTime] = useState(HOUR * 9.5);
 
     return <NumericTimePicker time={time} onSelectTime={setTime} />;
 };

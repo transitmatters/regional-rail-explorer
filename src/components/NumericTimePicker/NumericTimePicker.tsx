@@ -21,11 +21,12 @@ const NumericTimePicker = (props: Props) => {
 
     const [timeString, minTimeString, maxTimeString] = useMemo(
         () =>
-            [time, ...timeRange].map((t) => {
-                const stringTimeWithSeconds = stringifyTime(t, { use12Hour: false });
-                const [hours, minutes] = stringTimeWithSeconds.split(":");
-                return `${hours}:${minutes}`;
-            }),
+            [time, ...timeRange].map((t) =>
+                stringifyTime(t, {
+                    use12Hour: false,
+                    truncateLeadingZeros: false,
+                })
+            ),
         [time, timeRange]
     );
 
