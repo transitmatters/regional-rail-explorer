@@ -32,11 +32,11 @@ const hackStylesToSupportNonPureDeclarations = (config) => {
     }
 };
 
-const loadScenariosStringFromFile = () => {
+const loadScenariosJsonStringFromFile = () => {
     return fs.readFileSync(scenariosFilePath);
 };
 
-const loadScenarios = memoize(() => {
+const createScenariosJsonString = memoize(() => {
     // eslint-disable-next-line no-global-assign
     require = require("esm")(module);
     require("tsconfig-paths").register({ baseUrl: `${process.cwd()}/src`, paths: {} });
@@ -45,12 +45,12 @@ const loadScenarios = memoize(() => {
             baseUrl: `${process.cwd()}/src`,
         },
     });
-    return require("./src/server/_loadScenarios").loadScenarios();
+    return stringify(require("./src/server/_loadScenarios").loadScenarios());
 });
 
 const createWriteScenariosPlugin = () => {
     const createFile = () => {
-        fs.writeFileSync(scenariosFilePath, stringify(loadScenarios()));
+        fs.writeFileSync(scenariosFilePath, createScenariosJsonString());
     };
 
     return {
@@ -62,9 +62,9 @@ const createWriteScenariosPlugin = () => {
 
 const getServerRuntimeConfig = (phase) => {
     if (phase === PHASE_PRODUCTION_SERVER) {
-        return { scenarios: parse(loadScenariosStringFromFile()) };
+        return { scenarios: parse(loadScenariosJsonStringFromFile()) };
     } else if (phase === PHASE_DEVELOPMENT_SERVER) {
-        return { scenarios: loadScenarios() };
+        return { scenariosString: createScenariosJsonString() };
     }
     return {};
 };
