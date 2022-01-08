@@ -171,7 +171,7 @@ export const buildNetworkFromGtfs = (loader: GtfsLoader) => {
     });
     stations.forEach((station) => {
         station.stops.forEach((stop) => {
-            stop.transfers = gtfsTransfers
+            const gtfsDefinedTransfers = gtfsTransfers
                 .filter((transfer) => transfer.fromStopId === stop.id)
                 .map((transfer) =>
                     createTransfer(
@@ -179,8 +179,20 @@ export const buildNetworkFromGtfs = (loader: GtfsLoader) => {
                         allStops.find((stop) => stop.id === transfer.toStopId)!,
                         parseInt(transfer.minWalkTime)
                     )
-                )
-                .filter((x): x is Transfer => !!x);
+                );
+            const transfersImpliedByParentStation = station.stops
+                .filter((otherStop) => {
+                    return !(
+                        otherStop.id === stop.id ||
+                        gtfsDefinedTransfers.some(
+                            (tr) => tr?.fromStop.id === stop.id && tr?.toStop.id === otherStop.id
+                        )
+                    );
+                })
+                .map((otherStop) => createTransfer(stop, otherStop, 5));
+            stop.transfers = [...gtfsDefinedTransfers, ...transfersImpliedByParentStation].filter(
+                (x): x is Transfer => !!x
+            );
             stop.serviceIds = [...new Set(stop.stopTimes.map((st) => st.trip.serviceId).flat())];
             stop.routes = [...new Set(stop.stopTimes.map((st) => st.trip.route).flat())];
         });
