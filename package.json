@@ -53,6 +53,7 @@
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.20.3",
+    "fast-memoize": "^2.5.2",
     "sass-loader": "^9.0.2",
     "storybook-addon-state": "^1.0.3",
     "style-loader": "^1.2.1"

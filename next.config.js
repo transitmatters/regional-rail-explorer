@@ -2,6 +2,7 @@
 const fs = require("fs");
 const path = require("path");
 const { stringify, parse } = require("flatted");
+const memoize = require("fast-memoize");
 const {
     PHASE_PRODUCTION_BUILD,
     PHASE_PRODUCTION_SERVER,
@@ -35,7 +36,7 @@ const loadScenariosStringFromFile = () => {
     return fs.readFileSync(scenariosFilePath);
 };
 
-const loadScenarios = () => {
+const loadScenarios = memoize(() => {
     // eslint-disable-next-line no-global-assign
     require = require("esm")(module);
     require("tsconfig-paths").register({ baseUrl: `${process.cwd()}/src`, paths: {} });
@@ -45,7 +46,7 @@ const loadScenarios = () => {
         },
     });
     return require("./src/server/_loadScenarios").loadScenarios();
-};
+});
 
 const createWriteScenariosPlugin = () => {
     const createFile = () => {
@@ -54,11 +55,7 @@ const createWriteScenariosPlugin = () => {
 
     return {
         apply: (compiler) => {
-            if (compiler.hooks) {
-                compiler.hooks.done.tap("CreateWriteScenariosWebpack", createFile);
-            } else {
-                compiler.plugin("done", createFile);
-            }
+            compiler.hooks.done.tap("CreateWriteScenariosWebpack", createFile);
         },
     };
 };
