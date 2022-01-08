@@ -1,4 +1,11 @@
-import { NetworkTime, NetworkDayKind, NetworkDay, NetworkDayTime, Duration } from "types";
+import {
+    NetworkTime,
+    NetworkDayKind,
+    NetworkDay,
+    NetworkDayTime,
+    Duration,
+    NetworkTimeRange,
+} from "types";
 import { pluralize } from "strings";
 
 export const daysOfWeek: NetworkDay[] = [
@@ -124,6 +131,23 @@ export const snapTime = (time: NetworkTime, period: Duration, sensitivity: Durat
         return Math.round(time / period) * period;
     }
     return time;
+};
+
+export const getSpanningTimeRange = (
+    times: NetworkTime[],
+    spanFullDay: boolean = false,
+    padding: number = 0
+): NetworkTimeRange => {
+    if (spanFullDay) {
+        return [0 - padding, DAY + padding];
+    }
+    let min = Infinity;
+    let max = -Infinity;
+    times.forEach((time) => {
+        min = Math.min(time, min);
+        max = Math.max(time, max);
+    });
+    return [roundToNearestHour(min) - padding, roundToNearestHour(max) + padding];
 };
 
 export const MINUTE = 60;

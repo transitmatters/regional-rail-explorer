@@ -2,7 +2,6 @@ import React from "react";
 import useState from "storybook-addon-state";
 
 import * as salem from "storydata/salem";
-import { HOUR } from "time";
 
 import DeparturePicker from "./DeparturePicker";
 
@@ -17,10 +16,9 @@ const StatefulDeparturePicker = () => {
         <DeparturePicker
             enhancedArrivals={salem.enhancedArrivals}
             baselineArrivals={salem.baselineArrivals}
-            spanFullDay={false}
-            timePadding={HOUR / 2}
             onSelectTime={setTime}
             time={time}
+            timeRange={[0, 24 * 3600 - 1]}
         />
     );
 };

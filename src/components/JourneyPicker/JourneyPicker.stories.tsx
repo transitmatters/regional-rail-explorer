@@ -21,6 +21,7 @@ export const Default = () => {
             onSelectTimeOfDay={(t) => void t}
             day="weekday"
             time={null}
+            timeRange={[0, 24 * 3600 - 1]}
         />
     );
 };

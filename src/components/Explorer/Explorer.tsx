@@ -1,10 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { CgSpinner } from "react-icons/cg";
 
 import { stationsByLine, stationsById } from "stations";
 
 import * as api from "api";
-import { JourneyInfo, NetworkTime, NetworkDayKind, TimeOfDay, JourneyApiResult } from "types";
+import {
+    JourneyInfo,
+    NetworkTime,
+    NetworkDayKind,
+    TimeOfDay,
+    JourneyApiResult,
+    NetworkTimeRange,
+} from "types";
 import {
     DeparturePicker,
     JourneyPicker,
@@ -15,9 +22,11 @@ import {
     SuggestedJourneys,
 } from "components";
 import { useRouterBoundState, usePendingPromise } from "hooks";
+import { getSpanningTimeRange, HOUR } from "time";
+
+import { getAdvantageousDepartureTime } from "./departures";
 
 import styles from "./Explorer.module.scss";
-import { getAdvantageousDepartureTime } from "./departures";
 
 const scenarioIds = ["present", "phase_one"];
 
@@ -66,6 +75,14 @@ const Explorer = () => {
     const [requestedTimeOfDay, setRequestedTimeOfDay] = useState<null | TimeOfDay>(null);
     const [isJourneyPending, wrapJourneyPending] = usePendingPromise();
 
+    const timeRange = useMemo(() => {
+        if (arrivals) {
+            const [baselineArrivals, enhancedArrivals] = arrivals;
+            return getSpanningTimeRange([...baselineArrivals, ...enhancedArrivals]);
+        }
+        return [0, 24 * HOUR] as NetworkTimeRange;
+    }, [arrivals]);
+
     useEffect(() => {
         setArrivals(null);
         if (fromStationId && toStationId && day) {
@@ -107,11 +124,11 @@ const Explorer = () => {
                 <DeparturePicker
                     baselineArrivals={baselineArrivals}
                     enhancedArrivals={enhancedArrivals}
-                    spanFullDay={false}
                     showArrivals={!reverse}
                     includeQuarterHourTicks={!!reverse}
                     onSelectTime={(time) => updateJourneyParams({ time })}
                     time={time}
+                    timeRange={timeRange}
                     disabled={isJourneyPending}
                 />
             );
@@ -163,6 +180,7 @@ const Explorer = () => {
                     disabled={isJourneyPending}
                     reverse={!!reverse}
                     time={time}
+                    timeRange={timeRange}
                     day={day}
                     stationsById={stationsById}
                     stationsByLine={stationsByLine}

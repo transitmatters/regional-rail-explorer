@@ -4,8 +4,8 @@ import { GrDown, GrUp } from "react-icons/gr";
 import { MdSwapCalls } from "react-icons/md";
 
 import { HOUR } from "time";
-import { Button, Select } from "components";
-import { JourneyParams, NetworkDayKind, NetworkTime, TimeOfDay } from "types";
+import { Button, NumericTimePicker, Select } from "components";
+import { JourneyParams, NetworkDayKind, NetworkTime, NetworkTimeRange, TimeOfDay } from "types";
 import { StationPicker, StationsByLine } from "components";
 import { useAppContext } from "hooks";
 
@@ -27,6 +27,7 @@ type Props = {
     stationsById: Record<string, Station>;
     stationsByLine: StationsByLine;
     time: null | NetworkTime;
+    timeRange: NetworkTimeRange;
     disabled?: boolean;
     reverse: boolean;
 };
@@ -94,6 +95,7 @@ const JourneyPicker = (props: Props) => {
         stationsById,
         stationsByLine,
         time,
+        timeRange,
         toStationId,
         disabled,
         reverse,
@@ -185,6 +187,12 @@ const JourneyPicker = (props: Props) => {
                     items={navigationKindOptions}
                     selectedItem={navigationKind}
                     onSelect={(kind) => onSelectJourney({ reverse: kind.id === "arrive-by" })}
+                />
+                <div className={styles.spacer} />
+                <NumericTimePicker
+                    time={time || 9 * HOUR}
+                    timeRange={timeRange}
+                    onSelectTime={(time) => onSelectJourney({ time })}
                 />
             </div>
         </div>

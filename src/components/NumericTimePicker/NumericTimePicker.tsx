@@ -1,0 +1,68 @@
+import React, { useCallback, useMemo, useState } from "react";
+import classNames from "classnames";
+
+import { HOUR, parseTime, stringifyTime } from "time";
+import { NetworkTime, NetworkTimeRange } from "types";
+
+import buttonStyles from "../Button/Button.module.scss";
+import styles from "./NumericTimePicker.module.scss";
+
+type Props = {
+    time: NetworkTime;
+    timeRange?: NetworkTimeRange;
+    onSelectTime: (t: NetworkTime) => unknown;
+};
+
+const defaultTimeRange = [0, 24 * HOUR - 1];
+
+const NumericTimePicker = (props: Props) => {
+    const { time, onSelectTime, timeRange = defaultTimeRange } = props;
+    const [capturingValue, setCapturingValue] = useState("");
+
+    const [timeString, minTimeString, maxTimeString] = useMemo(
+        () =>
+            [time, ...timeRange].map((t) => {
+                const stringTimeWithSeconds = stringifyTime(t, { use12Hour: false });
+                const [hours, minutes] = stringTimeWithSeconds.split(":");
+                return `${hours}:${minutes}`;
+            }),
+        [time, timeRange]
+    );
+
+    const commitTime = useCallback((timeString: string) => {
+        onSelectTime(parseTime(timeString));
+        setCapturingValue("");
+    }, []);
+
+    const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+        setCapturingValue(e.target.value);
+    }, []);
+
+    const handleBlur = useCallback(
+        (e: React.FocusEvent<HTMLInputElement>) => {
+            commitTime(e.target.value);
+        },
+        [capturingValue]
+    );
+
+    const handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === "Enter") {
+            commitTime((e.target as HTMLInputElement).value);
+        }
+    }, []);
+
+    return (
+        <input
+            type="time"
+            className={classNames(buttonStyles.button, styles.numericTimePicker)}
+            value={capturingValue || timeString}
+            min={minTimeString}
+            max={maxTimeString}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            onKeyDown={handleKeyDown}
+        />
+    );
+};
+
+export default NumericTimePicker;

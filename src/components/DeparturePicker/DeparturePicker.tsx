@@ -2,7 +2,6 @@ import React from "react";
 
 import { useAppContext } from "hooks";
 import { NetworkTime, NetworkTimeRange } from "types";
-import { DAY, roundToNearestHour } from "time";
 import { FrequencyTimeline } from "components";
 
 import DeparturePickerDesktop from "./DeparturePickerDesktop";
@@ -13,51 +12,26 @@ interface Props {
     enhancedArrivals: NetworkTime[];
     baselineArrivals: NetworkTime[];
     includeQuarterHourTicks?: boolean;
-    spanFullDay?: boolean;
-    timePadding?: number;
     disabled?: boolean;
     time: number | null;
+    timeRange: NetworkTimeRange;
     onSelectTime: (time: number) => unknown;
     showArrivals?: boolean;
 }
-
-const getTimeRange = (
-    allArrivals: NetworkTime[],
-    spanFullDay: boolean,
-    padding: number
-): NetworkTimeRange => {
-    if (spanFullDay) {
-        return [0 - padding, DAY + padding];
-    }
-    let min = Infinity;
-    let max = -Infinity;
-    allArrivals.forEach((time) => {
-        min = Math.min(time, min);
-        max = Math.max(time, max);
-    });
-    return [roundToNearestHour(min) - padding, roundToNearestHour(max) + padding];
-};
 
 const DeparturePicker = (props: Props) => {
     const {
         baselineArrivals,
         enhancedArrivals,
-        spanFullDay = false,
-        timePadding = 0,
         disabled = false,
         time,
+        timeRange,
         onSelectTime,
         showArrivals = true,
         includeQuarterHourTicks = false,
     } = props;
 
     const { isMobile } = useAppContext();
-
-    const timeRange = getTimeRange(
-        [...baselineArrivals, ...enhancedArrivals],
-        spanFullDay,
-        timePadding
-    );
 
     const implProps: DeparturePickerImplProps = {
         timeRange,
