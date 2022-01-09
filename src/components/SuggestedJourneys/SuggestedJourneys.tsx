@@ -40,7 +40,7 @@ const defaultSuggestedJourneys: SuggestedJourneyParams[] = [
         accentIcon: MdOutlineSportsBaseball,
     },
     {
-        from: "place-ER-0046", // Chelsea
+        from: "place-chels", // Chelsea
         to: "Charles/MGH",
         time: "13:30",
         day: "weekday",

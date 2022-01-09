@@ -62,7 +62,7 @@ export const stationsByLine: Record<string, Station[]> = {
         { id: "place-ER-0128", name: "Swampscott" },
         { id: "place-ER-0115", name: "Lynn" },
         { id: "place-ER-0099", name: "River Works" },
-        { id: "place-ER-0046", name: "Chelsea" },
+        { id: "place-chels", name: "Chelsea" },
         { id: "place-north", name: "North Station" },
         { id: "place-ER-0362", name: "Newburyport" },
         { id: "place-ER-0312", name: "Rowley" },
