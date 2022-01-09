@@ -80,11 +80,13 @@ const JourneyComparison = (props: ComparisonProps) => {
                 }
             />
             {showWaitRow && <WaitComparison {...props} />}
-            <ComparisonRow
-                title="Your ride"
-                baseline={<AmenityListing absent={amenitiesDiff} />}
-                enhanced={<AmenityListing present={amenitiesDiff} />}
-            />
+            {amenitiesDiff.length > 0 && (
+                <ComparisonRow
+                    title="Your ride"
+                    baseline={<AmenityListing absent={amenitiesDiff} />}
+                    enhanced={<AmenityListing present={amenitiesDiff} />}
+                />
+            )}
             <FareComparison {...props} />
             {showDelayRow && (
                 <ComparisonRow
