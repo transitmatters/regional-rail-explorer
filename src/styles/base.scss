@@ -1,4 +1,5 @@
 @use 'sass:color';
+@import './animations.scss';
 
 $rr-purple: #742573;
 $rr-purple-secondary: #80276c;
@@ -94,21 +95,4 @@ body {
     border-left: $size solid transparent;
     border-right: $size solid transparent;
     border-bottom: $size solid $color;
-}
-
-@keyframes :global(spin-frames) {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(359deg);
-    }
-}
-
-@mixin spinning($period: 2s) {
-    animation: spin-frames $period infinite linear;
-}
-
-:global .spinning {
-    @include spinning(0.75s);
 }

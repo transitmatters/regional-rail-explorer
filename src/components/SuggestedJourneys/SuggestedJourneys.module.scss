@@ -6,6 +6,11 @@
     column-gap: 20px;
     row-gap: 20px;
     width: 100%;
+
+    @include mobile {
+        display: flex;
+        flex-direction: column;
+    }
 }
 
 .journey {

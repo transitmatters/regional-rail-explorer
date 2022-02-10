@@ -4,6 +4,10 @@
     width: 100px;
     height: 100px;
     border-radius: 50px;
+    @include mobile {
+        width: 50px;
+        height: 50px;
+    }
 }
 
 @mixin offset($position, $shadow: false) {
@@ -30,6 +34,10 @@
     svg {
         width: 60px;
         height: 60px;
+        @include mobile {
+            width: 32px;
+            height: 32px;
+        }
     }
 }
 
@@ -37,10 +45,16 @@
     @include circle;
     @include offset(-6px, true);
     background: $rr-gold;
+    @include mobile {
+        @include offset(-4px, true);
+    }
 }
 
 .right {
     @include circle;
     @include offset(6px, true);
+    @include mobile {
+        @include offset(4px, true);
+    }
     background: $rr-pink;
 }

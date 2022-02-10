@@ -26,6 +26,7 @@ export const useViewport = () => {
         return {
             viewportWidth: viewport.width,
             viewportHeight: viewport.height,
+            isMobile: viewport?.width <= 700,
         };
     }
     return { viewportWidth: null, viewportHeight: null };

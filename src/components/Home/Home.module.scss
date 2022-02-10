@@ -2,9 +2,14 @@
 
 .home {
     width: 100%;
-    min-height: 100vh;
     background: $darker-rr-purple;
     color: white;
+
+    @include mobile {
+        scroll-snap-type: y mandatory;
+        height: 100vh;
+        overflow-y: scroll;
+    }
 }
 
 .screen {
@@ -18,6 +23,21 @@
     justify-content: center;
     flex-direction: column;
     overflow: hidden;
+    scroll-snap-align: start;
+
+    @include mobile {
+        padding: 20px;
+    }
+
+    p {
+        text-align: center;
+    }
+}
+
+.network {
+    @include mobile {
+        margin: 20px 0;
+    }
 }
 
 .text {
@@ -46,12 +66,18 @@
 .subtitle {
     font-style: italic;
     text-align: center;
+    @include mobile {
+        font-size: 14px;
+    }
 }
 
 .tmLogo {
     height: 30px;
     z-index: 1;
     margin-bottom: 20px;
+    @include mobile {
+        margin-bottom: 0;
+    }
 }
 
 .enterButton {
@@ -71,7 +97,7 @@
     font-weight: bold;
     letter-spacing: 0.01em;
 
-    &:hover {
+    &:hover, &:active {
         background: white;
         color: $darker-rr-purple;
     }
@@ -95,12 +121,20 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    @include mobile {
+        width: 100%;
+        margin: 10px 0;
+    }
 }
 
 .overview {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     column-gap: 60px;
+    @include mobile {
+        display: flex;
+        flex-direction: column;
+    }
 }
 
 .overviewEntry {
@@ -112,26 +146,38 @@
         margin: 20px 0;
     }
 
+    @include mobile {
+        background-color: rgba(white, 0.1);
+        padding: 16px;
+        border-radius: 4px;
+        margin-top: 30px;
+
+        &:first-child {
+            margin-top: 10px;
+        }
+
+        > :first-child {
+            position: absolute;
+            transform: translateY(-70%);
+        }
+
+        h2 {
+            margin: 0;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    }
+
     p {
         margin: 0;
         line-height: 1.5em;
         text-align: center;
+        @include mobile {
+            font-size: 14px;
+        }
     }
 }
 
-.overviewCircle {
-    width: 100px;
-    height: 100px;
-    border-radius: 100px;
-    background: $rr-gold;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: $global-shadow;
-
-    svg {
-        width: 60px;
-        height: 60px;
-    }
+.nextScreenArrow {
+    margin-top: 20px;
 }
