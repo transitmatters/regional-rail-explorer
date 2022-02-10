@@ -11,12 +11,13 @@ type Props = {
     time: NetworkTime;
     timeRange?: NetworkTimeRange;
     onSelectTime: (t: NetworkTime) => unknown;
+    className?: string;
 };
 
 const defaultTimeRange = [0, 24 * HOUR - 1];
 
 const NumericTimePicker = (props: Props) => {
-    const { time, onSelectTime, timeRange = defaultTimeRange } = props;
+    const { time, onSelectTime, timeRange = defaultTimeRange, className } = props;
     const [capturingValue, setCapturingValue] = useState("");
 
     const [timeString, minTimeString, maxTimeString] = useMemo(
@@ -55,7 +56,7 @@ const NumericTimePicker = (props: Props) => {
     return (
         <input
             type="time"
-            className={classNames(buttonStyles.button, styles.numericTimePicker)}
+            className={classNames(buttonStyles.button, styles.numericTimePicker, className)}
             value={capturingValue || timeString}
             min={minTimeString}
             max={maxTimeString}

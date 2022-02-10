@@ -190,6 +190,7 @@ const JourneyPicker = (props: Props) => {
                 />
                 <div className={styles.spacer} />
                 <NumericTimePicker
+                    className={styles.numericTime}
                     time={time || 9 * HOUR}
                     timeRange={timeRange}
                     onSelectTime={(time) => onSelectJourney({ time })}

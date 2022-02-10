@@ -31,4 +31,8 @@
     h1 {
         margin-bottom: 40px;
     }
+
+    @include mobile {
+        width: calc(100% - 40px);
+    }
 }
