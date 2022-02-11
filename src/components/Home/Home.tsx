@@ -19,7 +19,7 @@ const Home = () => {
 
     const visualizerHeight = useMemo(() => {
         if (isMobile) {
-            return initialViewportHeight! * 0.4;
+            return initialViewportHeight! * 0.5;
         }
         return viewportHeight! * 0.5;
     }, [initialViewportHeight, viewportHeight, isMobile]);
@@ -114,6 +114,7 @@ const Home = () => {
                     )}
                     {isMobile && nextScreenArrow}
                 </div>
+                <div className={styles.scrollSnapEnd} />
                 {isMobile && <div className={styles.screen}>{journeySelection}</div>}
             </div>
         );
