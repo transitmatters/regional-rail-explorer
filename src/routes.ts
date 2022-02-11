@@ -12,6 +12,9 @@ export const getColorForRouteId = (routeId: string) => {
 export const isRegionalRailRouteId = (routeId: string) =>
     routeId.startsWith("CR-") || routeId.startsWith("RR-");
 
+export const isSilverLineRouteId = (routeId: string) =>
+    routeId.length === 3 && routeId.startsWith("7");
+
 export const textColor = (line: string) => {
     return "text-" + line.toLowerCase();
 };

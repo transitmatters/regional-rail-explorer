@@ -1,13 +1,14 @@
 import React from "react";
 import classNames from "classnames";
 
-import { JourneyInfo, JourneyTransferSegment, Duration } from "types";
+import { JourneyInfo, JourneyTransferSegment, Duration, JourneyTravelSegment } from "types";
 import { HOUR, stringifyDuration } from "time";
 
 import { ComparisonProps } from "./types";
 import ComparisonRow from "./ComparisonRow";
 
 import styles from "./JourneyComparison.module.scss";
+import { isSilverLineRouteId } from "routes";
 
 interface FrequencyInfoProps {
     journey: JourneyInfo;
@@ -60,6 +61,10 @@ const FrequencyInfo = (props: FrequencyInfoProps) => {
     const subsequentArrival = shownTimes[nextHeadwayIndex + 1];
     const waitWidth = (50 * (subsequentArrival - nextArrival)) / halfInterval;
     const waitLeft = 50 * (1 + (nextArrival - now) / halfInterval);
+    const firstTravelSegment = journey.segments.find(
+        (seg) => seg.kind === "travel"
+    ) as JourneyTravelSegment;
+    const noun = isSilverLineRouteId(firstTravelSegment.routeId) ? "bus" : "train";
     return (
         <div className={styles.frequencyInfo}>
             <div className="timeline">
@@ -72,7 +77,7 @@ const FrequencyInfo = (props: FrequencyInfoProps) => {
                     const left = 50 * (1 + (time - now) / halfInterval);
                     return (
                         <div
-                            key={time}
+                            key={index}
                             style={{ left: `${left}%` }}
                             className={classNames(
                                 "time",
@@ -84,7 +89,7 @@ const FrequencyInfo = (props: FrequencyInfoProps) => {
                 })}
             </div>
             <div className="secondary">
-                Another train is coming in {stringifyDuration(subsequentHeadway, true)}.
+                Another {noun} is coming in {stringifyDuration(subsequentHeadway, true)}.
             </div>
         </div>
     );
@@ -96,7 +101,7 @@ const FrequencyComparison = (props: ComparisonProps) => {
     if (idToCompare) {
         return (
             <ComparisonRow
-                title="Missed your train?"
+                title={`Missed your train?`}
                 baseline={<FrequencyInfo journey={baseline} arrivalStationId={idToCompare} />}
                 enhanced={<FrequencyInfo journey={enhanced} arrivalStationId={idToCompare} />}
             />
