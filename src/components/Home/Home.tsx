@@ -115,7 +115,12 @@ const Home = () => {
                     {isMobile && nextScreenArrow}
                 </div>
                 <div className={styles.scrollSnapEnd} />
-                {isMobile && <div className={styles.screen}>{journeySelection}</div>}
+                {isMobile && (
+                    <>
+                        <div className={styles.screen}>{journeySelection}</div>
+                        <div className={styles.scrollSnapEnd} />
+                    </>
+                )}
             </div>
         );
     }
