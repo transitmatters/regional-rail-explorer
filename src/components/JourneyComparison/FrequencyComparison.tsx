@@ -3,12 +3,12 @@ import classNames from "classnames";
 
 import { JourneyInfo, JourneyTransferSegment, Duration, JourneyTravelSegment } from "types";
 import { HOUR, stringifyDuration } from "time";
+import { isRegionalRailRouteId, isSilverLineRouteId } from "routes";
 
 import { ComparisonProps } from "./types";
 import ComparisonRow from "./ComparisonRow";
 
 import styles from "./JourneyComparison.module.scss";
-import { isSilverLineRouteId } from "routes";
 
 interface FrequencyInfoProps {
     journey: JourneyInfo;
@@ -28,20 +28,19 @@ const getSubsequentHeadway = (journey: JourneyInfo, arrivalStationId: string): D
     return times[indexOfNext + 1] - times[indexOfNext];
 };
 
-const getBestFrequencyComparison = (baseline: JourneyInfo, enhanced: JourneyInfo) => {
-    const allStationIds = [...Object.keys(baseline.arrivals), ...Object.keys(enhanced.arrivals)];
-    const comparableStationIds = allStationIds.filter(
-        (id) => baseline.arrivals[id] && enhanced.arrivals[id]
+const getStationIdToCompare = (baseline: JourneyInfo, enhanced: JourneyInfo) => {
+    const [baselineFirstSegment, enhancedFirstSegment] = [baseline, enhanced].map(
+        (journey) => journey.segments.find((seg) => seg.kind === "travel") as JourneyTravelSegment
     );
-    const subsequentHeadwayDifferences = {};
-    comparableStationIds.forEach((id) => {
-        subsequentHeadwayDifferences[id] =
-            getSubsequentHeadway(baseline, id) - getSubsequentHeadway(enhanced, id);
-    });
-    const idToCompare = comparableStationIds
-        .sort((a, b) => subsequentHeadwayDifferences[a] - subsequentHeadwayDifferences[b])
-        .pop();
-    return idToCompare;
+    const hasArrivals =
+        baseline.arrivals[baselineFirstSegment.startStation.id] &&
+        enhanced.arrivals[enhancedFirstSegment.startStation.id];
+    const eitherJourneyStartsWithRegionalRail =
+        isRegionalRailRouteId(baselineFirstSegment.routeId) ||
+        isRegionalRailRouteId(enhancedFirstSegment.routeId);
+    return hasArrivals && eitherJourneyStartsWithRegionalRail
+        ? baselineFirstSegment.startStation.id
+        : null;
 };
 
 const FrequencyInfo = (props: FrequencyInfoProps) => {
@@ -97,7 +96,7 @@ const FrequencyInfo = (props: FrequencyInfoProps) => {
 
 const FrequencyComparison = (props: ComparisonProps) => {
     const { baseline, enhanced } = props;
-    const idToCompare = getBestFrequencyComparison(baseline, enhanced);
+    const idToCompare = getStationIdToCompare(baseline, enhanced);
     if (idToCompare) {
         return (
             <ComparisonRow
