@@ -1,3 +1,5 @@
+@import '../../styles/base.scss';
+
 .journeyErrorState {
     display: flex;
     flex-direction: column;
@@ -7,5 +9,9 @@
 
     h2 {
         margin: 0;
+    }
+
+    @include mobile {
+        height: 200px;
     }
 }
