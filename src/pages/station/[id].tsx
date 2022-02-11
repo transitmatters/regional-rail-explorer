@@ -11,7 +11,7 @@ export async function getServerSideProps(context) {
     const {
         params: { id },
     } = context;
-    const scenarios = ["present", "phase_one"];
+    const scenarios = ["present", "regional_rail"];
     const stationScenarioInfo = mapScenarios(
         scenarios,
         (scenario) => {

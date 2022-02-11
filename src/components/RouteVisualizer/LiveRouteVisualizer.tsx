@@ -31,7 +31,7 @@ const roundToNearestTimeIncrement = (now: NetworkTime, increment: Duration = MIN
 
 const selectItems = [
     { id: "present", label: "Present day" },
-    { id: "phase-one", label: "Regional Rail Phase One" },
+    { id: "phase-one", label: "Regional Rail" },
 ];
 
 const LiveRouteVisualizer = (props: Props) => {

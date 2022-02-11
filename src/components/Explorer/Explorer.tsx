@@ -28,7 +28,7 @@ import { getAdvantageousDepartureTime } from "./departures";
 
 import styles from "./Explorer.module.scss";
 
-const scenarioIds = ["present", "phase_one"];
+const scenarioIds = ["present", "regional_rail"];
 
 const Explorer = () => {
     const [
