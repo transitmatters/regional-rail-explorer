@@ -103,7 +103,6 @@ export const stationsByLine = {
         { id: "place-sstat", name: "South Station" },
     ],
     Kingston: [
-        { id: "place-KB-0351", name: "Kingston" },
         { id: "place-PB-0281", name: "Halifax" },
         { id: "place-PB-0245", name: "Hanson" },
         { id: "place-PB-0212", name: "Whitman" },
