@@ -43,11 +43,7 @@ const TravelSegment = (props: { segment: JourneyTravelSegment }) => {
     const [expanded, setExpanded] = useState(!canCollapse);
 
     const renderStationName = (station: JourneyStation) => {
-        return (
-            <a href={getLinkToStation(station)} className={styles.stationName}>
-                {station.name}
-            </a>
-        );
+        return <a className={styles.stationName}>{station.name}</a>;
     };
 
     const renderInnerStations = (stations: JourneyTravelSegment["passedStations"]) => {
