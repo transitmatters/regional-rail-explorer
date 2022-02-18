@@ -10,7 +10,7 @@ This project is in the early stages of development.
 
 ## Setup
 
-To start the application locally:
+### Local Deployment
 
 ```
 npm install
@@ -19,7 +19,7 @@ npm run build && npm start
 ```
 Then navigate to http://localhost:3000.
 
-To start the application on our server:
+### Server Deployment
 ```
 git pull
 npm install
@@ -30,6 +30,12 @@ sudo supervisorctl restart regional-rail-explorer # a supervisorctl reload may b
 
 Initial API requests will be quite slow for now as the server must load and parse several large GTFS bundles.
 
+#### Deploy changes with Ansible
+You can deploy changes to this application on an AWS Lightsail instance running Ubuntu using the `deploy-on-lightsail.yaml` Ansible playbook.
+
+To do so, install Ansible, create an inventory file, and run the playbook with your AWS Private Key in the same directory using the command below:
+
+`$ ansible-playbook devops/deploy-on-lightsail.yml -i inventory --private-key aws_private_key.pem`
 ## Storybook
 
 An index of React component fixtures is available to browse by running:
