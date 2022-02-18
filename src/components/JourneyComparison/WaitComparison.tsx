@@ -1,11 +1,9 @@
 import React from "react";
 
-import { JourneyInfo, CrowdingLevel, JourneySegment, JourneyStation } from "types";
-import { CrowdingIllustration } from "components";
+import { JourneyInfo, JourneySegment } from "types";
 
 import { stringifyDuration } from "time";
 import { isRegionalRailRouteId } from "routes";
-import { joinOxford } from "strings";
 
 import { ComparisonProps } from "./types";
 import ComparisonRow from "./ComparisonRow";

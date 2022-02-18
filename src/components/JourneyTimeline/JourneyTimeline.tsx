@@ -13,7 +13,6 @@ import { stringifyTime as globalStringifyTime, MINUTE } from "time";
 
 import styles from "./JourneyTimeline.module.scss";
 import { getColorForRouteId, textColor } from "routes";
-import { getLinkToStation } from "stations";
 import { pluralize } from "strings";
 
 type Props = {
