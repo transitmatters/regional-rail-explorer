@@ -40,16 +40,6 @@
         }
     }
 
-    :global(.crowding-illustration) {
-        opacity: 0.5;
-        padding-top: 10px;
-        margin-right: 40px;
-        margin-top: auto;
-        @include mobile {
-            display: none;
-        }
-    }
-
     :global(.column-header) {
         display: flex;
         align-items: center;

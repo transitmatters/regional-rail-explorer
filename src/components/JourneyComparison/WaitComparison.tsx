@@ -42,14 +42,6 @@ const WaitInfo = (props: WaitInfoProps) => {
     const unfavorableWaitDuration = (compareFavorablyTo &&
         getRegionalRailWaitDuration(compareFavorablyTo))!;
     const favorableWaitFraction = compareFavorablyTo && 1 - waitDuration / unfavorableWaitDuration;
-    const worstCrowdingStations = Object.values(journey.platformCrowding).reduce((worst, next) => {
-        if (worst.length === 0 || next.crowdingLevel > worst[0].crowdingLevel) {
-            return [...worst, next];
-        }
-        return worst;
-    }, [] as { station: JourneyStation; crowdingLevel: CrowdingLevel }[]);
-    const worstCrowdingLevel =
-        worstCrowdingStations.length > 0 && worstCrowdingStations[0].crowdingLevel;
     return (
         <>
             <div className="duration">
@@ -60,17 +52,6 @@ const WaitInfo = (props: WaitInfoProps) => {
                     </div>
                 )}
             </div>
-            {worstCrowdingLevel > CrowdingLevel.Medium && (
-                <div className="secondary">
-                    Due to long wait times, the platform is very crowded at{" "}
-                    {joinOxford(worstCrowdingStations.map((wcs) => wcs.station.name))}.
-                </div>
-            )}
-            <CrowdingIllustration
-                crowding={15 * (worstCrowdingLevel as number)}
-                height={30}
-                perLayer={15}
-            />
         </>
     );
 };
