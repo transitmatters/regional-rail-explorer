@@ -37,6 +37,7 @@ You can deploy changes to this application on an AWS Lightsail instance running 
 To do so, install Ansible, create an inventory file, and run the playbook with your AWS Private Key in the same directory using the command below:
 
 `$ ansible-playbook devops/deploy-on-lightsail.yml -i inventory --private-key aws_private_key.pem`
+
 ## Storybook
 
 An index of React component fixtures is available to browse by running:
