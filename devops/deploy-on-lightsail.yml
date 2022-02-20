@@ -12,13 +12,13 @@
 
     - name: copy supervisor config file
       copy:
-        src: /home/ubuntu/regional-rail-explorer/devops/regional-rail-explorer.supervisor.conf
+        src: /home/ubuntu/regional-rail-explorer/devops/regional-rail-explorer-supervisor.conf
         dest: /etc/supervisor/conf.d/
         remote_src: yes
 
     - name: copy nginx config file
       copy:
-        src: /home/ubuntu/regional-rail-explorer/devops/regional-rail-explorer.nginx.conf
+        src: /home/ubuntu/regional-rail-explorer/devops/regional-rail-explorer-nginx.conf
         dest: /etc/nginx/sites-enabled/
         remote_src: yes
 
