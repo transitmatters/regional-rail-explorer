@@ -46,3 +46,7 @@ inventory
 
 # private keys
 *.pem
+
+# ansible files
+hosts
+inventory
