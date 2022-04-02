@@ -31,6 +31,7 @@ type BaseNavigationState = {
     parents: NavigationState[];
     boardedAtStations: Set<Station>;
     boardedRoutePatternIds: Set<string>;
+    boardedRegionalRailCount: number;
 };
 
 export type StartNavigationState = BaseNavigationState & {

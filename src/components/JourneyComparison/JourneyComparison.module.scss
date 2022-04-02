@@ -109,10 +109,6 @@
         }
     }
 
-    &:global(.no-padding) {
-        padding-bottom: 0;
-    }
-
     &:global(.header) {
         font-size: 1.5em;
         font-weight: bolder;

@@ -25,7 +25,17 @@ import {
 import { resolveTemporalOrder } from "./util";
 
 const scoreState = (state: NavigationState) => {
-    return Math.abs(state.time - state.context.initialTime);
+    const {
+        boardedRegionalRailCount,
+        time,
+        context: { unifiedFares, initialTime },
+    } = state;
+    // It's prohibitively expensive to take CR-CR trips without unified fares,
+    // but even with them it's kinda silly
+    const regionalRailOveruseWeight = unifiedFares ? 0.1 : 0.5;
+    const regionalRailOverusePenalty =
+        regionalRailOveruseWeight * Math.max(1, boardedRegionalRailCount) - 1;
+    return (1 + regionalRailOverusePenalty) * Math.abs(time - initialTime);
 };
 
 const getStatePriorityHeap = (): Heap<NavigationState> => {
@@ -36,7 +46,7 @@ const getSelfTransfer = (stop: Stop): Transfer => {
     return {
         fromStop: stop,
         toStop: stop,
-        minWalkTime: 60,
+        walkTime: 3 * 60,
     };
 };
 
@@ -98,6 +108,7 @@ const createStartState = (context: NavigationContext): StartNavigationState => {
         context,
         boardedAtStations: new Set(),
         boardedRoutePatternIds: new Set(),
+        boardedRegionalRailCount: 0,
         time: context.initialTime,
         parents: [],
     };
@@ -109,7 +120,14 @@ const createTransferState = (
     from: null | StopTime,
     walkDuration: number
 ): TransferNavigationState => {
-    const { boardedAtStations, boardedRoutePatternIds, parents, context } = parent;
+    const {
+        boardedAtStations,
+        boardedRoutePatternIds,
+        boardedRegionalRailCount: boardedRegionalRailCount,
+        parents,
+        context,
+    } = parent;
+    const boardingRegionalRail = isRegionalRailRouteId(stopTime.trip.routeId);
     return {
         kind: "transfer" as const,
         context,
@@ -119,6 +137,9 @@ const createTransferState = (
         time: stopTime.time,
         boardedAtStations: new Set([...boardedAtStations, stopTime.stop.parentStation]),
         boardedRoutePatternIds: new Set([...boardedRoutePatternIds, stopTime.trip.routePatternId]),
+        boardedRegionalRailCount: boardingRegionalRail
+            ? boardedRegionalRailCount + 1
+            : boardedRegionalRailCount,
         walkDuration,
     };
 };
@@ -153,7 +174,7 @@ const getTransferStates = (parent: TravelNavigationState): TransferNavigationSta
         getSelfTransfer(to.stop),
     ]
         .map((transfer) => {
-            const walkDuration = transfer.minWalkTime;
+            const walkDuration = transfer.walkTime;
             const now = displaceTime(to.time, walkDuration, context.reverse);
             const visitableStopTimes = getNextVisitableStopTimes(parent, transfer.toStop, now);
             return visitableStopTimes.map((stopTime) => {
@@ -164,7 +185,14 @@ const getTransferStates = (parent: TravelNavigationState): TransferNavigationSta
 };
 
 const getTravelStates = (parent: TransferNavigationState): TravelNavigationState[] => {
-    const { to, context, boardedRoutePatternIds, boardedAtStations, parents } = parent;
+    const {
+        to,
+        context,
+        boardedRoutePatternIds,
+        boardedAtStations,
+        boardedRegionalRailCount: boardedRegionalRailCount,
+        parents,
+    } = parent;
 
     const candidateEndStopsOnTrip = to.trip.stopTimes.filter((stopTime) => {
         return (
@@ -183,6 +211,7 @@ const getTravelStates = (parent: TransferNavigationState): TravelNavigationState
             time: stopTime.time,
             boardedAtStations,
             boardedRoutePatternIds,
+            boardedRegionalRailCount,
         };
     });
 };

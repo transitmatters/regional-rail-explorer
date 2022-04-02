@@ -49,6 +49,11 @@ const navigationKindOptions = [
     { id: "arrive-by" as NavigationKind, label: "arrive by" },
 ];
 
+const getTimeOfDayOptionForTime = (time: NetworkTime) => {
+    const index = time > 17 * HOUR ? 2 : time > 11 * HOUR ? 1 : 0;
+    return timeOfDayPickerOptions[index];
+};
+
 // eslint-disable-next-line react/prop-types
 const StationPickerWithDisclosure = ({ label, disabled, ...restProps }) => {
     const { stationPickerDiscloseBelowElement } = useAppContext();
@@ -101,7 +106,9 @@ const JourneyPicker = (props: Props) => {
         reverse,
     } = props;
 
-    const [timeOfDay, setTimeOfDay] = useState(timeOfDayPickerOptions[0]);
+    const [timeOfDay, setTimeOfDay] = useState(() =>
+        typeof time === "number" ? getTimeOfDayOptionForTime(time) : timeOfDayPickerOptions[0]
+    );
 
     const fromStation = fromStationId ? stationsById[fromStationId] : null;
     const toStation = toStationId ? stationsById[toStationId] : null;
@@ -122,8 +129,7 @@ const JourneyPicker = (props: Props) => {
 
     useEffect(() => {
         if (typeof time === "number") {
-            const index = time > 17 * HOUR ? 2 : time > 11 * HOUR ? 1 : 0;
-            setTimeOfDay(timeOfDayPickerOptions[index]);
+            setTimeOfDay(getTimeOfDayOptionForTime(time));
         }
     }, [time]);
 

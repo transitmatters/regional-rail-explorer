@@ -1,7 +1,7 @@
 import getConfig from "next/config";
 import { parse } from "flatted";
 
-import { Scenario } from "types";
+import { Scenario, scenarioIds } from "types";
 
 const {
     serverRuntimeConfig: {
@@ -20,20 +20,20 @@ const getScenarios = (): Scenario[] => {
 };
 
 export const scenarios: Scenario[] = getScenarios();
+export const scenarioNames = typeof scenarios;
 
 export const mapScenarios = <T, E>(
-    scenarioIds: string[],
     callback: (scenario: Scenario) => T,
     handleError?: (err: Error, scenario: Scenario) => E
 ): (T | E)[] => {
-    const scenariosForNames = scenarioIds.map((id) => {
+    const scenariosById = scenarioIds.map((id) => {
         const scenario = scenarios.find((sc) => sc.id === id);
         if (scenario) {
             return scenario;
         }
         throw new Error(`No scenario with id=${id}`);
     });
-    return scenariosForNames.map((scenario) => {
+    return scenariosById.map((scenario) => {
         try {
             return callback(scenario);
         } catch (err) {

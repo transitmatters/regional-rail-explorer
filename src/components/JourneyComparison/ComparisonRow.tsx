@@ -7,20 +7,13 @@ interface RowProps {
     title?: React.ReactNode;
     baseline: React.ReactNode;
     enhanced: React.ReactNode;
-    noPadding?: boolean;
     isHeader?: boolean;
 }
 
 const ComparisonRow = (props: RowProps) => {
-    const { title = "", baseline, enhanced, noPadding, isHeader } = props;
+    const { title = "", baseline, enhanced, isHeader } = props;
     return (
-        <div
-            className={classNames(
-                styles.comparisonRow,
-                noPadding && "no-padding",
-                isHeader && "header"
-            )}
-        >
+        <div className={classNames(styles.comparisonRow, isHeader && "header")}>
             {title && <div className="title">{title}</div>}
             <div className="baseline">{baseline}</div>
             <div className="enhanced">{enhanced}</div>
