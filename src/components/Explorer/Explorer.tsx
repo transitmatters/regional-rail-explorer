@@ -21,7 +21,6 @@ import {
     AppFrame,
     PowerText,
     SuggestedJourneys,
-    SocialMeta,
 } from "components";
 import { useRouterBoundState, usePendingPromise, useUpdateEffect } from "hooks";
 import { getSpanningTimeRange, HOUR } from "time";
@@ -29,6 +28,7 @@ import { getSpanningTimeRange, HOUR } from "time";
 import { getAdvantageousDepartureTime } from "./departures";
 
 import styles from "./Explorer.module.scss";
+import getSocialMeta from "./socialMeta";
 
 const scenarioIds = ["present", "regional_rail"];
 
@@ -184,7 +184,7 @@ const Explorer = (props: Props) => {
         <AppFrame
             mode="journey"
             containerClassName={styles.explorer}
-            meta={<SocialMeta journeyParams={journeyParams} />}
+            meta={getSocialMeta({ journeyParams })}
             controls={
                 <JourneyPicker
                     disabled={isJourneyPending}

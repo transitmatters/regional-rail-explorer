@@ -22,12 +22,15 @@ const getQueryStringForValidJourneyParams = (params: ParsedJourneyParams) => {
     return null;
 };
 
-const SocialMeta = (props: Props) => {
+const getSocialMeta = (props: Props) => {
     const { journeyParams } = props;
     const journeyQueryString = getQueryStringForValidJourneyParams(journeyParams);
-
     return (
         <>
+            <meta name="twitter:card" content="summary" />
+            <meta name="twitter:creator" content="@transitmatters" />
+            <meta name="og:title" content="Test Title" />
+            <meta name="og:description" content="Test Description" />
             {journeyQueryString && (
                 <meta
                     name="og:image"
@@ -38,4 +41,4 @@ const SocialMeta = (props: Props) => {
     );
 };
 
-export default SocialMeta;
+export default getSocialMeta;
