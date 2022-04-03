@@ -1,6 +1,7 @@
 import React from "react";
 import queryString from "query-string";
 
+import { stringifyDuration } from "time";
 import { JourneyInfo, ParsedJourneyParams, JourneyTravelSegment } from "types";
 
 type Props = {
@@ -23,19 +24,22 @@ const getQueryStringForValidJourneyParams = (params: ParsedJourneyParams) => {
     return null;
 };
 
-const getTitle = (journey: JourneyInfo) => {
+const getDescription = (journey: JourneyInfo) => {
     const travelSegments = journey.segments.filter(
         (x): x is JourneyTravelSegment => x.kind === "travel"
     );
-    const first = travelSegments[0].startStation.name;
-    const last = travelSegments[travelSegments.length - 1].endStation.name;
-    return `Regional Rail Explorer | Trip from ${first} to ${last}`;
+    const first = travelSegments[0];
+    const last = travelSegments[travelSegments.length - 1];
+    const startStation = first.startStation.name;
+    const endStation = last.endStation.name;
+    const duration = stringifyDuration(last.endTime - first.startTime, true);
+    return `Trip from ${startStation} to ${endStation} in ${duration}`;
 };
 
 const getSocialMeta = (props: Props) => {
     const { journeyParams, journeys } = props;
     const enhanced = journeys && journeys[1];
-    const title = enhanced && getTitle(enhanced);
+    const description = enhanced && getDescription(enhanced);
     const journeyQueryString = getQueryStringForValidJourneyParams(journeyParams);
     const journeyImage =
         journeyQueryString &&
@@ -44,7 +48,8 @@ const getSocialMeta = (props: Props) => {
         <>
             <meta name="twitter:card" content="summary_large_image" />
             <meta name="twitter:creator" content="@transitmatters" />
-            {title && <meta name="og:title" content={title} />}
+            <meta name="og:title" content="Regional Rail Explorer" />
+            {description && <meta name="og:description" content={description} />}
             {journeyImage && <meta name="og:image" content={journeyImage} />}
             {journeyImage && <meta name="twitter:image" content={journeyImage} />}
         </>
