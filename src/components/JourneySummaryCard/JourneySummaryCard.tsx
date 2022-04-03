@@ -169,10 +169,10 @@ const JourneySummaryCard = (props: Props) => {
         );
     };
 
-    const renderTopText = (y: number) => {
+    const renderCaveatText = (y: number) => {
         return (
             <Text fontSize={25} y={y} x={padding} fontWeight="100" fontStyle="italic">
-                With frequent and electrified Regional Rail...
+                With frequent and electrified Regional Rail
             </Text>
         );
     };
@@ -181,7 +181,7 @@ const JourneySummaryCard = (props: Props) => {
         const startStationName = travelSegments[0].startStation.name;
         const endStationName = travelSegments[travelSegments.length - 1].endStation.name;
         const textLength = 4 + (startStationName + endStationName).length;
-        const fontSize = Math.max(25, 60 - textLength);
+        const fontSize = Math.max(25, 65 - textLength);
         const y = baselineY - fontSize;
         return (
             <Text x={padding} y={y} fontSize={fontSize} dominantBaseline="middle">
@@ -275,10 +275,10 @@ const JourneySummaryCard = (props: Props) => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" version="1.2" width={width} height={height}>
             <rect width="100%" height="100%" fill="#14001c" />
-            {renderTopText(100)}
-            {renderToFromText(180)}
-            {renderTimeAndDateText(200)}
-            {renderTimeText(200)}
+            {renderToFromText(160)}
+            {renderTimeAndDateText(172)}
+            {renderTimeText(172)}
+            {renderCaveatText(210)}
             {renderTravelSegments(260)}
             {renderLogo()}
             {renderTransitMattersText()}
