@@ -24,6 +24,11 @@ const getQueryStringForValidJourneyParams = (params: ParsedJourneyParams) => {
     return null;
 };
 
+const getJourneyDuration = (journey: JourneyInfo) => {
+    const { segments } = journey;
+    return segments[segments.length - 1].endTime - segments[0].startTime;
+};
+
 const getDescription = (journey: JourneyInfo) => {
     const travelSegments = journey.segments.filter(
         (x): x is JourneyTravelSegment => x.kind === "travel"
@@ -32,8 +37,9 @@ const getDescription = (journey: JourneyInfo) => {
     const last = travelSegments[travelSegments.length - 1];
     const startStation = first.startStation.name;
     const endStation = last.endStation.name;
-    const duration = stringifyDuration(last.endTime - first.startTime, true);
-    return `Trip from ${startStation} to ${endStation} in ${duration}`;
+    const duration = getJourneyDuration(journey);
+    const durationString = stringifyDuration(duration, true);
+    return `Trip from ${startStation} to ${endStation} in ${durationString}`;
 };
 
 const getSocialMeta = (props: Props) => {

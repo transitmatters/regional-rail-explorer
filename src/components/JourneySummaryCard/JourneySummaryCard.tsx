@@ -65,7 +65,7 @@ const getJourneyDuration = (journey: JourneyInfo) => {
 };
 
 const Text = (props) => {
-    return <text {...props} fontFamily="Helvetica,sans-serif" fill="white" />;
+    return <text fontFamily="Helvetica,sans-serif" fill="white" {...props} />;
 };
 
 const JourneySummaryCard = (props: Props) => {
@@ -75,7 +75,7 @@ const JourneySummaryCard = (props: Props) => {
         day,
         travelSegmentThickness = 20,
         width = 800,
-        padding = 30,
+        padding = 50,
     } = props;
     const duration = getJourneyDuration(enhanced);
     const baselineDuration = getJourneyDuration(baseline);
@@ -219,7 +219,8 @@ const JourneySummaryCard = (props: Props) => {
                         y={y}
                         textAnchor="end"
                         fontSize={30}
-                        filter="url(#solid-good)"
+                        textDecoration="underline"
+                        fill="#579f6b"
                     >
                         {comparisonString}
                     </Text>
@@ -269,15 +270,6 @@ const JourneySummaryCard = (props: Props) => {
 
     return (
         <svg xmlns="http://www.w3.org/2000/svg" version="1.2" width={width} height={height}>
-            <defs>
-                <filter x="0" y="0" width="1" height="1" id="solid-good">
-                    <feFlood floodColor="#579f6b" result="bg" />
-                    <feMerge>
-                        <feMergeNode in="bg" />
-                        <feMergeNode in="SourceGraphic" />
-                    </feMerge>
-                </filter>
-            </defs>
             <rect width="100%" height="100%" fill="#270036" />
             {renderToFromText(130)}
             {renderTimeAndDateText(150)}
