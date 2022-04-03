@@ -177,7 +177,7 @@ export const buildNetworkFromGtfs = (loader: GtfsLoader) => {
                     createTransfer(
                         stop,
                         allStops.find((stop) => stop.id === transfer.toStopId)!,
-                        1.5 * parseInt(transfer.minWalkTime)
+                        Math.max(3 * 60, 1.5 * parseInt(transfer.minWalkTime))
                     )
                 );
             const transfersImpliedByParentStation = station.stops
