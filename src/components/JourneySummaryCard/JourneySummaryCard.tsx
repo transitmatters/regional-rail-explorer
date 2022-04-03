@@ -181,10 +181,10 @@ const JourneySummaryCard = (props: Props) => {
         const startStationName = travelSegments[0].startStation.name;
         const endStationName = travelSegments[travelSegments.length - 1].endStation.name;
         const textLength = 4 + (startStationName + endStationName).length;
-        const fontSize = Math.max(25, 65 - textLength ** 1.003);
-        const y = baselineY - 1.15 * fontSize;
+        const fontSize = Math.max(25, 65 - 0.7 * textLength ** 1.03);
+        const y = baselineY;
         return (
-            <Text x={padding} y={y} fontSize={fontSize} dominantBaseline="middle">
+            <Text x={padding} y={y} fontSize={fontSize} dominantBaseline="text-bottom">
                 <tspan fontWeight="bold">{startStationName}</tspan>
                 &nbsp;
                 <tspan>to</tspan>
@@ -275,7 +275,7 @@ const JourneySummaryCard = (props: Props) => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" version="1.2" width={width} height={height}>
             <rect width="100%" height="100%" fill="#14001c" />
-            {renderToFromText(160)}
+            {renderToFromText(130)}
             {renderTimeAndDateText(172)}
             {renderTimeText(172)}
             {renderCaveatText(210)}
