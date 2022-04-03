@@ -1,4 +1,6 @@
-export { default as AppFrame, AppContext } from "./AppFrame";
+export { default as AppContextProvider, AppContext } from "./AppContextProvider";
+export type { AppContextType } from "./AppContextProvider";
+export { default as AppFrame } from "./AppFrame";
 export { default as AmenityListing } from "./AmenityListing/AmenityListing";
 export { default as Button } from "./Button/Button";
 export { default as CrowdingIllustration } from "./CrowdingIllustration/CrowdingIllustration";

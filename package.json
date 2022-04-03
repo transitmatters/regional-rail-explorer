@@ -17,6 +17,7 @@
     "bezier-js": "^2.6.1",
     "classnames": "^2.2.6",
     "csv-parse": "^4.12.0",
+    "device-detector-js": "^3.0.2",
     "esm": "^3.2.25",
     "fast-memoize": "^2.5.2",
     "flatted": "^3.1.0",
