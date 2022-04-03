@@ -23,6 +23,9 @@ const getColorForRouteId = (routeId: string) => {
     if (routeId.startsWith("CR-")) {
         return "#742573";
     }
+    if (routeId.startsWith("Green-")) {
+        return routeColors.Green;
+    }
     if (routeId.startsWith("7")) {
         return routeColors.Silver;
     }
