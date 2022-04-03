@@ -2,7 +2,6 @@ import React from "react";
 import queryString from "query-string";
 
 import { ParsedJourneyParams } from "types";
-import { URLSearchParams } from "url";
 
 type Props = {
     journeyParams: ParsedJourneyParams;
