@@ -14,6 +14,7 @@ export { default as JourneyComparison } from "./JourneyComparison/JourneyCompari
 export { default as JourneyPicker } from "./JourneyPicker/JourneyPicker";
 export { default as JourneyTimeline } from "./JourneyTimeline/JourneyTimeline";
 export { default as JourneyErrorState } from "./JourneyErrorState/JourneyErrorState";
+export { default as JourneySummaryCard } from "./JourneySummaryCard";
 export { RouteVisualizer, LiveRouteVisualizer } from "./RouteVisualizer";
 export { Menu, MenuItem, MenuItemDivider, Select } from "./Menu";
 export { default as ModeSelect } from "./ModeSelect/ModeSelect";

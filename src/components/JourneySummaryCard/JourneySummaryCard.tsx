@@ -60,6 +60,10 @@ const getJourneyDuration = (journey: JourneyInfo) => {
     return segments[segments.length - 1].endTime - segments[0].startTime;
 };
 
+const Text = (props) => {
+    return <text {...props} fontFamily="sans-serif" fill="white" />;
+};
+
 const JourneySummaryCard = (props: Props) => {
     const { journey, day, travelSegmentThickness = 20, width = 800, padding = 30 } = props;
     const duration = getJourneyDuration(journey);
@@ -160,28 +164,30 @@ const JourneySummaryCard = (props: Props) => {
         const fontSize = Math.max(25, 60 - textLength);
         const y = baselineY - fontSize;
         return (
-            <text x={padding} y={y} fontSize={fontSize} fill="white" dominantBaseline="middle">
+            <Text x={padding} y={y} fontSize={fontSize} fill="white" dominantBaseline="middle">
                 <tspan fontWeight="bold">{startStationName}</tspan>
-                <tspan> to </tspan>
+                &nbsp;
+                <tspan>to</tspan>
+                &nbsp;
                 <tspan fontWeight="bold">{endStationName}</tspan>
-            </text>
+            </Text>
         );
     };
 
     const renderTimeAndDateText = (y: number) => {
         const startTime = journey.segments[0].startTime;
         return (
-            <text x={padding} y={y} fill="white" fontSize={30}>
+            <Text x={padding} y={y} fill="white" fontSize={30}>
                 {stringifyTime(startTime, { use12Hour: true })} on a {maybeCapitalizeDay(day)}
-            </text>
+            </Text>
         );
     };
 
     const renderTimeText = (y: number) => {
         return (
-            <text x={width - padding} y={y} fill="white" textAnchor="end" fontSize={30}>
+            <Text x={width - padding} y={y} fill="white" textAnchor="end" fontSize={30}>
                 {stringifyDuration(duration, true)}
-            </text>
+            </Text>
         );
     };
 
@@ -207,7 +213,8 @@ const JourneySummaryCard = (props: Props) => {
     const renderTransitMattersText = () => {
         return (
             <>
-                <text
+                <Text
+                    key={0}
                     y={height - 60}
                     x={width - padding}
                     fontSize={40}
@@ -216,8 +223,9 @@ const JourneySummaryCard = (props: Props) => {
                     fill="white"
                 >
                     TransitMatters
-                </text>
-                <text
+                </Text>
+                <Text
+                    key={1}
                     y={height - 30}
                     x={width - padding}
                     fontSize={25}
@@ -225,13 +233,13 @@ const JourneySummaryCard = (props: Props) => {
                     fill="white"
                 >
                     Regional Rail Explorer
-                </text>
+                </Text>
             </>
         );
     };
 
     return (
-        <svg width={width} height={height}>
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.2" width={width} height={height}>
             <rect width="100%" height="100%" fill="#270036" />
             {renderToFromText(130)}
             {renderTimeAndDateText(150)}
