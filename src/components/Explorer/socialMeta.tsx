@@ -42,10 +42,11 @@ const getSocialMeta = (props: Props) => {
         `https://regionalrail.rocks/api/summaryCard/${btoa(journeyQueryString)}`;
     return (
         <>
-            <meta name="twitter:card" content="summary" />
+            <meta name="twitter:card" content="summary_large_image" />
             <meta name="twitter:creator" content="@transitmatters" />
             {title && <meta name="og:title" content={title} />}
             {journeyImage && <meta name="og:image" content={journeyImage} />}
+            {journeyImage && <meta name="twitter:image" content={journeyImage} />}
         </>
     );
 };
