@@ -14,7 +14,7 @@ export default {
 const baselineInfo: JourneyInfo = {
     reverse: false,
     scenario: {
-        id: "present-day",
+        id: "present",
         name: "Today's Commuter Rail",
     },
     segments: baseline,
@@ -42,7 +42,7 @@ const baselineInfo: JourneyInfo = {
 const enhancedInfo: JourneyInfo = {
     reverse: false,
     scenario: {
-        id: "phase-one",
+        id: "regional_rail",
         name: "Regional Rail Phase 1",
     },
     segments: enhanced,

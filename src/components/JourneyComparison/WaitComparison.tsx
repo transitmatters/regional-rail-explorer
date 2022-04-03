@@ -60,7 +60,6 @@ const WaitComparison = (props: ComparisonProps) => {
         <ComparisonRow
             title="Your wait"
             baseline={<WaitInfo journey={baseline} />}
-            noPadding
             enhanced={
                 <WaitInfo journey={enhanced} compareFavorablyTo={baseline} isRegionalRail={true} />
             }
