@@ -181,7 +181,7 @@ const JourneySummaryCard = (props: Props) => {
         const startStationName = travelSegments[0].startStation.name;
         const endStationName = travelSegments[travelSegments.length - 1].endStation.name;
         const textLength = 4 + (startStationName + endStationName).length;
-        const fontSize = Math.max(25, 65 - textLength);
+        const fontSize = Math.max(25, 65 - 0.5 * textLength);
         const y = baselineY - fontSize;
         return (
             <Text x={padding} y={y} fontSize={fontSize} dominantBaseline="middle">
