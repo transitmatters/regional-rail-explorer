@@ -5,7 +5,7 @@ import { AppContextProvider } from "components";
 
 const deviceDetector = new DeviceDetector();
 
-const App = ({ Component, pageProps, userAgentAppearsMobile }) => {
+const App = ({ Component, pageProps, userAgentAppearsMobile = false }) => {
     return (
         <AppContextProvider userAgentAppearsMobile={userAgentAppearsMobile}>
             <Component {...pageProps} />
@@ -14,12 +14,12 @@ const App = ({ Component, pageProps, userAgentAppearsMobile }) => {
 };
 
 App.getInitialProps = ({ ctx }) => {
-    const {
-        req: { headers },
-    } = ctx;
-    const userAgent = headers["user-agent"];
-    const device = deviceDetector.parse(userAgent);
-    return { userAgentAppearsMobile: device.device?.type === "smartphone" };
+    const userAgent = ctx.req?.headers?.["user-agent"];
+    if (userAgent) {
+        const device = deviceDetector.parse(userAgent);
+        return { userAgentAppearsMobile: device.device?.type === "smartphone" };
+    }
+    return {};
 };
 
 export default App;
