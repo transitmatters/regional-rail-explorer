@@ -169,10 +169,18 @@ const JourneySummaryCard = (props: Props) => {
         );
     };
 
-    const renderCaveatText = (y: number) => {
+    const renderWithRegionalRail = (y: number) => {
+        const includeComparison = speedup >= 5 * MINUTE;
+        const comparisonString = includeComparison && `${stringifyDuration(speedup)} faster`;
+        const withText = comparisonString ? "with" : "With";
         return (
             <Text fontSize={25} y={y} x={padding} fontWeight="100" fontStyle="italic">
-                With frequent and electrified Regional Rail
+                {comparisonString && (
+                    <tspan fontWeight="normal" fill="#579f6b">
+                        {comparisonString}
+                    </tspan>
+                )}{" "}
+                {withText} frequent and electrified Regional Rail
             </Text>
         );
     };
@@ -204,34 +212,11 @@ const JourneySummaryCard = (props: Props) => {
     };
 
     const renderTimeText = (y: number) => {
-        const includeComparison = speedup >= 5 * MINUTE;
-        const baselineX = width - padding;
-        const comparisonString = includeComparison ? `${stringifyDuration(speedup)} faster` : "";
-        const comparisonOffsetX = includeComparison ? 70 + 10 * comparisonString.length : 0;
         return (
             <>
-                <Text
-                    key={0}
-                    x={baselineX - comparisonOffsetX}
-                    y={y}
-                    textAnchor="end"
-                    fontSize={30}
-                >
+                <Text key={0} x={width - padding} y={y} textAnchor="end" fontSize={30}>
                     {stringifyDuration(duration)}
                 </Text>
-                {comparisonString && (
-                    <Text
-                        key={1}
-                        x={baselineX}
-                        y={y}
-                        textAnchor="end"
-                        fontSize={30}
-                        textDecoration="underline"
-                        fill="#579f6b"
-                    >
-                        {comparisonString}
-                    </Text>
-                )}
             </>
         );
     };
@@ -275,10 +260,10 @@ const JourneySummaryCard = (props: Props) => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" version="1.2" width={width} height={height}>
             <rect width="100%" height="100%" fill="#14001c" />
-            {renderToFromText(130)}
-            {renderTimeAndDateText(172)}
-            {renderTimeText(172)}
-            {renderCaveatText(210)}
+            {renderToFromText(125)}
+            {renderTimeAndDateText(170)}
+            {renderTimeText(170)}
+            {renderWithRegionalRail(210)}
             {renderTravelSegments(260)}
             {renderLogo()}
             {renderTransitMattersText()}
