@@ -25,15 +25,16 @@ const getQueryStringForValidJourneyParams = (params: ParsedJourneyParams) => {
 const getSocialMeta = (props: Props) => {
     const { journeyParams } = props;
     const journeyQueryString = getQueryStringForValidJourneyParams(journeyParams);
+    const journeyImage =
+        journeyQueryString &&
+        `https://regionalrail.rocks/api/summaryCard/${btoa(journeyQueryString)}`;
     return (
         <>
             <meta name="twitter:card" content="summary" />
             <meta name="twitter:creator" content="@transitmatters" />
             <meta name="og:title" content="Test Title" />
             <meta name="og:description" content="Test Description" />
-            {journeyQueryString && (
-                <meta name="og:image" content={`/api/summaryCard/${btoa(journeyQueryString)}`} />
-            )}
+            {journeyImage && <meta name="og:image" content={journeyImage} />}
         </>
     );
 };
