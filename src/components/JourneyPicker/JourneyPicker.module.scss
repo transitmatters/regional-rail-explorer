@@ -110,7 +110,7 @@
     white-space: nowrap;
 }
 
-.labelHiddenOnMobile {
+.hiddenOnMobile {
     @include mobile {
         display: none;
     }
@@ -119,10 +119,4 @@
 .labeledControl {
     display: flex;
     align-items: center;
-}
-
-.numericTime {
-    @include mobile {
-        display: none;
-    }
 }
