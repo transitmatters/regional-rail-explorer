@@ -135,3 +135,20 @@ $bottom-color: $rr-purple-secondary;
         @include picker-triangle($top-color);
     }
 }
+
+.shadowContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: calc(100% + 30px);
+    width: 100%;
+    overflow-x: hidden;
+    pointer-events: none;
+}
+
+.shadow {
+    height: calc(100% - 30px);
+    width: 100%;
+    transform: scaleX(2);
+    box-shadow: 0px 20px 15px -15px rgba(black, 0.3);
+}

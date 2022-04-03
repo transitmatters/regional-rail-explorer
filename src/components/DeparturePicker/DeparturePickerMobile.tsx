@@ -102,6 +102,9 @@ const DeparturePickerMobile = (props: Props) => {
             onMouseUp={endCapture}
             onTouchEnd={endCapture}
         >
+            <div className={styles.shadowContainer}>
+                <div className={styles.shadow} />
+            </div>
             <DeparturePickerChrome disabled={disabled} indicatorPositionFraction={0.5}>
                 <div
                     ref={timelineWrapper}
