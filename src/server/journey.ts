@@ -143,6 +143,6 @@ export const getJourneyParamsForQuery = (
         toStationId: toStationId || to,
         day: day as NetworkDayKind,
         time: Number.isFinite(time) ? time : undefined,
-        reverse: !!reverse,
+        reverse: !!reverse && reverse !== "0",
     };
 };
