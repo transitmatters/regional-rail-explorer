@@ -54,7 +54,7 @@ const getSocialMeta = (props: Props) => {
         <>
             <meta name="twitter:card" content="summary_large_image" />
             <meta name="twitter:creator" content="@transitmatters" />
-            <meta name="og:title" content="Regional Rail Explorer" />
+            <meta name="og:title" content="TransitMatters | Regional Rail Explorer" />
             {description && <meta name="og:description" content={description} />}
             {journeyImage && <meta name="og:image" content={journeyImage} />}
             {journeyImage && <meta name="twitter:image" content={journeyImage} />}
