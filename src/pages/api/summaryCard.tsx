@@ -1,17 +1,16 @@
 import ReactDOMServer from "react-dom/server";
 import sharp from "sharp";
 
-import { ParsedJourneyParams } from "types";
+import { JourneyInfo, ParsedJourneyParams } from "types";
 import { JourneySummaryCard } from "components";
 import { getJourneys, getJourneyParamsForQuery } from "server/journey";
 
-const getEnhancedJourney = (journeyParams: ParsedJourneyParams) => {
+const getJourneyInfoForParams = (journeyParams: ParsedJourneyParams) => {
     const { fromStationId, toStationId, day, time, reverse } = journeyParams;
     if (fromStationId && toStationId && day && time) {
         const journeys = getJourneys({ fromStationId, toStationId, day, time, reverse });
-        const enhancedJourney = journeys[1];
-        if (!("error" in enhancedJourney)) {
-            return enhancedJourney;
+        if (!journeys.some((j) => "error" in j)) {
+            return journeys as JourneyInfo[];
         }
     }
     return null;
@@ -24,11 +23,12 @@ const convertSvgToPng = (svg: string) => {
 
 export default async (req, res) => {
     const journeyParams = getJourneyParamsForQuery(req.query);
-    const enhancedJourney = getEnhancedJourney(journeyParams);
+    const journeys = getJourneyInfoForParams(journeyParams);
     const { format } = req.query;
-    if (enhancedJourney) {
+    if (journeys) {
+        const [baseline, enhanced] = journeys;
         const cardString = ReactDOMServer.renderToString(
-            <JourneySummaryCard journey={enhancedJourney} day={journeyParams.day!} />
+            <JourneySummaryCard baseline={baseline} enhanced={enhanced} day={journeyParams.day!} />
         );
         const usePng = format === "png";
         res.status(200);

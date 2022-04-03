@@ -11,6 +11,7 @@ import {
     TimeOfDay,
     JourneyApiResult,
     NetworkTimeRange,
+    ParsedJourneyParams,
 } from "types";
 import {
     DeparturePicker,
@@ -20,6 +21,7 @@ import {
     AppFrame,
     PowerText,
     SuggestedJourneys,
+    SocialMeta,
 } from "components";
 import { useRouterBoundState, usePendingPromise, useUpdateEffect } from "hooks";
 import { getSpanningTimeRange, HOUR } from "time";
@@ -31,12 +33,13 @@ import styles from "./Explorer.module.scss";
 const scenarioIds = ["present", "regional_rail"];
 
 type Props = {
+    journeyParams: ParsedJourneyParams;
     journeys: null | JourneyInfo[];
     arrivals: null | NetworkTime[][];
 };
 
 const Explorer = (props: Props) => {
-    const { journeys: initialJourneys, arrivals: initialArrivals } = props;
+    const { journeys: initialJourneys, arrivals: initialArrivals, journeyParams } = props;
     const [
         { fromStationId, toStationId, day, time, reverse = false },
         updateJourneyParams,
@@ -181,6 +184,7 @@ const Explorer = (props: Props) => {
         <AppFrame
             mode="journey"
             containerClassName={styles.explorer}
+            meta={<SocialMeta journeyParams={journeyParams} />}
             controls={
                 <JourneyPicker
                     disabled={isJourneyPending}

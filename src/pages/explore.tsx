@@ -4,6 +4,7 @@ import { getJourneyParamsForQuery, getJourneys } from "server/journey";
 import { getArrivalTimes } from "server/navigation/arrivals";
 
 type Props = {
+    journeyParams: ParsedJourneyParams;
     journeys: null | JourneyInfo[];
     arrivals: null | NetworkTime[][];
 };
@@ -37,5 +38,5 @@ export const getServerSideProps = async ({ query }) => {
     const journeyParams = getJourneyParamsForQuery(query);
     const arrivals = getArrivalTimesForParams(journeyParams);
     const journeys = getJourneysForParams(journeyParams);
-    return { props: { journeys, arrivals } };
+    return { props: { journeys, arrivals, journeyParams } };
 };

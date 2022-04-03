@@ -22,6 +22,7 @@ export { NumericTimePicker } from "./NumericTimePicker";
 export { NetworkVisualizer, LiveNetworkVisualizer } from "./NetworkVisualizer";
 export { default as PowerText } from "./PowerText/PowerText";
 export { default as RoutePage } from "./RoutePage/RoutePage";
+export { default as SocialMeta } from "./SocialMeta/SocialMeta";
 export { default as StationDetails } from "./StationDetails/StationDetails";
 export { default as StationPicker } from "./StationPicker/StationPicker";
 export { default as SuggestedJourneys } from "./SuggestedJourneys/SuggestedJourneys";

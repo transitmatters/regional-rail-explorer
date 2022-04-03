@@ -1,10 +1,11 @@
 import React from "react";
-import { stringifyDuration, stringifyTime } from "time";
+import { MINUTE, stringifyDuration, stringifyTime } from "time";
 
 import { JourneyInfo, JourneyTravelSegment, NetworkDayKind } from "types";
 
 type Props = {
-    journey: JourneyInfo;
+    enhanced: JourneyInfo;
+    baseline: JourneyInfo;
     day: NetworkDayKind;
     travelSegmentThickness?: number;
     width?: number;
@@ -68,12 +69,21 @@ const Text = (props) => {
 };
 
 const JourneySummaryCard = (props: Props) => {
-    const { journey, day, travelSegmentThickness = 20, width = 800, padding = 30 } = props;
-    const duration = getJourneyDuration(journey);
+    const {
+        enhanced,
+        baseline,
+        day,
+        travelSegmentThickness = 20,
+        width = 800,
+        padding = 30,
+    } = props;
+    const duration = getJourneyDuration(enhanced);
+    const baselineDuration = getJourneyDuration(baseline);
+    const speedup = baselineDuration - duration;
     const stationDotRadius = 1.2 * travelSegmentThickness;
     const height = width / 2;
     const center = height / 2;
-    const travelSegments = journey.segments.filter(
+    const travelSegments = enhanced.segments.filter(
         (s): s is JourneyTravelSegment => s.kind === "travel"
     );
 
@@ -167,7 +177,7 @@ const JourneySummaryCard = (props: Props) => {
         const fontSize = Math.max(25, 60 - textLength);
         const y = baselineY - fontSize;
         return (
-            <Text x={padding} y={y} fontSize={fontSize} fill="white" dominantBaseline="middle">
+            <Text x={padding} y={y} fontSize={fontSize} dominantBaseline="middle">
                 <tspan fontWeight="bold">{startStationName}</tspan>
                 &nbsp;
                 <tspan>to</tspan>
@@ -178,19 +188,43 @@ const JourneySummaryCard = (props: Props) => {
     };
 
     const renderTimeAndDateText = (y: number) => {
-        const startTime = journey.segments[0].startTime;
+        const startTime = enhanced.segments[0].startTime;
         return (
-            <Text x={padding} y={y} fill="white" fontSize={30}>
+            <Text x={padding} y={y} fontSize={30}>
                 {stringifyTime(startTime, { use12Hour: true })} on a {maybeCapitalizeDay(day)}
             </Text>
         );
     };
 
     const renderTimeText = (y: number) => {
+        const includeComparison = speedup >= 5 * MINUTE;
+        const baselineX = width - padding;
+        const comparisonString = includeComparison ? `${stringifyDuration(speedup)} faster` : "";
+        const comparisonOffsetX = includeComparison ? 70 + 10 * comparisonString.length : 0;
         return (
-            <Text x={width - padding} y={y} fill="white" textAnchor="end" fontSize={30}>
-                {stringifyDuration(duration, true)}
-            </Text>
+            <>
+                <Text
+                    key={0}
+                    x={baselineX - comparisonOffsetX}
+                    y={y}
+                    textAnchor="end"
+                    fontSize={30}
+                >
+                    {stringifyDuration(duration)}
+                </Text>
+                {comparisonString && (
+                    <Text
+                        key={1}
+                        x={baselineX}
+                        y={y}
+                        textAnchor="end"
+                        fontSize={30}
+                        filter="url(#solid-good)"
+                    >
+                        {comparisonString}
+                    </Text>
+                )}
+            </>
         );
     };
 
@@ -223,18 +257,10 @@ const JourneySummaryCard = (props: Props) => {
                     fontSize={40}
                     fontWeight="bold"
                     textAnchor="end"
-                    fill="white"
                 >
                     TransitMatters
                 </Text>
-                <Text
-                    key={1}
-                    y={height - 30}
-                    x={width - padding}
-                    fontSize={25}
-                    textAnchor="end"
-                    fill="white"
-                >
+                <Text key={1} y={height - 30} x={width - padding} fontSize={25} textAnchor="end">
                     Regional Rail Explorer
                 </Text>
             </>
@@ -243,6 +269,15 @@ const JourneySummaryCard = (props: Props) => {
 
     return (
         <svg xmlns="http://www.w3.org/2000/svg" version="1.2" width={width} height={height}>
+            <defs>
+                <filter x="0" y="0" width="1" height="1" id="solid-good">
+                    <feFlood floodColor="#579f6b" result="bg" />
+                    <feMerge>
+                        <feMergeNode in="bg" />
+                        <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                </filter>
+            </defs>
             <rect width="100%" height="100%" fill="#270036" />
             {renderToFromText(130)}
             {renderTimeAndDateText(150)}
