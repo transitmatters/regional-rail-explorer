@@ -238,8 +238,8 @@ const JourneySummaryCard = (props: Props) => {
 
     const renderLogo = () => {
         return (
-            <svg x={padding} y={height - padding - 60}>
-                <g transform="scale(0.5)">
+            <svg x={padding} y={height - padding - 35}>
+                <g transform="scale(0.45)">
                     <path
                         fill="#742573"
                         d="M94 135H57V0h92q14 0 25 3t16 9a32 32 0 0110 13 51 51 0 013 18 42 42 0 01-3 15 35 35 0 01-6 11 39 39 0 01-10 8 64 64 0 01-11 5l44 53h-43l-40-50H94zm72-92a19 19 0 00-1-7 9 9 0 00-4-4 18 18 0 00-7-3 61 61 0 00-10-1H94v29h50a60 60 0 0010-1 18 18 0 007-2 9 9 0 004-5 19 19 0 001-6z"
@@ -258,20 +258,14 @@ const JourneySummaryCard = (props: Props) => {
     };
 
     const renderTransitMattersText = () => {
-        const x = padding + 390;
+        const x = width - padding;
+        const y = height - padding - 10;
         return (
             <>
-                <Text
-                    key={0}
-                    y={height - padding - 30}
-                    x={x}
-                    fontSize={40}
-                    fontWeight="bold"
-                    textAnchor="end"
-                >
+                <Text key={0} y={y} x={x} fontSize={30} fontWeight="bold" textAnchor="end">
                     TransitMatters
                 </Text>
-                <Text key={1} y={height - padding} x={x} fontSize={25} textAnchor="end">
+                <Text key={1} y={y + 30} x={x} fontSize={25} textAnchor="end">
                     Regional Rail Explorer
                 </Text>
             </>
