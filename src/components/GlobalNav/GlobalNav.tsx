@@ -15,7 +15,7 @@ type NavLink = {
 
 const navLinks: NavLink[] = [
     { title: "Plan a trip", pathname: "/explore", key: "trip" },
-    { title: "Read the Reports", href: "//regionalrail.net", key: "reports" },
+    { title: "Read the Reports", href: "http://regionalrail.net", key: "reports" },
 ];
 
 const renderNavLink = (link: NavLink, router: NextRouter) => {
