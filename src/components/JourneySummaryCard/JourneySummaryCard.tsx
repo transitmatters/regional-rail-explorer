@@ -279,7 +279,7 @@ const JourneySummaryCard = (props: Props) => {
             {renderToFromText(180)}
             {renderTimeAndDateText(200)}
             {renderTimeText(200)}
-            {renderTravelSegments(245)}
+            {renderTravelSegments(260)}
             {renderLogo()}
             {renderTransitMattersText()}
         </svg>
