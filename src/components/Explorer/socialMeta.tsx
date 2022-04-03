@@ -1,4 +1,5 @@
 import React from "react";
+import queryString from "query-string";
 
 import { ParsedJourneyParams } from "types";
 import { URLSearchParams } from "url";
@@ -11,13 +12,13 @@ const getQueryStringForValidJourneyParams = (params: ParsedJourneyParams) => {
     const { fromStationId, toStationId, day, time, reverse } = params;
     if (fromStationId && toStationId && day && time) {
         const reversePart = reverse ? { reverse: "1" } : {};
-        return new URLSearchParams({
+        return queryString.stringify({
             fromStationId,
             toStationId,
             day,
             time: time.toString(),
             ...reversePart,
-        }).toString();
+        });
     }
     return null;
 };

@@ -24,6 +24,7 @@
     "heap": "^0.2.6",
     "next": "9.4.4",
     "prettier": "^2.0.5",
+    "query-string": "^7.1.1",
     "random": "^2.2.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
