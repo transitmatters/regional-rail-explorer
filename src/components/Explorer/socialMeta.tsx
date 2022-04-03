@@ -1,10 +1,11 @@
 import React from "react";
 import queryString from "query-string";
 
-import { ParsedJourneyParams } from "types";
+import { JourneyInfo, ParsedJourneyParams, JourneyTravelSegment } from "types";
 
 type Props = {
     journeyParams: ParsedJourneyParams;
+    enhanced: null | JourneyInfo;
 };
 
 const getQueryStringForValidJourneyParams = (params: ParsedJourneyParams) => {
@@ -22,8 +23,18 @@ const getQueryStringForValidJourneyParams = (params: ParsedJourneyParams) => {
     return null;
 };
 
+const getTitle = (journey: JourneyInfo) => {
+    const travelSegments = journey.segments.filter(
+        (x): x is JourneyTravelSegment => x.kind === "travel"
+    );
+    const first = travelSegments[0].startStation.name;
+    const last = travelSegments[travelSegments.length - 1].endStation.name;
+    return `Regional Rail Explorer | Trip from ${first} to ${last}`;
+};
+
 const getSocialMeta = (props: Props) => {
-    const { journeyParams } = props;
+    const { journeyParams, enhanced } = props;
+    const title = enhanced && getTitle(enhanced);
     const journeyQueryString = getQueryStringForValidJourneyParams(journeyParams);
     const journeyImage =
         journeyQueryString &&
@@ -32,8 +43,7 @@ const getSocialMeta = (props: Props) => {
         <>
             <meta name="twitter:card" content="summary" />
             <meta name="twitter:creator" content="@transitmatters" />
-            <meta name="og:title" content="Test Title" />
-            <meta name="og:description" content="Test Description" />
+            {title && <meta name="og:title" content={title} />}
             {journeyImage && <meta name="og:image" content={journeyImage} />}
         </>
     );
