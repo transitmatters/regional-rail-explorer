@@ -176,7 +176,7 @@ const JourneySummaryCard = (props: Props) => {
         return (
             <Text fontSize={25} y={y} x={padding} fontWeight="100" fontStyle="italic">
                 {comparisonString && (
-                    <tspan fontWeight="normal" fill="#579f6b">
+                    <tspan fontWeight="bold" fill="#579f6b">
                         {comparisonString}
                     </tspan>
                 )}{" "}
