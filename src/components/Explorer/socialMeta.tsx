@@ -32,10 +32,7 @@ const getSocialMeta = (props: Props) => {
             <meta name="og:title" content="Test Title" />
             <meta name="og:description" content="Test Description" />
             {journeyQueryString && (
-                <meta
-                    name="og:image"
-                    content={`/api/summaryCard?${journeyQueryString}&format=png`}
-                />
+                <meta name="og:image" content={`/api/summaryCard/${btoa(journeyQueryString)}`} />
             )}
         </>
     );

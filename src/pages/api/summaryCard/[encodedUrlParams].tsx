@@ -1,5 +1,6 @@
 import ReactDOMServer from "react-dom/server";
 import sharp from "sharp";
+import queryString from "query-string";
 
 import { JourneyInfo, ParsedJourneyParams } from "types";
 import { JourneySummaryCard } from "components";
@@ -21,8 +22,18 @@ const convertSvgToPng = (svg: string) => {
     return sharp(buffer).resize(1600, 800).png().toBuffer();
 };
 
+const getRawJourneyParams = (query: Record<string, any>) => {
+    const { encodedUrlParams, ...rest } = query;
+    if (encodedUrlParams && encodedUrlParams !== "useQuery") {
+        const decoded = atob(encodedUrlParams);
+        return queryString.parse(decoded);
+    }
+    return rest;
+};
+
 export default async (req, res) => {
-    const journeyParams = getJourneyParamsForQuery(req.query);
+    const rawJourneyParams = getRawJourneyParams(req.query);
+    const journeyParams = getJourneyParamsForQuery(rawJourneyParams);
     const journeys = getJourneyInfoForParams(journeyParams);
     const { format } = req.query;
     if (journeys) {
@@ -30,15 +41,15 @@ export default async (req, res) => {
         const cardString = ReactDOMServer.renderToString(
             <JourneySummaryCard baseline={baseline} enhanced={enhanced} day={journeyParams.day!} />
         );
-        const usePng = format === "png";
+        const useSvg = format === "svg";
         res.status(200);
-        if (usePng) {
+        if (useSvg) {
+            res.setHeader("content-type", "image/svg+xml");
+            res.send(cardString);
+        } else {
             const buffer = await convertSvgToPng(cardString);
             res.setHeader("content-type", "image/png");
             res.send(buffer);
-        } else {
-            res.setHeader("content-type", "image/svg+xml");
-            res.send(cardString);
         }
     } else {
         res.status(500).send("");
