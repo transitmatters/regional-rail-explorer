@@ -184,7 +184,7 @@ const Explorer = (props: Props) => {
         <AppFrame
             mode="journey"
             containerClassName={styles.explorer}
-            meta={getSocialMeta({ journeyParams })}
+            meta={getSocialMeta({ journeyParams, journeys: initialJourneys })}
             controls={
                 <JourneyPicker
                     disabled={isJourneyPending}

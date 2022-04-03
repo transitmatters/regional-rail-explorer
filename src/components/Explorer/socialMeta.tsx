@@ -5,7 +5,7 @@ import { JourneyInfo, ParsedJourneyParams, JourneyTravelSegment } from "types";
 
 type Props = {
     journeyParams: ParsedJourneyParams;
-    enhanced: null | JourneyInfo;
+    journeys: null | JourneyInfo[];
 };
 
 const getQueryStringForValidJourneyParams = (params: ParsedJourneyParams) => {
@@ -33,7 +33,8 @@ const getTitle = (journey: JourneyInfo) => {
 };
 
 const getSocialMeta = (props: Props) => {
-    const { journeyParams, enhanced } = props;
+    const { journeyParams, journeys } = props;
+    const enhanced = journeys && journeys[1];
     const title = enhanced && getTitle(enhanced);
     const journeyQueryString = getQueryStringForValidJourneyParams(journeyParams);
     const journeyImage =
