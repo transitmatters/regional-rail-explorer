@@ -181,6 +181,9 @@ const TransferSegment = (props: {
 
 const JourneyTimeline = (props: Props) => {
     const { journey } = props;
+    if (journey === "no segments found") {
+      return "No route found for this mode";
+    }
     return (
         <div className={styles.journeyTimeline}>
             {journey.map((segment, index) => {

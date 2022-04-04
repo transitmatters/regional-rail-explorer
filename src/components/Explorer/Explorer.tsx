@@ -145,14 +145,11 @@ const Explorer = () => {
             );
         }
         if (journeys) {
-            const journeyResolvedWithError = journeys.find((j) => "error" in j);
-            if (journeyResolvedWithError && "error" in journeyResolvedWithError) {
-                const {
-                    payload: { scenario },
-                } = journeyResolvedWithError;
-                return <JourneyErrorState scenarioWithError={scenario} />;
-            }
             const [baseline, enhanced] = journeys as JourneyInfo[];
+            if ("error" in baseline && "error" in enhanced) {
+                return <JourneyErrorState />;
+            }
+
             return <JourneyComparison baseline={baseline} enhanced={enhanced} />;
         }
         return null;
