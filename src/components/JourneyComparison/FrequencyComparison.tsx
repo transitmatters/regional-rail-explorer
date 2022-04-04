@@ -16,18 +16,6 @@ interface FrequencyInfoProps {
     arrivalStationId: string;
 }
 
-const getSubsequentHeadway = (journey: JourneyInfo, arrivalStationId: string): Duration => {
-    const {
-        segments,
-        arrivals: {
-            [arrivalStationId]: { times },
-        },
-    } = journey;
-    const now = (segments[0] as JourneyTransferSegment).startTime;
-    const indexOfNext = times.findIndex((arr) => arr > now);
-    return times[indexOfNext + 1] - times[indexOfNext];
-};
-
 const getStationIdToCompare = (baseline: JourneyInfo, enhanced: JourneyInfo) => {
     const [baselineFirstSegment, enhancedFirstSegment] = [baseline, enhanced].map(
         (journey) => journey.segments.find((seg) => seg.kind === "travel") as JourneyTravelSegment
@@ -55,10 +43,10 @@ const FrequencyInfo = (props: FrequencyInfoProps) => {
     const now = times.find((time) => time >= arriveAtPlatform)!;
     const shownTimes = times.filter((time) => Math.abs(time - now) <= halfInterval);
     const nextHeadwayIndex = shownTimes.findIndex((time) => time >= now);
-    const subsequentHeadway = getSubsequentHeadway(journey, arrivalStationId);
     const nextArrival = shownTimes[nextHeadwayIndex];
     const subsequentArrival = shownTimes[nextHeadwayIndex + 1];
-    const waitWidth = (50 * (subsequentArrival - nextArrival)) / halfInterval;
+    const subsequentHeadway = subsequentArrival - nextArrival;
+    const waitWidth = (50 * subsequentHeadway) / halfInterval;
     const waitLeft = 50 * (1 + (nextArrival - now) / halfInterval);
     const firstTravelSegment = journey.segments.find(
         (seg) => seg.kind === "travel"

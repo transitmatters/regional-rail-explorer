@@ -14,7 +14,7 @@ export const getArrivalTimesForJourney = (
     goals: Station[],
     today: NetworkDayKind
 ) => {
-    return origin.stops
+    const arrivals = origin.stops
         .map((stop) =>
             stop.stopTimes
                 .filter((originStopTime) => {
@@ -32,6 +32,7 @@ export const getArrivalTimesForJourney = (
         )
         .flat()
         .sort((a, b) => a - b);
+    return [...new Set(arrivals)];
 };
 
 export const getStopTimesAtStation = (station: Station, today: NetworkDayKind) => {
