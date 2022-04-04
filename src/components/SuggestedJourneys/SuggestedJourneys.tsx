@@ -42,7 +42,7 @@ const defaultSuggestedJourneys: SuggestedJourneyParams[] = [
     {
         from: "Lynn",
         to: "Charles/MGH",
-        time: "13:45",
+        time: "15:15",
         day: "weekday",
         reverse: true,
         accentIcon: FaStethoscope,
