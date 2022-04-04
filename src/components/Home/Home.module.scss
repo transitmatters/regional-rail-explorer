@@ -6,7 +6,7 @@
     color: white;
 
     @include mobile {
-        scroll-snap-type: y mandatory;
+        // scroll-snap-type: y proximity;
         height: 100vh;
         overflow-y: scroll;
     }
