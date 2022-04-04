@@ -54,11 +54,12 @@ const createJourneyTransferSegment = (state: TransferNavigationState): JourneyTr
 const createJourneyTravelSegment = (state: TravelNavigationState): JourneyTravelSegment => {
     const { from, to, context } = state;
     const [startStopTime, endStopTime] = resolveTemporalOrder(from, to, context.reverse);
-    const { levelBoarding } = startStopTime.stop;
+    const { levelBoarding: startLevelBoarding } = startStopTime.stop;
+    const { levelBoarding: endLevelBoarding } = endStopTime.stop;
     const { trip } = startStopTime;
     return {
         kind: "travel",
-        levelBoarding,
+        levelBoarding: startLevelBoarding && endLevelBoarding,
         startTime: startStopTime.time,
         endTime: endStopTime.time,
         startStation: getJourneyStation(startStopTime.stop),
