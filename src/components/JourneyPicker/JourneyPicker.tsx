@@ -56,10 +56,10 @@ const getTimeOfDayOptionForTime = (time: NetworkTime) => {
 
 // eslint-disable-next-line react/prop-types
 const StationPickerWithDisclosure = ({ label, disabled, ...restProps }) => {
-    const { stationPickerDiscloseBelowElement } = useAppContext();
+    const { stationPickerDiscloseBelowElementRef } = useAppContext();
     return (
         <StationPicker
-            discloseBelowElement={stationPickerDiscloseBelowElement}
+            discloseBelowElementRef={stationPickerDiscloseBelowElementRef}
             {...(restProps as any)}
         >
             {(disclosureProps) => {
