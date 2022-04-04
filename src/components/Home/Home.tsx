@@ -5,7 +5,7 @@ import { GiElectric } from "react-icons/gi";
 import { IoMdTimer } from "react-icons/io";
 import { MdGridOn } from "react-icons/md";
 
-import { useViewport } from "hooks";
+import { useAppContext, useViewport } from "hooks";
 import { LiveNetworkVisualizer, PowerText, SuggestedJourneys } from "components";
 
 import OverviewCircle from "./OverviewCircle";
@@ -14,7 +14,8 @@ import styles from "./Home.module.scss";
 import { CgChevronDoubleDown } from "react-icons/cg";
 
 const Home = () => {
-    const { viewportHeight, isMobile } = useViewport();
+    const { viewportHeight } = useViewport();
+    const { isMobile } = useAppContext();
     const [initialViewportHeight] = useState(viewportHeight);
 
     const visualizerHeight = useMemo(() => {

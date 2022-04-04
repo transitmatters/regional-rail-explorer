@@ -4,9 +4,8 @@ import { mapScenarios } from "server/scenarios";
 import { DepartureBoardEntry } from "types";
 
 export default async (req, res) => {
-    const { scenarioNames, stationId, day } = req.query;
-    const scenarios = scenarioNames.split(",");
-    const board: DepartureBoardEntry[][] = mapScenarios(scenarios, ({ network }) => {
+    const { stationId, day } = req.query;
+    const board: DepartureBoardEntry[][] = mapScenarios(({ network }) => {
         const [station] = getStationsByIds(network, stationId);
         return getStopTimesAtStation(station, day)
             .map((stopTime) => {

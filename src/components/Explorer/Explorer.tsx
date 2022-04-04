@@ -11,6 +11,7 @@ import {
     TimeOfDay,
     JourneyApiResult,
     NetworkTimeRange,
+    ParsedJourneyParams,
 } from "types";
 import {
     DeparturePicker,
@@ -21,16 +22,24 @@ import {
     PowerText,
     SuggestedJourneys,
 } from "components";
-import { useRouterBoundState, usePendingPromise } from "hooks";
+import { useRouterBoundState, usePendingPromise, useUpdateEffect } from "hooks";
 import { getSpanningTimeRange, HOUR } from "time";
 
 import { getAdvantageousDepartureTime } from "./departures";
 
 import styles from "./Explorer.module.scss";
+import getSocialMeta from "./socialMeta";
 
 const scenarioIds = ["present", "regional_rail"];
 
-const Explorer = () => {
+type Props = {
+    journeyParams: ParsedJourneyParams;
+    journeys: null | JourneyInfo[];
+    arrivals: null | NetworkTime[][];
+};
+
+const Explorer = (props: Props) => {
+    const { journeys: initialJourneys, arrivals: initialArrivals, journeyParams } = props;
     const [
         { fromStationId, toStationId, day, time, reverse = false },
         updateJourneyParams,
@@ -70,8 +79,8 @@ const Explorer = () => {
             };
         }
     );
-    const [arrivals, setArrivals] = useState<null | NetworkTime[][]>(null);
-    const [journeys, setJourneys] = useState<null | JourneyApiResult>(null);
+    const [arrivals, setArrivals] = useState<null | NetworkTime[][]>(initialArrivals);
+    const [journeys, setJourneys] = useState<null | JourneyApiResult>(initialJourneys);
     const [requestedTimeOfDay, setRequestedTimeOfDay] = useState<null | TimeOfDay>(null);
     const [isJourneyPending, wrapJourneyPending] = usePendingPromise();
 
@@ -83,7 +92,7 @@ const Explorer = () => {
         return [0, 24 * HOUR] as NetworkTimeRange;
     }, [arrivals]);
 
-    useEffect(() => {
+    useUpdateEffect(() => {
         setArrivals(null);
         if (fromStationId && toStationId && day) {
             api.arrivals(fromStationId, toStationId, day, scenarioIds).then(setArrivals);
@@ -93,7 +102,7 @@ const Explorer = () => {
         }
     }, [fromStationId, toStationId, day]);
 
-    useEffect(() => {
+    useUpdateEffect(() => {
         setJourneys(null);
         if (fromStationId && toStationId && day && time) {
             wrapJourneyPending(
@@ -172,6 +181,7 @@ const Explorer = () => {
         <AppFrame
             mode="journey"
             containerClassName={styles.explorer}
+            meta={getSocialMeta({ journeyParams, journeys: initialJourneys })}
             controls={
                 <JourneyPicker
                     disabled={isJourneyPending}

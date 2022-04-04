@@ -49,6 +49,11 @@ const navigationKindOptions = [
     { id: "arrive-by" as NavigationKind, label: "arrive by" },
 ];
 
+const getTimeOfDayOptionForTime = (time: NetworkTime) => {
+    const index = time > 17 * HOUR ? 2 : time > 11 * HOUR ? 1 : 0;
+    return timeOfDayPickerOptions[index];
+};
+
 // eslint-disable-next-line react/prop-types
 const StationPickerWithDisclosure = ({ label, disabled, ...restProps }) => {
     const { stationPickerDiscloseBelowElement } = useAppContext();
@@ -101,7 +106,9 @@ const JourneyPicker = (props: Props) => {
         reverse,
     } = props;
 
-    const [timeOfDay, setTimeOfDay] = useState(timeOfDayPickerOptions[0]);
+    const [timeOfDay, setTimeOfDay] = useState(() =>
+        typeof time === "number" ? getTimeOfDayOptionForTime(time) : timeOfDayPickerOptions[0]
+    );
 
     const fromStation = fromStationId ? stationsById[fromStationId] : null;
     const toStation = toStationId ? stationsById[toStationId] : null;
@@ -122,8 +129,7 @@ const JourneyPicker = (props: Props) => {
 
     useEffect(() => {
         if (typeof time === "number") {
-            const index = time > 17 * HOUR ? 2 : time > 11 * HOUR ? 1 : 0;
-            setTimeOfDay(timeOfDayPickerOptions[index]);
+            setTimeOfDay(getTimeOfDayOptionForTime(time));
         }
     }, [time]);
 
@@ -156,9 +162,7 @@ const JourneyPicker = (props: Props) => {
                 </Button>
             </div>
             <div className="group time-details">
-                <div className={classNames(styles.label, styles.labelHiddenOnMobile)}>
-                    Leave on a
-                </div>
+                <div className={classNames(styles.label, styles.hiddenOnMobile)}>Leave on a</div>
                 <Select
                     disclosureProps={{ large: true, disabled }}
                     aria-label="Choose a day of the week"
@@ -168,8 +172,11 @@ const JourneyPicker = (props: Props) => {
                 />
                 <div className={styles.spacer} />
                 <Select
-                    className={styles.dropdown}
-                    disclosureProps={{ large: true, disabled: disabled }}
+                    disclosureProps={{
+                        large: true,
+                        disabled: disabled,
+                        className: styles.hiddenOnMobile,
+                    }}
                     aria-label="Choose a departure time"
                     items={timeOfDayPickerOptions}
                     selectedItem={timeOfDay}
@@ -178,10 +185,8 @@ const JourneyPicker = (props: Props) => {
                         onSelectTimeOfDay(item.id);
                     }}
                 />
-                <div className={classNames(styles.label, styles.labelHiddenOnMobile)}>and</div>
-                <div className={styles.mobileSpacer} />
+                <div className={classNames(styles.label, styles.hiddenOnMobile)}>and</div>
                 <Select
-                    className={styles.dropdown}
                     disclosureProps={{ large: true, disabled: disabled }}
                     aria-label="Choose when you want to depart or arrive"
                     items={navigationKindOptions}

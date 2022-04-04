@@ -262,6 +262,7 @@ export const stationsByLine: Record<string, Station[]> = {
         { id: "place-north", name: "North Station" },
         { id: "place-spmnl", name: "Science Park/West End" },
         { id: "place-lech", name: "Lechmere" },
+        { id: "place-unsqu", name: "Union Square" },
         { id: "place-clmnl", name: "Cleveland Circle" },
         { id: "place-engav", name: "Englewood Avenue" },
         { id: "place-denrd", name: "Dean Road" },

@@ -56,6 +56,7 @@ const NumericTimePicker = (props: Props) => {
     return (
         <input
             type="time"
+            aria-label="Departure or arrival time"
             className={classNames(buttonStyles.button, styles.numericTimePicker, className)}
             value={capturingValue || timeString}
             min={minTimeString}

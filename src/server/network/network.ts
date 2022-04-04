@@ -94,9 +94,9 @@ const createStopTime = (
     };
 };
 
-const createTransfer = (fromStop: Stop, toStop: Stop, minWalkTime: Duration): null | Transfer => {
+const createTransfer = (fromStop: Stop, toStop: Stop, walkTime: Duration): null | Transfer => {
     if (fromStop && toStop) {
-        return { fromStop, toStop, minWalkTime };
+        return { fromStop, toStop, walkTime };
     }
     return null;
 };
@@ -177,7 +177,7 @@ export const buildNetworkFromGtfs = (loader: GtfsLoader) => {
                     createTransfer(
                         stop,
                         allStops.find((stop) => stop.id === transfer.toStopId)!,
-                        parseInt(transfer.minWalkTime)
+                        Math.max(3 * 60, 1.5 * parseInt(transfer.minWalkTime))
                     )
                 );
             const transfersImpliedByParentStation = station.stops
@@ -189,7 +189,7 @@ export const buildNetworkFromGtfs = (loader: GtfsLoader) => {
                         )
                     );
                 })
-                .map((otherStop) => createTransfer(stop, otherStop, 5));
+                .map((otherStop) => createTransfer(stop, otherStop, 5 * 60));
             stop.transfers = [...gtfsDefinedTransfers, ...transfersImpliedByParentStation].filter(
                 (x): x is Transfer => !!x
             );

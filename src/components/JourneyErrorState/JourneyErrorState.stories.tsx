@@ -8,5 +8,5 @@ export default {
 };
 
 export const Default = () => (
-    <JourneyErrorState scenarioWithError={{ id: "hmm", name: "Hmmmmm" }} />
+    <JourneyErrorState scenarioWithError={{ id: "present", name: "Hmmmmm" }} />
 );

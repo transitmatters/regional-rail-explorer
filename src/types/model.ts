@@ -28,7 +28,7 @@ export interface Trip {
 export interface Transfer {
     fromStop: Stop;
     toStop: Stop;
-    minWalkTime: Duration;
+    walkTime: Duration;
 }
 
 export interface Stop {
@@ -58,13 +58,3 @@ export interface Amenities {
 export type AmenityName = keyof Amenities;
 
 export type Network = ReturnType<typeof loadGtfsNetwork>;
-
-export interface ScenarioInfo {
-    id: string;
-    name: string;
-}
-
-export interface Scenario extends ScenarioInfo {
-    unifiedFares: boolean;
-    network: Network;
-}

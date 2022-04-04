@@ -29,8 +29,10 @@ const getSegmentHeight = (segment: JourneySegment) => {
         segment.kind === "travel"
             ? segment.endTime - segment.startTime
             : segment.waitDuration + segment.walkDuration;
+    const numPassedStations = segment.kind === "travel" && segment.passedStations.length;
     const elapsedMinutes = elapsedSeconds / MINUTE;
-    return elapsedMinutes * 4.5 + 50;
+    const minSafeHeight = numPassedStations ? numPassedStations * 20 + 50 : 0;
+    return Math.max(minSafeHeight, elapsedMinutes * 4.5 + 50);
 };
 
 const TravelSegment = (props: { segment: JourneyTravelSegment }) => {
@@ -42,7 +44,7 @@ const TravelSegment = (props: { segment: JourneyTravelSegment }) => {
     const [expanded, setExpanded] = useState(!canCollapse);
 
     const renderStationName = (station: JourneyStation) => {
-        return <a className={styles.stationName}>{station.name}</a>;
+        return <span className={styles.stationName}>{station.name}</span>;
     };
 
     const renderInnerStations = (stations: JourneyTravelSegment["passedStations"]) => {

@@ -58,7 +58,7 @@ const JourneyComparison = (props: ComparisonProps) => {
                 enhanced={
                     <div className="column-header">
                         <div className="header-blip enhanced" />
-                        {enhanced?.scenario?.name || "Regional Rail"}
+                        {enhanced?.scenario?.name || "Electrified regional rail"}
                     </div>
                 }
                 isHeader

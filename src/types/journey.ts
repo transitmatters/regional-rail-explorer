@@ -1,5 +1,6 @@
-import { AmenityName, ScenarioInfo } from "./model";
+import { AmenityName } from "./model";
 import { NetworkDayKind, NetworkTime } from "./time";
+import { ScenarioInfo } from "./scenario";
 
 export enum CrowdingLevel {
     Low = 1,
@@ -11,9 +12,11 @@ export interface JourneyParams {
     fromStationId: string;
     toStationId: string;
     day: NetworkDayKind;
-    time?: NetworkTime;
-    reverse?: boolean;
+    time: NetworkTime;
+    reverse: boolean;
 }
+
+export type ParsedJourneyParams = Partial<JourneyParams> & { reverse: boolean };
 
 export interface JourneyStation {
     id: string;

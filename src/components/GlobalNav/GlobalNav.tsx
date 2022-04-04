@@ -15,22 +15,24 @@ type NavLink = {
 
 const navLinks: NavLink[] = [
     { title: "Plan a trip", pathname: "/explore", key: "trip" },
-    { title: "Read the Reports", href: "//regionalrail.net", key: "reports" },
+    { title: "Read the Reports", href: "http://regionalrail.net", key: "reports" },
 ];
 
 const renderNavLink = (link: NavLink, router: NextRouter) => {
     const href = "pathname" in link ? { pathname: link.pathname } : link.href;
     const isActive = "pathname" in link && link.pathname === router.pathname;
     const isExternal = "href" in link;
+    if (isExternal) {
+        return (
+            <a className={styles.link} target="_blank" key={link.key}>
+                {link.title}
+                <FiArrowUpRight className={styles.linkIcon} size={18} />
+            </a>
+        );
+    }
     return (
         <Link href={href} passHref={isExternal} key={link.key}>
-            <a
-                className={classNames(styles.link, isActive && styles.active)}
-                target={isExternal ? "_blank" : undefined}
-            >
-                {link.title}
-                {isExternal && <FiArrowUpRight className={styles.linkIcon} size={18} />}
-            </a>
+            <a className={classNames(styles.link, isActive && styles.active)}>{link.title}</a>
         </Link>
     );
 };

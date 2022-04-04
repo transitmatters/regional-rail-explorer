@@ -16,18 +16,6 @@ interface FrequencyInfoProps {
     arrivalStationId: string;
 }
 
-const getSubsequentHeadway = (journey: JourneyInfo, arrivalStationId: string): Duration => {
-    const {
-        segments,
-        arrivals: {
-            [arrivalStationId]: { times },
-        },
-    } = journey;
-    const now = (segments[0] as JourneyTransferSegment).startTime;
-    const indexOfNext = times.findIndex((arr) => arr > now);
-    return times[indexOfNext + 1] - times[indexOfNext];
-};
-
 const getStationIdToCompare = (baseline: JourneyInfo, enhanced: JourneyInfo) => {
     let firstSegment;
     let journeyWithoutError;
@@ -78,15 +66,24 @@ const FrequencyInfo = (props: FrequencyInfoProps) => {
     const now = times.find((time) => time >= arriveAtPlatform)!;
     const shownTimes = times.filter((time) => Math.abs(time - now) <= halfInterval);
     const nextHeadwayIndex = shownTimes.findIndex((time) => time >= now);
-    const subsequentHeadway = getSubsequentHeadway(journey, arrivalStationId);
     const nextArrival = shownTimes[nextHeadwayIndex];
     const subsequentArrival = shownTimes[nextHeadwayIndex + 1];
-    const waitWidth = (50 * (subsequentArrival - nextArrival)) / halfInterval;
+    const subsequentHeadway = subsequentArrival - nextArrival;
+    const waitWidth = (50 * subsequentHeadway) / halfInterval;
     const waitLeft = 50 * (1 + (nextArrival - now) / halfInterval);
     const firstTravelSegment = journey.segments.find(
         (seg) => seg.kind === "travel"
     ) as JourneyTravelSegment;
     const noun = isSilverLineRouteId(firstTravelSegment.routeId) ? "bus" : "train";
+    const text = Number.isFinite(subsequentHeadway) ? (
+        <>
+            Another {noun} is coming in {stringifyDuration(subsequentHeadway, true)}.
+        </>
+    ) : (
+        <>
+            Another {noun} isn't coming for at least {stringifyDuration(halfInterval, true)}.
+        </>
+    );
     return (
         <div className={styles.frequencyInfo}>
             <div className="timeline">
@@ -110,9 +107,7 @@ const FrequencyInfo = (props: FrequencyInfoProps) => {
                     );
                 })}
             </div>
-            <div className="secondary">
-                Another {noun} is coming in {stringifyDuration(subsequentHeadway, true)}.
-            </div>
+            <div className="secondary">{text}</div>
         </div>
     );
 };

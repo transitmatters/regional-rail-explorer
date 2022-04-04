@@ -1,32 +1,11 @@
-import { parseTime } from "time";
-import { getStationsByIds } from "server/network";
-import { getArrivalTimesForJourney } from "server/navigation/arrivals";
-import { navigate } from "server/navigation";
-import { mapScenarios } from "server/scenarios";
+import { getArrivalTimes } from "server/navigation/arrivals";
+import { getJourneyParamsForQuery } from "server/journey";
 
 export default async (req, res) => {
-    const { scenarioNames, fromStationId, toStationId, day } = req.query;
-    const scenarios = scenarioNames.split(",");
-    const arrivals = mapScenarios(
-        scenarios,
-        ({ network, unifiedFares }) => {
-            const [fromStation, toStation] = getStationsByIds(network, fromStationId, toStationId);
-            const exemplarJourney = navigate({
-                fromStation,
-                toStation,
-                unifiedFares,
-                initialDayTime: {
-                    time: parseTime("09:00"),
-                    day,
-                },
-            });
-            const toStationIds = exemplarJourney
-                .map((seg) => seg.kind === "travel" && seg.endStation.id)
-                .filter((x): x is string => !!x);
-            const toStations = getStationsByIds(network, ...toStationIds);
-            return getArrivalTimesForJourney(fromStation, toStations, day);
-        },
-        () => []
-    );
-    res.status(200).json(arrivals);
+    const { fromStationId, toStationId, day } = getJourneyParamsForQuery(req.query);
+    if (fromStationId && toStationId && day) {
+        const arrivals = getArrivalTimes({ fromStationId, toStationId, day });
+        res.status(200).json(arrivals);
+    }
+    res.status(500).end();
 };

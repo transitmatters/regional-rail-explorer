@@ -26,7 +26,7 @@ type Props = {
 
 const defaultSuggestedJourneys: SuggestedJourneyParams[] = [
     {
-        from: "Lynn",
+        from: "Waltham",
         to: "Back Bay",
         time: "8:40",
         day: "weekday",
@@ -40,9 +40,9 @@ const defaultSuggestedJourneys: SuggestedJourneyParams[] = [
         accentIcon: MdOutlineSportsBaseball,
     },
     {
-        from: "place-chels", // Chelsea
+        from: "Lynn",
         to: "Charles/MGH",
-        time: "14:00",
+        time: "15:15",
         day: "weekday",
         reverse: true,
         accentIcon: FaStethoscope,
@@ -99,8 +99,8 @@ const SuggestedJourneys = (props: Props) => {
             fromStationId: fromStation.id,
             toStationId: toStation.id,
             time: parsedTime,
+            reverse: !!reverse,
             day,
-            reverse,
         });
         const action = reverse ? "Arrive by" : "Depart at";
         return (
