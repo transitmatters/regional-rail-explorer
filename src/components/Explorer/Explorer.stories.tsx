@@ -1,4 +1,5 @@
-import * as React from "react";
+import { baselineInfo, enhancedInfo, journeyParams } from "storydata/journeyInfo";
+import { baselineArrivals, enhancedArrivals } from "storydata/salem";
 
 import Explorer from "./Explorer";
 
@@ -8,5 +9,11 @@ export default {
 };
 
 export const Default = () => {
-    return <Explorer />;
+    return (
+        <Explorer
+            journeyParams={journeyParams}
+            journeys={[baselineInfo, enhancedInfo]}
+            arrivals={[baselineArrivals, enhancedArrivals]}
+        />
+    );
 };
