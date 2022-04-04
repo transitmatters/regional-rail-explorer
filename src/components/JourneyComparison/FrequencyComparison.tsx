@@ -52,6 +52,15 @@ const FrequencyInfo = (props: FrequencyInfoProps) => {
         (seg) => seg.kind === "travel"
     ) as JourneyTravelSegment;
     const noun = isSilverLineRouteId(firstTravelSegment.routeId) ? "bus" : "train";
+    const text = Number.isFinite(subsequentHeadway) ? (
+        <>
+            Another {noun} is coming in {stringifyDuration(subsequentHeadway, true)}.
+        </>
+    ) : (
+        <>
+            Another {noun} isn't coming for at least {stringifyDuration(halfInterval, true)}.
+        </>
+    );
     return (
         <div className={styles.frequencyInfo}>
             <div className="timeline">
@@ -75,9 +84,7 @@ const FrequencyInfo = (props: FrequencyInfoProps) => {
                     );
                 })}
             </div>
-            <div className="secondary">
-                Another {noun} is coming in {stringifyDuration(subsequentHeadway, true)}.
-            </div>
+            <div className="secondary">{text}</div>
         </div>
     );
 };
