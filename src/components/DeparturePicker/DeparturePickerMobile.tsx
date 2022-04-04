@@ -55,13 +55,8 @@ const DeparturePickerMobile = (props: Props) => {
     const [capturedTime, setCapturedTime] = useState<number>(time);
     const [isCapturing, setIsCapturing] = useState(false);
     const captureMouseX = useRef<null | number>(null);
-    const timelineWrapper = useRef<null | HTMLDivElement>(null);
-
-    const offset = getOffsetForTime(
-        isCapturing ? capturedTime! : time,
-        timeRange,
-        timelineWrapper.current
-    );
+    const [timelineWrapper, setTimelineWrapper] = useState<null | HTMLDivElement>(null);
+    const offset = getOffsetForTime(isCapturing ? capturedTime! : time, timeRange, timelineWrapper);
 
     useLockBodyScroll(isCapturing);
 
@@ -79,7 +74,7 @@ const DeparturePickerMobile = (props: Props) => {
                 offsetX,
                 timeRange,
                 sensitivity,
-                timelineWrapper.current!
+                timelineWrapper!
             );
             const nextCapturedTime = Math.min(Math.max(time + timeDelta, start), end);
             setCapturedTime(nextCapturedTime);
@@ -107,7 +102,7 @@ const DeparturePickerMobile = (props: Props) => {
             </div>
             <DeparturePickerChrome disabled={disabled} indicatorPositionFraction={0.5}>
                 <div
-                    ref={timelineWrapper}
+                    ref={setTimelineWrapper}
                     style={{
                         position: "relative",
                         width: `${100 * expansion}%`,
