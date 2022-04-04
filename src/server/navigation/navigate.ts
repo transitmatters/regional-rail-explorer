@@ -28,17 +28,20 @@ const scoreState = (state: NavigationState) => {
     const {
         timeOnSilverLine,
         boardedRegionalRailCount,
+        boardedRoutePatternIds,
         time,
         context: { unifiedFares, initialTime },
     } = state;
-    // It's prohibitively expensive to take CR-CR trips without unified fares,
-    // but even with them it's kinda silly
-    const regionalRailOveruseWeight = unifiedFares ? 0.1 : 0.5;
+    // It's prohibitively expensive to take CR-CR trips without unified fares
+    const regionalRailOveruseWeight = unifiedFares ? 0.0 : 0.5;
     const regionalRailOverusePenalty =
-        regionalRailOveruseWeight * Math.max(1, boardedRegionalRailCount) - 1;
+        regionalRailOveruseWeight * (Math.max(1, boardedRegionalRailCount) - 1);
+    // Transferring many times adds variability and is rarely as smooth as it looks on paper.
+    const tooManyTransfersPenalty = boardedRoutePatternIds.size > 3 ? 0.2 : 0;
     // The Silver Line is...much slower than its GTFS schedule claims. We account for that here.
     const silverLinePenalty = 0.5 * timeOnSilverLine;
-    return (1 + regionalRailOverusePenalty) * Math.abs(time - initialTime) + silverLinePenalty;
+    const penaltyWeights = (1 + regionalRailOverusePenalty) * (1 + tooManyTransfersPenalty);
+    return penaltyWeights * Math.abs(time - initialTime) + silverLinePenalty;
 };
 
 const getStatePriorityHeap = (): Heap<NavigationState> => {
