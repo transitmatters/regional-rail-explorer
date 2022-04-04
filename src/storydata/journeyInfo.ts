@@ -1,10 +1,4 @@
-import {
-    JourneyInfo,
-    CrowdingLevel,
-    JourneyParams,
-    JourneyTransferSegment,
-    JourneyTravelSegment,
-} from "types";
+import { JourneyInfo, CrowdingLevel, JourneyParams } from "types";
 import { enhanced, baseline } from "storydata/journey";
 import { enhancedArrivals, baselineArrivals } from "storydata/salem";
 

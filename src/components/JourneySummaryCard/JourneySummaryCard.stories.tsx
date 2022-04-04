@@ -1,3 +1,5 @@
+import React from "react";
+
 import { baselineInfo, enhancedInfo } from "storydata/journeyInfo";
 
 import JourneySummaryCard from "./JourneySummaryCard";

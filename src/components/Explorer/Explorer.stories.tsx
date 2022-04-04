@@ -1,3 +1,5 @@
+import React from "react";
+
 import { baselineInfo, enhancedInfo, journeyParams } from "storydata/journeyInfo";
 import { baselineArrivals, enhancedArrivals } from "storydata/salem";
 
