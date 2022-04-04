@@ -18,6 +18,16 @@ import { getArrivalTimesForJourney } from "server/navigation/arrivals";
 import { mapScenarios } from "server/scenarios";
 import { HOUR, MINUTE } from "time";
 
+const omitUndefined = <T extends Record<string, any>>(obj: T): Partial<T> => {
+    const res: Partial<T> = {};
+    Object.keys(obj).forEach((key) => {
+        if (obj[key] !== undefined) {
+            res[key as keyof T] = obj[key];
+        }
+    });
+    return res;
+};
+
 const calculateAmenities = (scenario: Scenario, journey: Journey): AmenityName[] => {
     const {
         network: { amenitiesByRoutePatternId },
@@ -139,10 +149,12 @@ export const getJourneyParamsForQuery = (
     const { fromStationId, from, toStationId, to, day, time: timeString, reverse } = query;
     const time = parseInt(timeString || "", 10);
     return {
-        fromStationId: fromStationId || from,
-        toStationId: toStationId || to,
-        day: day as NetworkDayKind,
-        time: Number.isFinite(time) ? time : undefined,
+        ...omitUndefined({
+            fromStationId: fromStationId || from,
+            toStationId: toStationId || to,
+            day: day as NetworkDayKind,
+            time: Number.isFinite(time) ? time : undefined,
+        }),
         reverse: !!reverse && reverse !== "0",
     };
 };
