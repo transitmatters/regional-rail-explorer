@@ -13,14 +13,14 @@ type Props = {
     children?: ReactNode;
     lockBodyScroll?: boolean;
     onSelectStation: (stationId: string) => unknown;
-    discloseBelowElement?: null | HTMLElement;
+    discloseBelowElementRef?: React.MutableRefObject<null | HTMLElement>;
 } & StationListingProps;
 
 const StationPicker = (props: Props) => {
     const {
         children,
         onSelectStation,
-        discloseBelowElement,
+        discloseBelowElementRef,
         lockBodyScroll = false,
         ...stationListingProps
     } = props;
@@ -50,10 +50,10 @@ const StationPicker = (props: Props) => {
     }, []);
 
     useEffect(() => {
-        if (discloseBelowElement && viewportHeight) {
-            updateDisclosureBounds(discloseBelowElement, viewportHeight);
+        if (discloseBelowElementRef?.current && viewportHeight) {
+            updateDisclosureBounds(discloseBelowElementRef.current, viewportHeight);
         }
-    }, [discloseBelowElement, viewportHeight]);
+    }, [discloseBelowElementRef?.current, viewportHeight]);
 
     useEffect(() => {
         if (disclosure.visible) {

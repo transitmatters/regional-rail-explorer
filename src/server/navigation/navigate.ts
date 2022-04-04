@@ -213,7 +213,7 @@ const getTravelStates = (parent: TransferNavigationState): TravelNavigationState
     });
 
     return candidateEndStopsOnTrip.map((stopTime) => {
-        const timeOnSilverLineHere = isSilverLine ? stopTime.time - to.time : 0;
+        const timeOnSilverLineHere = isSilverLine ? Math.abs(stopTime.time - to.time) : 0;
         return {
             kind: "travel" as const,
             context,

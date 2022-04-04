@@ -6,17 +6,17 @@ import { useViewport } from "hooks";
 type DivRef = React.MutableRefObject<null | HTMLDivElement>;
 
 export type AppContextType = {
-    stationPickerDiscloseBelowElement: DivRef["current"];
     isMobile: boolean;
     globalNavRef: DivRef;
     controlsRef: DivRef;
+    stationPickerDiscloseBelowElementRef: DivRef;
 };
 
 export const AppContext = React.createContext<AppContextType>({
-    stationPickerDiscloseBelowElement: null,
     isMobile: false,
     globalNavRef: React.createRef(),
     controlsRef: React.createRef(),
+    stationPickerDiscloseBelowElementRef: React.createRef(),
 });
 
 type Props = {
@@ -30,7 +30,7 @@ const AppContextProvider = (props: Props) => {
 
     const controlsRef = useRef<null | HTMLDivElement>(null);
     const globalNavRef = useRef<null | HTMLDivElement>(null);
-    const stationPickerDiscloseBelowElement = (isMobile ? globalNavRef : controlsRef).current;
+    const stationPickerDiscloseBelowElementRef = isMobile ? globalNavRef : controlsRef;
 
     const { viewportWidth } = useViewport();
 
@@ -43,7 +43,12 @@ const AppContextProvider = (props: Props) => {
     return (
         <RkProvider>
             <AppContext.Provider
-                value={{ controlsRef, globalNavRef, isMobile, stationPickerDiscloseBelowElement }}
+                value={{
+                    controlsRef,
+                    globalNavRef,
+                    isMobile,
+                    stationPickerDiscloseBelowElementRef,
+                }}
             >
                 {children}
             </AppContext.Provider>
