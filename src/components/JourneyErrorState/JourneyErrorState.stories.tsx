@@ -7,6 +7,4 @@ export default {
     component: JourneyErrorState,
 };
 
-export const Default = () => (
-    <JourneyErrorState scenarioWithError={{ id: "present", name: "Hmmmmm" }} />
-);
+export const Default = () => <JourneyErrorState />;

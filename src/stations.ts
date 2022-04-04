@@ -11,6 +11,8 @@ export const stationsByLine: Record<string, Station[]> = {
         { id: "place-DB-2258", name: "Uphams Corner" },
         { id: "place-DB-2265", name: "Newmarket" },
         { id: "place-sstat", name: "South Station" },
+        { id: "place-rr-ceylon-park", name: "Ceylon Park" },
+        { id: "place-rr-river-street", name: "River Street" },
     ],
     Franklin: [
         { id: "place-FB-0303", name: "Forge Park/495" },
@@ -70,6 +72,9 @@ export const stationsByLine: Record<string, Station[]> = {
         { id: "place-ER-0227", name: "Hamilton/Wenham" },
         { id: "place-ER-0208", name: "North Beverly" },
         { id: "place-GB-0222", name: "Prides Crossing" },
+        { id: "place-rr-everett-jct", name: "S. Broadway/Everett Jct" },
+        { id: "place-rr-revere-center", name: "Revere Center" },
+        { id: "place-rr-south-salem", name: "South Salem" },
     ],
     Fitchburg: [
         { id: "place-FR-3338", name: "Wachusett" },
@@ -91,6 +96,9 @@ export const stationsByLine: Record<string, Station[]> = {
         { id: "place-portr", name: "Porter" },
         { id: "place-north", name: "North Station" },
         { id: "place-FR-0147", name: "Silver Hill" },
+        { id: "place-rr-brickbottom", name: "Brickbottom" },
+        { id: "place-rr-clematis-brook", name: "Clematis Brook/Warrendale" },
+        { id: "place-rr-weston-128", name: "Weston/128" },
     ],
     Greenbush: [
         { id: "place-GRB-0276", name: "Greenbush" },
@@ -103,6 +111,7 @@ export const stationsByLine: Record<string, Station[]> = {
         { id: "place-qnctr", name: "Quincy Center" },
         { id: "place-jfk", name: "JFK/UMass" },
         { id: "place-sstat", name: "South Station" },
+        { id: "place-rr-cohasset-center", name: "Cohasset Center" },
     ],
     Kingston: [
         { id: "place-PB-0281", name: "Halifax" },
@@ -115,6 +124,10 @@ export const stationsByLine: Record<string, Station[]> = {
         { id: "place-brntn", name: "Braintree" },
         { id: "place-qnctr", name: "Quincy Center" },
         { id: "place-PB-0356", name: "Plymouth" },
+        { id: "place-rr-weymouth-col-sq", name: "Weymouth Columbian Square" },
+        { id: "place-rockland-n-abington", name: "Rockland-North Abington" },
+        { id: "place-kingston-jct", name: "Kingston Junction" },
+        { id: "place-plymouth-center", name: "Plymouth Center" },
     ],
     Middleborough: [
         { id: "place-MM-0356", name: "Middleborough/Lakeville" },
@@ -127,6 +140,9 @@ export const stationsByLine: Record<string, Station[]> = {
         { id: "place-jfk", name: "JFK/UMass" },
         { id: "place-sstat", name: "South Station" },
         { id: "place-qnctr", name: "Quincy Center" },
+        { id: "place-rr-braintree-highlands", name: "Braintree Highlands" },
+        { id: "place-rr-bridgewater-center", name: "Bridgewater Center" },
+        { id: "place-rr-mboro-centre-st", name: "Middleborough Centre St" },
     ],
     Needham: [
         { id: "place-NB-0137", name: "Needham Heights" },
@@ -158,10 +174,11 @@ export const stationsByLine: Record<string, Station[]> = {
         { id: "place-sstat", name: "South Station" },
         { id: "place-SB-0189", name: "Stoughton" },
         { id: "place-SB-0156", name: "Canton Center" },
+        { id: "place-rr-pawtucket", name: "Pawtucket" },
     ],
     Lowell: [
         { id: "place-north", name: "North Station" },
-        { id: "place-rr-tufts-university", name: "Tufts University"},
+        { id: "place-rr-tufts-university", name: "Tufts University" },
         { id: "place-NHRML-0055", name: "West Medford" },
         { id: "place-NHRML-0073", name: "Wedgemere" },
         { id: "place-NHRML-0078", name: "Winchester Center" },
@@ -207,6 +224,8 @@ export const stationsByLine: Record<string, Station[]> = {
         { id: "place-WML-0340", name: "Westborough" },
         { id: "place-WML-0364", name: "Grafton" },
         { id: "place-WML-0442", name: "Worcester" },
+        { id: "place-rr-newton-corner", name: "Newton Corner" },
+        { id: "place-rr-west-station", name: "West Station" },
     ],
     Red: [
         { id: "place-alfcl", name: "Alewife" },

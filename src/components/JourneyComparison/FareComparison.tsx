@@ -43,7 +43,7 @@ const nlTimesString = (n: number) => {
 const FareComparison = (props: ComparisonProps) => {
     const { baseline } = props;
     if ("error" in baseline) {
-      return null;
+        return null;
     }
     const { subway, commuterRail } = getNonUnifiedFareSegmentsCount(baseline);
     const total = subway + commuterRail;

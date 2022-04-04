@@ -14,7 +14,7 @@ import styles from "./JourneyComparison.module.scss";
 
 const getTotalJourneyDuration = (journey: JourneyInfo) => {
     if ("error" in journey) {
-      return 0;
+        return 0;
     }
     const first = journey.segments[0];
     const last = journey.segments[journey.segments.length - 1];
@@ -23,7 +23,7 @@ const getTotalJourneyDuration = (journey: JourneyInfo) => {
 
 const renderJourneyDuration = (journey: JourneyInfo) => {
     if ("error" in journey) {
-      return "No route found";
+        return "No route found";
     }
     const first = journey.segments[0];
     const last = journey.segments[journey.segments.length - 1];
@@ -39,7 +39,8 @@ const JourneyComparison = (props: ComparisonProps) => {
 
     const baselineTotalDuration = getTotalJourneyDuration(baseline);
     const enhancedTotalDuration = getTotalJourneyDuration(enhanced);
-    const enhancedTotalFraction = (baselineTotalDuration > 0) ? 1 - enhancedTotalDuration / baselineTotalDuration : 0;
+    const enhancedTotalFraction =
+        baselineTotalDuration > 0 ? 1 - enhancedTotalDuration / baselineTotalDuration : 0;
     const showDelayRow =
         enhanced?.amenities?.includes("electricTrains") &&
         !baseline?.amenities?.includes("electricTrains");
