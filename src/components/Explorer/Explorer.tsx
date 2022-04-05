@@ -6,12 +6,12 @@ import { stationsByLine, stationsById } from "stations";
 import * as api from "api";
 import {
     JourneyInfo,
-    NetworkTime,
     NetworkDayKind,
     TimeOfDay,
     JourneyApiResult,
     NetworkTimeRange,
     ParsedJourneyParams,
+    ArrivalsInfo,
 } from "types";
 import {
     DeparturePicker,
@@ -35,7 +35,7 @@ const scenarioIds = ["present", "regional_rail"];
 type Props = {
     journeyParams: ParsedJourneyParams;
     journeys: null | JourneyInfo[];
-    arrivals: null | NetworkTime[][];
+    arrivals: null | ArrivalsInfo;
 };
 
 const Explorer = (props: Props) => {
@@ -79,14 +79,14 @@ const Explorer = (props: Props) => {
             };
         }
     );
-    const [arrivals, setArrivals] = useState<null | NetworkTime[][]>(initialArrivals);
+    const [arrivals, setArrivals] = useState<null | ArrivalsInfo>(initialArrivals);
     const [journeys, setJourneys] = useState<null | JourneyApiResult>(initialJourneys);
     const [requestedTimeOfDay, setRequestedTimeOfDay] = useState<null | TimeOfDay>(null);
     const [isJourneyPending, wrapJourneyPending] = usePendingPromise();
 
     const timeRange = useMemo(() => {
         if (arrivals) {
-            const [baselineArrivals, enhancedArrivals] = arrivals;
+            const { baselineArrivals, enhancedArrivals } = arrivals;
             return getSpanningTimeRange([...baselineArrivals, ...enhancedArrivals]);
         }
         return [0, 24 * HOUR] as NetworkTimeRange;
@@ -115,7 +115,7 @@ const Explorer = (props: Props) => {
 
     useEffect(() => {
         if (requestedTimeOfDay && arrivals) {
-            const [baselineArrivals, enhancedArrivals] = arrivals;
+            const { baselineArrivals, enhancedArrivals } = arrivals;
             const time = getAdvantageousDepartureTime(
                 requestedTimeOfDay,
                 baselineArrivals,
@@ -128,12 +128,12 @@ const Explorer = (props: Props) => {
 
     const renderDeparturePicker = () => {
         if (arrivals) {
-            const [baselineArrivals, enhancedArrivals] = arrivals;
+            const { baselineArrivals, enhancedArrivals, showArrivals } = arrivals;
             return (
                 <DeparturePicker
                     baselineArrivals={baselineArrivals}
                     enhancedArrivals={enhancedArrivals}
-                    showArrivals={!reverse}
+                    showArrivals={!reverse && showArrivals}
                     includeQuarterHourTicks={!!reverse}
                     onSelectTime={(time) => updateJourneyParams({ time })}
                     time={time}

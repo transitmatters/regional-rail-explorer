@@ -1,4 +1,5 @@
 export * from "./api";
+export * from "./arrivals";
 export * from "./departures";
 export * from "./gtfs";
 export * from "./journey";

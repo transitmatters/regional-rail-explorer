@@ -1,13 +1,30 @@
-import { Station, NetworkDayKind, Trip, JourneyParams } from "types";
+import {
+    Station,
+    NetworkDayKind,
+    Trip,
+    JourneyParams,
+    ArrivalsInfo,
+    JourneySegment,
+    JourneyTravelSegment,
+} from "types";
 import { compareTimes, matchDayOfWeek, parseTime } from "time";
 import { mapScenarios } from "server/scenarios";
 import { getStationsByIds } from "server/network";
 import { navigate } from ".";
+import { isRegionalRailRouteId } from "routes";
 
 type ArrivalJourneyParams = Pick<JourneyParams, "fromStationId" | "toStationId" | "day">;
 
 const tripIsToday = (trip: Trip, today: NetworkDayKind) =>
     trip.serviceDays.some((day) => matchDayOfWeek(day, today));
+
+const shouldShowArrivalTimes = (journey: null | JourneySegment[]) => {
+    if (journey) {
+        const firstTravelSegment = journey.find((s) => s.kind === "travel") as JourneyTravelSegment;
+        return isRegionalRailRouteId(firstTravelSegment.routeId);
+    }
+    return false;
+};
 
 export const getArrivalTimesForJourney = (
     origin: Station,
@@ -41,12 +58,15 @@ export const getStopTimesAtStation = (station: Station, today: NetworkDayKind) =
         .flat();
 };
 
-export const getArrivalTimes = (journeyParams: ArrivalJourneyParams) => {
+export const getArrivalsInfo = (journeyParams: ArrivalJourneyParams): ArrivalsInfo => {
     const { fromStationId, toStationId, day } = journeyParams;
-    return mapScenarios(
+    const [
+        { arrivals: baselineArrivals, journey: baselineJourney },
+        { arrivals: enhancedArrivals, journey: enhancedJourney },
+    ] = mapScenarios(
         ({ network, unifiedFares }) => {
             const [fromStation, toStation] = getStationsByIds(network, fromStationId, toStationId);
-            const exemplarJourney = navigate({
+            const journey = navigate({
                 fromStation,
                 toStation,
                 unifiedFares,
@@ -55,12 +75,15 @@ export const getArrivalTimes = (journeyParams: ArrivalJourneyParams) => {
                     day,
                 },
             });
-            const toStationIds = exemplarJourney
+            const toStationIds = journey
                 .map((seg) => seg.kind === "travel" && seg.endStation.id)
                 .filter((x): x is string => !!x);
             const toStations = getStationsByIds(network, ...toStationIds);
-            return getArrivalTimesForJourney(fromStation, toStations, day);
+            const arrivals = getArrivalTimesForJourney(fromStation, toStations, day);
+            return { arrivals, journey };
         },
-        () => [] as number[]
+        () => ({ arrivals: [] as number[], journey: null })
     );
+    const showArrivals = [baselineJourney, enhancedJourney].every(shouldShowArrivalTimes);
+    return { baselineArrivals, enhancedArrivals, showArrivals };
 };

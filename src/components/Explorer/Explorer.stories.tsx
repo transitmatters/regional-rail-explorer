@@ -15,7 +15,7 @@ export const Default = () => {
         <Explorer
             journeyParams={journeyParams}
             journeys={[baselineInfo, enhancedInfo]}
-            arrivals={[baselineArrivals, enhancedArrivals]}
+            arrivals={{ baselineArrivals, enhancedArrivals, showArrivals: true }}
         />
     );
 };

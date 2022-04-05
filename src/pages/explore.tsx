@@ -1,22 +1,22 @@
 import { Explorer } from "components";
-import { JourneyInfo, NetworkTime, ParsedJourneyParams } from "types";
+import { ArrivalsInfo, JourneyInfo, ParsedJourneyParams } from "types";
 import { getJourneyParamsForQuery, getJourneys } from "server/journey";
-import { getArrivalTimes } from "server/navigation/arrivals";
+import { getArrivalsInfo } from "server/navigation/arrivals";
 
 type Props = {
     journeyParams: ParsedJourneyParams;
     journeys: null | JourneyInfo[];
-    arrivals: null | NetworkTime[][];
+    arrivals: null | ArrivalsInfo;
 };
 
 export default function Explore(props: Props) {
     return <Explorer {...props} />;
 }
 
-const getArrivalTimesForParams = (params: ParsedJourneyParams) => {
+const getArrivalsInfoForParams = (params: ParsedJourneyParams) => {
     const { fromStationId, toStationId, day } = params;
     if (fromStationId && toStationId && day) {
-        return getArrivalTimes({ fromStationId, toStationId, day });
+        return getArrivalsInfo({ fromStationId, toStationId, day });
     }
     return null;
 };
@@ -36,7 +36,7 @@ const getJourneysForParams = (params: ParsedJourneyParams) => {
 
 export const getServerSideProps = async ({ query }) => {
     const journeyParams = getJourneyParamsForQuery(query);
-    const arrivals = getArrivalTimesForParams(journeyParams);
+    const arrivals = getArrivalsInfoForParams(journeyParams);
     const journeys = getJourneysForParams(journeyParams);
     return { props: { journeys, arrivals, journeyParams } };
 };
