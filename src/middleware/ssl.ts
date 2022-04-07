@@ -13,7 +13,7 @@ export const sslMiddleware = (options: Options) => (req: NextRequest) => {
     } = req;
     const xfp = headers.get("x-forwarded-proto");
     if (enabled) {
-        if (xfp === "http") {
+        if (xfp !== "https") {
             const host = optionsHost || reqHost;
             const redirectUrl = `https://${host}${pathname}${search}`;
             console.log({ host, pathname, search, redirectUrl });
