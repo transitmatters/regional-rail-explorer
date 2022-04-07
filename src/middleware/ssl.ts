@@ -1,0 +1,17 @@
+import { NextRequest, NextResponse } from "next/server";
+
+import { getHost } from "server/host";
+
+export const sslMiddleware = () => (req: NextRequest) => {
+    if (process.env.NODE_ENV === "production") {
+        const { headers, nextUrl } = req;
+        const isNotHttps = headers.get("x-forwarded-proto") !== "https";
+        if (isNotHttps) {
+            const { pathname, search } = nextUrl;
+            const host = getHost(req);
+            const redirectUrl = `https://${host}${pathname}${search}`;
+            return NextResponse.redirect(redirectUrl, 301);
+        }
+    }
+    return NextResponse.next();
+};

@@ -1,6 +1,3 @@
-import { NextRequest, NextResponse } from "next/server";
+import { sslMiddleware } from "middleware/ssl";
 
-export default (req: NextRequest) => {
-    console.log(req.nextUrl);
-    return NextResponse.next();
-};
+export default sslMiddleware();
