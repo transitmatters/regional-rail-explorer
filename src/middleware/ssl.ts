@@ -6,6 +6,7 @@ export const sslMiddleware = () => (req: NextRequest) => {
     if (process.env.NODE_ENV === "production") {
         const { headers, nextUrl } = req;
         const isNotHttps = headers.get("x-forwarded-proto") !== "https";
+        console.log({ env: process.env, headers });
         console.log({ isNotHttps });
         if (isNotHttps) {
             const { pathname, search } = nextUrl;
