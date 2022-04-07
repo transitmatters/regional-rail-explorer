@@ -1,14 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import { getHost } from "server/host";
+type Options = {
+    enabled: boolean;
+    host: null | string;
+};
 
-export const sslMiddleware = () => (req: NextRequest) => {
-    if (process.env.NODE_ENV === "production") {
-        const { pathname, search, href } = req.nextUrl;
+export const sslMiddleware = (options: Options) => (req: NextRequest) => {
+    const { enabled, host: optionsHost } = options;
+    if (enabled) {
+        const { pathname, search, href, host: reqHost } = req.nextUrl;
         const isNotHttps = !href.startsWith("https://");
-        console.log({ isNotHttps });
         if (isNotHttps) {
-            const host = getHost(req);
+            const host = optionsHost || reqHost;
             const redirectUrl = `https://${host}${pathname}${search}`;
             console.log({ host, pathname, search, redirectUrl });
             return NextResponse.redirect(redirectUrl, 301);
