@@ -7,17 +7,27 @@ type Options = {
 
 export const sslMiddleware = (options: Options) => (req: NextRequest) => {
     const { enabled, host: optionsHost } = options;
-    console.log({ enabled, optionsHost });
+    const {
+        nextUrl: { pathname, search, host: reqHost },
+        headers,
+    } = req;
+    const xfp = headers.get("x-forwarded-proto");
     if (enabled) {
-        const { pathname, search, href, host: reqHost } = req.nextUrl;
-        const isNotHttps = !href.startsWith("https://");
-        console.log({ href, isNotHttps });
-        if (isNotHttps) {
+        if (xfp === "http") {
             const host = optionsHost || reqHost;
             const redirectUrl = `https://${host}${pathname}${search}`;
             console.log({ host, pathname, search, redirectUrl });
             return NextResponse.redirect(redirectUrl, 301);
         }
+    } else {
+        console.log("not enabled, but", {
+            optionsHost,
+            pathname,
+            search,
+            reqHost,
+            headers: { ...headers },
+            xfp,
+        });
     }
     return NextResponse.next();
 };
