@@ -10,6 +10,7 @@ export const sslMiddleware = (options: Options) => (req: NextRequest) => {
     if (enabled) {
         const { pathname, search, href, host: reqHost } = req.nextUrl;
         const isNotHttps = !href.startsWith("https://");
+        console.log({ href, isNotHttps });
         if (isNotHttps) {
             const host = optionsHost || reqHost;
             const redirectUrl = `https://${host}${pathname}${search}`;
