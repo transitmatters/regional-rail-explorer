@@ -82,8 +82,5 @@ module.exports = (phase) => {
             hackStylesToSupportNonPureDeclarations(config);
             return config;
         },
-        typescript: {
-            ignoreBuildErrors: true,
-        },
     };
 };
