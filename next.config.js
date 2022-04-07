@@ -16,8 +16,9 @@ const hackStylesToSupportNonPureDeclarations = (config) => {
     const oneOf = config.module.rules.find((rule) => typeof rule.oneOf === "object");
 
     const fixUse = (use) => {
-        if (use.loader.indexOf("css-loader") >= 0 && use.options.modules) {
-            use.options.modules.mode = "local";
+        const { loader, options } = use;
+        if (options && options.modules && loader && loader.indexOf("css-loader") >= 0) {
+            options.modules.mode = "local";
         }
     };
 
