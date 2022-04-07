@@ -1,13 +1,11 @@
 import { NextRequest } from "next/server";
 
 export const getHost = (req: NextRequest) => {
-    const { NODE_ENV, PRODUCTION_HOST, HEROKU_APP_NAME } = process.env;
-    console.log({ NODE_ENV, PRODUCTION_HOST, HEROKU_APP_NAME });
-    if (HEROKU_APP_NAME) {
-        return `${HEROKU_APP_NAME}.herokuapp.com`;
+    if (process.env.HEROKU_APP_NAME) {
+        return `${process.env.HEROKU_APP_NAME}.herokuapp.com`;
     }
-    if (NODE_ENV == "production") {
-        return PRODUCTION_HOST;
+    if (process.env.NODE_ENV == "production") {
+        return process.env.PRODUCTION_HOST;
     }
     return req.nextUrl.host;
 };
