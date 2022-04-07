@@ -21,14 +21,7 @@ const AppFrame = (props: Props) => {
     const { globalNavRef, controlsRef } = useAppContext();
     return (
         <div className={styles.appFrame}>
-            <Head>
-                {meta}
-                <meta
-                    name="viewport"
-                    content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0"
-                />
-                <title>Regional Rail Explorer</title>
-            </Head>
+            <Head>{meta}</Head>
             <GlobalNav ref={globalNavRef} />
             {controls && (
                 <div className={styles.controls} ref={controlsRef}>
