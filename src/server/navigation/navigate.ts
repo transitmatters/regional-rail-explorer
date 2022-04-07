@@ -37,7 +37,7 @@ const scoreState = (state: NavigationState) => {
     const regionalRailOverusePenalty =
         regionalRailOveruseWeight * (Math.max(1, boardedRegionalRailCount) - 1);
     // Transferring many times adds variability and is rarely as smooth as it looks on paper.
-    const tooManyTransfersPenalty = boardedRoutePatternIds.size > 3 ? 0.2 : 0;
+    const tooManyTransfersPenalty = 0.1 * Math.max(0, boardedRoutePatternIds.size - 2);
     // The Silver Line is...much slower than its GTFS schedule claims. We account for that here.
     const silverLinePenalty = 0.5 * timeOnSilverLine;
     const penaltyWeights = (1 + regionalRailOverusePenalty) * (1 + tooManyTransfersPenalty);
