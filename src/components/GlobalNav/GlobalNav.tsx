@@ -19,19 +19,17 @@ const navLinks: NavLink[] = [
 ];
 
 const renderNavLink = (link: NavLink, router: NextRouter) => {
-    const href = "pathname" in link ? { pathname: link.pathname } : link.href;
-    const isActive = "pathname" in link && link.pathname === router.pathname;
-    const isExternal = "href" in link;
-    if (isExternal) {
+    if ("href" in link) {
         return (
-            <a className={styles.link} target="_blank" key={link.key}>
+            <a className={styles.link} href={link.href} target="_blank" key={link.key}>
                 {link.title}
                 <FiArrowUpRight className={styles.linkIcon} size={18} />
             </a>
         );
     }
+    const isActive = "pathname" in link && link.pathname === router.pathname;
     return (
-        <Link href={href} passHref={isExternal} key={link.key}>
+        <Link href={{ pathname: link.pathname }} key={link.key}>
             <a className={classNames(styles.link, isActive && styles.active)}>{link.title}</a>
         </Link>
     );
