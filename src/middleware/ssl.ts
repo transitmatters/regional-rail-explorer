@@ -7,6 +7,7 @@ type Options = {
 
 export const sslMiddleware = (options: Options) => (req: NextRequest) => {
     const { enabled, host: optionsHost } = options;
+    console.log({ enabled, optionsHost });
     if (enabled) {
         const { pathname, search, href, host: reqHost } = req.nextUrl;
         const isNotHttps = !href.startsWith("https://");
