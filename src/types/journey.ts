@@ -16,7 +16,9 @@ export interface JourneyParams {
     reverse: boolean;
 }
 
-export type ParsedJourneyParams = Partial<JourneyParams> & { reverse: boolean };
+export type ParsedJourneyParams = {
+    [K in keyof JourneyParams]?: null | undefined | JourneyParams[K];
+} & { reverse: boolean };
 
 export interface JourneyStation {
     id: string;

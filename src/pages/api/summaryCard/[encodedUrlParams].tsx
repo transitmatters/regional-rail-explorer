@@ -2,17 +2,14 @@ import ReactDOMServer from "react-dom/server";
 import sharp from "sharp";
 import queryString from "query-string";
 
-import { JourneyInfo, ParsedJourneyParams } from "types";
+import { ParsedJourneyParams } from "types";
 import { JourneySummaryCard } from "components";
-import { getJourneys, getJourneyParamsForQuery } from "server/journey";
+import { getJourneyParamsForQuery, getSuccessfulJourneys } from "server/journey";
 
 const getJourneyInfoForParams = (journeyParams: ParsedJourneyParams) => {
     const { fromStationId, toStationId, day, time, reverse } = journeyParams;
     if (fromStationId && toStationId && day && time) {
-        const journeys = getJourneys({ fromStationId, toStationId, day, time, reverse });
-        if (!journeys.some((j) => "error" in j)) {
-            return journeys as JourneyInfo[];
-        }
+        return getSuccessfulJourneys({ fromStationId, toStationId, day, time, reverse });
     }
     return null;
 };

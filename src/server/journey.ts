@@ -11,6 +11,7 @@ import {
     JourneyParams,
     ParsedJourneyParams,
 } from "types";
+import { successfulJourneyApiResult } from "journeys";
 
 import { navigate } from "server/navigation";
 import { getStationsByIds } from "server/network";
@@ -137,10 +138,15 @@ export const getJourneys = (params: JourneyParams) => {
     return mapScenarios(
         (scenario) => getJourneyInfoForScenario(scenario, params),
         (_, scenario) => ({
-            error: true,
+            error: true as const,
             payload: { scenario: { name: scenario.name, id: scenario.id } },
         })
     );
+};
+
+export const getSuccessfulJourneys = (params: JourneyParams) => {
+    const possiblySuccessfulJourneys = getJourneys(params);
+    return successfulJourneyApiResult(possiblySuccessfulJourneys);
 };
 
 export const getJourneyParamsForQuery = (

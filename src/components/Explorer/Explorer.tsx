@@ -10,7 +10,6 @@ import {
     TimeOfDay,
     JourneyApiResult,
     NetworkTimeRange,
-    ParsedJourneyParams,
     ArrivalsInfo,
 } from "types";
 import {
@@ -24,6 +23,7 @@ import {
 } from "components";
 import { useRouterBoundState, usePendingPromise, useUpdateEffect } from "hooks";
 import { getSpanningTimeRange, HOUR } from "time";
+import { successfulJourneyApiResult } from "journeys";
 
 import { getAdvantageousDepartureTime } from "./departures";
 
@@ -33,13 +33,12 @@ import getSocialMeta from "./socialMeta";
 const scenarioIds = ["present", "regional_rail"];
 
 type Props = {
-    journeyParams: ParsedJourneyParams;
     journeys: null | JourneyInfo[];
     arrivals: null | ArrivalsInfo;
 };
 
 const Explorer = (props: Props) => {
-    const { journeys: initialJourneys, arrivals: initialArrivals, journeyParams } = props;
+    const { journeys: initialJourneys, arrivals: initialArrivals } = props;
     const [
         { fromStationId, toStationId, day, time, reverse = false },
         updateJourneyParams,
@@ -64,7 +63,7 @@ const Explorer = (props: Props) => {
                 encode: (t) => t?.toString(),
             },
             reverse: {
-                initial: null as null | boolean,
+                initial: false,
                 param: "reverse",
                 decode: (s) => s === "1",
                 encode: (b) => (b ? "1" : "0"),
@@ -83,6 +82,7 @@ const Explorer = (props: Props) => {
     const [journeys, setJourneys] = useState<null | JourneyApiResult>(initialJourneys);
     const [requestedTimeOfDay, setRequestedTimeOfDay] = useState<null | TimeOfDay>(null);
     const [isJourneyPending, wrapJourneyPending] = usePendingPromise();
+    const successfulJourneys = journeys && successfulJourneyApiResult(journeys);
 
     const timeRange = useMemo(() => {
         if (arrivals) {
@@ -184,7 +184,10 @@ const Explorer = (props: Props) => {
         <AppFrame
             mode="journey"
             containerClassName={styles.explorer}
-            meta={getSocialMeta({ journeyParams, journeys: initialJourneys })}
+            meta={getSocialMeta({
+                journeyParams: { fromStationId, toStationId, time, day, reverse },
+                journeys: successfulJourneys,
+            })}
             controls={
                 <JourneyPicker
                     disabled={isJourneyPending}
