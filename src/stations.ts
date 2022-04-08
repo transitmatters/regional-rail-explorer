@@ -1,4 +1,4 @@
-type Station = { id: string; name: string };
+export type Station = { id: string; name: string; disabled?: true };
 
 export const stationsByLine: Record<string, Station[]> = {
     Fairmount: [
@@ -48,15 +48,14 @@ export const stationsByLine: Record<string, Station[]> = {
         { id: "place-wtcst", name: "World Trade Center" },
         { id: "place-crtst", name: "Courthouse" },
         { id: "place-sstat", name: "South Station" },
-        { id: "place-dudly", name: "Dudley Square" },
     ],
     Newburyport: [
-        { id: "place-GB-0353", name: "Rockport" },
-        { id: "place-GB-0316", name: "Gloucester" },
-        { id: "place-GB-0296", name: "West Gloucester" },
-        { id: "place-GB-0254", name: "Manchester" },
-        { id: "place-GB-0229", name: "Beverly Farms" },
-        { id: "place-GB-0198", name: "Montserrat" },
+        { id: "place-GB-0353", name: "Rockport", disabled: true },
+        { id: "place-GB-0316", name: "Gloucester", disabled: true },
+        { id: "place-GB-0296", name: "West Gloucester", disabled: true },
+        { id: "place-GB-0254", name: "Manchester", disabled: true },
+        { id: "place-GB-0229", name: "Beverly Farms", disabled: true },
+        { id: "place-GB-0198", name: "Montserrat", disabled: true },
         { id: "place-ER-0183", name: "Beverly" },
         { id: "place-ER-0168", name: "Salem" },
         { id: "place-ER-0128", name: "Swampscott" },
@@ -342,7 +341,7 @@ export const stationsByLine: Record<string, Station[]> = {
     ],
 };
 
-const indexStationsByProperty = (property: keyof Station) => {
+const indexStationsByProperty = (property: "id" | "name") => {
     return Object.values(stationsByLine).reduce(
         (allStations: Record<string, Station>, lineStations) => {
             lineStations.forEach((station) => {
