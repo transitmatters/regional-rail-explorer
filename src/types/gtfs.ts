@@ -27,7 +27,7 @@ export interface GtfsStopTime {
 export interface GtfsTransfer {
     fromStopId: string;
     toStopId: string;
-    minWalkTime: string;
+    minTransferTime: string;
 }
 
 export interface GtfsService {
