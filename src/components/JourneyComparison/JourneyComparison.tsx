@@ -14,7 +14,7 @@ import styles from "./JourneyComparison.module.scss";
 
 const getTotalJourneyDuration = (journey: JourneyInfo) => {
     if (journey.navigationFailed) {
-        return 0;
+        return null;
     }
     const first = journey.segments[0];
     const last = journey.segments[journey.segments.length - 1];
