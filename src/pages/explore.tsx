@@ -25,7 +25,7 @@ const getJourneysForParams = (params: ParsedJourneyParams) => {
     const { fromStationId, toStationId, day, time, reverse } = params;
     if (fromStationId && toStationId && day && time) {
         const journeyResults = getJourneys({ fromStationId, toStationId, day, time, reverse });
-        const hasAnyError = journeyResults.some((result) => "error" in result);
+        const hasAnyError = journeyResults.some((result) => result.navigationFailed);
         if (hasAnyError) {
             return null;
         }

@@ -154,8 +154,13 @@ const Explorer = (props: Props) => {
             );
         }
         if (journeys) {
+            const journeyResolvedWithError = journeys.find((j) => "error" in j);
+            if (journeyResolvedWithError && "error" in journeyResolvedWithError) {
+              return <JourneyErrorState />;
+            }
             const [baseline, enhanced] = journeys as JourneyInfo[];
-            if ("error" in baseline && "error" in enhanced) {
+            // make sure to show error state if regional rail is the one to fail
+            if (enhanced.navigationFailed || (baseline.navigationFailed && enhanced.navigationFailed)) {
                 return <JourneyErrorState />;
             }
 

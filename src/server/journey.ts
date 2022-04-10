@@ -17,6 +17,7 @@ import { getStationsByIds } from "server/network";
 import { getArrivalTimesForJourney } from "server/navigation/arrivals";
 import { mapScenarios } from "server/scenarios";
 import { HOUR, MINUTE } from "time";
+import { NavigationFailedError } from "errors";
 
 const omitUndefined = <T extends Record<string, any>>(obj: T): Partial<T> => {
     const res: Partial<T> = {};
@@ -99,14 +100,28 @@ const getJourneyInfoForScenario = (
 ): JourneyInfo => {
     const { fromStationId, toStationId, time, day, reverse } = journeyParams;
     const { id, name, network, unifiedFares } = scenario;
-    const [fromStation, toStation] = getStationsByIds(network, fromStationId, toStationId);
-    const journey = navigate({
-        fromStation,
-        toStation,
-        initialDayTime: { time, day },
-        unifiedFares,
+    let journey, fromStation, toStation;
+    try {
+      [fromStation, toStation] = getStationsByIds(network, fromStationId, toStationId);
+      journey = navigate({
+          fromStation,
+          toStation,
+          initialDayTime: { time, day },
+          unifiedFares,
+          reverse,
+      });
+    } catch (error) {
+      return {
+        navigationFailed: true,
+        scenario: {id, name},
+        segments: [],
+        amenities: [],
+        arrivals: {},
+        platformCrowding: {},
         reverse,
-    });
+      }
+    }
+
     // TODO(ian): dedupe this nonsense from /api/arrivals
     const toStationIds = journey
         .map((seg) => seg.kind === "travel" && seg.endStation.id)
@@ -130,6 +145,7 @@ const getJourneyInfoForScenario = (
                 times: arrivals,
             },
         },
+        navigationFailed: false,
     };
 };
 

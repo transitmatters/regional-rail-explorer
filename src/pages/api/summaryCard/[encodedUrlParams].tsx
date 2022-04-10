@@ -10,7 +10,7 @@ const getJourneyInfoForParams = (journeyParams: ParsedJourneyParams) => {
     const { fromStationId, toStationId, day, time, reverse } = journeyParams;
     if (fromStationId && toStationId && day && time) {
         const journeys = getJourneys({ fromStationId, toStationId, day, time, reverse });
-        if (!journeys.some((j) => "error" in j)) {
+        if (!journeys.some((j) => j.navigationFailed)) {
             return journeys as JourneyInfo[];
         }
     }

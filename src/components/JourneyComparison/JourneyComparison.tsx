@@ -13,7 +13,7 @@ import FareComparison from "./FareComparison";
 import styles from "./JourneyComparison.module.scss";
 
 const getTotalJourneyDuration = (journey: JourneyInfo) => {
-    if ("error" in journey) {
+    if (journey.navigationFailed) {
         return 0;
     }
     const first = journey.segments[0];
@@ -22,7 +22,7 @@ const getTotalJourneyDuration = (journey: JourneyInfo) => {
 };
 
 const renderJourneyDuration = (journey: JourneyInfo) => {
-    if ("error" in journey) {
+    if (journey.navigationFailed) {
         return "No route found";
     }
     const first = journey.segments[0];
@@ -42,10 +42,10 @@ const JourneyComparison = (props: ComparisonProps) => {
     const enhancedTotalFraction =
         baselineTotalDuration > 0 ? 1 - enhancedTotalDuration / baselineTotalDuration : 0;
     const showDelayRow =
-        enhanced?.amenities?.includes("electricTrains") &&
-        !baseline?.amenities?.includes("electricTrains");
-    const showWaitRow = !baseline?.reverse;
-    const amenitiesDiff = enhanced?.amenities?.filter((a) => !baseline?.amenities?.includes(a));
+        enhanced.amenities.includes("electricTrains") &&
+        !baseline.amenities.includes("electricTrains");
+    const showWaitRow = !baseline.reverse;
+    const amenitiesDiff = enhanced.amenities.filter((a) => !baseline.amenities.includes(a));
 
     return (
         <div className={styles.journeyComparison}>
@@ -53,13 +53,13 @@ const JourneyComparison = (props: ComparisonProps) => {
                 baseline={
                     <div className="column-header">
                         <div className="header-blip baseline" />
-                        {baseline?.scenario?.name || "Today's commuter rail"}
+                        {baseline.scenario.name}
                     </div>
                 }
                 enhanced={
                     <div className="column-header">
                         <div className="header-blip enhanced" />
-                        {enhanced?.scenario?.name || "Electrified regional rail"}
+                        {enhanced.scenario.name}
                     </div>
                 }
                 isHeader
@@ -87,7 +87,7 @@ const JourneyComparison = (props: ComparisonProps) => {
                 }
             />
             {showWaitRow && <WaitComparison {...props} />}
-            {amenitiesDiff?.length > 0 && (
+            {amenitiesDiff.length > 0 && (
                 <ComparisonRow
                     title="Your ride"
                     baseline={<AmenityListing absent={amenitiesDiff} />}
@@ -119,8 +119,8 @@ const JourneyComparison = (props: ComparisonProps) => {
             <FrequencyComparison {...props} />
             <ComparisonRow
                 title="Your trip"
-                baseline={<JourneyTimeline journey={baseline?.segments || "no segments found"} />}
-                enhanced={<JourneyTimeline journey={enhanced?.segments || "no segments found"} />}
+                baseline={<JourneyTimeline segments={baseline.segments} />}
+                enhanced={<JourneyTimeline segments={enhanced.segments} />}
             />
         </div>
     );
