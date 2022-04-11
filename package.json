@@ -32,6 +32,7 @@
     "reakit": "^1.1.2",
     "sass": "^1.26.10",
     "sharp": "^0.30.3",
+    "smoothscroll-polyfill": "^0.4.4",
     "tar": "^6.1.11",
     "tmp": "^0.2.1",
     "ts-node": "^9.0.0",

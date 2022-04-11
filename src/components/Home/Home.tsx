@@ -1,9 +1,10 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import classNames from "classnames";
 import { Button } from "reakit/Button";
 import { GiElectric } from "react-icons/gi";
 import { IoMdTimer } from "react-icons/io";
 import { MdGridOn } from "react-icons/md";
+import smoothscroll from "smoothscroll-polyfill";
 
 import { useAppContext, useViewport } from "hooks";
 import { LiveNetworkVisualizer, PowerText, SuggestedJourneys } from "components";
@@ -17,6 +18,10 @@ const Home = () => {
     const { viewportHeight } = useViewport();
     const { isMobile } = useAppContext();
     const [initialViewportHeight] = useState(viewportHeight);
+
+    useEffect(() => {
+        smoothscroll.polyfill();
+    }, []);
 
     const visualizerHeight = useMemo(() => {
         if (isMobile) {
