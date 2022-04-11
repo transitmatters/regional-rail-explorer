@@ -90,7 +90,7 @@ export const stringify12Hour = (time: NetworkTime) => {
 
 export const stringifyDuration = (duration: Duration | null, useFull = false) => {
     if (duration === null) {
-      return "---";
+        return "---";
     }
     let hours = 0;
     while (duration >= HOUR) {

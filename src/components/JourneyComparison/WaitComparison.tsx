@@ -36,7 +36,7 @@ const getRegionalRailWaitDuration = (journey: JourneyInfo) => {
 const WaitInfo = (props: WaitInfoProps) => {
     const { journey, compareFavorablyTo, isRegionalRail } = props;
     if (journey.navigationFailed) {
-        return <>"-"</>;
+        return <>-</>;
     }
     const serviceType = isRegionalRail ? "Regional Rail" : "Commuter Rail";
     const waitDuration = getRegionalRailWaitDuration(journey);

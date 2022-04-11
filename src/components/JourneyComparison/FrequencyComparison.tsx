@@ -39,7 +39,7 @@ const getStationIdToCompare = (baseline: JourneyInfo, enhanced: JourneyInfo) => 
 const FrequencyInfo = (props: FrequencyInfoProps) => {
     const { journey, arrivalStationId, halfInterval = HOUR * 1.25 } = props;
     if (journey.navigationFailed) {
-        return <>"No train is coming for this route."</>;
+        return <>No train is coming for this route.</>;
     }
     const {
         segments,

@@ -45,7 +45,7 @@ const getDescription = (journey: JourneyInfo) => {
 const getSocialMeta = (props: Props) => {
     const { journeyParams, journeys } = props;
     const enhanced = journeys && journeys[1];
-    const description = enhanced && getDescription(enhanced);
+    const description = enhanced && !"error" in enhanced && getDescription(enhanced);
     const journeyQueryString = getQueryStringForValidJourneyParams(journeyParams);
     const journeyImage =
         journeyQueryString &&
