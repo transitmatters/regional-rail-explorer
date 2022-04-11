@@ -24,7 +24,7 @@ const App = ({ Component, pageProps, userAgentAppearsMobile = false }) => {
             </Head>
             <Script
                 data-goatcounter="https://transitmatters-rrx.goatcounter.com/count"
-                src="https://gc.zgo.at/count.js"
+                src="//gc.zgo.at/count.js"
             />
             <Component {...pageProps} />
         </AppContextProvider>
