@@ -17,29 +17,29 @@ interface FrequencyInfoProps {
 }
 
 const getFirstStationAndRouteFromJourney = (journey: JourneyInfo) => {
-  const [firstSegment] = [journey].map(
-      (j) => j.segments.find((seg) => seg.kind === "travel") as JourneyTravelSegment
-  );
-  return { routeId: firstSegment?.routeId, stationId: firstSegment?.startStation?.id }
-}
+    const [firstSegment] = [journey].map(
+        (j) => j.segments.find((seg) => seg.kind === "travel") as JourneyTravelSegment
+    );
+    return { routeId: firstSegment?.routeId, stationId: firstSegment?.startStation?.id };
+};
 
 const getStationIdToCompare = (baseline: JourneyInfo, enhanced: JourneyInfo) => {
-  const [
-      { routeId: baselineRouteId, stationId: baselineStationId },
-      { routeId: enhancedRouteId, stationId: enhancedStationId },
-  ] = [baseline, enhanced].map(getFirstStationAndRouteFromJourney);
+    const [
+        { routeId: baselineRouteId, stationId: baselineStationId },
+        { routeId: enhancedRouteId, stationId: enhancedStationId },
+    ] = [baseline, enhanced].map(getFirstStationAndRouteFromJourney);
 
-  const eitherJourneyStartsWithRegionalRail =
-      (baselineRouteId && isRegionalRailRouteId(baselineRouteId)) ||
-      (enhancedRouteId && isRegionalRailRouteId(enhancedRouteId));
+    const eitherJourneyStartsWithRegionalRail =
+        (baselineRouteId && isRegionalRailRouteId(baselineRouteId)) ||
+        (enhancedRouteId && isRegionalRailRouteId(enhancedRouteId));
 
-  return eitherJourneyStartsWithRegionalRail ? baselineStationId || enhancedStationId : null;
+    return eitherJourneyStartsWithRegionalRail ? baselineStationId || enhancedStationId : null;
 };
 
 const FrequencyInfo = (props: FrequencyInfoProps) => {
     const { journey, arrivalStationId, halfInterval = HOUR * 1.25 } = props;
     if (journey.navigationFailed) {
-        return "No train is coming for this route";
+        return <>"No train is coming for this route."</>;
     }
     const {
         segments,

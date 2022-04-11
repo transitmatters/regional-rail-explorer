@@ -9,4 +9,4 @@ export default {
     component: JourneyTimeline,
 };
 
-export const Default = () => <JourneyTimeline journey={journey} />;
+export const Default = () => <JourneyTimeline segments={journey} />;

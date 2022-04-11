@@ -40,7 +40,9 @@ const JourneyComparison = (props: ComparisonProps) => {
     const baselineTotalDuration = getTotalJourneyDuration(baseline);
     const enhancedTotalDuration = getTotalJourneyDuration(enhanced);
     const enhancedTotalFraction =
-        baselineTotalDuration > 0 ? 1 - enhancedTotalDuration / baselineTotalDuration : 0;
+        baselineTotalDuration && enhancedTotalDuration && baselineTotalDuration > 0
+            ? 1 - enhancedTotalDuration / baselineTotalDuration
+            : 0;
     const showDelayRow =
         enhanced.amenities.includes("electricTrains") &&
         !baseline.amenities.includes("electricTrains");

@@ -4,14 +4,13 @@ import classNames from "classnames";
 import { MdClose } from "react-icons/md";
 
 import { Button } from "components";
-import { getLinkToStation } from "stations";
+import { getLinkToStation, Station } from "stations";
 
 import StationSearchBar from "./StationSearchBar";
 
 import styles from "./StationListing.module.scss";
 
-type Station = { id: string; name: string };
-export type StationsByLine = { [line: string]: Station[] };
+export type StationsByLine = Record<string, Station[]>;
 
 type Props = {
     excludeColorLines?: boolean;
@@ -72,6 +71,9 @@ const getStationsToColorMap = (stationsByLine: StationsByLine) => {
 };
 
 const fuzzyMatchStation = (searchTerm: string, station: Station) => {
+    if (station.disabled) {
+        return false;
+    }
     searchTerm = searchTerm.trim().toLowerCase();
     const lowercaseStation = station.name.toLowerCase();
     const matchesTerm =
@@ -143,7 +145,10 @@ const StationListing = React.forwardRef((props: Props, ref: any) => {
                                     {...composite}
                                     id={`${line}-line-${station.id}`}
                                     key={station.id}
-                                    disabled={station.id === previouslySelectedStationId}
+                                    disabled={
+                                        station.disabled ||
+                                        station.id === previouslySelectedStationId
+                                    }
                                     as="li"
                                     data-station-id={station.id}
                                     onClick={handleSelectStation}

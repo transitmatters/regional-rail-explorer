@@ -36,22 +36,23 @@ const getRegionalRailWaitDuration = (journey: JourneyInfo) => {
 const WaitInfo = (props: WaitInfoProps) => {
     const { journey, compareFavorablyTo, isRegionalRail } = props;
     if (journey.navigationFailed) {
-        return "-";
+        return <>"-"</>;
     }
     const serviceType = isRegionalRail ? "Regional Rail" : "Commuter Rail";
     const waitDuration = getRegionalRailWaitDuration(journey);
     const unfavorableWaitDuration = (compareFavorablyTo &&
-        !(compareFavorablyTo.navigationFailed) &&
+        !compareFavorablyTo.navigationFailed &&
         getRegionalRailWaitDuration(compareFavorablyTo))!;
     const favorableWaitFraction =
         compareFavorablyTo &&
-        !(compareFavorablyTo.navigationFailed) &&
+        !compareFavorablyTo.navigationFailed &&
+        unfavorableWaitDuration &&
         1 - waitDuration / unfavorableWaitDuration;
     return (
         <>
             <div className="duration">
                 {stringifyDuration(waitDuration)} waiting for {serviceType} trains
-                {favorableWaitFraction! > 0 && (
+                {favorableWaitFraction && favorableWaitFraction! > 0 && (
                     <div className="bubble offset-left green">
                         {Math.round(100 * favorableWaitFraction!)}% less
                     </div>

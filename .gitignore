@@ -34,3 +34,9 @@ report.*.json
 
 # Scenarios JSON (computed at build from data/)
 scenarios.json
+
+# VSCode settings
+.vscode
+
+# TypeScript stuff
+*.tsbuildinfo
