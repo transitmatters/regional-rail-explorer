@@ -21,11 +21,11 @@ const App = ({ Component, pageProps, userAgentAppearsMobile = false }) => {
                     name="viewport"
                     content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0"
                 />
-                <Script
-                    data-goatcounter="https://transitmatters-rrx.goatcounter.com/count"
-                    src="//gc.zgo.at/count.js"
-                />
             </Head>
+            <Script
+                data-goatcounter="https://transitmatters-rrx.goatcounter.com/count"
+                src="https://gc.zgo.at/count.js"
+            />
             <Component {...pageProps} />
         </AppContextProvider>
     );
