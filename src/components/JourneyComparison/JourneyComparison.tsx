@@ -13,12 +13,18 @@ import FareComparison from "./FareComparison";
 import styles from "./JourneyComparison.module.scss";
 
 const getTotalJourneyDuration = (journey: JourneyInfo) => {
+    if (journey.navigationFailed) {
+        return null;
+    }
     const first = journey.segments[0];
     const last = journey.segments[journey.segments.length - 1];
     return last.endTime - first.startTime;
 };
 
 const renderJourneyDuration = (journey: JourneyInfo) => {
+    if (journey.navigationFailed) {
+        return "No route found";
+    }
     const first = journey.segments[0];
     const last = journey.segments[journey.segments.length - 1];
     return (
@@ -33,7 +39,10 @@ const JourneyComparison = (props: ComparisonProps) => {
 
     const baselineTotalDuration = getTotalJourneyDuration(baseline);
     const enhancedTotalDuration = getTotalJourneyDuration(enhanced);
-    const enhancedTotalFraction = 1 - enhancedTotalDuration / baselineTotalDuration;
+    const enhancedTotalFraction =
+        baselineTotalDuration && enhancedTotalDuration && baselineTotalDuration > 0
+            ? 1 - enhancedTotalDuration / baselineTotalDuration
+            : 0;
     const showDelayRow =
         enhanced.amenities.includes("electricTrains") &&
         !baseline.amenities.includes("electricTrains");
@@ -61,14 +70,20 @@ const JourneyComparison = (props: ComparisonProps) => {
                 title="Total time"
                 baseline={
                     <>
-                        <div className="duration">{stringifyDuration(baselineTotalDuration)}</div>
+                        <div className="duration">
+                            {baselineTotalDuration
+                                ? stringifyDuration(baselineTotalDuration)
+                                : "---"}
+                        </div>
                         <div className="secondary">{renderJourneyDuration(baseline)}</div>
                     </>
                 }
                 enhanced={
                     <>
                         <div className="duration">
-                            {stringifyDuration(enhancedTotalDuration)}
+                            {enhancedTotalDuration
+                                ? stringifyDuration(enhancedTotalDuration)
+                                : "---"}
                             {enhancedTotalFraction > 0 && (
                                 <div className="bubble offset-left green">
                                     {Math.round(100 * enhancedTotalFraction)}% faster
@@ -112,8 +127,8 @@ const JourneyComparison = (props: ComparisonProps) => {
             <FrequencyComparison {...props} />
             <ComparisonRow
                 title="Your trip"
-                baseline={<JourneyTimeline journey={baseline.segments} />}
-                enhanced={<JourneyTimeline journey={enhanced.segments} />}
+                baseline={<JourneyTimeline segments={baseline.segments} />}
+                enhanced={<JourneyTimeline segments={enhanced.segments} />}
             />
         </div>
     );

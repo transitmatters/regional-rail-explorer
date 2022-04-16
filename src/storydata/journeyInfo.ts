@@ -28,6 +28,7 @@ export const baselineInfo: JourneyInfo = {
         },
     },
     amenities: [],
+    navigationFailed: false,
 };
 
 export const enhancedInfo: JourneyInfo = {
@@ -56,6 +57,7 @@ export const enhancedInfo: JourneyInfo = {
         },
     },
     amenities: ["electricTrains", "levelBoarding", "increasedTopSpeed"],
+    navigationFailed: false,
 };
 
 export const journeyParams: JourneyParams = {

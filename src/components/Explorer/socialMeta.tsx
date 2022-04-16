@@ -30,6 +30,9 @@ const getJourneyDuration = (journey: JourneyInfo) => {
 };
 
 const getDescription = (journey: JourneyInfo) => {
+    if (journey.navigationFailed) {
+        return null;
+    }
     const travelSegments = journey.segments.filter(
         (x): x is JourneyTravelSegment => x.kind === "travel"
     );

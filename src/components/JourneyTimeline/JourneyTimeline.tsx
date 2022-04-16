@@ -16,7 +16,7 @@ import { getColorForRouteId, textColor } from "routes";
 import { pluralize } from "strings";
 
 type Props = {
-    journey: JourneySegment[];
+    segments: JourneySegment[];
 };
 
 const desiredStationSpacingPx = 50;
@@ -182,10 +182,13 @@ const TransferSegment = (props: {
 };
 
 const JourneyTimeline = (props: Props) => {
-    const { journey } = props;
+    const { segments } = props;
+    if (segments.length === 0) {
+        return null;
+    }
     return (
         <div className={styles.journeyTimeline}>
-            {journey.map((segment, index) => {
+            {segments.map((segment, index) => {
                 if (segment.kind === "travel") {
                     return <TravelSegment key={index} segment={segment} />;
                 }
@@ -194,7 +197,7 @@ const JourneyTimeline = (props: Props) => {
                         key={index}
                         segment={segment}
                         isStart={index === 0}
-                        isEnd={index === journey.length - 1}
+                        isEnd={index === segments.length - 1}
                     />
                 );
             })}

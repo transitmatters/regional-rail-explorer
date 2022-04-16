@@ -61,7 +61,7 @@ export const getStopTimesAtStation = (station: Station, today: NetworkDayKind) =
 export const getArrivalsInfo = (journeyParams: ArrivalJourneyParams): ArrivalsInfo => {
     const { fromStationId, toStationId, day } = journeyParams;
     const [
-        { arrivals: baselineArrivals, journey: baselineJourney },
+        { arrivals: baselineArrivals },
         { arrivals: enhancedArrivals, journey: enhancedJourney },
     ] = mapScenarios(
         ({ network, unifiedFares }) => {
@@ -84,6 +84,6 @@ export const getArrivalsInfo = (journeyParams: ArrivalJourneyParams): ArrivalsIn
         },
         () => ({ arrivals: [] as number[], journey: null })
     );
-    const showArrivals = [baselineJourney, enhancedJourney].every(shouldShowArrivalTimes);
+    const showArrivals = shouldShowArrivalTimes(enhancedJourney);
     return { baselineArrivals, enhancedArrivals, showArrivals };
 };
