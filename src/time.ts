@@ -88,10 +88,7 @@ export const stringify12Hour = (time: NetworkTime) => {
     return `${resolvedHours} ${isPM ? "PM" : "AM"}`;
 };
 
-export const stringifyDuration = (duration: Duration | null, useFull = false) => {
-    if (duration === null) {
-        return "---";
-    }
+export const stringifyDuration = (duration: Duration, useFull = false) => {
     let hours = 0;
     while (duration >= HOUR) {
         duration -= HOUR;

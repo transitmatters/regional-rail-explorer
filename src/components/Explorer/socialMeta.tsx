@@ -30,6 +30,9 @@ const getJourneyDuration = (journey: JourneyInfo) => {
 };
 
 const getDescription = (journey: JourneyInfo) => {
+    if (journey.navigationFailed) {
+        return null;
+    }
     const travelSegments = journey.segments.filter(
         (x): x is JourneyTravelSegment => x.kind === "travel"
     );
@@ -45,7 +48,7 @@ const getDescription = (journey: JourneyInfo) => {
 const getSocialMeta = (props: Props) => {
     const { journeyParams, journeys } = props;
     const enhanced = journeys && journeys[1];
-    const description = enhanced && !"error" in enhanced && getDescription(enhanced);
+    const description = enhanced && getDescription(enhanced);
     const journeyQueryString = getQueryStringForValidJourneyParams(journeyParams);
     const journeyImage =
         journeyQueryString &&
