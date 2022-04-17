@@ -42,11 +42,8 @@ scenarios.json
 *.tsbuildinfo
 
 # Ansible stuff
+hosts
 inventory
 
 # private keys
 *.pem
-
-# ansible files
-hosts
-inventory
