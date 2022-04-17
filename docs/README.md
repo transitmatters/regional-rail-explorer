@@ -10,6 +10,9 @@ This project is in the early stages of development.
 
 
 ## Setup
+Ensure you have the following dependencies installed:
+ - [node](https://nodejs.org/en/)
+ - [npm](https://www.npmjs.com/)
 
 ### Local Deployment
 
@@ -21,6 +24,10 @@ npm run build && npm start
 Then navigate to http://localhost:3000.
 
 ### Server Deployment
+Ensure you have the following dependencies installed:
+- [nginx](https://www.nginx.com/)
+- [supervisord](http://supervisord.org/introduction.html)
+
 ```
 git pull
 npm install
