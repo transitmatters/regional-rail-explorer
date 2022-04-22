@@ -31,12 +31,12 @@ Ensure you have the following dependencies installed:
 ```
 $ git pull
 $ npm install
-$ NODE_OPTIONS="--max-old-space-size=2048" npm run build
 $ sudo cp devops/regional-rail-explorer-supervisor.conf /etc/supervisor/conf.d/regional-rail-explorer.conf
-$ sudo supervisorctl reload
-$ sudo supervisorctl restart regional-rail-explorer
 $ sudo cp devops/regional-rail-explorer-nginx.conf /etc/nginx/sites-enabled/
+$ sudo supervisorctl reload
 $ sudo systemctl restart nginx
+$ NODE_OPTIONS="--max-old-space-size=2048" npm run build
+$ sudo supervisorctl restart regional-rail-explorer
 ```
 
 Initial API requests will be quite slow for now as the server must load and parse several large GTFS bundles.
