@@ -11,8 +11,8 @@ This project is in the early stages of development.
 
 ## Setup
 Ensure you have the following dependencies installed:
- - [node](https://nodejs.org/en/)
- - [npm](https://www.npmjs.com/)
+ - [`node`](https://nodejs.org/en/) `16.x`
+ - [`npm`](https://www.npmjs.com/)
 
 ### Local Deployment
 
@@ -29,11 +29,14 @@ Ensure you have the following dependencies installed:
 - [supervisord](http://supervisord.org/introduction.html)
 
 ```
-git pull
-npm install
-NODE_OPTIONS="--max-old-space-size=2048" npm run build
-cp regional-rail-explorer.supervisor.conf /etc/supervisor/conf.d/regional-rail-explorer.conf
-sudo supervisorctl restart regional-rail-explorer # a supervisorctl reload may be required if the .conf was changed
+$ git pull
+$ npm install
+$ NODE_OPTIONS="--max-old-space-size=2048" npm run build
+$ sudo cp devops/regional-rail-explorer-supervisor.conf /etc/supervisor/conf.d/regional-rail-explorer.conf
+$ sudo supervisorctl reload
+$ sudo supervisorctl restart regional-rail-explorer
+$ sudo cp devops/regional-rail-explorer-nginx.conf /etc/nginx/sites-enabled/
+$ sudo systemctl restart nginx
 ```
 
 Initial API requests will be quite slow for now as the server must load and parse several large GTFS bundles.
