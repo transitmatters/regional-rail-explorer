@@ -11,6 +11,6 @@ const getHost = () => {
 };
 
 export default sslMiddleware({
-    enabled: process.env.NODE_ENV === "production",
+    enabled: process.env.NODE_ENV === "production" && process.env.FORCE_SSL === "true",
     host: getHost(),
 });
