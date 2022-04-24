@@ -8,10 +8,10 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
-      - name: Set up Node 12.13.0
+      - name: Set up Node 16.x
         uses: actions/setup-node@v1
         with:
-          node-version: 12.13.0
+          node-version: 16.x
       - name: Lint frontend code with ESLint
         run: |
           npm ci

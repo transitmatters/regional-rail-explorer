@@ -30,11 +30,11 @@ Ensure you have the following dependencies installed:
 
 ```
 $ git pull
-$ npm install
 $ sudo cp devops/regional-rail-explorer-supervisor.conf /etc/supervisor/conf.d/regional-rail-explorer.conf
 $ sudo cp devops/regional-rail-explorer-nginx.conf /etc/nginx/sites-enabled/
 $ sudo supervisorctl reload
 $ sudo systemctl restart nginx
+$ npm install
 $ NODE_OPTIONS="--max-old-space-size=2048" npm run build
 $ sudo supervisorctl restart regional-rail-explorer
 ```
