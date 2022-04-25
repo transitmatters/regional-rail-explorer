@@ -40,3 +40,10 @@ scenarios.json
 
 # TypeScript stuff
 *.tsbuildinfo
+
+# Ansible stuff
+hosts
+inventory
+
+# private keys
+*.pem

@@ -1,0 +1,61 @@
+---
+- name: deploy latest regional rail explorer on lightsail
+  hosts: all
+  remote_user: ubuntu
+  become_user: ubuntu
+  tasks:
+    - name: get latest github repo
+      git:
+        repo: https://github.com/transitmatters/regional-rail-explorer.git
+        dest: /home/ubuntu/regional-rail-explorer
+        force: yes
+
+    - name: copy supervisor config file
+      copy:
+        src: /home/ubuntu/regional-rail-explorer/devops/regional-rail-explorer-supervisor.conf
+        dest: /etc/supervisor/conf.d/
+        remote_src: yes
+      become: yes
+      become_user: root
+
+    - name: copy nginx config file
+      copy:
+        src: /home/ubuntu/regional-rail-explorer/devops/regional-rail-explorer-nginx.conf
+        dest: /etc/nginx/sites-enabled/
+        remote_src: yes
+      become: yes
+      become_user: root
+
+    - name: restart supervisor
+      service:
+        name: supervisor 
+        state: restarted
+      become: yes
+      become_user: root
+
+    - name: restart nginx
+      systemd:
+        name: nginx
+        state: restarted
+        daemon_reload: yes
+      become: yes
+      become_user: root
+
+    - name: install app dependencies
+      shell: npm ci
+      args:
+        chdir: /home/ubuntu/regional-rail-explorer
+      environment:
+        PATH: /home/ubuntu/.local/bin:{{ ansible_env.PATH }}
+
+    - name: build application with npm
+      shell: npm run build
+      args:
+        chdir: /home/ubuntu/regional-rail-explorer
+      environment:
+        NODE_OPTIONS: --max-old-space-size=2048
+
+    - name: restart regional-rail-explorer service
+      shell: supervisorctl restart regional-rail-explorer
+      become: yes
+      become_user: root
