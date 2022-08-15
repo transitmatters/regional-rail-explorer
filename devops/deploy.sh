@@ -43,5 +43,5 @@ aws cloudformation deploy --stack-name $STACK_NAME \
   RREDomain=$DOMAIN \
   RRECertArn=$CERT_ARN
 
-EIP=$(aws cloudformation describe-stacks --stack-name $STACK_NAME --query "Stacks[0].Outputs[?OutputKey=='InstanceIP'].OutputValue" --output text)
-ansible-playbook -i $EIP, -u ubuntu --private-key ~/.ssh/transitmatters-default.pem deploy-on-ec2.yml
+INSTANCE_IP=$(aws cloudformation describe-stacks --stack-name $STACK_NAME --query "Stacks[0].Outputs[?OutputKey=='InstanceIP'].OutputValue" --output text)
+ansible-playbook -i $INSTANCE_IP, -u ubuntu --private-key ~/.ssh/transitmatters-default.pem deploy-on-ec2.yml
