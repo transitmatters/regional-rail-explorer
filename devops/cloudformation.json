@@ -23,7 +23,7 @@
       "Properties": {
         "ImageId": "ami-070650c005cce4203",
         "InstanceType": "t4g.small",
-        "KeyName": "default",
+        "KeyName": "transitmatters-rre",
         "SecurityGroupIds": [
           { "Ref": "RRESecurityGroup" }
         ]

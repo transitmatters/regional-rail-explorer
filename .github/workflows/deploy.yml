@@ -28,7 +28,7 @@ jobs:
           EOF
 
           mkdir ~/.ssh
-          cat >> ~/.ssh/transitmatters-default.pem << EOF
+          cat >> ~/.ssh/transitmatters-rre.pem << EOF
           ${{ secrets.AWS_PRIVATE_KEY }}
           EOF
       - name: Run deploy shell script
