@@ -28,7 +28,6 @@ $PRODUCTION && HOSTNAME="regionalrail.rocks" || HOSTNAME="rre-beta.labs.transitm
 $PRODUCTION && DOMAIN="regionalrail.rocks" || DOMAIN="labs.transitmatters.org"
 $PRODUCTION && CERT_ARN="$TM_RRE_RR_RKS_CERT_ARN" || CERT_ARN="$TM_LABS_WILDCARD_CERT_ARN"
 
-# STACK_NAME="rre-stack-beta-preston"
 $PRODUCTION && STACK_NAME="rre" || STACK_NAME="rre-beta"
 
 echo "Deploying Regional Rail Explorer to $HOSTNAME..."
@@ -44,4 +43,6 @@ aws cloudformation deploy --stack-name $STACK_NAME \
   RRECertArn=$CERT_ARN
 
 INSTANCE_IP=$(aws cloudformation describe-stacks --stack-name $STACK_NAME --query "Stacks[0].Outputs[?OutputKey=='InstanceIP'].OutputValue" --output text)
+# Run the playbook! :-)
+export ANSIBLE_HOST_KEY_CHECKING=False # If it's a new host, ssh known_hosts not having the key fingerprint will cause an error. Silence it
 ansible-playbook -i $INSTANCE_IP, -u ubuntu --private-key ~/.ssh/transitmatters-default.pem deploy-on-ec2.yml

@@ -4,14 +4,14 @@
   remote_user: ubuntu
   become_user: ubuntu
   tasks:
-    - name: "Add nodejs apt key"
+    - name: Add nodejs apt key
       become: yes
       become_user: root
       apt_key:
         url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
         state: present
 
-    - name: "Add nodejs 16.x ppa for apt repo"
+    - name: Add nodejs 16.x ppa for apt repo
       become: yes
       become_user: root
       apt_repository:
@@ -31,11 +31,11 @@
         force: yes
 
     - name: copy systemd service file
+      become: yes
+      become_user: root
       copy:
         src: systemd.conf
         dest: /etc/systemd/system/regional-rail-explorer.service
-      become: yes
-      become_user: root
 
     - name: Install nginx
       become: yes
@@ -44,19 +44,19 @@
         name: nginx
 
     - name: copy nginx config file
+      become: yes
+      become_user: root
       copy:
         src: nginx.conf
         dest: /etc/nginx/sites-enabled/default
-      become: yes
-      become_user: root
 
     - name: restart nginx
+      become: yes
+      become_user: root
       systemd:
         name: nginx
         state: restarted
         daemon_reload: yes
-      become: yes
-      become_user: root
 
     - name: install app dependencies
       shell: npm ci
@@ -69,6 +69,6 @@
         chdir: /home/ubuntu/regional-rail-explorer
 
     - name: restart service
-      shell: systemctl restart regional-rail-explorer
       become: yes
       become_user: root
+      shell: systemctl restart regional-rail-explorer

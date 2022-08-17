@@ -8,17 +8,29 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      AWS_PROFILE: transitmatters
+      AWS_DEFAULT_REGION: us-east-1
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      TM_RRE_RR_RKS_CERT_ARN: ${{ secrets.TM_RRE_RR_RKS_CERT_ARN }}
+      TM_LABS_WILDCARD_CERT_ARN: ${{ secrets.TM_LABS_WILDCARD_CERT_ARN }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
-      - name: Run deploy-on-lightsail ansible playbook
-        uses: dawidd6/action-ansible-playbook@v2
+      - name: Set up Node 16.x
+        uses: actions/setup-node@v3
         with:
-          playbook: deploy-on-lightsail.yml
-          directory: ./devops/
-          key: ${{ secrets.AWS_PRIVATE_KEY }}
-          inventory: |
-            [all]
-            ${{ secrets.LIGHTSAIL_PUBLIC_IP }} ansible_python_interpreter="/usr/bin/python3"
-          options: |
-            --verbose
+          node-version: 16
+      - name: Generate AWS profile
+        run: |
+          mkdir ~/.aws
+          cat >> ~/.aws/credentials << EOF
+          [$AWS_PROFILE]
+          aws_access_key_id = $AWS_ACCESS_KEY_ID
+          aws_secret_access_key = $AWS_SECRET_ACCESS_KEY
+          EOF
+      - name: Run deploy shell script
+        run: |
+          npm ci
+          bash deploy.sh -p -c
