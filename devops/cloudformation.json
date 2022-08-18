@@ -26,6 +26,12 @@
         "KeyName": "transitmatters-rre",
         "SecurityGroupIds": [
           { "Ref": "RRESecurityGroup" }
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": {"Fn::Sub": "rre-${RREHostname}"}
+         }
         ]
       }
     },
