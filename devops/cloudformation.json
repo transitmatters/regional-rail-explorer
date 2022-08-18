@@ -32,7 +32,7 @@
     "RRESecurityGroup": {
       "Type": "AWS::EC2::SecurityGroup",
       "Properties": {
-        "GroupName": "RRE-securitygroup",
+        "GroupName": {"Fn::Sub": "RRE-securitygroup-${RREHostname}"},
         "GroupDescription": "Allow HTTP/HTTPS and SSH inbound and outbound traffic",
         "SecurityGroupIngress": [
           {
