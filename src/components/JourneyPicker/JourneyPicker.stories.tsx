@@ -22,6 +22,7 @@ export const Default = () => {
             day="weekday"
             time={null}
             timeRange={[0, 24 * 3600 - 1]}
+            onSelectDepartAfter={(a) => void a}
         />
     );
 };

@@ -80,6 +80,7 @@ const Explorer = (props: Props) => {
     );
     const [arrivals, setArrivals] = useState<null | ArrivalsInfo>(initialArrivals);
     const [journeys, setJourneys] = useState<null | JourneyApiResult>(initialJourneys);
+    const [departAfter, setDepartAfter] = useState(false);
     const [requestedTimeOfDay, setRequestedTimeOfDay] = useState<null | TimeOfDay>(null);
     const [isJourneyPending, wrapJourneyPending] = usePendingPromise();
     const successfulJourneys = journeys && successfulJourneyApiResult(journeys);
@@ -167,7 +168,13 @@ const Explorer = (props: Props) => {
                 return <JourneyErrorState />;
             }
 
-            return <JourneyComparison baseline={baseline} enhanced={enhanced} />;
+            return (
+                <JourneyComparison
+                    baseline={baseline}
+                    enhanced={enhanced}
+                    departAfter={departAfter}
+                />
+            );
         }
         return null;
     };
@@ -207,6 +214,7 @@ const Explorer = (props: Props) => {
                     onSelectJourney={updateJourneyParams}
                     onSelectTimeOfDay={setRequestedTimeOfDay}
                     onSelectDay={(day) => updateJourneyParams({ day })}
+                    onSelectDepartAfter={setDepartAfter}
                 />
             }
         >

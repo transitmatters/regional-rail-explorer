@@ -12,20 +12,26 @@ import FareComparison from "./FareComparison";
 
 import styles from "./JourneyComparison.module.scss";
 
-const getTotalJourneyDuration = (journey: JourneyInfo) => {
+const getTotalJourneyDuration = (journey: JourneyInfo, departAfter: boolean) => {
     if (journey.navigationFailed) {
         return null;
     }
-    const first = journey.segments[0];
+    const first =
+        !departAfter || journey.segments[0].kind === "travel"
+            ? journey.segments[0]
+            : journey.segments[1];
     const last = journey.segments[journey.segments.length - 1];
     return last.endTime - first.startTime;
 };
 
-const renderJourneyDuration = (journey: JourneyInfo) => {
+const renderJourneyDuration = (journey: JourneyInfo, departAfter: boolean) => {
     if (journey.navigationFailed) {
         return "No route found";
     }
-    const first = journey.segments[0];
+    const first =
+        !departAfter || journey.segments[0].kind === "travel"
+            ? journey.segments[0]
+            : journey.segments[1];
     const last = journey.segments[journey.segments.length - 1];
     return (
         stringifyTime(first.startTime, { use12Hour: true }) +
@@ -35,10 +41,10 @@ const renderJourneyDuration = (journey: JourneyInfo) => {
 };
 
 const JourneyComparison = (props: ComparisonProps) => {
-    const { baseline, enhanced } = props;
+    const { baseline, enhanced, departAfter } = props;
 
-    const baselineTotalDuration = getTotalJourneyDuration(baseline);
-    const enhancedTotalDuration = getTotalJourneyDuration(enhanced);
+    const baselineTotalDuration = getTotalJourneyDuration(baseline, departAfter);
+    const enhancedTotalDuration = getTotalJourneyDuration(enhanced, departAfter);
     const enhancedTotalFraction =
         baselineTotalDuration && enhancedTotalDuration && baselineTotalDuration > 0
             ? 1 - enhancedTotalDuration / baselineTotalDuration
@@ -46,7 +52,7 @@ const JourneyComparison = (props: ComparisonProps) => {
     const showDelayRow =
         enhanced.amenities.includes("electricTrains") &&
         !baseline.amenities.includes("electricTrains");
-    const showWaitRow = !baseline.reverse;
+    const showWaitRow = !baseline.reverse && !departAfter;
     const amenitiesDiff = enhanced.amenities.filter((a) => !baseline.amenities.includes(a));
 
     return (
@@ -75,7 +81,9 @@ const JourneyComparison = (props: ComparisonProps) => {
                                 ? stringifyDuration(baselineTotalDuration)
                                 : "---"}
                         </div>
-                        <div className="secondary">{renderJourneyDuration(baseline)}</div>
+                        <div className="secondary">
+                            {renderJourneyDuration(baseline, departAfter)}
+                        </div>
                     </>
                 }
                 enhanced={
@@ -90,7 +98,9 @@ const JourneyComparison = (props: ComparisonProps) => {
                                 </div>
                             )}
                         </div>
-                        <div className="secondary">{renderJourneyDuration(enhanced)}</div>
+                        <div className="secondary">
+                            {renderJourneyDuration(enhanced, departAfter)}
+                        </div>
                     </>
                 }
             />
