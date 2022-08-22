@@ -1,0 +1,149 @@
+{
+  "Parameters": {
+    "RREHostname": {
+      "Type": "String",
+      "Default": "rre-beta.labs.transitmatters.org",
+      "AllowedPattern": "^regionalrail\\.rocks$|^.*\\.labs\\.transitmatters\\.org$",
+      "Description": "The hostname for the site; for example: regionalrail.rocks."
+    },
+    "RREDomain": {
+      "Type": "String",
+      "Default": "labs.transitmatters.org",
+      "AllowedPattern": "^regionalrail\\.rocks$|^labs\\.transitmatters\\.org$",
+      "Description": "The parent domain of the site. Most likely regionalrail.rocks or labs.transitmatters.org."
+    },
+    "RRECertArn": {
+      "Type": "String",
+      "Description": "The ACM ARN of the SSL certificate."
+    }
+  },
+  "Resources": {
+    "RREInstance": {
+      "Type": "AWS::EC2::Instance",
+      "Properties": {
+        "ImageId": "ami-070650c005cce4203",
+        "InstanceType": "t4g.small",
+        "KeyName": "transitmatters-rre",
+        "SecurityGroupIds": [
+          { "Ref": "RRESecurityGroup" }
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": {"Fn::Sub": "rre-${RREHostname}"}
+         }
+        ]
+      }
+    },
+    "RRESecurityGroup": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupName": {"Fn::Sub": "RRE-securitygroup-${RREHostname}"},
+        "GroupDescription": "Allow HTTP/HTTPS and SSH inbound and outbound traffic",
+        "SecurityGroupIngress": [
+          {
+            "IpProtocol": "tcp",
+            "FromPort": 80,
+            "ToPort": 80,
+            "CidrIp": "0.0.0.0/0"
+          },
+          {
+            "IpProtocol": "tcp",
+            "FromPort": 22,
+            "ToPort": 22,
+            "CidrIp": "0.0.0.0/0"
+          }
+        ]
+      }
+    },
+    "RREEipAssociation": {
+      "Type": "AWS::EC2::EIPAssociation",
+      "Properties": {
+        "EIP": {
+          "Ref": "RREEip"
+        },
+        "InstanceId": {
+          "Ref": "RREInstance"
+        }
+      }
+    },
+    "RREEip": {
+      "Type": "AWS::EC2::EIP",
+      "Properties": {
+        "Domain": "vpc",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "RRE-eip"
+          }
+        ]
+      }
+    },
+    "RREDNSRecord": {
+      "Type": "AWS::Route53::RecordSet",
+      "Properties": {
+        "Name": {"Fn::Sub": "${RREHostname}."},
+        "HostedZoneName": {"Fn::Sub": "${RREDomain}."},
+        "AliasTarget": {
+          "HostedZoneId": "Z2FDTNDATAQYW2",
+          "DNSName": {
+            "Fn::GetAtt": [
+              "RRECloudFront",
+              "DomainName"
+            ]
+          }
+        },
+        "Type": "A"
+      }
+    },
+    "RRECloudFront": {
+      "Type": "AWS::CloudFront::Distribution",
+      "Properties": {
+        "DistributionConfig": {
+          "Aliases": [
+            { "Ref": "RREHostname" }
+          ],
+          "Enabled": "true",
+          "DefaultCacheBehavior": {
+            "Compress": true,
+            "ForwardedValues": {
+              "QueryString": "true"
+            },
+            "TargetOriginId": "only-origin",
+            "ViewerProtocolPolicy": "redirect-to-https"
+          },
+          "DefaultRootObject": "",
+          "Origins": [
+            {
+              "CustomOriginConfig": {
+                "OriginProtocolPolicy": "http-only"
+              },
+              "DomainName": {
+                "Fn::GetAtt": [
+                  "RREInstance",
+                  "PublicDnsName"
+                ]
+              },
+              "Id": "only-origin"
+            }
+          ],
+          "PriceClass": "PriceClass_100",
+          "ViewerCertificate": {
+            "MinimumProtocolVersion": "TLSv1.2_2018",
+            "AcmCertificateArn": { "Ref": "RRECertArn" },
+            "SslSupportMethod": "sni-only"
+          }
+        }
+      },
+      "DependsOn": [
+        "RREEipAssociation"
+      ]
+    }
+  },
+  "Outputs": {
+    "InstanceIP": {
+      "Value": { "Ref": "RREEip" },
+      "Description": "RRE's public IP address"
+    }
+  }
+}
