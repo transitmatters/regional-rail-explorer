@@ -34,4 +34,4 @@ jobs:
       - name: Run deploy shell script
         run: |
           npm ci
-          bash deploy.sh -p -c
+          cd devops && bash ./deploy.sh -p -c
