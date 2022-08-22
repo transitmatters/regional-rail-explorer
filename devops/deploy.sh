@@ -34,18 +34,18 @@ echo "Deploying Regional Rail Explorer to $HOSTNAME..."
 echo "View stack log here: https://$AWS_REGION.console.aws.amazon.com/cloudformation/home?region=$AWS_REGION"
 
 aws cloudformation deploy --stack-name $STACK_NAME \
-  --template-file cloudformation.json \
-  --capabilities CAPABILITY_NAMED_IAM \
-  --no-fail-on-empty-changeset \
-  --parameter-overrides \
-  RREHostname=$HOSTNAME \
-  RREDomain=$DOMAIN \
-  RRECertArn=$CERT_ARN
+    --template-file cloudformation.json \
+    --capabilities CAPABILITY_NAMED_IAM \
+    --no-fail-on-empty-changeset \
+    --parameter-overrides \
+    RREHostname=$HOSTNAME \
+    RREDomain=$DOMAIN \
+    RRECertArn=$CERT_ARN
 
 INSTANCE_IP=$(aws cloudformation describe-stacks --stack-name $STACK_NAME --query "Stacks[0].Outputs[?OutputKey=='InstanceIP'].OutputValue" --output text)
 # Run the playbook! :-)
 export ANSIBLE_HOST_KEY_CHECKING=False # If it's a new host, ssh known_hosts not having the key fingerprint will cause an error. Silence it
-ansible-playbook -i $INSTANCE_IP, -u ubuntu --private-key ~/.ssh/transitmatters-rre.pem deploy-on-ec2.yml
+ansible-playbook -i $INSTANCE_IP, -u ubuntu --private-key ~/.ssh/transitmatters-rre.pem ansible.yml
 
 # Grab the cloudfront ID and invalidate its cache
 CLOUDFRONT_ID=$(aws cloudfront list-distributions --query "DistributionList.Items[?Aliases.Items!=null] | [?contains(Aliases.Items, '$HOSTNAME')].Id | [0]" --output text)
