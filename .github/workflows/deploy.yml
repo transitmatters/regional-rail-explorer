@@ -31,6 +31,7 @@ jobs:
           cat >> ~/.ssh/transitmatters-rre.pem << EOF
           ${{ secrets.SSH_PRIVATE_KEY }}
           EOF
+          chmod 0600 ~/.ssh/transitmatters-rre.pem
       - name: Run deploy shell script
         run: |
           npm ci
