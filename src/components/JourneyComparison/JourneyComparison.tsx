@@ -170,7 +170,9 @@ const JourneyComparison = (props: ComparisonProps) => {
                 baseline={
                     <JourneyTimeline
                         segments={
-                            !departAfter || baseline.segments[0].kind === "travel"
+                            !departAfter ||
+                            baseline.segments.length === 0 ||
+                            baseline.segments[0].kind === "travel"
                                 ? baseline.segments
                                 : baseline.segments.slice(1)
                         }
@@ -179,7 +181,9 @@ const JourneyComparison = (props: ComparisonProps) => {
                 enhanced={
                     <JourneyTimeline
                         segments={
-                            !departAfter || enhanced.segments[0].kind === "travel"
+                            !departAfter ||
+                            enhanced.segments.length === 0 ||
+                            enhanced.segments[0].kind === "travel"
                                 ? enhanced.segments
                                 : enhanced.segments.slice(1)
                         }
