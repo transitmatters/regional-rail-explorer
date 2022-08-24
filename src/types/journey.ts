@@ -14,6 +14,7 @@ export interface JourneyParams {
     day: NetworkDayKind;
     time: NetworkTime;
     reverse: boolean;
+    departAfter?: boolean;
 }
 
 export type ParsedJourneyParams = {

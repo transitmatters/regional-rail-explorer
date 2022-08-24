@@ -40,7 +40,7 @@ type Props = {
 const Explorer = (props: Props) => {
     const { journeys: initialJourneys, arrivals: initialArrivals } = props;
     const [
-        { fromStationId, toStationId, day, time, reverse = false },
+        { fromStationId, toStationId, day, time, reverse = false, departAfter = true },
         updateJourneyParams,
     ] = useRouterBoundState(
         {
@@ -68,6 +68,12 @@ const Explorer = (props: Props) => {
                 decode: (s) => s === "1",
                 encode: (b) => (b ? "1" : "0"),
             },
+            departAfter: {
+                initial: true,
+                param: "departAfter",
+                decode: (s) => s === "1",
+                encode: (b) => (b ? "1" : "0"),
+            },
         },
         (previousState, nextState) => {
             return {
@@ -80,7 +86,6 @@ const Explorer = (props: Props) => {
     );
     const [arrivals, setArrivals] = useState<null | ArrivalsInfo>(initialArrivals);
     const [journeys, setJourneys] = useState<null | JourneyApiResult>(initialJourneys);
-    const [departAfter, setDepartAfter] = useState(false);
     const [requestedTimeOfDay, setRequestedTimeOfDay] = useState<null | TimeOfDay>(null);
     const [isJourneyPending, wrapJourneyPending] = usePendingPromise();
     const successfulJourneys = journeys && successfulJourneyApiResult(journeys);
@@ -211,10 +216,9 @@ const Explorer = (props: Props) => {
                     stationsByLine={stationsByLine}
                     fromStationId={fromStationId}
                     toStationId={toStationId}
-                    onSelectJourney={updateJourneyParams}
+                    updateJourneyParams={updateJourneyParams}
                     onSelectTimeOfDay={setRequestedTimeOfDay}
                     onSelectDay={(day) => updateJourneyParams({ day })}
-                    onSelectDepartAfter={setDepartAfter}
                 />
             }
         >

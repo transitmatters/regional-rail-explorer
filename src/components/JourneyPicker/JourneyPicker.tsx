@@ -22,7 +22,7 @@ type Props = {
     fromStationId: null | string;
     toStationId: null | string;
     onSelectDay: (day: NetworkDayKind) => unknown;
-    onSelectJourney: (params: Partial<JourneyParams>) => any;
+    updateJourneyParams: (params: Partial<JourneyParams>) => any;
     onSelectTimeOfDay: (time: TimeOfDay) => unknown;
     stationsById: Record<string, Station>;
     stationsByLine: StationsByLine;
@@ -30,7 +30,6 @@ type Props = {
     timeRange: NetworkTimeRange;
     disabled?: boolean;
     reverse: boolean;
-    onSelectDepartAfter: (boolean) => unknown;
 };
 
 const timeOfDayPickerOptions = [
@@ -97,7 +96,7 @@ const JourneyPicker = (props: Props) => {
         day,
         fromStationId,
         onSelectDay,
-        onSelectJourney,
+        updateJourneyParams,
         onSelectTimeOfDay,
         stationsById,
         stationsByLine,
@@ -105,7 +104,6 @@ const JourneyPicker = (props: Props) => {
         timeRange,
         toStationId,
         disabled,
-        onSelectDepartAfter,
     } = props;
 
     const [timeOfDay, setTimeOfDay] = useState(() =>
@@ -127,9 +125,9 @@ const JourneyPicker = (props: Props) => {
 
     const swapStations = useCallback(() => {
         if (fromStationId && toStationId) {
-            onSelectJourney({ fromStationId: toStationId, toStationId: fromStationId });
+            updateJourneyParams({ fromStationId: toStationId, toStationId: fromStationId });
         }
-    }, [onSelectJourney, fromStationId, toStationId]);
+    }, [updateJourneyParams, fromStationId, toStationId]);
 
     useEffect(() => {
         if (typeof time === "number") {
@@ -138,8 +136,10 @@ const JourneyPicker = (props: Props) => {
     }, [time]);
 
     const chooseDepartureOption = (kind) => {
-        onSelectJourney({ reverse: kind.id === "arrive-by" });
-        onSelectDepartAfter(kind.id === "depart-after");
+        updateJourneyParams({
+            reverse: kind.id === "arrive-by",
+            departAfter: kind.id === "depart-after",
+        });
         setSelectedNavigationKind(
             navigationKindOptions.find((k) => k.id === kind.id) || navigationKindOptions[0]
         );
@@ -154,7 +154,7 @@ const JourneyPicker = (props: Props) => {
                         disabled={disabled}
                         label={fromStation?.name ?? "Choose a station"}
                         onSelectStation={(stationId) =>
-                            onSelectJourney({ fromStationId: stationId })
+                            updateJourneyParams({ fromStationId: stationId })
                         }
                         stationsByLine={stationsByLine}
                     />
@@ -164,7 +164,9 @@ const JourneyPicker = (props: Props) => {
                         lockBodyScroll
                         disabled={disabled}
                         label={toStation?.name ?? "Choose a station"}
-                        onSelectStation={(stationId) => onSelectJourney({ toStationId: stationId })}
+                        onSelectStation={(stationId) =>
+                            updateJourneyParams({ toStationId: stationId })
+                        }
                         stationsByLine={stationsByLine}
                         previouslySelectedStationId={fromStation && fromStation.id}
                     />
@@ -210,7 +212,7 @@ const JourneyPicker = (props: Props) => {
                     className={styles.numericTime}
                     time={time || 9 * HOUR}
                     timeRange={timeRange}
-                    onSelectTime={(time) => onSelectJourney({ time })}
+                    onSelectTime={(time) => updateJourneyParams({ time })}
                 />
             </div>
         </div>

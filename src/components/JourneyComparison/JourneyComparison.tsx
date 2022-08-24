@@ -40,6 +40,17 @@ const renderJourneyDuration = (journey: JourneyInfo, departAfter: boolean) => {
     );
 };
 
+const getStartTime = (journey: JourneyInfo, departAfter: boolean) => {
+    if (!journey || journey.navigationFailed) {
+        return "--:--";
+    }
+    const first =
+        !departAfter || journey.segments[0].kind === "travel"
+            ? journey.segments[0]
+            : journey.segments[1];
+    return stringifyTime(first.startTime, { use12Hour: true });
+};
+
 const JourneyComparison = (props: ComparisonProps) => {
     const { baseline, enhanced, departAfter } = props;
 
@@ -104,6 +115,25 @@ const JourneyComparison = (props: ComparisonProps) => {
                     </>
                 }
             />
+            {departAfter && (
+                <ComparisonRow
+                    title="Next train"
+                    baseline={
+                        <>
+                            <div className="duration">
+                                {"Departs at " + getStartTime(baseline, departAfter)}
+                            </div>
+                        </>
+                    }
+                    enhanced={
+                        <>
+                            <div className="duration">
+                                {"Departs at " + getStartTime(enhanced, departAfter)}
+                            </div>
+                        </>
+                    }
+                />
+            )}
             {showWaitRow && <WaitComparison {...props} />}
             {amenitiesDiff.length > 0 && (
                 <ComparisonRow
@@ -137,8 +167,24 @@ const JourneyComparison = (props: ComparisonProps) => {
             <FrequencyComparison {...props} />
             <ComparisonRow
                 title="Your trip"
-                baseline={<JourneyTimeline segments={baseline.segments} />}
-                enhanced={<JourneyTimeline segments={enhanced.segments} />}
+                baseline={
+                    <JourneyTimeline
+                        segments={
+                            !departAfter || baseline.segments[0].kind === "travel"
+                                ? baseline.segments
+                                : baseline.segments.slice(1)
+                        }
+                    />
+                }
+                enhanced={
+                    <JourneyTimeline
+                        segments={
+                            !departAfter || enhanced.segments[0].kind === "travel"
+                                ? enhanced.segments
+                                : enhanced.segments.slice(1)
+                        }
+                    />
+                }
             />
         </div>
     );

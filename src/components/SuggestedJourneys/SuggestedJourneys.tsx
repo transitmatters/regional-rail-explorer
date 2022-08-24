@@ -101,6 +101,7 @@ const SuggestedJourneys = (props: Props) => {
             time: parsedTime,
             reverse: !!reverse,
             day,
+            departAfter: false,
         });
         const action = reverse ? "Arrive by" : "Depart at";
         return (
