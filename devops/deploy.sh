@@ -42,10 +42,10 @@ aws cloudformation deploy --stack-name $STACK_NAME \
     RREDomain=$DOMAIN \
     RRECertArn=$CERT_ARN
 
-INSTANCE_IP=$(aws cloudformation describe-stacks --stack-name $STACK_NAME --query "Stacks[0].Outputs[?OutputKey=='InstanceIP'].OutputValue" --output text)
+INSTANCE_HOSTNAME=$(aws cloudformation describe-stacks --stack-name $STACK_NAME --query "Stacks[0].Outputs[?OutputKey=='InstanceHostname'].OutputValue" --output text)
 # Run the playbook! :-)
 export ANSIBLE_HOST_KEY_CHECKING=False # If it's a new host, ssh known_hosts not having the key fingerprint will cause an error. Silence it
-ansible-playbook -i $INSTANCE_IP, -u ubuntu --private-key ~/.ssh/transitmatters-rre.pem ansible.yml
+ansible-playbook -i $INSTANCE_HOSTNAME, -u ubuntu --private-key ~/.ssh/transitmatters-rre.pem ansible.yml
 
 # Grab the cloudfront ID and invalidate its cache
 CLOUDFRONT_ID=$(aws cloudfront list-distributions --query "DistributionList.Items[?Aliases.Items!=null] | [?contains(Aliases.Items, '$HOSTNAME')].Id | [0]" --output text)
