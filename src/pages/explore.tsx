@@ -21,9 +21,9 @@ const getArrivalsInfoForParams = (params: ParsedJourneyParams) => {
 };
 
 const getJourneysForParams = (params: ParsedJourneyParams) => {
-    const { fromStationId, toStationId, day, time, reverse } = params;
-    if (fromStationId && toStationId && day && time) {
-        return getSuccessfulJourneys({ fromStationId, toStationId, day, time, reverse });
+    const { fromStationId, toStationId, day, time, navigationKind } = params;
+    if (fromStationId && toStationId && day && time && navigationKind) {
+        return getSuccessfulJourneys({ fromStationId, toStationId, day, time, navigationKind });
     }
     return null;
 };

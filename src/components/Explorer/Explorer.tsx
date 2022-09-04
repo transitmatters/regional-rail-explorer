@@ -32,6 +32,8 @@ import getSocialMeta from "./socialMeta";
 
 const scenarioIds = ["present", "regional_rail"];
 
+type NavigationKind = "depart-at" | "arrive-by" | "depart-after";
+
 type Props = {
     journeys: null | JourneyInfo[];
     arrivals: null | ArrivalsInfo;
@@ -40,7 +42,7 @@ type Props = {
 const Explorer = (props: Props) => {
     const { journeys: initialJourneys, arrivals: initialArrivals } = props;
     const [
-        { fromStationId, toStationId, day, time, reverse = false, departAfter = true },
+        { fromStationId, toStationId, day, time, navigationKind = "depart-at", reverse = false },
         updateJourneyParams,
     ] = useRouterBoundState(
         {
@@ -62,15 +64,13 @@ const Explorer = (props: Props) => {
                 decode: parseInt,
                 encode: (t) => t?.toString(),
             },
+            navigationKind: {
+                initial: "depart-at" as NavigationKind,
+                param: "navigationKind",
+            },
             reverse: {
                 initial: false,
                 param: "reverse",
-                decode: (s) => s === "1",
-                encode: (b) => (b ? "1" : "0"),
-            },
-            departAfter: {
-                initial: true,
-                param: "departAfter",
                 decode: (s) => s === "1",
                 encode: (b) => (b ? "1" : "0"),
             },
@@ -89,6 +89,8 @@ const Explorer = (props: Props) => {
     const [requestedTimeOfDay, setRequestedTimeOfDay] = useState<null | TimeOfDay>(null);
     const [isJourneyPending, wrapJourneyPending] = usePendingPromise();
     const successfulJourneys = journeys && successfulJourneyApiResult(journeys);
+    const reverseFromNav = reverse || navigationKind === "arrive-by";
+    console.log(reverseFromNav);
 
     const timeRange = useMemo(() => {
         if (arrivals) {
@@ -113,11 +115,11 @@ const Explorer = (props: Props) => {
         if (fromStationId && toStationId && day && time) {
             wrapJourneyPending(
                 api
-                    .journeys(fromStationId, toStationId, day, time, !!reverse, scenarioIds)
+                    .journeys(fromStationId, toStationId, day, time, navigationKind, scenarioIds)
                     .then(setJourneys)
             );
         }
-    }, [fromStationId, toStationId, day, time, reverse]);
+    }, [fromStationId, toStationId, day, time, navigationKind]);
 
     useEffect(() => {
         if (requestedTimeOfDay && arrivals) {
@@ -139,8 +141,8 @@ const Explorer = (props: Props) => {
                 <DeparturePicker
                     baselineArrivals={baselineArrivals}
                     enhancedArrivals={enhancedArrivals}
-                    showArrivals={!reverse && showArrivals}
-                    includeQuarterHourTicks={!!reverse}
+                    showArrivals={!reverseFromNav && showArrivals}
+                    includeQuarterHourTicks={!!reverseFromNav}
                     onSelectTime={(time) => updateJourneyParams({ time })}
                     time={time}
                     timeRange={timeRange}
@@ -177,7 +179,7 @@ const Explorer = (props: Props) => {
                 <JourneyComparison
                     baseline={baseline}
                     enhanced={enhanced}
-                    departAfter={departAfter}
+                    departAfter={navigationKind === "depart-after"}
                 />
             );
         }
@@ -202,13 +204,13 @@ const Explorer = (props: Props) => {
             mode="journey"
             containerClassName={styles.explorer}
             meta={getSocialMeta({
-                journeyParams: { fromStationId, toStationId, time, day, reverse },
+                journeyParams: { fromStationId, toStationId, time, day, reverse: reverseFromNav },
                 journeys: successfulJourneys,
             })}
             controls={
                 <JourneyPicker
                     disabled={isJourneyPending}
-                    reverse={!!reverse}
+                    reverse={!!reverseFromNav}
                     time={time}
                     timeRange={timeRange}
                     day={day}

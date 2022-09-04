@@ -8,18 +8,19 @@ export enum CrowdingLevel {
     High = 3,
 }
 
+export type NavigationKind = "depart-at" | "arrive-by" | "depart-after";
+
 export interface JourneyParams {
     fromStationId: string;
     toStationId: string;
     day: NetworkDayKind;
     time: NetworkTime;
-    reverse: boolean;
-    departAfter?: boolean;
+    navigationKind: NavigationKind;
 }
 
 export type ParsedJourneyParams = {
     [K in keyof JourneyParams]?: null | undefined | JourneyParams[K];
-} & { reverse: boolean };
+} & { reverse?: boolean };
 
 export interface JourneyStation {
     id: string;

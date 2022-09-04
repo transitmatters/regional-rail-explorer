@@ -24,7 +24,7 @@ export const journeys = (
     toStationId: string,
     day: NetworkDayKind,
     time: NetworkTime,
-    reverse: boolean,
+    navigationKind: string,
     scenarioNames: string[]
 ): Promise<JourneyApiResult> => {
     return apiFetch("journeys", {
@@ -33,6 +33,6 @@ export const journeys = (
         day,
         time: time.toString(),
         scenarioNames: scenarioNames.join(","),
-        ...(reverse && { reverse: "true" }),
+        navigationKind,
     });
 };

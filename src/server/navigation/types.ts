@@ -8,12 +8,14 @@ import {
     StopTime,
 } from "types";
 
+export type NavigationKind = "depart-at" | "arrive-by" | "depart-after";
+
 export type NavigationOptions = {
     fromStation: Station;
     toStation: Station;
     initialDayTime: NetworkDayTime;
     unifiedFares: boolean;
-    reverse?: boolean;
+    navigationKind?: NavigationKind;
 };
 
 export type NavigationContext = Readonly<{

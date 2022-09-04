@@ -65,5 +65,5 @@ export const journeyParams: JourneyParams = {
     toStationId: "place-DB-2258",
     day: "weekday",
     time: 26100,
-    reverse: false,
+    navigationKind: "depart-at",
 };

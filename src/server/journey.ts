@@ -9,6 +9,7 @@ import {
     CrowdingLevel,
     JourneyTravelSegment,
     JourneyParams,
+    NavigationKind,
     ParsedJourneyParams,
 } from "types";
 import { successfulJourneyApiResult } from "journeys";
@@ -98,7 +99,9 @@ const getJourneyInfoForScenario = (
     scenario: Scenario,
     journeyParams: JourneyParams
 ): JourneyInfo => {
-    const { fromStationId, toStationId, time, day, reverse } = journeyParams;
+    const { fromStationId, toStationId, time, day, navigationKind } = journeyParams;
+    console.log("now I'm here");
+    console.log(navigationKind);
     const { id, name, network, unifiedFares } = scenario;
     let journey, fromStation, toStation;
     try {
@@ -108,7 +111,7 @@ const getJourneyInfoForScenario = (
             toStation,
             initialDayTime: { time, day },
             unifiedFares,
-            reverse,
+            navigationKind,
         });
     } catch (error) {
         return {
@@ -118,7 +121,7 @@ const getJourneyInfoForScenario = (
             amenities: [],
             arrivals: {},
             platformCrowding: {},
-            reverse,
+            reverse: navigationKind === "arrive-by",
         };
     }
 
@@ -129,7 +132,7 @@ const getJourneyInfoForScenario = (
     const toStations = getStationsByIds(network, ...toStationIds);
     const arrivals = getArrivalTimesForJourney(fromStation, toStations, day);
     return {
-        reverse,
+        reverse: navigationKind === "arrive-by",
         scenario: { id, name },
         segments: journey,
         amenities: calculateAmenities(scenario, journey),
@@ -167,7 +170,7 @@ export const getSuccessfulJourneys = (params: JourneyParams) => {
 export const getJourneyParamsForQuery = (
     query: Record<string, undefined | string>
 ): ParsedJourneyParams => {
-    const { fromStationId, from, toStationId, to, day, time: timeString, reverse } = query;
+    const { fromStationId, from, toStationId, to, day, time: timeString, navigationKind } = query;
     const time = parseInt(timeString || "", 10);
     return {
         ...omitUndefined({
@@ -176,6 +179,6 @@ export const getJourneyParamsForQuery = (
             day: day as NetworkDayKind,
             time: Number.isFinite(time) ? time : undefined,
         }),
-        reverse: !!reverse && reverse !== "0",
+        navigationKind: navigationKind as NavigationKind || "depart-at" as NavigationKind,
     };
 };

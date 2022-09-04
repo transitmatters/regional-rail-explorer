@@ -158,6 +158,7 @@ const createTransferState = (
 const getNextVisitableStopTimes = (state: NavigationState, stop: Stop, now: NetworkTime) => {
     const { boardedAtStations, boardedRoutePatternIds, context } = state;
     const { reverse, today } = context;
+    // const reverse = navigationKind === "arrive-by"
     const { stopTimes } = stop;
 
     if (boardedAtStations.has(stop.parentStation)) {
@@ -284,7 +285,11 @@ export const printTripFromState = (state: NavigationState) => {
 };
 
 export const navigateBetweenStations = (options: NavigationOptions) => {
-    const { fromStation, toStation, initialDayTime, unifiedFares, reverse = false } = options;
+    const { fromStation, toStation, initialDayTime, unifiedFares, navigationKind } = options;
+    const reverse = navigationKind === "arrive-by"
+    console.log("hola amigo");
+    console.log(navigationKind);
+    console.log(reverse);
     const [origin, goal] = resolveTemporalOrder(fromStation, toStation, reverse);
     const startState = createStartState({
         today: initialDayTime.day,

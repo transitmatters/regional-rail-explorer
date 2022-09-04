@@ -137,8 +137,9 @@ const JourneyPicker = (props: Props) => {
 
     const chooseDepartureOption = (kind) => {
         updateJourneyParams({
-            reverse: kind.id === "arrive-by",
-            departAfter: kind.id === "depart-after",
+            navigationKind: kind.id,
+            // reverse: kind.id === "arrive-by",
+            // departAfter: kind.id === "depart-after",
         });
         setSelectedNavigationKind(
             navigationKindOptions.find((k) => k.id === kind.id) || navigationKindOptions[0]
