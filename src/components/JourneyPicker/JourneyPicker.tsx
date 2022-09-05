@@ -29,7 +29,7 @@ type Props = {
     time: null | NetworkTime;
     timeRange: NetworkTimeRange;
     disabled?: boolean;
-    reverse: boolean;
+    navigationKind: string;
 };
 
 const timeOfDayPickerOptions = [
@@ -104,24 +104,25 @@ const JourneyPicker = (props: Props) => {
         timeRange,
         toStationId,
         disabled,
+        navigationKind,
     } = props;
 
     const [timeOfDay, setTimeOfDay] = useState(() =>
         typeof time === "number" ? getTimeOfDayOptionForTime(time) : timeOfDayPickerOptions[0]
     );
 
-    const [selectedNavigationKind, setSelectedNavigationKind] = useState(navigationKindOptions[0]);
+    const [selectedNavigationKind, setSelectedNavigationKind] = useState(
+        navigationKindOptions.find((k) => k.id === navigationKind) || navigationKindOptions[0]
+    );
 
     const fromStation = fromStationId ? stationsById[fromStationId] : null;
     const toStation = toStationId ? stationsById[toStationId] : null;
 
-    // const navigationKind = useMemo(
-    //     () =>
-    //         navigationKindOptions.find(
-    //             (option) => option.id === (reverse ? "arrive-by" : "depart-at")
-    //         )!,
-    //     [reverse]
-    // );
+    useEffect(() => {
+        setSelectedNavigationKind(
+            navigationKindOptions.find((k) => k.id === navigationKind) || navigationKindOptions[0]
+        );
+    }, [navigationKind]);
 
     const swapStations = useCallback(() => {
         if (fromStationId && toStationId) {

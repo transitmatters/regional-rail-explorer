@@ -210,7 +210,7 @@ const Explorer = (props: Props) => {
             controls={
                 <JourneyPicker
                     disabled={isJourneyPending}
-                    reverse={!!reverseFromNav}
+                    navigationKind={navigationKind}
                     time={time}
                     timeRange={timeRange}
                     day={day}
