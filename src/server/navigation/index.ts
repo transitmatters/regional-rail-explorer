@@ -37,5 +37,5 @@ export const navigate = (options: NavigationOptions): JourneySegment[] => {
             return journeySegments.slice(1);
         }
     }
-    return journeySegments
+    return journeySegments;
 };

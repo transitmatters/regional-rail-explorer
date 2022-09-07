@@ -177,6 +177,6 @@ export const getJourneyParamsForQuery = (
             day: day as NetworkDayKind,
             time: Number.isFinite(time) ? time : undefined,
         }),
-        navigationKind: navigationKind as NavigationKind || "depart-at" as NavigationKind,
+        navigationKind: (navigationKind as NavigationKind) || ("depart-at" as NavigationKind),
     };
 };
