@@ -90,7 +90,6 @@ const Explorer = (props: Props) => {
     const [isJourneyPending, wrapJourneyPending] = usePendingPromise();
     const successfulJourneys = journeys && successfulJourneyApiResult(journeys);
     const reverseFromNav = reverse || navigationKind === "arrive-by";
-    console.log(reverseFromNav);
 
     const timeRange = useMemo(() => {
         if (arrivals) {

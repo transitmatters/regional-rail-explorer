@@ -100,8 +100,6 @@ const getJourneyInfoForScenario = (
     journeyParams: JourneyParams
 ): JourneyInfo => {
     const { fromStationId, toStationId, time, day, navigationKind } = journeyParams;
-    console.log("now I'm here");
-    console.log(navigationKind);
     const { id, name, network, unifiedFares } = scenario;
     let journey, fromStation, toStation;
     try {
