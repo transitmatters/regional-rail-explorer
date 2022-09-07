@@ -12,26 +12,20 @@ import FareComparison from "./FareComparison";
 
 import styles from "./JourneyComparison.module.scss";
 
-const getTotalJourneyDuration = (journey: JourneyInfo, departAfter: boolean) => {
+const getTotalJourneyDuration = (journey: JourneyInfo) => {
     if (journey.navigationFailed) {
         return null;
     }
-    const first =
-        !departAfter || journey.segments[0].kind === "travel"
-            ? journey.segments[0]
-            : journey.segments[1];
+    const first = journey.segments[0];
     const last = journey.segments[journey.segments.length - 1];
     return last.endTime - first.startTime;
 };
 
-const renderJourneyDuration = (journey: JourneyInfo, departAfter: boolean) => {
+const renderJourneyDuration = (journey: JourneyInfo) => {
     if (journey.navigationFailed) {
         return "No route found";
     }
-    const first =
-        !departAfter || journey.segments[0].kind === "travel"
-            ? journey.segments[0]
-            : journey.segments[1];
+    const first = journey.segments[0];
     const last = journey.segments[journey.segments.length - 1];
     return (
         stringifyTime(first.startTime, { use12Hour: true }) +
@@ -40,22 +34,19 @@ const renderJourneyDuration = (journey: JourneyInfo, departAfter: boolean) => {
     );
 };
 
-const getStartTime = (journey: JourneyInfo, departAfter: boolean) => {
+const getStartTime = (journey: JourneyInfo) => {
     if (!journey || journey.navigationFailed) {
         return "--:--";
     }
-    const first =
-        !departAfter || journey.segments[0].kind === "travel"
-            ? journey.segments[0]
-            : journey.segments[1];
+    const first = journey.segments[0];
     return stringifyTime(first.startTime, { use12Hour: true });
 };
 
 const JourneyComparison = (props: ComparisonProps) => {
     const { baseline, enhanced, departAfter } = props;
 
-    const baselineTotalDuration = getTotalJourneyDuration(baseline, departAfter);
-    const enhancedTotalDuration = getTotalJourneyDuration(enhanced, departAfter);
+    const baselineTotalDuration = getTotalJourneyDuration(baseline);
+    const enhancedTotalDuration = getTotalJourneyDuration(enhanced);
     const enhancedTotalFraction =
         baselineTotalDuration && enhancedTotalDuration && baselineTotalDuration > 0
             ? 1 - enhancedTotalDuration / baselineTotalDuration
@@ -92,9 +83,7 @@ const JourneyComparison = (props: ComparisonProps) => {
                                 ? stringifyDuration(baselineTotalDuration)
                                 : "---"}
                         </div>
-                        <div className="secondary">
-                            {renderJourneyDuration(baseline, departAfter)}
-                        </div>
+                        <div className="secondary">{renderJourneyDuration(baseline)}</div>
                     </>
                 }
                 enhanced={
@@ -109,9 +98,7 @@ const JourneyComparison = (props: ComparisonProps) => {
                                 </div>
                             )}
                         </div>
-                        <div className="secondary">
-                            {renderJourneyDuration(enhanced, departAfter)}
-                        </div>
+                        <div className="secondary">{renderJourneyDuration(enhanced)}</div>
                     </>
                 }
             />
@@ -120,16 +107,12 @@ const JourneyComparison = (props: ComparisonProps) => {
                     title="Next train"
                     baseline={
                         <>
-                            <div className="duration">
-                                {"Departs at " + getStartTime(baseline, departAfter)}
-                            </div>
+                            <div className="duration">{"Departs at " + getStartTime(baseline)}</div>
                         </>
                     }
                     enhanced={
                         <>
-                            <div className="duration">
-                                {"Departs at " + getStartTime(enhanced, departAfter)}
-                            </div>
+                            <div className="duration">{"Departs at " + getStartTime(enhanced)}</div>
                         </>
                     }
                 />
@@ -167,28 +150,8 @@ const JourneyComparison = (props: ComparisonProps) => {
             <FrequencyComparison {...props} />
             <ComparisonRow
                 title="Your trip"
-                baseline={
-                    <JourneyTimeline
-                        segments={
-                            !departAfter ||
-                            baseline.segments.length === 0 ||
-                            baseline.segments[0].kind === "travel"
-                                ? baseline.segments
-                                : baseline.segments.slice(1)
-                        }
-                    />
-                }
-                enhanced={
-                    <JourneyTimeline
-                        segments={
-                            !departAfter ||
-                            enhanced.segments.length === 0 ||
-                            enhanced.segments[0].kind === "travel"
-                                ? enhanced.segments
-                                : enhanced.segments.slice(1)
-                        }
-                    />
-                }
+                baseline={<JourneyTimeline segments={baseline.segments} />}
+                enhanced={<JourneyTimeline segments={enhanced.segments} />}
             />
         </div>
     );
