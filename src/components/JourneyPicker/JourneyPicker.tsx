@@ -1,17 +1,22 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useState, useMemo } from "react";
 import classNames from "classnames";
 import { GrDown, GrUp } from "react-icons/gr";
 import { MdSwapCalls } from "react-icons/md";
 
 import { HOUR } from "time";
 import { Button, NumericTimePicker, Select } from "components";
-import { JourneyParams, NetworkDayKind, NetworkTime, NetworkTimeRange, TimeOfDay } from "types";
+import {
+    JourneyParams,
+    NetworkDayKind,
+    NetworkTime,
+    NetworkTimeRange,
+    TimeOfDay,
+    NavigationKind,
+} from "types";
 import { StationPicker, StationsByLine } from "components";
 import { useAppContext } from "hooks";
 
 import styles from "./JourneyPicker.module.scss";
-
-type NavigationKind = "depart-at" | "arrive-by";
 
 type Station = {
     id: string;
@@ -22,14 +27,14 @@ type Props = {
     fromStationId: null | string;
     toStationId: null | string;
     onSelectDay: (day: NetworkDayKind) => unknown;
-    onSelectJourney: (params: Partial<JourneyParams>) => any;
+    updateJourneyParams: (params: Partial<JourneyParams>) => any;
     onSelectTimeOfDay: (time: TimeOfDay) => unknown;
     stationsById: Record<string, Station>;
     stationsByLine: StationsByLine;
     time: null | NetworkTime;
     timeRange: NetworkTimeRange;
     disabled?: boolean;
-    reverse: boolean;
+    navigationKind: string;
 };
 
 const timeOfDayPickerOptions = [
@@ -47,6 +52,7 @@ const dayKindOptions = [
 const navigationKindOptions = [
     { id: "depart-at" as NavigationKind, label: "depart at" },
     { id: "arrive-by" as NavigationKind, label: "arrive by" },
+    { id: "depart-after" as NavigationKind, label: "depart after" },
 ];
 
 const getTimeOfDayOptionForTime = (time: NetworkTime) => {
@@ -95,7 +101,7 @@ const JourneyPicker = (props: Props) => {
         day,
         fromStationId,
         onSelectDay,
-        onSelectJourney,
+        updateJourneyParams,
         onSelectTimeOfDay,
         stationsById,
         stationsByLine,
@@ -103,35 +109,39 @@ const JourneyPicker = (props: Props) => {
         timeRange,
         toStationId,
         disabled,
-        reverse,
+        navigationKind,
     } = props;
 
     const [timeOfDay, setTimeOfDay] = useState(() =>
         typeof time === "number" ? getTimeOfDayOptionForTime(time) : timeOfDayPickerOptions[0]
     );
 
+    const selectedNavigationKind = useMemo(() => {
+        return (
+            navigationKindOptions.find((o) => o.id === navigationKind) || navigationKindOptions[0]
+        );
+    }, [navigationKind]);
+
     const fromStation = fromStationId ? stationsById[fromStationId] : null;
     const toStation = toStationId ? stationsById[toStationId] : null;
 
-    const navigationKind = useMemo(
-        () =>
-            navigationKindOptions.find(
-                (option) => option.id === (reverse ? "arrive-by" : "depart-at")
-            )!,
-        [reverse]
-    );
-
     const swapStations = useCallback(() => {
         if (fromStationId && toStationId) {
-            onSelectJourney({ fromStationId: toStationId, toStationId: fromStationId });
+            updateJourneyParams({ fromStationId: toStationId, toStationId: fromStationId });
         }
-    }, [onSelectJourney, fromStationId, toStationId]);
+    }, [updateJourneyParams, fromStationId, toStationId]);
 
     useEffect(() => {
         if (typeof time === "number") {
             setTimeOfDay(getTimeOfDayOptionForTime(time));
         }
     }, [time]);
+
+    const chooseDepartureOption = (kind) => {
+        updateJourneyParams({
+            navigationKind: kind.id,
+        });
+    };
 
     return (
         <div className={styles.journeyPicker}>
@@ -142,7 +152,7 @@ const JourneyPicker = (props: Props) => {
                         disabled={disabled}
                         label={fromStation?.name ?? "Choose a station"}
                         onSelectStation={(stationId) =>
-                            onSelectJourney({ fromStationId: stationId })
+                            updateJourneyParams({ fromStationId: stationId })
                         }
                         stationsByLine={stationsByLine}
                     />
@@ -152,7 +162,9 @@ const JourneyPicker = (props: Props) => {
                         lockBodyScroll
                         disabled={disabled}
                         label={toStation?.name ?? "Choose a station"}
-                        onSelectStation={(stationId) => onSelectJourney({ toStationId: stationId })}
+                        onSelectStation={(stationId) =>
+                            updateJourneyParams({ toStationId: stationId })
+                        }
                         stationsByLine={stationsByLine}
                         previouslySelectedStationId={fromStation && fromStation.id}
                     />
@@ -190,15 +202,15 @@ const JourneyPicker = (props: Props) => {
                     disclosureProps={{ large: true, disabled: disabled }}
                     aria-label="Choose when you want to depart or arrive"
                     items={navigationKindOptions}
-                    selectedItem={navigationKind}
-                    onSelect={(kind) => onSelectJourney({ reverse: kind.id === "arrive-by" })}
+                    selectedItem={selectedNavigationKind}
+                    onSelect={(kind) => chooseDepartureOption(kind)}
                 />
                 <div className={styles.spacer} />
                 <NumericTimePicker
                     className={styles.numericTime}
                     time={time || 9 * HOUR}
                     timeRange={timeRange}
-                    onSelectTime={(time) => onSelectJourney({ time })}
+                    onSelectTime={(time) => updateJourneyParams({ time })}
                 />
             </div>
         </div>

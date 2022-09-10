@@ -11,6 +11,7 @@ import {
     JourneyApiResult,
     NetworkTimeRange,
     ArrivalsInfo,
+    NavigationKind,
 } from "types";
 import {
     DeparturePicker,
@@ -40,7 +41,7 @@ type Props = {
 const Explorer = (props: Props) => {
     const { journeys: initialJourneys, arrivals: initialArrivals } = props;
     const [
-        { fromStationId, toStationId, day, time, reverse = false },
+        { fromStationId, toStationId, day, time, navigationKind = "depart-at", reverse = false },
         updateJourneyParams,
     ] = useRouterBoundState(
         {
@@ -61,6 +62,10 @@ const Explorer = (props: Props) => {
                 param: "time",
                 decode: parseInt,
                 encode: (t) => t?.toString(),
+            },
+            navigationKind: {
+                initial: "depart-at" as NavigationKind,
+                param: "navigationKind",
             },
             reverse: {
                 initial: false,
@@ -83,6 +88,7 @@ const Explorer = (props: Props) => {
     const [requestedTimeOfDay, setRequestedTimeOfDay] = useState<null | TimeOfDay>(null);
     const [isJourneyPending, wrapJourneyPending] = usePendingPromise();
     const successfulJourneys = journeys && successfulJourneyApiResult(journeys);
+    const reverseFromNav = reverse || navigationKind === "arrive-by";
 
     const timeRange = useMemo(() => {
         if (arrivals) {
@@ -107,11 +113,11 @@ const Explorer = (props: Props) => {
         if (fromStationId && toStationId && day && time) {
             wrapJourneyPending(
                 api
-                    .journeys(fromStationId, toStationId, day, time, !!reverse, scenarioIds)
+                    .journeys(fromStationId, toStationId, day, time, navigationKind, scenarioIds)
                     .then(setJourneys)
             );
         }
-    }, [fromStationId, toStationId, day, time, reverse]);
+    }, [fromStationId, toStationId, day, time, navigationKind]);
 
     useEffect(() => {
         if (requestedTimeOfDay && arrivals) {
@@ -133,8 +139,8 @@ const Explorer = (props: Props) => {
                 <DeparturePicker
                     baselineArrivals={baselineArrivals}
                     enhancedArrivals={enhancedArrivals}
-                    showArrivals={!reverse && showArrivals}
-                    includeQuarterHourTicks={!!reverse}
+                    showArrivals={!reverseFromNav && showArrivals}
+                    includeQuarterHourTicks={!!reverseFromNav}
                     onSelectTime={(time) => updateJourneyParams({ time })}
                     time={time}
                     timeRange={timeRange}
@@ -167,7 +173,13 @@ const Explorer = (props: Props) => {
                 return <JourneyErrorState />;
             }
 
-            return <JourneyComparison baseline={baseline} enhanced={enhanced} />;
+            return (
+                <JourneyComparison
+                    baseline={baseline}
+                    enhanced={enhanced}
+                    departAfter={navigationKind === "depart-after"}
+                />
+            );
         }
         return null;
     };
@@ -190,13 +202,13 @@ const Explorer = (props: Props) => {
             mode="journey"
             containerClassName={styles.explorer}
             meta={getSocialMeta({
-                journeyParams: { fromStationId, toStationId, time, day, reverse },
+                journeyParams: { fromStationId, toStationId, time, day, reverse: reverseFromNav },
                 journeys: successfulJourneys,
             })}
             controls={
                 <JourneyPicker
                     disabled={isJourneyPending}
-                    reverse={!!reverse}
+                    navigationKind={navigationKind}
                     time={time}
                     timeRange={timeRange}
                     day={day}
@@ -204,7 +216,7 @@ const Explorer = (props: Props) => {
                     stationsByLine={stationsByLine}
                     fromStationId={fromStationId}
                     toStationId={toStationId}
-                    onSelectJourney={updateJourneyParams}
+                    updateJourneyParams={updateJourneyParams}
                     onSelectTimeOfDay={setRequestedTimeOfDay}
                     onSelectDay={(day) => updateJourneyParams({ day })}
                 />

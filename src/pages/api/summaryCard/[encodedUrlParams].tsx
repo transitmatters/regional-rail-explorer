@@ -7,9 +7,9 @@ import { JourneySummaryCard } from "components";
 import { getJourneyParamsForQuery, getSuccessfulJourneys } from "server/journey";
 
 const getJourneyInfoForParams = (journeyParams: ParsedJourneyParams) => {
-    const { fromStationId, toStationId, day, time, reverse } = journeyParams;
-    if (fromStationId && toStationId && day && time) {
-        return getSuccessfulJourneys({ fromStationId, toStationId, day, time, reverse });
+    const { fromStationId, toStationId, day, time, navigationKind } = journeyParams;
+    if (fromStationId && toStationId && day && time && navigationKind) {
+        return getSuccessfulJourneys({ fromStationId, toStationId, day, time, navigationKind });
     }
     return null;
 };

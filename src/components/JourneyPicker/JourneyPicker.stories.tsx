@@ -13,10 +13,10 @@ export const Default = () => {
         <JourneyPicker
             fromStationId={null}
             toStationId={null}
-            reverse={false}
+            navigationKind="depart-at"
             stationsByLine={stationsByLine}
             stationsById={stationsById}
-            onSelectJourney={(j) => void j}
+            updateJourneyParams={(j) => void j}
             onSelectDay={(d) => void d}
             onSelectTimeOfDay={(t) => void t}
             day="weekday"

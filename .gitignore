@@ -47,3 +47,5 @@ inventory
 
 # private keys
 *.pem
+
+/.idea

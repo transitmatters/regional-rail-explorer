@@ -284,7 +284,8 @@ export const printTripFromState = (state: NavigationState) => {
 };
 
 export const navigateBetweenStations = (options: NavigationOptions) => {
-    const { fromStation, toStation, initialDayTime, unifiedFares, reverse = false } = options;
+    const { fromStation, toStation, initialDayTime, unifiedFares, navigationKind } = options;
+    const reverse = navigationKind === "arrive-by";
     const [origin, goal] = resolveTemporalOrder(fromStation, toStation, reverse);
     const startState = createStartState({
         today: initialDayTime.day,

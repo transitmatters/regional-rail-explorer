@@ -6,6 +6,7 @@ import {
     NetworkTime,
     Station,
     StopTime,
+    NavigationKind,
 } from "types";
 
 export type NavigationOptions = {
@@ -13,7 +14,7 @@ export type NavigationOptions = {
     toStation: Station;
     initialDayTime: NetworkDayTime;
     unifiedFares: boolean;
-    reverse?: boolean;
+    navigationKind?: NavigationKind;
 };
 
 export type NavigationContext = Readonly<{

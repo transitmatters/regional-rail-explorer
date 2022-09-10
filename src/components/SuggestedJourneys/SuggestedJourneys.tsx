@@ -6,7 +6,7 @@ import { FaBriefcase, FaGhost, FaGraduationCap, FaStethoscope } from "react-icon
 
 import { parseTime, stringifyTime } from "time";
 import { stationsByName, stationsById } from "stations";
-import { JourneyParams, NetworkDayKind, NetworkTime } from "types";
+import { JourneyParams, NetworkDayKind, NetworkTime, NavigationKind } from "types";
 
 import styles from "./SuggestedJourneys.module.scss";
 
@@ -14,7 +14,7 @@ type SuggestedJourneyParams = {
     time: string;
     from: string;
     to: string;
-    reverse?: boolean;
+    navigationKind: NavigationKind;
     day: NetworkDayKind;
     accentIcon: IconType;
     accentColor?: string;
@@ -31,6 +31,7 @@ const defaultSuggestedJourneys: SuggestedJourneyParams[] = [
         time: "8:40",
         day: "weekday",
         accentIcon: FaBriefcase,
+        navigationKind: "depart-at",
     },
     {
         from: "Lansdowne",
@@ -38,14 +39,15 @@ const defaultSuggestedJourneys: SuggestedJourneyParams[] = [
         time: "21:00",
         day: "saturday",
         accentIcon: MdOutlineSportsBaseball,
+        navigationKind: "depart-at",
     },
     {
         from: "Lynn",
         to: "Charles/MGH",
         time: "15:15",
         day: "weekday",
-        reverse: true,
         accentIcon: FaStethoscope,
+        navigationKind: "arrive-by",
     },
     {
         from: "Uphams Corner",
@@ -54,6 +56,7 @@ const defaultSuggestedJourneys: SuggestedJourneyParams[] = [
         day: "sunday",
         accentIcon: FaGhost,
         accentColor: "#fc8c03",
+        navigationKind: "depart-at",
     },
     {
         from: "South Station",
@@ -61,13 +64,13 @@ const defaultSuggestedJourneys: SuggestedJourneyParams[] = [
         time: "10:15",
         day: "weekday",
         accentIcon: FaGraduationCap,
+        navigationKind: "depart-at",
     },
 ];
 
 const getJourneyUrl = (params: JourneyParams) => {
-    const { fromStationId, toStationId, day, time, reverse } = params;
-    const reverseElement = reverse ? "&reverse=1" : "";
-    return `/explore?from=${fromStationId}&to=${toStationId}&day=${day}&time=${time}${reverseElement}`;
+    const { fromStationId, toStationId, day, time, navigationKind } = params;
+    return `/explore?from=${fromStationId}&to=${toStationId}&day=${day}&time=${time}&navigationKind=${navigationKind}`;
 };
 
 const getTimeOfDayColor = (time: NetworkTime) => {
@@ -90,7 +93,15 @@ const SuggestedJourneys = (props: Props) => {
     const { suggestedJourneys = defaultSuggestedJourneys } = props;
 
     const renderedSuggestedJourneys = suggestedJourneys.map((journey, i) => {
-        const { from, to, time, day, reverse, accentColor, accentIcon: AccentIcon } = journey;
+        const {
+            from,
+            to,
+            time,
+            day,
+            navigationKind,
+            accentColor,
+            accentIcon: AccentIcon,
+        } = journey;
         const fromStation = stationsById[from] || stationsByName[from];
         const toStation = stationsById[to] || stationsByName[to];
         const parsedTime = parseTime(time);
@@ -99,10 +110,10 @@ const SuggestedJourneys = (props: Props) => {
             fromStationId: fromStation.id,
             toStationId: toStation.id,
             time: parsedTime,
-            reverse: !!reverse,
+            navigationKind: navigationKind,
             day,
         });
-        const action = reverse ? "Arrive by" : "Depart at";
+        const action = navigationKind === "arrive-by" ? "Arrive by" : "Depart at";
         return (
             <a
                 className={styles.journey}

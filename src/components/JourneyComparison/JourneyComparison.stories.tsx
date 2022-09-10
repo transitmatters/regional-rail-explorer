@@ -9,4 +9,6 @@ export default {
     component: JourneyComparison,
 };
 
-export const Default = () => <JourneyComparison baseline={baselineInfo} enhanced={enhancedInfo} />;
+export const Default = () => (
+    <JourneyComparison baseline={baselineInfo} enhanced={enhancedInfo} departAfter={false} />
+);

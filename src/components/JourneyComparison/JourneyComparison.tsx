@@ -34,8 +34,16 @@ const renderJourneyDuration = (journey: JourneyInfo) => {
     );
 };
 
+const getStartTime = (journey: JourneyInfo) => {
+    if (!journey || journey.navigationFailed) {
+        return "--:--";
+    }
+    const first = journey.segments[0];
+    return stringifyTime(first.startTime, { use12Hour: true });
+};
+
 const JourneyComparison = (props: ComparisonProps) => {
-    const { baseline, enhanced } = props;
+    const { baseline, enhanced, departAfter } = props;
 
     const baselineTotalDuration = getTotalJourneyDuration(baseline);
     const enhancedTotalDuration = getTotalJourneyDuration(enhanced);
@@ -46,7 +54,7 @@ const JourneyComparison = (props: ComparisonProps) => {
     const showDelayRow =
         enhanced.amenities.includes("electricTrains") &&
         !baseline.amenities.includes("electricTrains");
-    const showWaitRow = !baseline.reverse;
+    const showWaitRow = !baseline.reverse && !departAfter;
     const amenitiesDiff = enhanced.amenities.filter((a) => !baseline.amenities.includes(a));
 
     return (
@@ -94,6 +102,21 @@ const JourneyComparison = (props: ComparisonProps) => {
                     </>
                 }
             />
+            {departAfter && (
+                <ComparisonRow
+                    title="Next train"
+                    baseline={
+                        <>
+                            <div className="duration">{"Departs at " + getStartTime(baseline)}</div>
+                        </>
+                    }
+                    enhanced={
+                        <>
+                            <div className="duration">{"Departs at " + getStartTime(enhanced)}</div>
+                        </>
+                    }
+                />
+            )}
             {showWaitRow && <WaitComparison {...props} />}
             {amenitiesDiff.length > 0 && (
                 <ComparisonRow
