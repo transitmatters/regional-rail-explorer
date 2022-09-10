@@ -6,9 +6,8 @@ import {
     NetworkTime,
     Station,
     StopTime,
+    NavigationKind,
 } from "types";
-
-export type NavigationKind = "depart-at" | "arrive-by" | "depart-after";
 
 export type NavigationOptions = {
     fromStation: Station;

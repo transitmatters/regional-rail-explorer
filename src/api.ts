@@ -1,4 +1,4 @@
-import { JourneyApiResult, NetworkDayKind, NetworkTime } from "types";
+import { JourneyApiResult, NetworkDayKind, NetworkTime, NavigationKind } from "types";
 
 const apiFetch = (route: string, params: Record<string, string>) => {
     const urlParams = new URLSearchParams(params);
@@ -24,7 +24,7 @@ export const journeys = (
     toStationId: string,
     day: NetworkDayKind,
     time: NetworkTime,
-    navigationKind: string,
+    navigationKind: NavigationKind,
     scenarioNames: string[]
 ): Promise<JourneyApiResult> => {
     return apiFetch("journeys", {

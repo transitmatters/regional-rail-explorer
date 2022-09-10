@@ -11,6 +11,7 @@ import {
     JourneyApiResult,
     NetworkTimeRange,
     ArrivalsInfo,
+    NavigationKind,
 } from "types";
 import {
     DeparturePicker,
@@ -31,8 +32,6 @@ import styles from "./Explorer.module.scss";
 import getSocialMeta from "./socialMeta";
 
 const scenarioIds = ["present", "regional_rail"];
-
-type NavigationKind = "depart-at" | "arrive-by" | "depart-after";
 
 type Props = {
     journeys: null | JourneyInfo[];

@@ -1,17 +1,22 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState, useMemo } from "react";
 import classNames from "classnames";
 import { GrDown, GrUp } from "react-icons/gr";
 import { MdSwapCalls } from "react-icons/md";
 
 import { HOUR } from "time";
 import { Button, NumericTimePicker, Select } from "components";
-import { JourneyParams, NetworkDayKind, NetworkTime, NetworkTimeRange, TimeOfDay } from "types";
+import {
+    JourneyParams,
+    NetworkDayKind,
+    NetworkTime,
+    NetworkTimeRange,
+    TimeOfDay,
+    NavigationKind,
+} from "types";
 import { StationPicker, StationsByLine } from "components";
 import { useAppContext } from "hooks";
 
 import styles from "./JourneyPicker.module.scss";
-
-type NavigationKind = "depart-at" | "arrive-by" | "depart-after";
 
 type Station = {
     id: string;
@@ -111,18 +116,14 @@ const JourneyPicker = (props: Props) => {
         typeof time === "number" ? getTimeOfDayOptionForTime(time) : timeOfDayPickerOptions[0]
     );
 
-    const [selectedNavigationKind, setSelectedNavigationKind] = useState(
-        navigationKindOptions.find((k) => k.id === navigationKind) || navigationKindOptions[0]
-    );
+    const selectedNavigationKind = useMemo(() => {
+        return (
+            navigationKindOptions.find((o) => o.id === navigationKind) || navigationKindOptions[0]
+        );
+    }, [navigationKind]);
 
     const fromStation = fromStationId ? stationsById[fromStationId] : null;
     const toStation = toStationId ? stationsById[toStationId] : null;
-
-    useEffect(() => {
-        setSelectedNavigationKind(
-            navigationKindOptions.find((k) => k.id === navigationKind) || navigationKindOptions[0]
-        );
-    }, [navigationKind]);
 
     const swapStations = useCallback(() => {
         if (fromStationId && toStationId) {
@@ -140,9 +141,6 @@ const JourneyPicker = (props: Props) => {
         updateJourneyParams({
             navigationKind: kind.id,
         });
-        setSelectedNavigationKind(
-            navigationKindOptions.find((k) => k.id === kind.id) || navigationKindOptions[0]
-        );
     };
 
     return (
