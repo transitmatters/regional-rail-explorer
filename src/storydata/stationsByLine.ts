@@ -186,6 +186,12 @@ export const stationsByLine = {
         { id: "place-NHRML-0152", name: "Wilmington" },
         { id: "place-NHRML-0218", name: "North Billerica" },
         { id: "place-NHRML-0254", name: "Lowell" },
+        { id: "place-rr-umass-lowell", name: "UMass Lowell" },
+        { id: "place-rr-rourke-bridge", name: "Rourke Bridge" },
+        { id: "place-rr-willow-springs", name: "Willow Springs" },
+        { id: "place-rr-nashua", name: "Nashua" },
+        { id: "place-rr-merrimack", name: "Merrimack" },
+        { id: "place-rr-manchester-center", name: "Manchester Center" },
     ],
     Haverhill: [
         { id: "place-WR-0329", name: "Haverhill" },
