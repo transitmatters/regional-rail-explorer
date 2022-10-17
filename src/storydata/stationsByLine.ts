@@ -62,6 +62,7 @@ export const stationsByLine = {
         { id: "place-ER-0128", name: "Swampscott" },
         { id: "place-ER-0115", name: "Lynn" },
         { id: "place-ER-0099", name: "River Works" },
+        { id: "place-wondl", name: "Wonderland" },
         { id: "place-ER-0046", name: "Chelsea" },
         { id: "place-north", name: "North Station" },
         { id: "place-ER-0362", name: "Newburyport" },
@@ -208,6 +209,7 @@ export const stationsByLine = {
         { id: "place-WR-0067", name: "Melrose Cedar Park" },
         { id: "place-WR-0062", name: "Wyoming Hill" },
         { id: "place-mlmnl", name: "Malden Center" },
+        { id: "place-sull", name: "Sullivan Square" },
     ],
     Worcester: [
         { id: "place-sstat", name: "South Station" },
