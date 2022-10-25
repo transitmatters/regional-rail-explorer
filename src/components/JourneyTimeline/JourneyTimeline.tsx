@@ -24,6 +24,51 @@ const expandControlSpacingPx = 100;
 
 const stringifyTime = (time) => globalStringifyTime(time, { use12Hour: true });
 
+const isInfillStation = (stationId, route) => {
+    const alwaysInfills = new Set([
+        "place-rr-everett-jct",
+        "place-rr-revere-center",
+        "place-rr-south-salem",
+        "place-rr-tufts-university",
+        "place-rr-montvale-avenue",
+        "place-rr-umass-lowell",
+        "place-rr-rourke-bridge",
+        "place-rr-willow-springs",
+        "place-rr-nashua",
+        "place-rr-merrimack",
+        "place-rr-manchester-center",
+        "place-rr-brickbottom",
+        "place-rr-clematis-brook",
+        "place-rr-weston-128",
+        "place-rr-ceylon-park",
+        "place-rr-river-street",
+        "place-rr-west-station",
+        "place-rr-newton-corner",
+        "place-rr-pawtucket",
+        "place-rr-hingham-depot",
+        "place-rr-cohasset-center",
+        "place-rr-braintree-highlands",
+        "place-rr-bridgewater-center",
+        "place-rr-mboro-centre-st",
+        "place-rr-weymouth-col-sq",
+        "place-rockland-n-abington",
+        "place-kingston-jct",
+        "place-plymouth-center",
+    ]);
+    const infillInRoute = {
+        "CR-Newburyport": new Set(["place-sull"]),
+        "CR-Reading": new Set(["place-sull"]),
+        "CR-Fitchburg": new Set(["place-unsqu"]),
+    };
+    if (alwaysInfills.has(stationId)) {
+        return true;
+    }
+    if (infillInRoute[route] && infillInRoute[route].has(stationId)) {
+        return true;
+    }
+    return false;
+};
+
 const getSegmentHeight = (segment: JourneySegment) => {
     const elapsedSeconds =
         segment.kind === "travel"
@@ -49,10 +94,23 @@ const TravelSegment = (props: { segment: JourneyTravelSegment }) => {
 
     const renderInnerStations = (stations: JourneyTravelSegment["passedStations"]) => {
         return stations.map((passedStation) => {
+            const isInfill = isInfillStation(passedStation.station.id, routeId);
             return (
-                <div key={passedStation.station.id} className={styles.travelSegmentPassedStation}>
+                <div
+                    key={passedStation.station.id}
+                    className={
+                        isInfill
+                            ? styles.travelSegmentPassedInfill
+                            : styles.travelSegmentPassedStation
+                    }
+                >
                     <div className="circle" />
                     <div className="label">{renderStationName(passedStation.station)}</div>
+                    {isInfill && (
+                        <div className="plus">
+                            +<span className="tooltiptext">New station</span>
+                        </div>
+                    )}
                 </div>
             );
         });
@@ -99,12 +157,22 @@ const TravelSegment = (props: { segment: JourneyTravelSegment }) => {
     };
 
     const renderEndpoint = (station, time) => {
+        const isInfill = isInfillStation(station.id, routeId);
         return (
-            <div className={styles.travelSegmentEndpoint}>
+            <div
+                className={
+                    isInfill ? styles.travelSegmentEndpointInfill : styles.travelSegmentEndpoint
+                }
+            >
                 <div className="circle" />
                 <div className="label">
                     <div className="name">{renderStationName(station)}</div>
                     <div className="time">{stringifyTime(time)}</div>
+                    {isInfill && (
+                        <div className="plus">
+                            +<span className="tooltiptext">New station</span>
+                        </div>
+                    )}
                 </div>
             </div>
         );
