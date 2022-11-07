@@ -7,6 +7,7 @@ import { Button } from "components";
 import { getLinkToStation, Station } from "stations";
 
 import StationSearchBar from "./StationSearchBar";
+import { StationName } from "../StationName";
 
 import styles from "./StationListing.module.scss";
 
@@ -118,6 +119,7 @@ const StationListing = React.forwardRef((props: Props, ref: any) => {
                 .filter(([line]) => !excludeColorLines || !isColorLine(line))
                 .map(([line, stations]) => {
                     const colorClass = isColorLine(line) ? line.toLowerCase() : "regional-rail";
+                    console.log(line);
                     const isHighlighted = getIsHighlightedLine(
                         previouslySelectedStationId,
                         line,
@@ -154,9 +156,14 @@ const StationListing = React.forwardRef((props: Props, ref: any) => {
                                     onClick={handleSelectStation}
                                 >
                                     {linkToStations ? (
-                                        <a href={getLinkToStation(station)}>{station.name}</a>
+                                        <StationName
+                                            station={station}
+                                            route={`CR-${line}` as string}
+                                            asLink
+                                            link={getLinkToStation(station)}
+                                        />
                                     ) : (
-                                        station.name
+                                        <StationName station={station} route={`CR-${line}`} />
                                     )}
                                 </CompositeItem>
                             ))}
