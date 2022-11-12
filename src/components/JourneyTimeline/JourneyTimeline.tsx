@@ -3,13 +3,9 @@ import classNames from "classnames";
 import { BsChevronExpand } from "react-icons/bs";
 
 import { Button } from "reakit";
-import {
-    JourneySegment,
-    JourneyStation,
-    JourneyTransferSegment,
-    JourneyTravelSegment,
-} from "types";
+import { JourneySegment, JourneyTransferSegment, JourneyTravelSegment } from "types";
 import { stringifyTime as globalStringifyTime, MINUTE } from "time";
+import { StationName } from "../StationName";
 
 import styles from "./JourneyTimeline.module.scss";
 import { getColorForRouteId, textColor } from "routes";
@@ -23,51 +19,6 @@ const desiredStationSpacingPx = 50;
 const expandControlSpacingPx = 100;
 
 const stringifyTime = (time) => globalStringifyTime(time, { use12Hour: true });
-
-const isInfillStation = (stationId, route) => {
-    const alwaysInfills = new Set([
-        "place-rr-everett-jct",
-        "place-rr-revere-center",
-        "place-rr-south-salem",
-        "place-rr-tufts-university",
-        "place-rr-montvale-avenue",
-        "place-rr-umass-lowell",
-        "place-rr-rourke-bridge",
-        "place-rr-willow-springs",
-        "place-rr-nashua",
-        "place-rr-merrimack",
-        "place-rr-manchester-center",
-        "place-rr-brickbottom",
-        "place-rr-clematis-brook",
-        "place-rr-weston-128",
-        "place-rr-ceylon-park",
-        "place-rr-river-street",
-        "place-rr-west-station",
-        "place-rr-newton-corner",
-        "place-rr-pawtucket",
-        "place-rr-hingham-depot",
-        "place-rr-cohasset-center",
-        "place-rr-braintree-highlands",
-        "place-rr-bridgewater-center",
-        "place-rr-mboro-centre-st",
-        "place-rr-weymouth-col-sq",
-        "place-rockland-n-abington",
-        "place-kingston-jct",
-        "place-plymouth-center",
-    ]);
-    const infillInRoute = {
-        "CR-Newburyport": new Set(["place-sull"]),
-        "CR-Reading": new Set(["place-sull"]),
-        "CR-Fitchburg": new Set(["place-unsqu"]),
-    };
-    if (alwaysInfills.has(stationId)) {
-        return true;
-    }
-    if (infillInRoute[route] && infillInRoute[route].has(stationId)) {
-        return true;
-    }
-    return false;
-};
 
 const getSegmentHeight = (segment: JourneySegment) => {
     const elapsedSeconds =
@@ -88,30 +39,15 @@ const TravelSegment = (props: { segment: JourneyTravelSegment }) => {
     const canCollapse = height / segment.passedStations.length < desiredStationSpacingPx;
     const [expanded, setExpanded] = useState(!canCollapse);
 
-    const renderStationName = (station: JourneyStation) => {
-        return <span className={styles.stationName}>{station.name}</span>;
-    };
-
     const renderInnerStations = (stations: JourneyTravelSegment["passedStations"]) => {
         return stations.map((passedStation) => {
-            const isInfill = isInfillStation(passedStation.station.id, routeId);
             return (
-                <div
+                <StationName
                     key={passedStation.station.id}
-                    className={
-                        isInfill
-                            ? styles.travelSegmentPassedInfill
-                            : styles.travelSegmentPassedStation
-                    }
-                >
-                    <div className="circle" />
-                    <div className="label">{renderStationName(passedStation.station)}</div>
-                    {isInfill && (
-                        <div className="plus">
-                            +<span className="tooltiptext">New station</span>
-                        </div>
-                    )}
-                </div>
+                    station={passedStation.station}
+                    route={routeId}
+                    withCircle
+                />
             );
         });
     };
@@ -157,24 +93,8 @@ const TravelSegment = (props: { segment: JourneyTravelSegment }) => {
     };
 
     const renderEndpoint = (station, time) => {
-        const isInfill = isInfillStation(station.id, routeId);
         return (
-            <div
-                className={
-                    isInfill ? styles.travelSegmentEndpointInfill : styles.travelSegmentEndpoint
-                }
-            >
-                <div className="circle" />
-                <div className="label">
-                    <div className="name">{renderStationName(station)}</div>
-                    <div className="time">{stringifyTime(time)}</div>
-                    {isInfill && (
-                        <div className="plus">
-                            +<span className="tooltiptext">New station</span>
-                        </div>
-                    )}
-                </div>
-            </div>
+            <StationName station={station} route={routeId} time={stringifyTime(time)} withCircle />
         );
     };
 
