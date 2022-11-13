@@ -6,8 +6,6 @@ type Props = {
     route?: string; // to be used to determine if station is an infill
     asLink?: boolean; // only render as a link if this is
     link?: string; // link to display on the station name
-    time?: string; // time the station is reached (for endpoints)
-    withCircle?: boolean; // whether to show a circle with the name
 };
 
 const isInfillStation = (stationId, route) => {
@@ -56,13 +54,10 @@ const isInfillStation = (stationId, route) => {
 };
 
 const StationName = (props: Props) => {
-    const { station, route = "", asLink = false, link = "", time, withCircle } = props;
+    const { station, route = "", asLink = false, link = "" } = props;
     const showInfillStatus = isInfillStation(station.id, route);
     return (
-        <div
-            className={time ? styles.travelSegmentEndpointInfill : styles.travelSegmentPassedInfill}
-        >
-            {withCircle && <div className="circle" />}
+        <div className={styles.stationNameWithPlus}>
             {asLink ? (
                 <a href={link} className={styles.stationName}>
                     {station.name}
@@ -70,7 +65,6 @@ const StationName = (props: Props) => {
             ) : (
                 <span className={styles.stationName}>{station.name}</span>
             )}
-            {time && <div className="time">{time}</div>}
             {showInfillStatus && (
                 <div className="plus">
                     +<span className="tooltiptext">New station</span>

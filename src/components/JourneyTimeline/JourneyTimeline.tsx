@@ -42,12 +42,12 @@ const TravelSegment = (props: { segment: JourneyTravelSegment }) => {
     const renderInnerStations = (stations: JourneyTravelSegment["passedStations"]) => {
         return stations.map((passedStation) => {
             return (
-                <StationName
-                    key={passedStation.station.id}
-                    station={passedStation.station}
-                    route={routeId}
-                    withCircle
-                />
+                <div key={passedStation.station.id} className={styles.travelSegmentPassedStation}>
+                    <div className="circle" />
+                    <div className="label">
+                        <StationName station={passedStation.station} route={routeId} />
+                    </div>
+                </div>
             );
         });
     };
@@ -94,7 +94,13 @@ const TravelSegment = (props: { segment: JourneyTravelSegment }) => {
 
     const renderEndpoint = (station, time) => {
         return (
-            <StationName station={station} route={routeId} time={stringifyTime(time)} withCircle />
+            <div className={styles.travelSegmentEndpoint}>
+                <div className="circle" />
+                <div className="label">
+                    <StationName station={station} route={routeId} />
+                    <div className="time">{stringifyTime(time)}</div>
+                </div>
+            </div>
         );
     };
 

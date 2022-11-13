@@ -119,7 +119,6 @@ const StationListing = React.forwardRef((props: Props, ref: any) => {
                 .filter(([line]) => !excludeColorLines || !isColorLine(line))
                 .map(([line, stations]) => {
                     const colorClass = isColorLine(line) ? line.toLowerCase() : "regional-rail";
-                    console.log(line);
                     const isHighlighted = getIsHighlightedLine(
                         previouslySelectedStationId,
                         line,
@@ -194,7 +193,7 @@ const StationListing = React.forwardRef((props: Props, ref: any) => {
                             data-station-id={station.id}
                             onClick={handleSelectStation}
                         >
-                            {station.name}
+                            <StationName station={station} />
                             <div className={styles.lineBullets}>
                                 {[...station.colors].map((color) => (
                                     <div key={color} className={color} />
