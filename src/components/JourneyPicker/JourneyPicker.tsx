@@ -137,11 +137,28 @@ const JourneyPicker = (props: Props) => {
         }
     }, [time]);
 
-    const chooseDepartureOption = (kind) => {
-        updateJourneyParams({
-            navigationKind: kind.id,
-        });
-    };
+    const handleSelectDepartureOption = useCallback(
+        (kind: typeof navigationKindOptions[number]) => {
+            updateJourneyParams({
+                navigationKind: kind.id,
+            });
+        },
+        [updateJourneyParams]
+    );
+
+    const handleSelectFromStation = useCallback(
+        (stationId: string) => {
+            updateJourneyParams({ fromStationId: stationId });
+        },
+        [updateJourneyParams]
+    );
+
+    const handleSelectToStation = useCallback(
+        (stationId: string) => {
+            updateJourneyParams({ toStationId: stationId });
+        },
+        [updateJourneyParams]
+    );
 
     return (
         <div className={styles.journeyPicker}>
@@ -151,9 +168,7 @@ const JourneyPicker = (props: Props) => {
                         lockBodyScroll
                         disabled={disabled}
                         label={fromStation?.name ?? "Choose a station"}
-                        onSelectStation={(stationId) =>
-                            updateJourneyParams({ fromStationId: stationId })
-                        }
+                        onSelectStation={handleSelectFromStation}
                         stationsByLine={stationsByLine}
                     />
                 </LabeledControl>
@@ -162,9 +177,7 @@ const JourneyPicker = (props: Props) => {
                         lockBodyScroll
                         disabled={disabled}
                         label={toStation?.name ?? "Choose a station"}
-                        onSelectStation={(stationId) =>
-                            updateJourneyParams({ toStationId: stationId })
-                        }
+                        onSelectStation={handleSelectToStation}
                         stationsByLine={stationsByLine}
                         previouslySelectedStationId={fromStation && fromStation.id}
                     />
@@ -203,7 +216,7 @@ const JourneyPicker = (props: Props) => {
                     aria-label="Choose when you want to depart or arrive"
                     items={navigationKindOptions}
                     selectedItem={selectedNavigationKind}
-                    onSelect={(kind) => chooseDepartureOption(kind)}
+                    onSelect={handleSelectDepartureOption}
                 />
                 <div className={styles.spacer} />
                 <NumericTimePicker

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import classNames from "classnames";
+import { Button } from "reakit";
 import { BsChevronExpand } from "react-icons/bs";
 
-import { Button } from "reakit";
+import { StationName } from "components";
 import { JourneySegment, JourneyTransferSegment, JourneyTravelSegment } from "types";
 import { stringifyTime as globalStringifyTime, MINUTE } from "time";
-import { StationName } from "../StationName";
 
 import styles from "./JourneyTimeline.module.scss";
 import { getColorForRouteId, textColor } from "routes";
@@ -45,7 +45,7 @@ const TravelSegment = (props: { segment: JourneyTravelSegment }) => {
                 <div key={passedStation.station.id} className={styles.travelSegmentPassedStation}>
                     <div className="circle" />
                     <div className="label">
-                        <StationName station={passedStation.station} route={routeId} />
+                        <StationName station={passedStation.station} onRouteId={routeId} />
                     </div>
                 </div>
             );
@@ -97,7 +97,7 @@ const TravelSegment = (props: { segment: JourneyTravelSegment }) => {
             <div className={styles.travelSegmentEndpoint}>
                 <div className="circle" />
                 <div className="label">
-                    <StationName station={station} route={routeId} />
+                    <StationName station={station} onRouteId={routeId} />
                     <div className="time">{stringifyTime(time)}</div>
                 </div>
             </div>

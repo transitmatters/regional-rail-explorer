@@ -30,8 +30,7 @@ const StationPicker = (props: Props) => {
     const disclosure = useDisclosureState({ visible: false });
     const { viewportHeight } = useViewport();
     const { isMobile } = useAppContext();
-    // Using data-station-id instead of generating a closure for each station's callback is a
-    // performance enhancement recommended by Reakit when using a Composite with many items.
+
     const handleSelectStation = useCallback(
         (stationId: string) => {
             onSelectStation(stationId);

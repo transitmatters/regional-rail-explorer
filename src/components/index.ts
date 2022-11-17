@@ -23,6 +23,7 @@ export { NetworkVisualizer, LiveNetworkVisualizer } from "./NetworkVisualizer";
 export { default as PowerText } from "./PowerText/PowerText";
 export { default as RoutePage } from "./RoutePage/RoutePage";
 export { default as StationDetails } from "./StationDetails/StationDetails";
+export { default as StationName } from "./StationName";
 export { default as StationPicker } from "./StationPicker/StationPicker";
 export { default as SuggestedJourneys } from "./SuggestedJourneys/SuggestedJourneys";
 export { StationSearchBar, StationListing } from "./StationListing";

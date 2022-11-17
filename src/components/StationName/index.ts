@@ -1,1 +1,1 @@
-export { default as StationName } from "./StationName";
+export { default } from "./StationName";
