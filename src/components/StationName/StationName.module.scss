@@ -1,33 +1,51 @@
 @import '../../styles/base.scss';
 
-.stationNameWithPlus {
+.stationName {
     display: flex;
+    align-items: center;
 
-    :global(.plus) {
-        border-color: black;
+    &.fullWidth {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    &.infillIndicatorUsesTextColor {
+        .plus {
+            color: currentColor;
+        }
+    }
+
+    .infillStatus {
+        display: flex;
         margin-left: 5px;
+        position: relative;
     }
 
-    :global(.tooltiptext) {
-      visibility: hidden;
-      width: 120px;
-      background-color: black;
-      color: #fff;
-      text-align: center;
-      border-radius: 6px;
-      padding: 5px 0;
-
-      /* Position the tooltip */
-      position: absolute;
-      z-index: 1;
+    .tooltipText {
+        font-size: 0.9em;
+        visibility: hidden;
+        position: absolute;
+        transform: translateX(100%) translateY(-50%);
+        text-align: center;
+        right: -2px;
+        top: 50%;
+        width: max-content;
+        padding: 2px 6px;
+        background-color: $rr-purple-secondary;
+        color: #fff;
+        font-style: italic;
     }
 
-    :global(.plus:hover .tooltiptext) {
-      visibility: visible;
+    .plus {
+        color: #aaa;
+    }
+
+    .infillStatus:hover .tooltipText {
+        visibility: visible;
     }
 }
 
-a.stationName {
+a.nameText {
     color: inherit;
     text-decoration: none;
     &:hover {

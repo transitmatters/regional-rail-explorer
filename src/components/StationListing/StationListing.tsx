@@ -170,6 +170,8 @@ const StationListing = React.forwardRef((props: Props, ref: any) => {
                                         station={station}
                                         onRouteId={`CR-${line}`}
                                         asLink={linkToStations}
+                                        infillIndicatorUsesTextColor={isHighlighted}
+                                        fullWidth
                                     />
                                 </CompositeItem>
                             ))}
