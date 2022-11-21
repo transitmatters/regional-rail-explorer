@@ -1,14 +1,10 @@
 import React, { useState } from "react";
 import classNames from "classnames";
+import { Button } from "reakit";
 import { BsChevronExpand } from "react-icons/bs";
 
-import { Button } from "reakit";
-import {
-    JourneySegment,
-    JourneyStation,
-    JourneyTransferSegment,
-    JourneyTravelSegment,
-} from "types";
+import { StationName } from "components";
+import { JourneySegment, JourneyTransferSegment, JourneyTravelSegment } from "types";
 import { stringifyTime as globalStringifyTime, MINUTE } from "time";
 
 import styles from "./JourneyTimeline.module.scss";
@@ -43,16 +39,14 @@ const TravelSegment = (props: { segment: JourneyTravelSegment }) => {
     const canCollapse = height / segment.passedStations.length < desiredStationSpacingPx;
     const [expanded, setExpanded] = useState(!canCollapse);
 
-    const renderStationName = (station: JourneyStation) => {
-        return <span className={styles.stationName}>{station.name}</span>;
-    };
-
     const renderInnerStations = (stations: JourneyTravelSegment["passedStations"]) => {
         return stations.map((passedStation) => {
             return (
                 <div key={passedStation.station.id} className={styles.travelSegmentPassedStation}>
                     <div className="circle" />
-                    <div className="label">{renderStationName(passedStation.station)}</div>
+                    <div className="label">
+                        <StationName station={passedStation.station} onRouteId={routeId} />
+                    </div>
                 </div>
             );
         });
@@ -103,7 +97,7 @@ const TravelSegment = (props: { segment: JourneyTravelSegment }) => {
             <div className={styles.travelSegmentEndpoint}>
                 <div className="circle" />
                 <div className="label">
-                    <div className="name">{renderStationName(station)}</div>
+                    <StationName station={station} onRouteId={routeId} />
                     <div className="time">{stringifyTime(time)}</div>
                 </div>
             </div>

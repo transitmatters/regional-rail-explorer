@@ -3,8 +3,8 @@ import { Composite, CompositeItem, useCompositeState } from "reakit";
 import classNames from "classnames";
 import { MdClose } from "react-icons/md";
 
-import { Button } from "components";
-import { getLinkToStation, Station } from "stations";
+import { Button, StationName } from "components";
+import { Station } from "stations";
 
 import StationSearchBar from "./StationSearchBar";
 
@@ -37,6 +37,16 @@ const getIsHighlightedLine = (
     return (
         !isColorLine(line) && stations.some((station) => station.id === previouslySelectedStationId)
     );
+};
+
+export const findParentWithDataStationId = (element: HTMLElement): null | string => {
+    const stationId = element.getAttribute("data-station-id");
+    if (stationId) {
+        return stationId as string;
+    } else if (element.parentElement) {
+        return findParentWithDataStationId(element.parentElement);
+    }
+    return null;
 };
 
 const sortRegionalRailEntriesFirst = (previouslySelectedStationId?: string) => (
@@ -103,10 +113,13 @@ const StationListing = React.forwardRef((props: Props, ref: any) => {
 
     // Using data-station-id instead of generating a closure for each station's callback is a
     // performance enhancement recommended by Reakit when using a Composite with many items.
+    // See here: https://reakit.io/docs/composite/#performance
     const handleSelectStation = useCallback(
         (evt) => {
-            const stationId = (evt.target as HTMLElement).getAttribute("data-station-id")!;
-            onSelectStation(stationId);
+            const stationId = findParentWithDataStationId(evt.target as HTMLElement);
+            if (stationId) {
+                onSelectStation(stationId);
+            }
         },
         [onSelectStation]
     );
@@ -153,11 +166,13 @@ const StationListing = React.forwardRef((props: Props, ref: any) => {
                                     data-station-id={station.id}
                                     onClick={handleSelectStation}
                                 >
-                                    {linkToStations ? (
-                                        <a href={getLinkToStation(station)}>{station.name}</a>
-                                    ) : (
-                                        station.name
-                                    )}
+                                    <StationName
+                                        station={station}
+                                        onRouteId={`CR-${line}`}
+                                        asLink={linkToStations}
+                                        infillIndicatorUsesTextColor={isHighlighted}
+                                        fullWidth
+                                    />
                                 </CompositeItem>
                             ))}
                         </ul>
@@ -187,7 +202,7 @@ const StationListing = React.forwardRef((props: Props, ref: any) => {
                             data-station-id={station.id}
                             onClick={handleSelectStation}
                         >
-                            {station.name}
+                            <StationName station={station} />
                             <div className={styles.lineBullets}>
                                 {[...station.colors].map((color) => (
                                     <div key={color} className={color} />

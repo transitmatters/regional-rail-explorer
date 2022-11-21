@@ -386,3 +386,50 @@ export const stationsByName = indexStationsByProperty("name");
 export const getLinkToStation = (station: { id: string }) => {
     return `/station/${station.id}`;
 };
+
+const alwaysInfillStations = new Set([
+    "place-rr-everett-jct",
+    "place-rr-revere-center",
+    "place-rr-south-salem",
+    "place-rr-tufts-university",
+    "place-rr-montvale-avenue",
+    "place-rr-umass-lowell",
+    "place-rr-rourke-bridge",
+    "place-rr-willow-springs",
+    "place-rr-nashua",
+    "place-rr-merrimack",
+    "place-rr-manchester-center",
+    "place-rr-brickbottom",
+    "place-rr-clematis-brook",
+    "place-rr-weston-128",
+    "place-rr-ceylon-park",
+    "place-rr-river-street",
+    "place-rr-west-station",
+    "place-rr-newton-corner",
+    "place-rr-pawtucket",
+    "place-rr-hingham-depot",
+    "place-rr-cohasset-center",
+    "place-rr-braintree-highlands",
+    "place-rr-bridgewater-center",
+    "place-rr-mboro-centre-st",
+    "place-rr-weymouth-col-sq",
+    "place-rockland-n-abington",
+    "place-kingston-jct",
+    "place-plymouth-center",
+]);
+
+const infillStationsByRotue = {
+    "CR-Newburyport": new Set(["place-sull"]),
+    "CR-Reading": new Set(["place-sull"]),
+    "CR-Fitchburg": new Set(["place-unsqu"]),
+};
+
+export const isInfillStation = (stationId: string, routeId: string) => {
+    if (alwaysInfillStations.has(stationId)) {
+        return true;
+    }
+    if (infillStationsByRotue[routeId] && infillStationsByRotue[routeId].has(stationId)) {
+        return true;
+    }
+    return false;
+};
