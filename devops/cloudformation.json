@@ -25,20 +25,35 @@
         "InstanceType": "t4g.small",
         "KeyName": "transitmatters-rre",
         "SecurityGroupIds": [
-          { "Ref": "RRESecurityGroup" }
+          {
+            "Ref": "RRESecurityGroup"
+          }
         ],
         "Tags": [
           {
             "Key": "Name",
-            "Value": {"Fn::Sub": "rre-${RREHostname}"}
-         }
+            "Value": {
+              "Fn::Sub": "rre-${RREHostname}"
+            }
+          }
+        ],
+        "BlockDeviceMappings": [
+          {
+            "DeviceName": "/dev/sda1",
+            "Ebs": {
+              "VolumeSize": 32,
+              "VolumeType": "gp2"
+            }
+          }
         ]
       }
     },
     "RRESecurityGroup": {
       "Type": "AWS::EC2::SecurityGroup",
       "Properties": {
-        "GroupName": {"Fn::Sub": "RRE-securitygroup-${RREHostname}"},
+        "GroupName": {
+          "Fn::Sub": "RRE-securitygroup-${RREHostname}"
+        },
         "GroupDescription": "Allow HTTP/HTTPS and SSH inbound and outbound traffic",
         "SecurityGroupIngress": [
           {
@@ -82,8 +97,12 @@
     "RREDNSRecord": {
       "Type": "AWS::Route53::RecordSet",
       "Properties": {
-        "Name": {"Fn::Sub": "${RREHostname}."},
-        "HostedZoneName": {"Fn::Sub": "${RREDomain}."},
+        "Name": {
+          "Fn::Sub": "${RREHostname}."
+        },
+        "HostedZoneName": {
+          "Fn::Sub": "${RREDomain}."
+        },
         "AliasTarget": {
           "HostedZoneId": "Z2FDTNDATAQYW2",
           "DNSName": {
@@ -101,7 +120,9 @@
       "Properties": {
         "DistributionConfig": {
           "Aliases": [
-            { "Ref": "RREHostname" }
+            {
+              "Ref": "RREHostname"
+            }
           ],
           "Enabled": "true",
           "DefaultCacheBehavior": {
@@ -130,7 +151,9 @@
           "PriceClass": "PriceClass_100",
           "ViewerCertificate": {
             "MinimumProtocolVersion": "TLSv1.2_2018",
-            "AcmCertificateArn": { "Ref": "RRECertArn" },
+            "AcmCertificateArn": {
+              "Ref": "RRECertArn"
+            },
             "SslSupportMethod": "sni-only"
           }
         }
