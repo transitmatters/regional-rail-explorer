@@ -16,6 +16,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
+      - name: Check if package-lock.json is up to date
+        run: |
+          npx --yes package-lock-utd@1.x.x
       - name: Lint frontend code with ESLint
         run: |
           npm ci
