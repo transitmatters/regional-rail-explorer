@@ -4,6 +4,35 @@
   remote_user: ubuntu
   become_user: ubuntu
   tasks:
+    - name: Create swap file
+      become: yes
+      become_user: root
+      command: dd if=/dev/zero of=/extraswap bs=1M count=512
+      when: ansible_swaptotal_mb < 1
+
+    - name: Make sure swap file has the right permissions
+      become: yes
+      become_user: root
+      file:
+        path: /extraswap
+        mode: "0600"
+
+    - name: Run mkswap
+      become: yes
+      become_user: root
+      command: mkswap /extraswap
+      when: ansible_swaptotal_mb < 1
+
+    - name: Add swap to fstab
+      become: yes
+      become_user: root
+      action: lineinfile dest=/etc/fstab regexp="extraswap" line="/extraswap none swap sw 0 0" state=present
+
+    - name: Turn swap on
+      become: yes
+      become_user: root
+      command: swapon -a
+
     - name: Add nodejs apt key
       become: yes
       become_user: root
