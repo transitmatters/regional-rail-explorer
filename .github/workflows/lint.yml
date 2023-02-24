@@ -17,9 +17,8 @@ jobs:
         with:
           node-version: 16.x
       - name: Check if package-lock.json is up to date
-        run: |
-          npx --yes package-lock-utd@1.x.x
+        run: npx --yes package-lock-utd@1.1.0
+      - name: Install app dependencies
+        run: npm ci
       - name: Lint frontend code with ESLint
-        run: |
-          npm ci
-          npm run lint
+        run: npm run lint
