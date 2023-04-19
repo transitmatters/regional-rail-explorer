@@ -7,19 +7,14 @@ export AWS_DEFAULT_REGION=us-east-1
 export AWS_PAGER=""
 
 PRODUCTION=false
-CI=false
 
 # Argument parsing
 # pass "-p" flag to deploy to production
-# pass "-c" flag if deploying with CI
 
-while getopts "pc" opt; do
+while getopts "p" opt; do
     case $opt in
         p)
             PRODUCTION=true
-            ;;
-        c)
-            CI=true
             ;;
   esac
 done
@@ -43,6 +38,7 @@ aws cloudformation deploy --stack-name $STACK_NAME \
     RRECertArn=$CERT_ARN
 
 INSTANCE_IP=$(aws cloudformation describe-stacks --stack-name $STACK_NAME --query "Stacks[0].Outputs[?OutputKey=='InstanceIP'].OutputValue" --output text)
+
 # Run the playbook! :-)
 export ANSIBLE_HOST_KEY_CHECKING=False # If it's a new host, ssh known_hosts not having the key fingerprint will cause an error. Silence it
 ansible-playbook -v -i $INSTANCE_IP, -u ubuntu --private-key ~/.ssh/transitmatters-rre.pem playbook.yml
