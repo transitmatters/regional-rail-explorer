@@ -48,7 +48,7 @@ const getStationIdsForRoutePatternIds = (tripMap: Record<string, SerializableTri
     const stationIdsMap: Record<string, string[]> = {};
     for (const [routePatternId, trips] of Object.entries(tripMap)) {
         const exemplarTrip = trips
-            .filter((trip) => isRegionalRailTerminus(trip.stopTimes[0].stationId))
+            .filter((trip) => isRegionalRailTerminus(trip.stopTimes[0]?.stationId))
             .reduce((best: null | SerializableTrip, next: SerializableTrip) => {
                 if (!best || next.stopTimes.length > best!.stopTimes.length) {
                     return next;
@@ -114,7 +114,7 @@ const getRouteInfoFromTrips = (trips: Trip[], stationsById: Record<string, Stati
         trips
             .filter(isWeekdayTrip)
             .map(serializeTrip)
-            .sort((a, b) => a.stopTimes[0].time - b.stopTimes[0].time),
+            .sort((a, b) => (a.stopTimes[0]?.time || 0) - (b.stopTimes[0]?.time || 0)),
         "routePatternId"
     );
     const routePatternStations = getStationIdsForRoutePatternIds(weekdayTripsByRoutePatternId);
