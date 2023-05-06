@@ -290,7 +290,7 @@ export const stationsByLine: Record<string, Station[]> = {
         { id: "place-lech", name: "Lechmere" },
         { id: "place-unsqu", name: "Union Square" },
         { id: "place-mdftf", name: "Medford/Tufts" },
-        { id: "place-esomr", name: "East Somerville"},
+        { id: "place-esomr", name: "East Somerville" },
         { id: "place-gilmn", name: "Gilman Square" },
         { id: "place-mgngl", name: "Magoun Square" },
         { id: "place-balsq", name: "Ball Square" },
