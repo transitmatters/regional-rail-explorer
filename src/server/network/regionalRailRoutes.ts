@@ -114,7 +114,7 @@ const getRouteInfoFromTrips = (trips: Trip[], stationsById: Record<string, Stati
         trips
             .filter(isWeekdayTrip)
             .map(serializeTrip)
-            .sort((a, b) => a.stopTimes[0].time - b.stopTimes[0]?.time),
+            .sort((a, b) => a.stopTimes[0].time - b.stopTimes[0].time),
         "routePatternId"
     );
     const routePatternStations = getStationIdsForRoutePatternIds(weekdayTripsByRoutePatternId);
