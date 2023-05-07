@@ -396,7 +396,6 @@ const alwaysInfillStations = new Set([
     "place-rr-everett-jct",
     "place-rr-revere-center",
     "place-rr-south-salem",
-    "place-rr-tufts-university",
     "place-rr-montvale-avenue",
     "place-rr-umass-lowell",
     "place-rr-rourke-bridge",
