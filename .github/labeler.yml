@@ -1,0 +1,17 @@
+ci/cd:
+- .github/**/*
+- devops/**/*
+
+dependencies:
+- package.json
+- package-lock.json
+
+frontend:
+- '**/*.js'
+- '**/*.jsx'
+- '**/*.ts'
+- '**/*.tsx'
+
+documentation:
+- README.md
+- LICENSE
