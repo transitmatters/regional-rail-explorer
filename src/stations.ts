@@ -178,7 +178,7 @@ export const stationsByLine: Record<string, Station[]> = {
     ],
     Lowell: [
         { id: "place-north", name: "North Station" },
-        { id: "place-rr-tufts-university", name: "Tufts University" },
+        { id: "place-mdftf", name: "Medford/Tufts" },
         { id: "place-NHRML-0055", name: "West Medford" },
         { id: "place-NHRML-0073", name: "Wedgemere" },
         { id: "place-NHRML-0078", name: "Winchester Center" },
@@ -289,6 +289,11 @@ export const stationsByLine: Record<string, Station[]> = {
         { id: "place-spmnl", name: "Science Park/West End" },
         { id: "place-lech", name: "Lechmere" },
         { id: "place-unsqu", name: "Union Square" },
+        { id: "place-mdftf", name: "Medford/Tufts" },
+        { id: "place-esomr", name: "East Somerville" },
+        { id: "place-gilmn", name: "Gilman Square" },
+        { id: "place-mgngl", name: "Magoun Square" },
+        { id: "place-balsq", name: "Ball Square" },
         { id: "place-clmnl", name: "Cleveland Circle" },
         { id: "place-engav", name: "Englewood Avenue" },
         { id: "place-denrd", name: "Dean Road" },
@@ -391,7 +396,6 @@ const alwaysInfillStations = new Set([
     "place-rr-everett-jct",
     "place-rr-revere-center",
     "place-rr-south-salem",
-    "place-rr-tufts-university",
     "place-rr-montvale-avenue",
     "place-rr-umass-lowell",
     "place-rr-rourke-bridge",
@@ -418,17 +422,18 @@ const alwaysInfillStations = new Set([
     "place-plymouth-center",
 ]);
 
-const infillStationsByRotue = {
+const infillStationsByRoute = {
     "CR-Newburyport": new Set(["place-sull"]),
     "CR-Reading": new Set(["place-sull"]),
     "CR-Fitchburg": new Set(["place-unsqu"]),
+    "CR-Lowell": new Set(["place-mdftf"]),
 };
 
 export const isInfillStation = (stationId: string, routeId: string) => {
     if (alwaysInfillStations.has(stationId)) {
         return true;
     }
-    if (infillStationsByRotue[routeId] && infillStationsByRotue[routeId].has(stationId)) {
+    if (infillStationsByRoute[routeId] && infillStationsByRoute[routeId].has(stationId)) {
         return true;
     }
     return false;
