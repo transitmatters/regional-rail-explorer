@@ -45,12 +45,13 @@ const getBestCandidateDepartureTime = (
         return bestCandidate;
     }
     // if we don't have candidates from the baseline, we need to pick a time based on enhancedArrivals
+    const targetArrival = 9 * 60 * 60; // 9 AM
     let firstArrival: null | number = null;
     let secondArrival: null | number = null;
     enhancedArrivals.forEach((arrival) => {
-        if (arrival > 32400 && !firstArrival) {
+        if (arrival >= targetArrival && !firstArrival) {
             firstArrival = arrival;
-        } else if (arrival > 32400 && firstArrival && !secondArrival) {
+        } else if (arrival > targetArrival && firstArrival && !secondArrival) {
             secondArrival = arrival;
         }
     });
@@ -59,7 +60,7 @@ const getBestCandidateDepartureTime = (
         return (firstArrival + secondArrival) / 2;
     }
     // if we still haven't found anything, default to 9am
-    return 32400;
+    return targetArrival;
 };
 
 export const getAdvantageousDepartureTime = (
