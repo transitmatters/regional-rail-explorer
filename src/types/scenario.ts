@@ -1,7 +1,7 @@
 import { Network } from "./model";
 
 export const scenarioIds = ["present", "regional_rail"] as const;
-export type ScenarioId = typeof scenarioIds[number];
+export type ScenarioId = (typeof scenarioIds)[number];
 
 export interface ScenarioInfo {
     id: ScenarioId;

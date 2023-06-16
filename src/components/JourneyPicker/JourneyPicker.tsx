@@ -138,7 +138,7 @@ const JourneyPicker = (props: Props) => {
     }, [time]);
 
     const handleSelectDepartureOption = useCallback(
-        (kind: typeof navigationKindOptions[number]) => {
+        (kind: (typeof navigationKindOptions)[number]) => {
             updateJourneyParams({
                 navigationKind: kind.id,
             });
