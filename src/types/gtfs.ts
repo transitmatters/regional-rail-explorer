@@ -51,6 +51,7 @@ export interface GtfsStop {
     platformName: string;
     parentStation: string;
     wheelchairBoarding: BoolishNumString;
+    municipality: string;
 }
 
 export interface GtfsRoutePatternAmenities {

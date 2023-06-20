@@ -51,6 +51,7 @@ const createStation = (gtfsStop: GtfsStop): Station => {
         id: gtfsStop.stopId,
         name: gtfsStop.stopName,
         stops: [],
+        municipality: gtfsStop.municipality,
     };
 };
 
