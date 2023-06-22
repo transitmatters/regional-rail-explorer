@@ -23,8 +23,7 @@ const navLinks: NavLink[] = [
     },
     {
         title: "Send Feedback",
-        href:
-            "mailto:labs@transitmatters.org?subject=[Regional%20Rail%20Explorer%20Feedback]%20-%20",
+        href: "mailto:labs@transitmatters.org?subject=[Regional%20Rail%20Explorer%20Feedback]%20-%20",
         key: "feedback",
     },
 ];

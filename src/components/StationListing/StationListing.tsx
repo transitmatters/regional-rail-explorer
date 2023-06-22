@@ -49,19 +49,18 @@ export const findParentWithDataStationId = (element: HTMLElement): null | string
     return null;
 };
 
-const sortRegionalRailEntriesFirst = (previouslySelectedStationId?: string) => (
-    [lineA, stationsA]: [string, Station[]],
-    [lineB, stationsB]: [string, Station[]]
-) => {
-    if (previouslySelectedStationId) {
-        const valueA = +getIsHighlightedLine(previouslySelectedStationId, lineA, stationsA);
-        const valueB = +getIsHighlightedLine(previouslySelectedStationId, lineB, stationsB);
-        return valueB - valueA;
-    }
-    const valueA = +isColorLine(lineA);
-    const valueB = +isColorLine(lineB);
-    return valueA - valueB;
-};
+const sortRegionalRailEntriesFirst =
+    (previouslySelectedStationId?: string) =>
+    ([lineA, stationsA]: [string, Station[]], [lineB, stationsB]: [string, Station[]]) => {
+        if (previouslySelectedStationId) {
+            const valueA = +getIsHighlightedLine(previouslySelectedStationId, lineA, stationsA);
+            const valueB = +getIsHighlightedLine(previouslySelectedStationId, lineB, stationsB);
+            return valueB - valueA;
+        }
+        const valueA = +isColorLine(lineA);
+        const valueB = +isColorLine(lineB);
+        return valueA - valueB;
+    };
 
 const sortStationsByName = (stationA: Station, stationB: Station) =>
     stationA.name > stationB.name ? 1 : -1;

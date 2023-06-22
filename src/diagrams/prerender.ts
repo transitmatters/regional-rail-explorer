@@ -143,12 +143,8 @@ export const prerenderRoutePatterns = (routePatterns: Record<string, RoutePatter
     let stationPositions: Record<string, Turtle> = {};
 
     for (const [routePatternId, { shape, stationIds }] of Object.entries(routePatterns)) {
-        const {
-            pathInterpolator,
-            progressPathInterpolator,
-            stationOffsets,
-            pathDirective,
-        } = prerenderRoutePattern(shape, stationIds);
+        const { pathInterpolator, progressPathInterpolator, stationOffsets, pathDirective } =
+            prerenderRoutePattern(shape, stationIds);
 
         const routePattern: PrerenderedRoutePattern = {
             id: routePatternId,

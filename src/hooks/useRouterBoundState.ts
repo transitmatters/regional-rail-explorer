@@ -49,14 +49,14 @@ const decodeField = <T>(value: string, field: Field<T>): T => {
     if ("decode" in field) {
         return field.decode(value);
     }
-    return (value as unknown) as T;
+    return value as unknown as T;
 };
 
 const encodeField = <T>(value: T, field: Field<T>): string => {
     if ("encode" in field) {
         return field.encode(value);
     }
-    return (value as unknown) as string;
+    return value as unknown as string;
 };
 
 const getInitialStateFromFields = <F extends Fields>(fields: F): State<F> => {

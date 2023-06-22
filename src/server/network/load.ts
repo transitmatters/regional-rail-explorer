@@ -33,7 +33,10 @@ export const createGtfsLoader = (archivePath: string) => {
     const basePath = uncompressArchiveToTmpDirectory(archivePath);
 
     const resolvePath = (filename: string) => path.join(basePath, filename + ".txt");
-    const reader = <T>(filename: string) => () => loadCsv<T>(resolvePath(filename));
+    const reader =
+        <T>(filename: string) =>
+        () =>
+            loadCsv<T>(resolvePath(filename));
 
     const optionalReader = <T>(filename: string) => {
         if (fs.existsSync(resolvePath(filename))) {

@@ -8,16 +8,19 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: ['16']
     env:
       TM_RRE_RR_RKS_CERT_ARN: ${{ secrets.TM_RRE_RR_RKS_CERT_ARN }}
       TM_LABS_WILDCARD_CERT_ARN: ${{ secrets.TM_LABS_WILDCARD_CERT_ARN }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
-      - name: Set up Node 16.x
+      - name: Set up Node ${{ matrix.node-version }}.x
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: ${{ matrix.node-version }}
       - name: Generate AWS profile
         run: |
           mkdir ~/.aws
