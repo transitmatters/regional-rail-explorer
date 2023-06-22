@@ -60,7 +60,7 @@
     "eslint-plugin-react": "^7.32.2",
     "sass-loader": "^9.0.2",
     "storybook-addon-state": "^1.0.3",
-    "style-loader": "^1.2.1"
+    "style-loader": "^3.3.3"
   },
   "engines": {
     "node": ">=16.0.0"
