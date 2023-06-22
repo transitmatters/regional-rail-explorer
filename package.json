@@ -20,7 +20,7 @@
     "device-detector-js": "^3.0.3",
     "esm": "^3.2.25",
     "fast-memoize": "^2.5.2",
-    "flatted": "^3.1.0",
+    "flatted": "^3.2.7",
     "heap": "^0.2.7",
     "next": "^12.1.4",
     "prettier": "^2.8.8",
