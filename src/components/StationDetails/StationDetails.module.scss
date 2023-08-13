@@ -9,40 +9,17 @@
 
 .inner {
     @include fill-to-max-width;
-    display: grid;
     overflow: hidden;
-    grid-template-areas: 'info primary';
-    grid-template-columns: 300px 1fr;
     box-shadow: $global-shadow;
     margin-top: 20px;
     background: white;
     flex-grow: 1;
-
-    h1 {
-        margin: 0;
-    }
-}
-
-.primaryPane {
-    grid-area: 'primary';
-    padding: 20px;
-    box-shadow: -10px 0px 5px 1px rgba(black, 0.05);
-}
-
-.infoPane {
-    grid-area: 'info';
-    background: #fafafa;
-}
-
-.map {
-    width: 300px;
-    height: 300px;
-    background: desaturate(lightgreen, 30%);
 }
 
 .metadata {
+    width: 300px;
     padding: 0;
-    margin: 0;
+    margin: auto;
     list-style: none;
     li {
         padding: 8px;
@@ -54,4 +31,153 @@
 
 .stationName {
     text-align: center;
+}
+
+:global(.column-header) {
+    display: flex;
+    align-items: center;
+    :global(.header-blip) {
+        margin-right: 8px;
+        display: inline;
+        height: 0.8em;
+        width: 0.8em;
+        border-radius: 100px;
+        &:global(.baseline) {
+            background: $rr-light;
+        }
+        &:global(.enhanced) {
+            background: $rr-purple;
+        }
+        @include mobile {
+            display: none;
+        }
+    }
+}
+
+:global(.duration) {
+    font-size: 18px;
+    @include mobile {
+        font-size: 15px;
+    }
+}
+
+:global(.bubble) {
+    display: inline-block;
+    color: white;
+    padding: 3px 6px;
+    margin-top: -3px;
+    &:global(.green) {
+        background: #579f6b;
+    }
+    &:global(.red) {
+        background: #ec4747;
+    }
+    &:global(.offset-left) {
+        margin-left: 6px;
+        @include mobile {
+            margin-left: 0;
+        }
+    }
+    @include mobile {
+        display: block;
+        margin: 0px;
+        margin-top: 4px;
+    }
+}
+
+.comparisonRow {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 150px repeat(2, 1fr);
+    column-gap: 20px;
+    grid-template-areas: 'title baseline enhanced';
+
+    > :global(.title) {
+        text-align: right;
+        grid-area: title;
+        font-style: italic;
+        color: #aaa;
+    }
+
+    > :global(.baseline) {
+        display: flex;
+        flex-direction: column;
+        grid-area: baseline;
+    }
+
+    > :global(.enhanced) {
+        display: flex;
+        flex-direction: column;
+        grid-area: enhanced;
+    }
+
+    &:first-child {
+        margin-top: 20px;
+        @include mobile {
+            margin-top: 0;
+        }
+    }
+
+    &:not(:last-child) {
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+        border-bottom: 1px #e5e5e5 solid;
+        @include mobile {
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+    }
+
+    &:global(.header) {
+        font-size: 1.5em;
+        font-weight: bolder;
+        border: none;
+    }
+
+    @include mobile {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-areas: 'baseline enhanced';
+        column-gap: 0;
+        position: relative;
+
+        > :global(.baseline),
+        > :global(.enhanced) {
+            border-top-width: 1px;
+            border-top-style: solid;
+            padding: 20px 10px;
+        }
+
+        > :global(.title) {
+            position: absolute;
+            left: 50%;
+            top: 1px;
+            transform: translateX(-50%) translateY(-50%);
+            background: white;
+            border-radius: 100px;
+            padding: 2px 10px;
+            border: 1px solid #ddd;
+            color: black;
+        }
+
+        > :global(.baseline) {
+            border-color: $rr-light;
+            background: white;
+        }
+
+        > :global(.enhanced) {
+            border-color: $rr-purple;
+            background: lighten($rr-purple, 67%);
+        }
+
+        &:global(.header) {
+            > :global(.baseline) {
+                background: $rr-light;
+                color: white;
+            }
+            > :global(.enhanced) {
+                background: $rr-purple;
+                color: white;
+            }
+        }
+    }
 }

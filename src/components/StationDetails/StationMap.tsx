@@ -1,6 +1,6 @@
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-import { MapContainer, TileLayer } from "react-leaflet";
+import { MapContainer, Marker, TileLayer } from "react-leaflet";
 import React from "react";
 import styles from "./StationMap.module.scss";
 
@@ -24,12 +24,14 @@ const StationMap = (props: Props) => {
         <MapContainer
             center={[props.latitude, props.longitude]}
             zoom={16}
+            scrollWheelZoom={false}
             className={styles.leafletContainer}
         >
             <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
+            <Marker position={[props.latitude, props.longitude]} />
         </MapContainer>
     );
 };

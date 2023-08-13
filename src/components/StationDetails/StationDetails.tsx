@@ -4,8 +4,9 @@ import { ArrivalsInfo, ScenarioInfo } from "types";
 
 import styles from "./StationDetails.module.scss";
 import * as api from "../../api";
-import { stringifyTime } from "../../time";
+import { stringifyDuration, stringifyTime } from "../../time";
 import dynamic from "next/dynamic";
+import ComparisonRow from "../JourneyComparison/ComparisonRow";
 
 const scenarioIds = ["present", "regional_rail"];
 
@@ -28,7 +29,7 @@ const StationDetail = (props: Props) => {
     const [inboundArrivals, setInboundArrivals] = useState<null | ArrivalsInfo>();
     const [outboundArrivals, setOutboundArrivals] = useState<null | ArrivalsInfo>();
     const { stationScenarioInfo } = props;
-    const [baseline] = stationScenarioInfo;
+    const [baseline, enhanced] = stationScenarioInfo;
 
     useEffect(() => {
         api.arrivals(baseline.station.id, "place-north", "weekday", scenarioIds).then(
@@ -49,34 +50,128 @@ const StationDetail = (props: Props) => {
     const now = new Date();
     const currentTimeSeconds = now.getHours() * 60 * 60 + now.getMinutes() * 60 + now.getSeconds();
 
+    const baselineInboundNextArrival = inboundArrivals?.baselineArrivals
+        .filter((time) => time >= currentTimeSeconds)
+        .at(0);
+    const enhancedInboundNextArrival = inboundArrivals?.enhancedArrivals
+        .filter((time) => time >= currentTimeSeconds)
+        .at(0);
+    const baselineInboundWaitDuration =
+        baselineInboundNextArrival && baselineInboundNextArrival - currentTimeSeconds;
+    const enhancedInboundWaitDuration =
+        enhancedInboundNextArrival && enhancedInboundNextArrival - currentTimeSeconds;
+    const favorableInboundWaitFraction =
+        enhancedInboundWaitDuration &&
+        baselineInboundWaitDuration &&
+        1 - enhancedInboundWaitDuration / baselineInboundWaitDuration;
+
+    const baselineOutboundNextArrival = outboundArrivals?.baselineArrivals
+        .filter((time) => time >= currentTimeSeconds)
+        .at(0);
+    const enhancedOutboundNextArrival = outboundArrivals?.enhancedArrivals
+        .filter((time) => time >= currentTimeSeconds)
+        .at(0);
+    const baselineOutboundWaitDuration =
+        baselineOutboundNextArrival && baselineOutboundNextArrival - currentTimeSeconds;
+    const enhancedOutboundWaitDuration =
+        enhancedOutboundNextArrival && enhancedOutboundNextArrival - currentTimeSeconds;
+    const favorableOutboundWaitFraction =
+        enhancedOutboundWaitDuration &&
+        baselineOutboundWaitDuration &&
+        1 - enhancedOutboundWaitDuration / baselineOutboundWaitDuration;
+
     return (
         <div className={styles.stationDetails}>
             <div className={styles.inner}>
-                <div className={styles.infoPane}>
-                    <ul className={styles.metadata}>
-                        <li>{baseline.station?.municipality ?? "Unknown Municipality"}</li>
-                        <li>
-                            <b>X,XXX</b> daily boardings (2019)
-                        </li>
-                        <li>
-                            <b>X,XXX</b> homes within 0.5 miles
-                        </li>
-                        <li>
-                            <b>XX,XXX</b> homes within 1 mile
-                        </li>
-                        <li>
-                            <b>X,XXX</b> jobs within 0.5 miles
-                        </li>
-                        <li>
-                            <b>XX,XXX</b> jobs within 1 mile
-                        </li>
-                    </ul>
-                </div>
-                <div className={styles.primaryPane}>
-                    <h1 className={styles.stationName}>{baseline.station.name}</h1>
-                    <DynamicStationMap
-                        latitude={baseline.station.latitude}
-                        longitude={baseline.station.longitude}
+                <DynamicStationMap
+                    latitude={baseline.station.latitude}
+                    longitude={baseline.station.longitude}
+                />
+                <h1 className={styles.stationName}>{baseline.station.name}</h1>
+                <ul className={styles.metadata}>
+                    <li>{baseline.station?.municipality ?? "Unknown Municipality"}</li>
+                    <li>
+                        <b>X,XXX</b> daily boardings (2019)
+                    </li>
+                    <li>
+                        <b>X,XXX</b> homes within 0.5 miles
+                    </li>
+                    <li>
+                        <b>XX,XXX</b> homes within 1 mile
+                    </li>
+                    <li>
+                        <b>X,XXX</b> jobs within 0.5 miles
+                    </li>
+                    <li>
+                        <b>XX,XXX</b> jobs within 1 mile
+                    </li>
+                </ul>
+                <div className={styles.journeyComparison}>
+                    <ComparisonRow
+                        baseline={
+                            <div className="column-header">
+                                <div className="header-blip baseline" />
+                                {baseline.scenario.name}
+                            </div>
+                        }
+                        enhanced={
+                            <div className="column-header">
+                                <div className="header-blip enhanced" />
+                                {enhanced.scenario.name}
+                            </div>
+                        }
+                        isHeader
+                    />
+                    <ComparisonRow
+                        title="Inbound"
+                        baseline={
+                            <>
+                                <div className="duration">
+                                    {stringifyDuration(baselineInboundWaitDuration)} waiting for
+                                    Commuter Rail trains
+                                </div>
+                            </>
+                        }
+                        enhanced={
+                            <>
+                                <div className="duration">
+                                    {stringifyDuration(enhancedInboundWaitDuration)} waiting for
+                                    Regional Rail trains
+                                    {favorableInboundWaitFraction &&
+                                        favorableInboundWaitFraction! > 0 && (
+                                            <div className="bubble offset-left green">
+                                                {Math.round(100 * favorableInboundWaitFraction!)}% less
+                                            </div>
+                                        )}
+                                </div>
+                            </>
+                        }
+                    />
+                    <ComparisonRow
+                        title="Outbound"
+                        baseline={
+                            <>
+                                <div className="duration">
+                                    {stringifyDuration(baselineOutboundWaitDuration)} waiting for
+                                    Commuter Rail trains
+                                </div>
+                            </>
+                        }
+                        enhanced={
+                            <>
+                                <div className="duration">
+                                    {stringifyDuration(enhancedOutboundWaitDuration)} waiting for
+                                    Regional Rail trains
+                                    {favorableOutboundWaitFraction &&
+                                        favorableOutboundWaitFraction! > 0 && (
+                                            <div className="bubble offset-left green">
+                                                {Math.round(100 * favorableOutboundWaitFraction!)}%
+                                                less
+                                            </div>
+                                        )}
+                                </div>
+                            </>
+                        }
                     />
                     <h3>Inbound Departures</h3>
                     <div
