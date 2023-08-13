@@ -48,6 +48,8 @@ export interface Station {
     name: string;
     stops: Stop[];
     municipality: string;
+    latitude: number;
+    longitude: number;
 }
 
 export interface Amenities {

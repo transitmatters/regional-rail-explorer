@@ -5,6 +5,7 @@ import { ArrivalsInfo, ScenarioInfo } from "types";
 import styles from "./StationDetails.module.scss";
 import * as api from "../../api";
 import { stringifyTime } from "../../time";
+import dynamic from "next/dynamic";
 
 const scenarioIds = ["present", "regional_rail"];
 
@@ -14,6 +15,8 @@ export type StationScenarioInfo = {
         name: string;
         id: string;
         municipality?: string;
+        latitude: number;
+        longitude: number;
     };
 };
 
@@ -39,11 +42,17 @@ const StationDetail = (props: Props) => {
         );
     }, [baseline]);
 
+    const DynamicStationMap = dynamic(() => import("./StationMap"), {
+        ssr: false,
+    });
+
+    const now = new Date();
+    const currentTimeSeconds = now.getHours() * 60 * 60 + now.getMinutes() * 60 + now.getSeconds();
+
     return (
         <div className={styles.stationDetails}>
             <div className={styles.inner}>
                 <div className={styles.infoPane}>
-                    <div className={styles.map} />
                     <ul className={styles.metadata}>
                         <li>{baseline.station?.municipality ?? "Unknown Municipality"}</li>
                         <li>
@@ -64,7 +73,11 @@ const StationDetail = (props: Props) => {
                     </ul>
                 </div>
                 <div className={styles.primaryPane}>
-                    <h1>{baseline.station.name}</h1>
+                    <h1 className={styles.stationName}>{baseline.station.name}</h1>
+                    <DynamicStationMap
+                        latitude={baseline.station.latitude}
+                        longitude={baseline.station.longitude}
+                    />
                     <h3>Inbound Departures</h3>
                     <div
                         style={{
@@ -74,14 +87,20 @@ const StationDetail = (props: Props) => {
                         }}
                     >
                         <div>
-                            {inboundArrivals?.baselineArrivals.map((time, index) => {
-                                return <div key={index}>{stringifyTime(time)}</div>;
-                            })}
+                            {inboundArrivals?.baselineArrivals
+                                .filter((time) => time >= currentTimeSeconds)
+                                .slice(0, 3)
+                                .map((time, index) => {
+                                    return <div key={index}>{stringifyTime(time)}</div>;
+                                })}
                         </div>
                         <div>
-                            {inboundArrivals?.enhancedArrivals.map((time, index) => {
-                                return <div key={index}>{stringifyTime(time)}</div>;
-                            })}
+                            {inboundArrivals?.enhancedArrivals
+                                .filter((time) => time >= currentTimeSeconds)
+                                .slice(0, 3)
+                                .map((time, index) => {
+                                    return <div key={index}>{stringifyTime(time)}</div>;
+                                })}
                         </div>
                     </div>
                     <h3>Outbound Departures</h3>
@@ -93,14 +112,20 @@ const StationDetail = (props: Props) => {
                         }}
                     >
                         <div>
-                            {outboundArrivals?.baselineArrivals.map((time, index) => {
-                                return <div key={index}>{stringifyTime(time)}</div>;
-                            })}
+                            {outboundArrivals?.baselineArrivals
+                                .filter((time) => time >= currentTimeSeconds)
+                                .slice(0, 3)
+                                .map((time, index) => {
+                                    return <div key={index}>{stringifyTime(time)}</div>;
+                                })}
                         </div>
                         <div>
-                            {outboundArrivals?.enhancedArrivals.map((time, index) => {
-                                return <div key={index}>{stringifyTime(time)}</div>;
-                            })}
+                            {outboundArrivals?.enhancedArrivals
+                                .filter((time) => time >= currentTimeSeconds)
+                                .slice(0, 3)
+                                .map((time, index) => {
+                                    return <div key={index}>{stringifyTime(time)}</div>;
+                                })}
                         </div>
                     </div>
                 </div>

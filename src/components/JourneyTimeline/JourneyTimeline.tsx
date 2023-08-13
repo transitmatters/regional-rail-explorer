@@ -97,7 +97,7 @@ const TravelSegment = (props: { segment: JourneyTravelSegment }) => {
             <div className={styles.travelSegmentEndpoint}>
                 <div className="circle" />
                 <div className="label">
-                    <StationName station={station} onRouteId={routeId} />
+                    <StationName station={station} onRouteId={routeId} asLink />
                     <div className="time">{stringifyTime(time)}</div>
                 </div>
             </div>
