@@ -86,9 +86,8 @@ const getBranchMap = (stationIdsByRoutePatternId: Record<string, string[]>): Bra
                             (id) => stationIdsByRoutePatternId[id][index] === stationId
                         );
                         routePatternsMatchingId.forEach((id) => {
-                            remainingStationIdsByRoutePatternId[id] = stationIdsByRoutePatternId[
-                                id
-                            ].slice(index);
+                            remainingStationIdsByRoutePatternId[id] =
+                                stationIdsByRoutePatternId[id].slice(index);
                         });
                         return getBranchMap(remainingStationIdsByRoutePatternId);
                     }),

@@ -141,9 +141,10 @@ const NetworkVisualizer = (props: Props) => {
         trainAtTerminalClassName,
         height = 800,
     } = props;
-    const { pathDirective, routePatterns } = useMemo(() => prerenderNetwork(curveRadius), [
-        curveRadius,
-    ]);
+    const { pathDirective, routePatterns } = useMemo(
+        () => prerenderNetwork(curveRadius),
+        [curveRadius]
+    );
     const svgProps = useSvgLayout();
 
     const renderTrains = () => {
