@@ -1,8 +1,0 @@
-{
-    "name": "Regional Rail Explorer",
-    "env": {
-        "HEROKU_APP_NAME": {
-            "required": true
-        }
-    }
-}
