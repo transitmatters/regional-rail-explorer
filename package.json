@@ -41,7 +41,7 @@
     "@babel/core": "^7.22.10",
     "@storybook/addon-actions": "^5.3.19",
     "@storybook/addon-knobs": "^6.1.15",
-    "@storybook/addon-viewport": "^5.3.19",
+    "@storybook/addon-viewport": "^7.2.3",
     "@storybook/react": "^5.3.19",
     "@types/bezier-js": "0.0.8",
     "@types/heap": "^0.2.31",
