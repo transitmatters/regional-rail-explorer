@@ -257,10 +257,10 @@ const getSuccessorStates = (state: NavigationState): NavigationState[] => {
 };
 
 const getBestStatesFromHeap = (heap: Heap<NavigationState>): NavigationState[] => {
-    const firstState = heap.pop();
+    const firstState = heap.pop() as NavigationState;
     const equallyGoodStates: NavigationState[] = [firstState];
-    while (!heap.empty() && heap.peek().time === firstState.time) {
-        equallyGoodStates.push(heap.pop());
+    while (!heap.empty() && heap.peek()?.time === firstState.time) {
+        equallyGoodStates.push(heap.pop() as NavigationState);
     }
     return equallyGoodStates.sort((a, b) => a.parents.length - b.parents.length);
 };
