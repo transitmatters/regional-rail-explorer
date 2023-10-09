@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { ArrivalsInfo, ScenarioInfo } from "types";
+import { ArrivalsInfo, ScenarioInfo, Stop } from "types";
 
 import styles from "./StationDetails.module.scss";
 import * as api from "../../api";
@@ -18,6 +18,8 @@ export type StationScenarioInfo = {
         municipality?: string;
         latitude: number;
         longitude: number;
+        address?: string;
+        stops: Stop[];
     };
 };
 
@@ -47,7 +49,13 @@ const StationDetail = (props: Props) => {
         ssr: false,
     });
 
+    const averageDelta = ([x, ...xs]) => {
+        if (x === undefined) return NaN;
+        else return xs.reduce(([acc, last], x) => [acc + (x - last), x], [0, x])[0] / xs.length;
+    };
+
     const now = new Date();
+
     const currentTimeSeconds = now.getHours() * 60 * 60 + now.getMinutes() * 60 + now.getSeconds();
 
     const baselineInboundNextArrival = inboundArrivals?.baselineArrivals
@@ -56,10 +64,18 @@ const StationDetail = (props: Props) => {
     const enhancedInboundNextArrival = inboundArrivals?.enhancedArrivals
         .filter((time) => time >= currentTimeSeconds)
         .at(0);
+
+    const baselineInboundArrivals = inboundArrivals?.baselineArrivals || [];
+    const baselineAverageInboundWait = averageDelta(baselineInboundArrivals);
+
+    const enhancedInboundArrivals = inboundArrivals?.enhancedArrivals || [];
+    const enhancedAverageInboundWait = averageDelta(enhancedInboundArrivals);
+
     const baselineInboundWaitDuration =
         baselineInboundNextArrival && baselineInboundNextArrival - currentTimeSeconds;
     const enhancedInboundWaitDuration =
         enhancedInboundNextArrival && enhancedInboundNextArrival - currentTimeSeconds;
+
     const favorableInboundWaitFraction =
         enhancedInboundWaitDuration &&
         baselineInboundWaitDuration &&
@@ -68,9 +84,17 @@ const StationDetail = (props: Props) => {
     const baselineOutboundNextArrival = outboundArrivals?.baselineArrivals
         .filter((time) => time >= currentTimeSeconds)
         .at(0);
+
+    const baselineOutboundArrivals = outboundArrivals?.baselineArrivals || [];
+    const baselineAverageOutboundWait = averageDelta(baselineOutboundArrivals);
+
     const enhancedOutboundNextArrival = outboundArrivals?.enhancedArrivals
         .filter((time) => time >= currentTimeSeconds)
         .at(0);
+
+    const enhancedOutboundArrivals = outboundArrivals?.enhancedArrivals || [];
+    const enhancedAverageOutboundWait = averageDelta(enhancedOutboundArrivals);
+
     const baselineOutboundWaitDuration =
         baselineOutboundNextArrival && baselineOutboundNextArrival - currentTimeSeconds;
     const enhancedOutboundWaitDuration =
@@ -79,6 +103,10 @@ const StationDetail = (props: Props) => {
         enhancedOutboundWaitDuration &&
         baselineOutboundWaitDuration &&
         1 - enhancedOutboundWaitDuration / baselineOutboundWaitDuration;
+
+    console.log(baseline.station.stops);
+    console.log(enhanced.station.stops);
+    console.log(inboundArrivals);
 
     return (
         <div className={styles.stationDetails}>
@@ -90,6 +118,7 @@ const StationDetail = (props: Props) => {
                 <h1 className={styles.stationName}>{baseline.station.name}</h1>
                 <ul className={styles.metadata}>
                     <li>{baseline.station?.municipality ?? "Unknown Municipality"}</li>
+                    <li>{baseline.station?.address ?? "Unknown Address"}</li>
                     <li>
                         <b>X,XXX</b> daily boardings (2019)
                     </li>
@@ -127,22 +156,27 @@ const StationDetail = (props: Props) => {
                         baseline={
                             <>
                                 <div className="duration">
-                                    {stringifyDuration(baselineInboundWaitDuration)} waiting for
-                                    Commuter Rail trains
+                                    Next train in {stringifyDuration(baselineInboundWaitDuration)}
+                                </div>
+                                <div className="duration">
+                                    Average wait of {stringifyDuration(baselineAverageInboundWait)}
                                 </div>
                             </>
                         }
                         enhanced={
                             <>
                                 <div className="duration">
-                                    {stringifyDuration(enhancedInboundWaitDuration)} waiting for
-                                    Regional Rail trains
+                                    Next train in {stringifyDuration(enhancedInboundWaitDuration)}
                                     {favorableInboundWaitFraction &&
                                         favorableInboundWaitFraction! > 0 && (
                                             <div className="bubble offset-left green">
-                                                {Math.round(100 * favorableInboundWaitFraction!)}% less
+                                                {Math.round(100 * favorableInboundWaitFraction!)}%
+                                                less
                                             </div>
                                         )}
+                                </div>
+                                <div className="duration">
+                                    Average wait of {stringifyDuration(enhancedAverageInboundWait)}
                                 </div>
                             </>
                         }
@@ -152,16 +186,17 @@ const StationDetail = (props: Props) => {
                         baseline={
                             <>
                                 <div className="duration">
-                                    {stringifyDuration(baselineOutboundWaitDuration)} waiting for
-                                    Commuter Rail trains
+                                    Next train in {stringifyDuration(baselineOutboundWaitDuration)}
+                                </div>
+                                <div className="duration">
+                                    Average wait of {stringifyDuration(baselineAverageOutboundWait)}
                                 </div>
                             </>
                         }
                         enhanced={
                             <>
                                 <div className="duration">
-                                    {stringifyDuration(enhancedOutboundWaitDuration)} waiting for
-                                    Regional Rail trains
+                                    Next train in {stringifyDuration(enhancedOutboundWaitDuration)}
                                     {favorableOutboundWaitFraction &&
                                         favorableOutboundWaitFraction! > 0 && (
                                             <div className="bubble offset-left green">
@@ -169,6 +204,9 @@ const StationDetail = (props: Props) => {
                                                 less
                                             </div>
                                         )}
+                                </div>
+                                <div className="duration">
+                                    Average wait of {stringifyDuration(enhancedAverageOutboundWait)}
                                 </div>
                             </>
                         }

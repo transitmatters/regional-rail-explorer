@@ -47,6 +47,9 @@ const createStop = (gtfsStop: GtfsStop, parentStation: Station): Stop => {
 };
 
 const createStation = (gtfsStop: GtfsStop): Station => {
+    if (gtfsStop.stopName === "Waltham") {
+        console.log(gtfsStop);
+    }
     return {
         id: gtfsStop.stopId,
         name: gtfsStop.stopName,
@@ -54,6 +57,7 @@ const createStation = (gtfsStop: GtfsStop): Station => {
         municipality: gtfsStop.municipality,
         latitude: gtfsStop.stopLat,
         longitude: gtfsStop.stopLon,
+        address: gtfsStop.stopAddress,
     };
 };
 

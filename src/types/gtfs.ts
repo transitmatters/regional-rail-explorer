@@ -54,6 +54,7 @@ export interface GtfsStop {
     municipality: string;
     stopLat: number;
     stopLon: number;
+    stopAddress: string;
 }
 
 export interface GtfsRoutePatternAmenities {

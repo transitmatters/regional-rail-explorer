@@ -50,6 +50,7 @@ export interface Station {
     municipality: string;
     latitude: number;
     longitude: number;
+    address: string;
 }
 
 export interface Amenities {
