@@ -97,7 +97,18 @@
       args:
         chdir: /home/ubuntu/regional-rail-explorer
 
+    - name: Make sure a service unit is running and enabled
+      become: yes
+      become_user: root
+      ansible.builtin.systemd_service:
+        state: started
+        name: regional-rail-explorer
+        enabled: true
+
     - name: restart service
       become: yes
       become_user: root
-      shell: systemctl restart regional-rail-explorer
+      ansible.builtin.systemd_service:
+        state: restarted
+        daemon_reload: true
+        name: regional-rail-explorer

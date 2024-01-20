@@ -25,6 +25,10 @@ $PRODUCTION && CERT_ARN="$TM_RRE_RR_RKS_CERT_ARN" || CERT_ARN="$TM_LABS_WILDCARD
 
 $PRODUCTION && STACK_NAME="rre" || STACK_NAME="rre-beta"
 
+# Identify the version and commit of the current deploy
+export GIT_SHA=`git rev-parse HEAD`
+echo "Deploying version $GIT_SHA"
+
 echo "Deploying Regional Rail Explorer to $HOSTNAME..."
 echo "View stack log here: https://$AWS_REGION.console.aws.amazon.com/cloudformation/home?region=$AWS_REGION"
 

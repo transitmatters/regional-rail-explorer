@@ -35,6 +35,10 @@
             "Value": {
               "Fn::Sub": "rre-${RREHostname}"
             }
+          },
+          {
+            "Key": "service",
+            "Value": "regional-rail-explorer"
           }
         ],
         "BlockDeviceMappings": [
