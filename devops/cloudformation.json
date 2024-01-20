@@ -137,7 +137,13 @@
             },
             "SslSupportMethod": "sni-only"
           }
-        }
+        },
+        "Tags": [
+          {
+            "Key": "service",
+            "Value": "regional-rail-explorer"
+          }
+        ]
       }
     }
   },
