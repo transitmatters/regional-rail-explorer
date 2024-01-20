@@ -35,6 +35,10 @@
             "Value": {
               "Fn::Sub": "rre-${RREHostname}"
             }
+          },
+          {
+            "Key": "service",
+            "Value": "regional-rail-explorer"
           }
         ],
         "BlockDeviceMappings": [
@@ -133,7 +137,13 @@
             },
             "SslSupportMethod": "sni-only"
           }
-        }
+        },
+        "Tags": [
+          {
+            "Key": "service",
+            "Value": "regional-rail-explorer"
+          }
+        ]
       }
     }
   },
