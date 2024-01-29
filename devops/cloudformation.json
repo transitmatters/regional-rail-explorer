@@ -24,6 +24,7 @@
         "ImageId": "ami-070650c005cce4203",
         "InstanceType": "t4g.small",
         "KeyName": "transitmatters-rre",
+        "PropagateTagsToVolumeOnCreation": true,
         "SecurityGroupIds": [
           {
             "Ref": "RRESecurityGroup"
