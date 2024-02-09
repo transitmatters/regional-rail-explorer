@@ -147,16 +147,5 @@
         ]
       }
     }
-  },
-  "Outputs": {
-    "InstanceHostname": {
-      "Description": "RRE's public hostname",
-      "Value": {
-        "Fn::GetAtt": [
-          "RREInstance",
-          "PublicDnsName"
-        ]
-      }
-    }
   }
 }
