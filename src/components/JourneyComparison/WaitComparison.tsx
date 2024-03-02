@@ -52,10 +52,12 @@ const WaitInfo = (props: WaitInfoProps) => {
         <>
             <div className="duration">
                 {stringifyDuration(waitDuration)} waiting for {serviceType} trains
-                {favorableWaitFraction && favorableWaitFraction! > 0 && (
+                {favorableWaitFraction && favorableWaitFraction! > 0 ? (
                     <div className="bubble offset-left green">
                         {Math.round(100 * favorableWaitFraction!)}% less
                     </div>
+                ) : (
+                    React.Fragment
                 )}
             </div>
         </>
