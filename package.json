@@ -24,7 +24,7 @@
     "heap": "^0.2.7",
     "next": "^12.3.4",
     "query-string": "^7.1.1",
-    "random": "^2.2.0",
+    "random": "^5.1.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-icons": "^4.10.1",
