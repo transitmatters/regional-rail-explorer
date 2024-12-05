@@ -41,12 +41,14 @@ aws cloudformation deploy --stack-name $STACK_NAME \
     RREDomain=$DOMAIN \
     RRECertArn=$CERT_ARN
 
+# Look up the physical ID of the EC2 instance currently associated with the stack
 INSTANCE_PHYSICAL_ID=$(aws cloudformation list-stack-resources --stack-name $STACK_NAME --query "StackResourceSummaries[?LogicalResourceId=='RREInstance'].PhysicalResourceId" --output text)
+# Look up the hostname of the instance by physical ID
+INSTANCE_HOSTNAME=$(aws ec2 describe-instances --instance-ids $INSTANCE_PHYSICAL_ID --query "Reservations[*].Instances[*].PublicDnsName" --output text)
 
 # Run the playbook! :-)
 export ANSIBLE_HOST_KEY_CHECKING=False # If it's a new host, ssh known_hosts not having the key fingerprint will cause an error. Silence it
-SSH_PROXY_ARGS="-o ProxyCommand='aws ec2-instance-connect open-tunnel --instance-id $INSTANCE_PHYSICAL_ID'"
-ansible-playbook -v --ssh-extra-args "$SSH_PROXY_ARGS" -i $INSTANCE_PHYSICAL_ID, -u ubuntu --private-key ~/.ssh/transitmatters-rre.pem playbook.yml
+ansible-playbook -v -i $INSTANCE_HOSTNAME, -u ubuntu --private-key ~/.ssh/transitmatters-rre.pem playbook.yml
 
 # Grab the cloudfront ID and invalidate its cache
 CLOUDFRONT_ID=$(aws cloudfront list-distributions --query "DistributionList.Items[?Aliases.Items!=null] | [?contains(Aliases.Items, '$HOSTNAME')].Id | [0]" --output text)

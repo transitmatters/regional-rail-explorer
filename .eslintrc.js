@@ -18,7 +18,7 @@ module.exports = {
         ecmaVersion: 11,
         sourceType: "module",
     },
-    plugins: ["react", "prettier", "@typescript-eslint"],
+    plugins: ["react", "prettier", "@typescript-eslint", "deprecate"],
     rules: {
         "react/display-name": 0,
         "react/react-in-jsx-scope": 0,
@@ -39,6 +39,7 @@ module.exports = {
         "@typescript-eslint/explicit-module-boundary-types": 0,
         "no-constant-condition": 0,
         "prettier/prettier": "error",
+        "deprecate/import": ["warn", { name: "reakit", use: "@ariakit/react" }],
     },
     settings: {
         react: {
