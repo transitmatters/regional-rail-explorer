@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: ['16']
+        node-version: ['20']
     env:
       TM_RRE_RR_RKS_CERT_ARN: ${{ secrets.TM_RRE_RR_RKS_CERT_ARN }}
       TM_LABS_WILDCARD_CERT_ARN: ${{ secrets.TM_LABS_WILDCARD_CERT_ARN }}

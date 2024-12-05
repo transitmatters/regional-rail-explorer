@@ -13,14 +13,15 @@
     "install-git-hooks": "rm -f ./.git/hooks/* && cp ./.githooks/* ./.git/hooks && chmod +x ./.git/hooks/*"
   },
   "dependencies": {
+    "@ariakit/react": "^0.4.15",
     "@ridi/object-case-converter": "^2.0.4",
     "bezier-js": "^2.6.1",
-    "classnames": "^2.3.2",
+    "classnames": "^2.5.1",
     "csv-parse": "^4.12.0",
     "device-detector-js": "^3.0.3",
     "esm": "^3.2.25",
     "fast-memoize": "^2.5.2",
-    "flatted": "^3.3.1",
+    "flatted": "^3.3.2",
     "heap": "^0.2.7",
     "next": "^12.3.4",
     "query-string": "^7.1.1",
@@ -34,7 +35,7 @@
     "smoothscroll-polyfill": "^0.4.4",
     "tar": "^6.1.15",
     "tmp": "^0.2.1",
-    "ts-node": "^10.9.1",
+    "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0"
   },
   "devDependencies": {
@@ -45,25 +46,26 @@
     "@storybook/react": "^5.3.19",
     "@types/bezier-js": "0.0.8",
     "@types/heap": "^0.2.31",
-    "@types/node": "^16.18.36",
+    "@types/node": "^20.0.0",
     "@types/react": "^17.0.64",
-    "@typescript-eslint/eslint-plugin": "^6.3.0",
-    "@typescript-eslint/parser": "^6.3.0",
+    "@typescript-eslint/eslint-plugin": "^7.3.0",
+    "@typescript-eslint/parser": "^7.3.0",
     "babel-loader": "^8.1.0",
     "babel-preset-react-app": "^9.1.2",
     "css-loader": "^4.0.0",
-    "eslint": "^8.47.0",
+    "eslint": "^8.57.0",
     "eslint-config-next": "^12.3.4",
-    "eslint-config-prettier": "^9.0.0",
-    "eslint-plugin-prettier": "^5.0.0",
-    "eslint-plugin-react": "^7.33.1",
-    "prettier": "^3.0.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-deprecate": "^0.8.5",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-react": "^7.37.2",
+    "prettier": "^3.4.2",
     "sass-loader": "^9.0.2",
     "storybook-addon-state": "^1.0.3",
     "style-loader": "^1.2.1",
     "typescript": "^4.9.5"
   },
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=20.0.0"
   }
 }

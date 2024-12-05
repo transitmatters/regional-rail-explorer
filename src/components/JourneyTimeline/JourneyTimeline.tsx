@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import classNames from "classnames";
-import { Button } from "reakit";
+import { Button } from "@ariakit/react/button";
 import { BsChevronExpand } from "react-icons/bs";
 
 import { StationName } from "components";
@@ -54,11 +54,7 @@ const TravelSegment = (props: { segment: JourneyTravelSegment }) => {
 
     const renderExpandControl = (numHiddenStations: number) => {
         return (
-            <Button
-                as="div"
-                className={styles.travelStationExpandControl}
-                onClick={() => setExpanded(true)}
-            >
+            <Button className={styles.travelStationExpandControl} onClick={() => setExpanded(true)}>
                 <div className="circle">
                     <BsChevronExpand strokeWidth={1} size={18} />
                 </div>

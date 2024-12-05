@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import classNames from "classnames";
-import { Button } from "reakit/Button";
+import { Button } from "@ariakit/react/button";
 import { GiElectric } from "react-icons/gi";
 import { IoMdTimer } from "react-icons/io";
 import { MdGridOn } from "react-icons/md";

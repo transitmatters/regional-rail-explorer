@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { Button as RKButton } from "reakit/Button";
+import { Button as RKButton } from "@ariakit/react/button";
 import classNames from "classnames";
 
 import styles from "./Button.module.scss";

@@ -40,18 +40,18 @@
         url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
         state: present
 
-    - name: Add nodejs 16.x ppa for apt repo
+    - name: Add nodejs 20.x ppa for apt repo
       become: yes
       become_user: root
       apt_repository:
-        repo: deb https://deb.nodesource.com/node_16.x focal main
+        repo: deb https://deb.nodesource.com/node_20.x focal main
         update_cache: yes
 
     - name: Install nodejs
       become: yes
       become_user: root
       ansible.builtin.apt:
-        name: nodejs
+        name: nodejs=20.5.1-deb-1nodesource1
 
     - name: get latest github repo
       git:
