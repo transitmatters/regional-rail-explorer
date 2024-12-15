@@ -114,9 +114,12 @@ export const MenuItem = React.forwardRef((props: MenuItemProps, ref) => {
 });
 
 export const MenuItemDivider = () => {
+    const Divider: React.FunctionComponent = (props) => (
+        <li className={styles.menuDivider} {...props} />
+    );
     return (
         <RK.MenuSeparator>
-            {(props) => <li className={styles.menuDivider} {...props} />}
+            <Divider />
         </RK.MenuSeparator>
     );
 };

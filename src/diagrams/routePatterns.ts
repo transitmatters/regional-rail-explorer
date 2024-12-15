@@ -5,9 +5,7 @@ import { PathCommand, RoutePatternDescriptor } from "./types";
 
 const getBranchCenterOffset = (branchWidths: number[], index: number) => {
     const midpoint = (branchWidths.length - 1) / 2;
-    if (index === midpoint) {
-        return 0;
-    } else if (index > midpoint) {
+    if (index > midpoint) {
         let previousHalfOffset = branchWidths[midpoint] || 0;
         let offset = 0;
         for (let i = Math.floor(midpoint + 1); i < branchWidths.length; i++) {
@@ -26,6 +24,8 @@ const getBranchCenterOffset = (branchWidths: number[], index: number) => {
         }
         return offset;
     }
+    // if index === midpoint or non-numeric data
+    return 0;
 };
 
 const createStationRangeSegment = (stationIds: string[], width: number) => {

@@ -12,6 +12,7 @@ interface Props extends React.HTMLAttributes<HTMLButtonElement> {
     minimal?: boolean;
     icon?: ReactNode;
     rightIcon?: ReactNode;
+    disabled?: boolean;
 }
 
 const Button = React.forwardRef((props: Props, ref) => {

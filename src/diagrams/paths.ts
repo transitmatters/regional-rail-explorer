@@ -1,4 +1,4 @@
-import Bezier from "bezier-js";
+import { Bezier } from "bezier-js";
 
 import { PathSegment, PathStart, StationRange, Turtle } from "./types";
 
@@ -92,7 +92,7 @@ export const curve =
     };
 
 export const wiggle =
-    (length, width, angle = 0) =>
+    (length: number, width: number, angle = 0) =>
     (turtle: Turtle): PathSegment => {
         const { x: x1, y: y1, theta } = turtle;
         const nextTheta = theta + angle;
