@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState, useMemo } from "react";
 import classNames from "classnames";
-import { GrDown, GrUp } from "react-icons/gr";
 import { MdSwapCalls } from "react-icons/md";
 
 import { HOUR } from "time";
@@ -13,8 +12,7 @@ import {
     TimeOfDay,
     NavigationKind,
 } from "types";
-import { StationPicker, StationsByLine } from "components";
-import { useAppContext } from "hooks";
+import { StationPickerWithDisclosure, StationsByLine } from "components";
 
 import styles from "./JourneyPicker.module.scss";
 
@@ -58,32 +56,6 @@ const navigationKindOptions = [
 const getTimeOfDayOptionForTime = (time: NetworkTime) => {
     const index = time > 17 * HOUR ? 2 : time > 11 * HOUR ? 1 : 0;
     return timeOfDayPickerOptions[index];
-};
-
-// eslint-disable-next-line react/prop-types
-const StationPickerWithDisclosure = ({ label, disabled, ...restProps }) => {
-    const { stationPickerDiscloseBelowElementRef } = useAppContext();
-    return (
-        <StationPicker
-            discloseBelowElementRef={stationPickerDiscloseBelowElementRef}
-            {...(restProps as any)}
-        >
-            {(disclosureProps) => {
-                const { "aria-expanded": open } = disclosureProps;
-                return (
-                    <Button
-                        large
-                        outline={open}
-                        rightIcon={open ? <GrUp /> : <GrDown />}
-                        {...disclosureProps}
-                        disabled={disabled}
-                    >
-                        {label}
-                    </Button>
-                );
-            }}
-        </StationPicker>
-    );
 };
 
 // eslint-disable-next-line react/prop-types

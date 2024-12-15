@@ -18,7 +18,7 @@ type Props = {
 const desiredStationSpacingPx = 50;
 const expandControlSpacingPx = 100;
 
-const stringifyTime = (time) => globalStringifyTime(time, { use12Hour: true });
+const stringifyTime = (time: number) => globalStringifyTime(time, { use12Hour: true });
 
 const getSegmentHeight = (segment: JourneySegment) => {
     const elapsedSeconds =
@@ -54,7 +54,11 @@ const TravelSegment = (props: { segment: JourneyTravelSegment }) => {
 
     const renderExpandControl = (numHiddenStations: number) => {
         return (
-            <Button className={styles.travelStationExpandControl} onClick={() => setExpanded(true)}>
+            <Button
+                render={<div />}
+                className={styles.travelStationExpandControl}
+                onClick={() => setExpanded(true)}
+            >
                 <div className="circle">
                     <BsChevronExpand strokeWidth={1} size={18} />
                 </div>

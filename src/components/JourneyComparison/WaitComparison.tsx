@@ -57,7 +57,7 @@ const WaitInfo = (props: WaitInfoProps) => {
                         {Math.round(100 * favorableWaitFraction!)}% less
                     </div>
                 ) : (
-                    React.Fragment
+                    <React.Fragment />
                 )}
             </div>
         </>

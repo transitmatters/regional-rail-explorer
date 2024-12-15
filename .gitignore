@@ -50,3 +50,4 @@ inventory
 *.pem
 
 /.idea
+*storybook.log

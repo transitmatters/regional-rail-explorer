@@ -9,7 +9,7 @@ export type MenuProps = {
     "aria-label"?: string;
     children: React.ReactNode;
     className?: string;
-    disclosure: ((disclosureProps: RK.MenuDisclosureProps) => React.ReactNode) | React.ReactNode;
+    disclosure: ((disclosureProps: RK.MenuButtonProps) => React.ReactNode) | React.ReactNode;
     gutter?: number;
     menuStyle?: React.CSSProperties;
     placement?: string;
@@ -50,11 +50,12 @@ export const Menu = React.forwardRef((props: MenuProps, ref: any) => {
 
     return (
         <React.Fragment>
-            <RK.MenuDisclosure ref={ref} {...menu} {...restProps}>
+            {/* @ts-expect-error I'm not sure this ever worked? */}
+            <RK.MenuButton ref={ref} {...menu} {...restProps}>
                 {(disclosureProps) =>
                     renderDisclosure(disclosure, { ...disclosureProps, "aria-label": ariaLabel })
                 }
-            </RK.MenuDisclosure>
+            </RK.MenuButton>
             <RK.Menu
                 aria-label={ariaLabel}
                 as="ul"
