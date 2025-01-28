@@ -1,5 +1,11 @@
 import React, { useRef, useEffect, useState, useCallback, ReactNode } from "react";
-import { Disclosure, DisclosureContent, useDisclosureState } from "reakit";
+import {
+    DisclosureProvider,
+    Disclosure,
+    DisclosureContent,
+    DisclosureStore,
+} from "@ariakit/react/disclosure";
+import { RenderProp } from "reakit-utils/types";
 import classNames from "classnames";
 
 import { useAppContext, useLockBodyScroll, useViewport } from "hooks";
@@ -9,32 +15,34 @@ import styles from "./StationPicker.module.scss";
 
 type StationListingProps = React.ComponentProps<typeof StationListing>;
 
-type Props = {
+type StationPickerProps = {
     children?: ReactNode;
     lockBodyScroll?: boolean;
     onSelectStation: (stationId: string) => unknown;
     discloseBelowElementRef?: React.MutableRefObject<null | HTMLElement>;
+    disclosure: DisclosureStore;
+    render?: RenderProp | React.ReactElement;
 } & StationListingProps;
 
-const StationPicker = (props: Props) => {
-    const {
-        children,
-        onSelectStation,
-        discloseBelowElementRef,
-        lockBodyScroll = false,
-        ...stationListingProps
-    } = props;
+const StationPicker: React.FunctionComponent<StationPickerProps> = ({
+    onSelectStation,
+    discloseBelowElementRef,
+    lockBodyScroll = false,
+    disclosure,
+    render,
+    ...stationListingProps
+}) => {
     const [disclosureBounds, setDisclosureBounds] = useState<any>(null);
     const searchRef = useRef<null | HTMLInputElement>(null);
     const innerRef = useRef<null | HTMLDivElement>(null);
-    const disclosure = useDisclosureState({ visible: false });
+
     const { viewportHeight } = useViewport();
     const { isMobile } = useAppContext();
 
     const handleSelectStation = useCallback(
         (stationId: string) => {
             onSelectStation(stationId);
-            disclosure.setVisible(false);
+            disclosure.setOpen(false);
         },
         [onSelectStation]
     );
@@ -55,19 +63,19 @@ const StationPicker = (props: Props) => {
     }, [discloseBelowElementRef?.current, viewportHeight]);
 
     useEffect(() => {
-        if (disclosure.visible) {
+        if (disclosure.getState().open) {
             searchRef.current && searchRef.current.focus();
 
             const closeOnEscapeHandler = (evt: KeyboardEvent) => {
                 if (evt.key === "Escape") {
-                    disclosure.setVisible(false);
+                    disclosure.setOpen(false);
                 }
             };
 
             const closeOnClickOutsideHandler = (evt: MouseEvent) => {
                 const { current: inner } = innerRef;
                 if (inner && !inner.contains(evt.target as Node)) {
-                    disclosure.setVisible(false);
+                    disclosure.setOpen(false);
                 }
             };
 
@@ -79,27 +87,25 @@ const StationPicker = (props: Props) => {
                 window.removeEventListener("click", closeOnClickOutsideHandler);
             };
         }
-    }, [disclosure.visible]);
+    }, [disclosure.getState().open]);
 
-    useLockBodyScroll(lockBodyScroll && disclosure.visible);
-
-    const renderDisclosureContent = () => {
-        return (
-            <div className={styles.inner} ref={innerRef} style={disclosureBounds}>
-                <StationListing
-                    onClose={isMobile ? disclosure.toggle : null}
-                    onSelectStation={handleSelectStation}
-                    searchRef={searchRef}
-                    {...stationListingProps}
-                />
-            </div>
-        );
-    };
+    useLockBodyScroll(lockBodyScroll && disclosure.getState().open);
 
     return (
         <div className={classNames("station-picker", styles.stationPicker)}>
-            <Disclosure {...disclosure}>{children}</Disclosure>
-            <DisclosureContent {...disclosure}>{renderDisclosureContent()}</DisclosureContent>
+            <DisclosureProvider store={disclosure}>
+                <Disclosure render={render} />
+                <DisclosureContent>
+                    <div className={styles.inner} ref={innerRef} style={disclosureBounds}>
+                        <StationListing
+                            onClose={isMobile ? disclosure.toggle : null}
+                            onSelectStation={handleSelectStation}
+                            searchRef={searchRef}
+                            {...stationListingProps}
+                        />
+                    </div>
+                </DisclosureContent>
+            </DisclosureProvider>
         </div>
     );
 };

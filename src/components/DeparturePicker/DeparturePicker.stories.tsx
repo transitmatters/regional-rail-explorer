@@ -1,9 +1,9 @@
 import React from "react";
-import useState from "storybook-addon-state";
 
 import * as salem from "storydata/salem";
 
 import DeparturePicker from "./DeparturePicker";
+import { useStorybookState } from "hooks";
 
 export default {
     title: "DeparturePicker",
@@ -11,7 +11,7 @@ export default {
 };
 
 const StatefulDeparturePicker = () => {
-    const [time, setTime] = useState("time", 9 * 3600);
+    const [time, setTime] = useStorybookState("time", 9 * 3600);
     return (
         <DeparturePicker
             enhancedArrivals={salem.enhancedArrivals}

@@ -122,7 +122,11 @@ const FrequencyHistogram = ({
 
     return (
         <div
-            ref={(el) => el && setWidth(el.getBoundingClientRect().width)}
+            ref={(el) => {
+                if (el) {
+                    setWidth(el.getBoundingClientRect().width);
+                }
+            }}
             className={styles.histogram}
         >
             {renderInner()}
