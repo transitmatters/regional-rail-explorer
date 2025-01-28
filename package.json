@@ -24,7 +24,7 @@
     "flatted": "^3.3.2",
     "heap": "^0.2.7",
     "next": "^12.3.4",
-    "query-string": "^7.1.1",
+    "query-string": "^9.1.1",
     "random": "^2.2.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
