@@ -57,7 +57,7 @@
     "babel-preset-react-app": "^10.0.1",
     "css-loader": "^7.1.2",
     "eslint": "^8.57.0",
-    "eslint-config-next": "^12.3.4",
+    "eslint-config-next": "^15.1.6",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-deprecate": "^0.8.5",
     "eslint-plugin-prettier": "^5.2.1",
