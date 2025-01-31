@@ -29,7 +29,6 @@
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-icons": "^4.10.1",
-    "reakit": "^1.3.11",
     "sass": "^1.83.0",
     "sharp": "^0.32.1",
     "smoothscroll-polyfill": "^0.4.4",
@@ -48,7 +47,7 @@
     "@storybook/react": "^7.0.0",
     "@types/bezier-js": "4.1.3",
     "@types/heap": "^0.2.34",
-    "@types/node": "^22.10.2",
+    "@types/node": "^22.13.0",
     "@types/react": "^18.0.0",
     "@typescript-eslint/eslint-plugin": "^7.3.0",
     "@typescript-eslint/parser": "^7.3.0",
@@ -70,6 +69,7 @@
     "typescript": "~5.1.0"
   },
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=22.0.0",
+    "npm": ">=10.5.0"
   }
 }
