@@ -41,7 +41,7 @@
   "devDependencies": {
     "@babel/core": "^7.26.0",
     "@storybook/addon-actions": "^7.0.0",
-    "@storybook/addon-knobs": "^7.0.0",
+    "@storybook/addon-knobs": "^8.0.1",
     "@storybook/addon-viewport": "^7.0.0",
     "@storybook/manager-api": "^7.6.20",
     "@storybook/nextjs": "^7.6.20",
