@@ -17,6 +17,7 @@ const App = ({ Component, pageProps, userAgentAppearsMobile = false }) => {
                     content="See how TransitMatters' plan for frequent, electrified Regional Rail would transform your commute."
                 />
                 <link rel="icon" type="image/png" href="./favicon.png" />
+                <link rel="manifest" href={`/manifest.json`} />
                 <meta
                     name="viewport"
                     content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0"

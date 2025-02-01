@@ -1,0 +1,21 @@
+{
+  "short_name": "Regional Rail Explorer",
+  "name": "Transitmatters Regional Rail Explorer",
+  "description": "Compare journeys with today's Commuter Rail, and potential Regional Rail systems of tomorrow",
+  "icons": [
+    {
+      "src": "favicon_128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#742573",
+  "background_color": "#ffffff"
+}

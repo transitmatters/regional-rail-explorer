@@ -1,5 +1,4 @@
 import React, { useState, useMemo, useCallback } from "react";
-import { Composite, CompositeItem, useCompositeState } from "reakit";
 import classNames from "classnames";
 import { MdClose } from "react-icons/md";
 
@@ -9,6 +8,7 @@ import { Station } from "stations";
 import StationSearchBar from "./StationSearchBar";
 
 import styles from "./StationListing.module.scss";
+import { Composite, CompositeItem, useCompositeStore } from "@ariakit/react";
 
 export type StationsByLine = Record<string, Station[]>;
 
@@ -105,14 +105,12 @@ const StationListing = React.forwardRef((props: Props, ref: any) => {
         searchTerm: providedSearchTerm = null,
     } = props;
     const [ownSearchTerm, setOwnSearchTerm] = useState("");
-    const composite = useCompositeState({ currentId: null, loop: true });
-    const searchResults = useCompositeState({ currentId: null, loop: true });
+
+    const composite = useCompositeStore({ activeId: null, focusLoop: true });
+    const searchResults = useCompositeStore({ activeId: null, focusLoop: true });
     const stationsToColor = useMemo(() => getStationsToColorMap(stationsByLine), [stationsByLine]);
     const searchTerm = providedSearchTerm || ownSearchTerm;
 
-    // Using data-station-id instead of generating a closure for each station's callback is a
-    // performance enhancement recommended by Reakit when using a Composite with many items.
-    // See here: https://reakit.io/docs/composite/#performance
     const handleSelectStation = useCallback(
         (evt) => {
             const stationId = findParentWithDataStationId(evt.target as HTMLElement);
@@ -124,7 +122,7 @@ const StationListing = React.forwardRef((props: Props, ref: any) => {
     );
 
     const renderAllStationsListing = () => (
-        <Composite {...composite} role="list" as="div" className={styles.stationList}>
+        <Composite store={composite} role="list" render={<div />} className={styles.stationList}>
             {Object.entries(stationsByLine)
                 .sort(sortRegionalRailEntriesFirst(previouslySelectedStationId))
                 .filter(([line]) => !excludeColorLines || !isColorLine(line))
@@ -145,23 +143,23 @@ const StationListing = React.forwardRef((props: Props, ref: any) => {
                             )}
                         >
                             <CompositeItem
-                                {...composite}
+                                store={composite}
                                 id={`${line}-line`}
-                                as="li"
+                                render={<li />}
                                 disabled={true}
                             >
                                 {line} Line
                             </CompositeItem>
                             {stations.map((station) => (
                                 <CompositeItem
-                                    {...composite}
+                                    store={composite}
                                     id={`${line}-line-${station.id}`}
                                     key={station.id}
                                     disabled={
                                         station.disabled ||
                                         station.id === previouslySelectedStationId
                                     }
-                                    as="li"
+                                    render={<li />}
                                     data-station-id={station.id}
                                     onClick={handleSelectStation}
                                 >
@@ -182,7 +180,7 @@ const StationListing = React.forwardRef((props: Props, ref: any) => {
 
     const renderSearchResults = () => (
         <Composite
-            {...searchResults}
+            store={searchResults}
             role="list"
             className={classNames(styles.stationList, "searching")}
         >
@@ -194,9 +192,9 @@ const StationListing = React.forwardRef((props: Props, ref: any) => {
                     .sort(sortStationsByName)
                     .map((station) => (
                         <CompositeItem
-                            {...searchResults}
+                            store={searchResults}
                             id={`search-result-${station.id}`}
-                            as="li"
+                            render={<li />}
                             key={station.id}
                             data-station-id={station.id}
                             onClick={handleSelectStation}

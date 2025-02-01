@@ -1,6 +1,6 @@
 import classNames from "classnames";
-import React, { useContext } from "react";
-import * as RK from "reakit/Menu";
+import React, { MouseEventHandler, useContext } from "react";
+import * as AK from "@ariakit/react/menu";
 import { GrNext } from "react-icons/gr";
 
 import { Menu } from "./Menu";
@@ -13,7 +13,7 @@ type SharedMenuItemProps = {
     disabled?: boolean;
     href?: string;
     icon?: string | React.ReactNode;
-    onClick?: (event: MouseEvent) => unknown;
+    onClick?: (event: React.MouseEvent<HTMLLIElement, MouseEvent>) => unknown;
     rightElement?: React.ReactNode;
     target?: string;
     textClassName?: string;
@@ -24,25 +24,26 @@ type DisplayMenuItemProps = {
     hasSubmenu: boolean;
 } & SharedMenuItemProps;
 
-const DisplayMenuItem = React.forwardRef((props: DisplayMenuItemProps, ref: any) => {
-    const {
-        children = null,
+const DisplayMenuItem: React.FunctionComponent = (
+    {
+        children,
         className = "",
         disabled = false,
         hasSubmenu = false,
         href,
-        icon = null,
-        onClick = null,
-        onDismiss = null,
-        rightElement = null,
+        icon,
+        onClick,
+        onDismiss,
+        rightElement,
         target = "_self",
         textClassName = "",
         ...restProps
-    } = props;
-
+    }: DisplayMenuItemProps,
+    ref
+) => {
     const label = hasSubmenu ? <GrNext size={14} style={{ paddingLeft: 4 }} /> : rightElement;
 
-    const onClickWithHref = (evt) => {
+    const onClickWithHref: React.MouseEventHandler<HTMLLIElement> = (evt) => {
         if (onClick) {
             onClick(evt);
         }
@@ -66,10 +67,10 @@ const DisplayMenuItem = React.forwardRef((props: DisplayMenuItemProps, ref: any)
             {label}
         </li>
     );
-});
+};
 
 type MenuItemProps = {
-    onClick?: (event: MouseEvent) => unknown;
+    onClick?: MouseEventHandler<HTMLDivElement>;
     text?: React.ReactNode;
     children?: React.ReactNode;
     dismissOnClick?: boolean;
@@ -77,49 +78,54 @@ type MenuItemProps = {
     labelElement?: React.ReactNode;
 } & SharedMenuItemProps;
 
-export const MenuItem = React.forwardRef((props: MenuItemProps, ref) => {
-    const { children = null, text, dismissOnClick = true, ...restProps } = props;
-    const { dismissMenu, parentMenu } = useContext(MenuContext);
-    if (children) {
+export const MenuItem = React.forwardRef(
+    ({ children = null, text, dismissOnClick = true, ...restProps }: MenuItemProps, ref) => {
+        const { dismissMenu, parentMenu } = useContext(MenuContext);
+
+        if (children) {
+            return (
+                <Menu
+                    onDismiss={dismissMenu}
+                    disclosure={({ ref, ...dProps }) => (
+                        // @ts-expect-error ariakit types failing
+                        <AK.MenuItem
+                            store={parentMenu}
+                            {...dProps}
+                            {...restProps}
+                            ref={ref as any}
+                            render={DisplayMenuItem}
+                        >
+                            {text}
+                        </AK.MenuItem>
+                    )}
+                >
+                    {children}
+                </Menu>
+            );
+        }
+
         return (
-            <Menu
-                onDismiss={dismissMenu}
-                disclosure={(dProps) => (
-                    <RK.MenuItem
-                        as={DisplayMenuItem}
-                        {...dProps}
-                        {...parentMenu}
-                        {...restProps}
-                        hasSubmenu={true}
-                    >
-                        {text}
-                    </RK.MenuItem>
-                )}
+            <AK.MenuItem
+                render={DisplayMenuItem}
+                store={parentMenu}
+                ref={ref as any}
+                // @ts-expect-error ariakit types failing
+                onDismiss={dismissOnClick ? dismissMenu : null}
+                {...restProps}
             >
-                {children}
-            </Menu>
+                {text}
+            </AK.MenuItem>
         );
     }
-    return (
-        <RK.MenuItem
-            as={DisplayMenuItem}
-            ref={ref}
-            {...parentMenu}
-            {...restProps}
-            onDismiss={dismissOnClick ? dismissMenu : null}
-        >
-            {text}
-        </RK.MenuItem>
-    );
-});
+);
 
 export const MenuItemDivider = () => {
     const Divider: React.FunctionComponent = (props) => (
         <li className={styles.menuDivider} {...props} />
     );
     return (
-        <RK.MenuSeparator>
+        <AK.MenuSeparator>
             <Divider />
-        </RK.MenuSeparator>
+        </AK.MenuSeparator>
     );
 };

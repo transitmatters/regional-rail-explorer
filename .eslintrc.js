@@ -9,7 +9,7 @@ module.exports = {
         "plugin:prettier/recommended",
         "plugin:react/recommended",
         "plugin:@typescript-eslint/recommended",
-        "plugin:storybook/recommended"
+        "plugin:storybook/recommended",
     ],
     parser: "@typescript-eslint/parser",
     parserOptions: {
@@ -40,7 +40,6 @@ module.exports = {
         "@typescript-eslint/explicit-module-boundary-types": 0,
         "no-constant-condition": 0,
         "prettier/prettier": "error",
-        "deprecate/import": ["warn", { name: "reakit", use: "@ariakit/react" }],
     },
     settings: {
         react: {

@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Provider as RkProvider } from "reakit";
 
 import { useViewport } from "hooks";
 
@@ -41,18 +40,16 @@ const AppContextProvider = (props: Props) => {
     }, [viewportWidth]);
 
     return (
-        <RkProvider>
-            <AppContext.Provider
-                value={{
-                    controlsRef,
-                    globalNavRef,
-                    isMobile,
-                    stationPickerDiscloseBelowElementRef,
-                }}
-            >
-                {children}
-            </AppContext.Provider>
-        </RkProvider>
+        <AppContext.Provider
+            value={{
+                controlsRef,
+                globalNavRef,
+                isMobile,
+                stationPickerDiscloseBelowElementRef,
+            }}
+        >
+            {children}
+        </AppContext.Provider>
     );
 };
 

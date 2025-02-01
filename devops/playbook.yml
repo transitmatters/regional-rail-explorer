@@ -51,7 +51,7 @@
       become: yes
       become_user: root
       ansible.builtin.apt:
-        name: nodejs=20.5.1-deb-1nodesource1
+        name: nodejs
 
     - name: get latest github repo
       git:

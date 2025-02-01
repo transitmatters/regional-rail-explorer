@@ -5,7 +5,7 @@ import {
     DisclosureContent,
     DisclosureStore,
 } from "@ariakit/react/disclosure";
-import { RenderProp } from "reakit-utils/types";
+import { RenderProp } from "@ariakit/react-core/cjs/utils/types";
 import classNames from "classnames";
 
 import { useAppContext, useLockBodyScroll, useViewport } from "hooks";
