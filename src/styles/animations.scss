@@ -1,7 +1,8 @@
-@keyframes :global(spin-frames) {
+@keyframes spin-frames {
     0% {
         transform: rotate(0deg);
     }
+
     100% {
         transform: rotate(359deg);
     }
@@ -11,17 +12,16 @@
     animation: spin-frames $period infinite linear;
 }
 
-:global .spinning {
-    @include spinning(0.75s);
-}
 
-@keyframes :global(hover-frames) {
+@keyframes hover-frames {
     0% {
         transform: translate(0, 0px);
     }
+
     50% {
         transform: translate(0, 10px);
     }
+
     100% {
         transform: translate(0, -0px);
     }
@@ -30,6 +30,7 @@
 @mixin hovering($period) {
     animation: hover-frames $period infinite ease-in-out;
 }
-:global .hovering {
+
+.hovering {
     @include hovering(4s);
 }

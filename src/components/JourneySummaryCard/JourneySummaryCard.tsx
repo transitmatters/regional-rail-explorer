@@ -65,7 +65,7 @@ const getJourneyDuration = (journey: JourneyInfo) => {
 };
 
 const Text = (props) => {
-    return <text fontFamily="Helvetica,sans-serif" fill="white" {...props} />;
+    return <text fill="white" {...props} />;
 };
 
 const JourneySummaryCard = (props: Props) => {
