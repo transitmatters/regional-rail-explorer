@@ -50,6 +50,7 @@
     "@types/heap": "^0.2.34",
     "@types/node": "^22.10.2",
     "@types/react": "^18.0.0",
+    "@types/smoothscroll-polyfill": "^0.3.4",
     "@typescript-eslint/eslint-plugin": "^7.3.0",
     "@typescript-eslint/parser": "^7.3.0",
     "ajv": "^7.2.4",

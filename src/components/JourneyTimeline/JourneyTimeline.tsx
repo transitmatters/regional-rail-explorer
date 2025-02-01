@@ -106,7 +106,7 @@ const TravelSegment = (props: { segment: JourneyTravelSegment }) => {
 
     return (
         <div className={classNames(styles.travelSegment, textColor(color))}>
-            <div className="stem" />
+            <div className={"stem"} />
             {renderEndpoint(startStation, startTime)}
             <div className="inner" style={expanded ? { minHeight: height } : { height }}>
                 {renderInnerContents()}
