@@ -1,16 +1,7 @@
 @import '../../styles/base.scss';
 
-:root {
-    --arrival-width: 8px;
-}
-
-@include mobile {
-    :root {
-        --arrival-width: 6px;
-    }
-}
-
-$arrival-width: var(--arrival-width);
+$arrival-width: 8px;
+$mobile-arrival-width: 6px;
 
 .timeline {
     display: flex;
@@ -30,12 +21,14 @@ $arrival-width: var(--arrival-width);
     top: 0;
     height: 60%;
     transform: translateX(-1px);
+
     :global(.hairline) {
         position: relative;
         height: 100%;
         width: 1px;
         border-right: 1px solid #ddd;
     }
+
     :global(.label) {
         position: absolute;
         bottom: -5px;
@@ -44,6 +37,7 @@ $arrival-width: var(--arrival-width);
         color: #999;
         white-space: nowrap;
         user-select: none;
+
         @include mobile {
             font-size: 10px;
         }
@@ -67,6 +61,11 @@ $arrival-width: var(--arrival-width);
     border-radius: $arrival-width;
     margin-bottom: 5px;
     box-sizing: border-box;
+
+    @include mobile {
+        width: $mobile-arrival-width;
+        height: $mobile-arrival-width;
+    }
 }
 
 .baselineArrival {

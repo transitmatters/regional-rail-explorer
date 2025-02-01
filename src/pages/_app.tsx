@@ -5,6 +5,8 @@ import DeviceDetector from "device-detector-js";
 
 import { AppContextProvider } from "components";
 
+import "styles/global.scss";
+
 const deviceDetector = new DeviceDetector();
 
 const App = ({ Component, pageProps, userAgentAppearsMobile = false }) => {
