@@ -9,6 +9,7 @@ module.exports = {
         "plugin:prettier/recommended",
         "plugin:react/recommended",
         "plugin:@typescript-eslint/recommended",
+        "next/core-web-vitals",
         "plugin:storybook/recommended",
     ],
     parser: "@typescript-eslint/parser",
@@ -38,7 +39,9 @@ module.exports = {
         "@typescript-eslint/no-unused-vars": ["error", { varsIgnorePattern: "^_+$" }],
         "@typescript-eslint/no-use-before-define": 0,
         "@typescript-eslint/explicit-module-boundary-types": 0,
+        "@typescript-eslint/no-unused-vars": 1,
         "no-constant-condition": 0,
+        "import/no-anonymous-default-export": 0,
         "prettier/prettier": "error",
     },
     settings: {

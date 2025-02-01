@@ -42,7 +42,9 @@ export const Menu = React.forwardRef(
 
         const handleDismiss = () => {
             menu.hide();
-            onDismiss && onDismiss();
+            if (onDismiss) {
+                onDismiss();
+            }
         };
 
         return (

@@ -9,6 +9,7 @@ import { stationsByName, stationsById } from "stations";
 import { JourneyParams, NetworkDayKind, NetworkTime, NavigationKind } from "types";
 
 import styles from "./SuggestedJourneys.module.scss";
+import Link from "next/link";
 
 type SuggestedJourneyParams = {
     time: string;
@@ -152,9 +153,9 @@ const SuggestedJourneys = (props: Props) => {
     return (
         <div className={styles.journeys}>
             {renderedSuggestedJourneys}
-            <a className={classNames(styles.journey, styles.customJourney)} href="/explore">
+            <Link className={classNames(styles.journey, styles.customJourney)} href="/explore">
                 Choose your own commute
-            </a>
+            </Link>
         </div>
     );
 };

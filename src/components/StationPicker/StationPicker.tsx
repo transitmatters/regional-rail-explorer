@@ -64,7 +64,9 @@ const StationPicker: React.FunctionComponent<StationPickerProps> = ({
 
     useEffect(() => {
         if (disclosure.getState().open) {
-            searchRef.current && searchRef.current.focus();
+            if (searchRef.current) {
+                searchRef.current.focus();
+            }
 
             const closeOnEscapeHandler = (evt: KeyboardEvent) => {
                 if (evt.key === "Escape") {
