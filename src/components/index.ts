@@ -17,7 +17,6 @@ export { default as JourneyErrorState } from "./JourneyErrorState/JourneyErrorSt
 export { default as JourneySummaryCard } from "./JourneySummaryCard";
 export { RouteVisualizer, LiveRouteVisualizer } from "./RouteVisualizer";
 export { Menu, MenuItem, MenuItemDivider, Select } from "./Menu";
-export { default as ModeSelect } from "./ModeSelect/ModeSelect";
 export { NumericTimePicker } from "./NumericTimePicker";
 export { NetworkVisualizer, LiveNetworkVisualizer } from "./NetworkVisualizer";
 export { default as PowerText } from "./PowerText/PowerText";

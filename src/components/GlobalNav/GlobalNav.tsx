@@ -39,7 +39,7 @@ const renderNavLink = (link: NavLink, router: NextRouter) => {
     }
     const isActive = "pathname" in link && link.pathname === router.pathname;
     return (
-        <Link href={{ pathname: link.pathname }} key={link.key}>
+        <Link href={{ pathname: link.pathname }} key={link.key} legacyBehavior>
             <a className={classNames(styles.link, isActive && styles.active)}>{link.title}</a>
         </Link>
     );
@@ -49,7 +49,7 @@ const GlobalNav = React.forwardRef((_, ref: React.Ref<HTMLDivElement>) => {
     const router = useRouter();
     return (
         <div className={styles.globalNav} ref={ref}>
-            <Link href="/">
+            <Link href="/" legacyBehavior>
                 <div className={styles.logoContainer}>
                     {logo}
                     <div className={styles.text}>

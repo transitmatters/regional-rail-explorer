@@ -9,7 +9,8 @@ module.exports = {
         "plugin:prettier/recommended",
         "plugin:react/recommended",
         "plugin:@typescript-eslint/recommended",
-        "plugin:storybook/recommended"
+        "next/core-web-vitals",
+        "plugin:storybook/recommended",
     ],
     parser: "@typescript-eslint/parser",
     parserOptions: {
@@ -35,12 +36,12 @@ module.exports = {
         "@typescript-eslint/no-explicit-any": 0,
         "@typescript-eslint/no-inferrable-types": 0,
         "@typescript-eslint/no-non-null-assertion": 0,
-        "@typescript-eslint/no-unused-vars": ["error", { varsIgnorePattern: "^_+$" }],
+        "@typescript-eslint/no-unused-vars": ["warn", { varsIgnorePattern: "^_+$" }],
         "@typescript-eslint/no-use-before-define": 0,
         "@typescript-eslint/explicit-module-boundary-types": 0,
         "no-constant-condition": 0,
+        "import/no-anonymous-default-export": 0,
         "prettier/prettier": "error",
-        "deprecate/import": ["warn", { name: "reakit", use: "@ariakit/react" }],
     },
     settings: {
         react: {

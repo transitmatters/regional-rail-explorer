@@ -8,8 +8,8 @@ The Regional Rail Explorer is a tool to demonstrate the impact of Regional Rail 
 
 ## Setup
 Ensure you have the following dependencies installed:
- - [`node`](https://nodejs.org/en/) `20.x`
- - [`npm`](https://www.npmjs.com/)
+ - [`node`](https://nodejs.org/en/) `~20.x`
+ - [`npm`](https://www.npmjs.com/) `>=10.x`
 
 ### Local Deployment
 ```bash
@@ -18,6 +18,20 @@ $ export PORT=3000
 $ npm run build && npm start
 ```
 Then navigate to http://localhost:3000.
+
+## Linting
+To lint the project source code, run `$ npm run lint` in the root directory
+
+## Storybook
+An index of React component fixtures is available to browse by running:
+
+```bash
+$ npm run storybook
+```
+
+## Deployment
+
+Steps for deploying to AWS or testing the deployment locally. You don't need these steps for most local development.
 
 ### Server Deployment
 Ensure you have the following dependencies installed:
@@ -41,16 +55,6 @@ Initial API requests will be quite slow for now as the server must load and pars
 You can deploy changes to this application to an AWS EC2 instance running Ubuntu using the `devops/deploy.sh` script.
 
 Ensure you've installed the [AWS CLI](https://aws.amazon.com/cli/) and configured it with your account credentials. You will also need [Ansible](https://www.ansible.com/) installed. Some additional configuration may be nessessary as well - see the `devops` folder for more.
-
-## Storybook
-An index of React component fixtures is available to browse by running:
-
-```bash
-$ npm run storybook
-```
-
-## Linting
-To lint the project source code, run `$ npm run lint` in the root directory
 
 ## Support TransitMatters
 If you've found this app helpful or interesting, please consider [donating](https://transitmatters.org/donate) to TransitMatters to help support our mission to provide data-driven advocacy for a more reliable, sustainable, and equitable transit system in Metropolitan Boston.

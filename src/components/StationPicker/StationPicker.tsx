@@ -5,7 +5,7 @@ import {
     DisclosureContent,
     DisclosureStore,
 } from "@ariakit/react/disclosure";
-import { RenderProp } from "reakit-utils/types";
+import { RenderProp } from "@ariakit/react-core/cjs/utils/types";
 import classNames from "classnames";
 
 import { useAppContext, useLockBodyScroll, useViewport } from "hooks";
@@ -64,7 +64,9 @@ const StationPicker: React.FunctionComponent<StationPickerProps> = ({
 
     useEffect(() => {
         if (disclosure.getState().open) {
-            searchRef.current && searchRef.current.focus();
+            if (searchRef.current) {
+                searchRef.current.focus();
+            }
 
             const closeOnEscapeHandler = (evt: KeyboardEvent) => {
                 if (evt.key === "Escape") {

@@ -1,6 +1,6 @@
 import React from "react";
 import classNames from "classnames";
-import * as RK from "reakit/Menu";
+import * as AK from "@ariakit/react/menu";
 
 import { MenuContext } from "./menuContext";
 import styles from "./Menu.module.scss";
@@ -9,8 +9,7 @@ export type MenuProps = {
     "aria-label"?: string;
     children: React.ReactNode;
     className?: string;
-    disclosure: ((disclosureProps: RK.MenuButtonProps) => React.ReactNode) | React.ReactNode;
-    gutter?: number;
+    disclosure: ((disclosureProps: AK.MenuButtonProps) => React.ReactNode) | React.ReactNode;
     menuStyle?: React.CSSProperties;
     placement?: string;
     onDismiss?: () => unknown;
@@ -23,50 +22,53 @@ const renderDisclosure = (disclosure, disclosureProps) => {
     return React.cloneElement(disclosure, disclosureProps);
 };
 
-export const Menu = React.forwardRef((props: MenuProps, ref: any) => {
-    const {
-        "aria-label": ariaLabel,
-        children,
-        className,
-        disclosure,
-        placement,
-        gutter,
-        onDismiss,
-        menuStyle,
-        ...restProps
-    } = props;
+export const Menu = React.forwardRef(
+    (
+        {
+            "aria-label": ariaLabel,
+            children,
+            className,
+            disclosure,
+            placement,
+            onDismiss,
+            menuStyle,
+            ...restProps
+        }: MenuProps,
+        ref: any
+    ) => {
+        const menu = AK.useMenuStore({
+            placement: placement as any,
+        });
 
-    const menu = RK.useMenuState({
-        placement: placement as any,
-        gutter: gutter,
-        unstable_preventOverflow: false,
-        unstable_flip: false,
-    });
+        const handleDismiss = () => {
+            menu.hide();
+            if (onDismiss) {
+                onDismiss();
+            }
+        };
 
-    const handleDismiss = () => {
-        menu.hide();
-        onDismiss && onDismiss();
-    };
-
-    return (
-        <React.Fragment>
-            {/* @ts-expect-error I'm not sure this ever worked? */}
-            <RK.MenuButton ref={ref} {...menu} {...restProps}>
-                {(disclosureProps) =>
-                    renderDisclosure(disclosure, { ...disclosureProps, "aria-label": ariaLabel })
-                }
-            </RK.MenuButton>
-            <RK.Menu
-                aria-label={ariaLabel}
-                as="ul"
-                style={{ zIndex: 1, ...menuStyle }}
-                className={classNames(styles.menu, className)}
-                {...menu}
-            >
-                <MenuContext.Provider value={{ parentMenu: menu, dismissMenu: handleDismiss }}>
-                    {children}
-                </MenuContext.Provider>
-            </RK.Menu>
-        </React.Fragment>
-    );
-});
+        return (
+            <React.Fragment>
+                <AK.MenuButton
+                    ref={ref}
+                    store={menu}
+                    {...restProps}
+                    render={(renderProps) =>
+                        renderDisclosure(disclosure, { ...renderProps, "aria-label": ariaLabel })
+                    }
+                />
+                <AK.Menu
+                    store={menu}
+                    aria-label={ariaLabel}
+                    style={{ zIndex: 1, ...menuStyle }}
+                    className={classNames(styles.menu, className)}
+                    render={<ul />}
+                >
+                    <MenuContext.Provider value={{ parentMenu: menu, dismissMenu: handleDismiss }}>
+                        {children}
+                    </MenuContext.Provider>
+                </AK.Menu>
+            </React.Fragment>
+        );
+    }
+);
