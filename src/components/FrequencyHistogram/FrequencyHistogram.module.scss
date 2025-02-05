@@ -1,4 +1,4 @@
-@import '../../styles/base.scss';
+@use '../../styles/base.scss';
 
 $arrival-width: 25px;
 
@@ -17,11 +17,12 @@ $arrival-width: 25px;
     align-items: center;
     flex-grow: 1;
     border-right: 1px solid #ddd;
+
     &:first-child {
         border-left: 1px solid #ddd;
     }
 
-    :global .time {
+    :global(.time) {
         user-select: none;
         position: absolute;
         bottom: -5px;
@@ -35,18 +36,18 @@ $arrival-width: 25px;
 @mixin arrival {
     width: $arrival-width;
     height: $arrival-width;
-    border-radius: #{$arrival-width / 2};
+    border-radius: calc($arrival-width / 2);
     margin-bottom: 5px;
     box-sizing: border-box;
 }
 
 .arrival {
     @include arrival;
-    background: $rr-purple;
-    border: #{$arrival-width / 4} solid $rr-light;
+    background: base.$rr-purple;
+    border: calc($arrival-width / 4) solid base.$rr-light;
 }
 
 .enhancedArrival {
     @include arrival;
-    background: $rr-purple;
+    background: base.$rr-purple;
 }

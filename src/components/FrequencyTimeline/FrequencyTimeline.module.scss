@@ -1,4 +1,4 @@
-@import '../../styles/base.scss';
+@use '../../styles/base.scss';
 
 $arrival-width: 8px;
 $mobile-arrival-width: 6px;
@@ -38,7 +38,7 @@ $mobile-arrival-width: 6px;
         white-space: nowrap;
         user-select: none;
 
-        @include mobile {
+        @include base.mobile {
             font-size: 10px;
         }
     }
@@ -62,18 +62,18 @@ $mobile-arrival-width: 6px;
     margin-bottom: 5px;
     box-sizing: border-box;
 
-    @include mobile {
+    @include base.mobile {
         width: $mobile-arrival-width;
         height: $mobile-arrival-width;
     }
 }
 
 .baselineArrival {
+    background: base.$rr-light;
     @include arrival;
-    background: $rr-light;
 }
 
 .enhancedArrival {
+    background: base.$rr-purple;
     @include arrival;
-    background: $rr-purple;
 }

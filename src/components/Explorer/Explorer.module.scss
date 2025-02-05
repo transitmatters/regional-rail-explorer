@@ -1,4 +1,4 @@
-@import '../../styles/base.scss';
+@use '../../styles/base.scss';
 
 .explorer {
     display: flex;
@@ -10,11 +10,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: $rr-purple;
+    color: base.$rr-purple;
 }
 
 .footer {
-    background: $darker-rr-purple;
+    background: base.$darker-rr-purple;
 }
 
 .footerInner {
@@ -32,7 +32,7 @@
         margin-bottom: 40px;
     }
 
-    @include mobile {
+    @include base.mobile {
         width: calc(100% - 40px);
     }
 }

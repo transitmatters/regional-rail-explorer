@@ -1,4 +1,4 @@
-@import '../../styles/base.scss';
+@use '../../styles/base.scss';
 
 $stem-width: 8px;
 $text-offset: 25px;
@@ -8,8 +8,7 @@ $expand-control-size: 30px;
 $start-end-point-size: 16px;
 
 @mixin circle-on-line-with-label($circle-size) {
-    $circle-left: (
-        $travel-transfer-station-size - $circle-size) / 2;
+    $circle-left: calc(($travel-transfer-station-size - $circle-size) / 2);
     display: flex;
     align-items: center;
 
@@ -17,7 +16,7 @@ $start-end-point-size: 16px;
         margin-left: $circle-left;
         width: $circle-size;
         height: $circle-size;
-        border-radius: $circle-size / 2;
+        border-radius: calc($circle-size / 2);
         background-color: white;
         box-sizing: border-box;
         flex-shrink: 0;
@@ -33,11 +32,11 @@ $start-end-point-size: 16px;
 .journeyTimeline {
     position: relative;
 
-    @include mobile {
+    @include base.mobile {
         font-size: 13px;
     }
 
-    @include line-colors;
+    @include base.line-colors;
 }
 
 .travelSegment {
@@ -48,22 +47,21 @@ $start-end-point-size: 16px;
 
     :global(.stem) {
         position: absolute;
-        height: calc(100% - #{$travel-transfer-station-size}
-    );
-    top: $travel-transfer-station-size / 2;
-    left: $travel-transfer-station-size / 2;
-    transform: translateX(-50%);
-    width: $stem-width;
-    background: currentColor;
-}
+        height: calc(100% - #{$travel-transfer-station-size});
+        top: calc($travel-transfer-station-size / 2);
+        left: calc($travel-transfer-station-size / 2);
+        transform: translateX(-50%);
+        width: $stem-width;
+        background: currentColor;
+    }
 
-:global(.inner) {
-    padding: 10px 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    flex-grow: 1;
-}
+    :global(.inner) {
+        padding: 10px 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        flex-grow: 1;
+    }
 }
 
 .travelSegmentPassedStation {
@@ -131,7 +129,7 @@ $start-end-point-size: 16px;
         font-weight: bold;
         line-height: 1em;
 
-        @include mobile {
+        @include base.mobile {
             flex-grow: 1;
         }
 
@@ -140,7 +138,7 @@ $start-end-point-size: 16px;
             margin-left: 0.5em;
             white-space: nowrap;
 
-            @include mobile {
+            @include base.mobile {
                 margin-left: auto;
             }
         }
@@ -189,7 +187,7 @@ $start-end-point-size: 16px;
         position: absolute;
         height: 100%;
         top: 0;
-        left: $travel-transfer-station-size / 2;
+        left: calc($travel-transfer-station-size / 2);
         transform: translateX(-50%);
         border: 1px dashed cornflowerblue;
     }

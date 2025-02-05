@@ -1,11 +1,11 @@
-@import '../../styles/base.scss';
+@use '../../styles/base.scss';
 
 .home {
     width: 100%;
-    background: $darker-rr-purple;
+    background: base.$darker-rr-purple;
     color: white;
 
-    @include mobile {
+    @include base.mobile {
         // scroll-snap-type: y proximity;
         // height: 100vh;
         // overflow-y: scroll;
@@ -25,7 +25,7 @@
     overflow: hidden;
     scroll-snap-align: start;
 
-    @include mobile {
+    @include base.mobile {
         padding: 20px;
     }
 
@@ -35,7 +35,7 @@
 }
 
 .network {
-    @include mobile {
+    @include base.mobile {
         margin: 20px 0;
     }
 }
@@ -67,7 +67,7 @@
     font-style: italic;
     text-align: center;
 
-    @include mobile {
+    @include base.mobile {
         font-size: 14px;
     }
 }
@@ -77,7 +77,7 @@
     z-index: 1;
     margin-bottom: 20px;
 
-    @include mobile {
+    @include base.mobile {
         margin-bottom: 0;
         height: 20px;
     }
@@ -103,12 +103,12 @@
     &:hover,
     &:active {
         background: white;
-        color: $darker-rr-purple;
+        color: base.$darker-rr-purple;
     }
 }
 
 .detailsScreen {
-    background: $darker-rr-purple;
+    background: base.$darker-rr-purple;
 
     hr {
         width: 100%;
@@ -126,7 +126,7 @@
     flex-direction: column;
     align-items: center;
 
-    @include mobile {
+    @include base.mobile {
         width: 100%;
         margin: 10px 0;
     }
@@ -137,7 +137,7 @@
     grid-template-columns: repeat(3, 1fr);
     column-gap: 60px;
 
-    @include mobile {
+    @include base.mobile {
         display: flex;
         flex-direction: column;
     }
@@ -152,7 +152,7 @@
         margin: 20px 0;
     }
 
-    @include mobile {
+    @include base.mobile {
         background-color: rgba(white, 0.1);
         padding: 16px;
         border-radius: 4px;
@@ -179,7 +179,7 @@
         line-height: 1.5em;
         text-align: center;
 
-        @include mobile {
+        @include base.mobile {
             font-size: 14px;
         }
     }

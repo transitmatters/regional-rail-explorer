@@ -1,11 +1,11 @@
-@import '../../styles/base.scss';
+@use '../../styles/base.scss';
 
 .menu {
     list-style: none;
     padding: 0;
     margin: 0;
     background: white;
-    box-shadow: $global-shadow;
+    box-shadow: base.$global-shadow;
 }
 
 .menuItem {
@@ -15,10 +15,12 @@
     padding: 4px 10px;
     user-select: none;
     white-space: nowrap;
+
     &:hover,
     &[tabindex='0'] {
         background: #ddd;
-        svg > * {
+
+        svg>* {
             stroke: currentColor;
         }
     }

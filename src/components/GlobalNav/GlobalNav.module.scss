@@ -1,6 +1,7 @@
-@import '../../styles/base.scss';
+@use 'sass:list';
+@use '../../styles/base.scss';
 
-$logo-colors: $rr-purple, $rr-gold, white;
+$logo-colors: base.$rr-purple, base.$rr-gold, white;
 
 .globalNav {
     display: flex;
@@ -10,7 +11,7 @@ $logo-colors: $rr-purple, $rr-gold, white;
     height: 50px;
     box-sizing: border-box;
     overflow: hidden;
-    background: $darker-rr-purple;
+    background: base.$darker-rr-purple;
 }
 
 .logoContainer {
@@ -18,28 +19,33 @@ $logo-colors: $rr-purple, $rr-gold, white;
     align-items: center;
     margin-left: 15px;
     cursor: pointer;
-    > .text {
+
+    >.text {
         user-select: none;
         margin-left: 5px;
-        > .top {
+
+        >.top {
             font-size: 12px;
             font-weight: 500;
             letter-spacing: 0.1ch;
             text-align: center;
             white-space: nowrap;
         }
-        > .bottom {
+
+        >.bottom {
             font-size: 17px;
             text-transform: uppercase;
             font-weight: 300;
             font-style: italic;
         }
     }
-    @include mobile {
-        > .top {
+
+    @include base.mobile {
+        >.top {
             font-size: 11px;
         }
-        > .bottom {
+
+        >.bottom {
             font-size: 15px;
         }
     }
@@ -47,12 +53,14 @@ $logo-colors: $rr-purple, $rr-gold, white;
 
 .logo {
     height: 34px;
-    @for $i from 1 through length($logo-colors) {
+
+    @for $i from 1 through list.length($logo-colors) {
         path:nth-child(#{$i}) {
-            fill: nth($logo-colors, $i);
+            fill: list.nth($logo-colors, $i);
         }
     }
-    @include mobile {
+
+    @include base.mobile {
         height: 28px;
     }
 }
@@ -62,7 +70,8 @@ $logo-colors: $rr-purple, $rr-gold, white;
     align-items: center;
     margin-left: 15px;
     height: 100%;
-    @include mobile {
+
+    @include base.mobile {
         display: none;
     }
 }
@@ -76,14 +85,17 @@ $logo-colors: $rr-purple, $rr-gold, white;
     height: 100%;
     box-sizing: border-box;
     border-top: 4px solid transparent;
+
     &.active {
-        background: $rr-purple-secondary;
+        background: base.$rr-purple-secondary;
     }
+
     &:not(.active) {
         &:hover {
             background: rgba(white, 0.1);
         }
     }
+
     .linkIcon {
         margin-left: 3px;
     }

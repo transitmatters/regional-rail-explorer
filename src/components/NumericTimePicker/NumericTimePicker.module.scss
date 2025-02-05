@@ -1,4 +1,4 @@
-@import '../../styles/base.scss';
+@use '../../styles/base.scss';
 
 // Designed to be used in conjunction with the Button styles. Maybe that should be a mixin.
 .numericTimePicker {
@@ -8,7 +8,8 @@
     border-radius: 0;
     flex-grow: 1;
     height: 28.8px; // This is awful but I'm out of patience to fix this cross-browser
-    @include mobile {
+
+    @include base.mobile {
         height: 27px;
     }
 }
