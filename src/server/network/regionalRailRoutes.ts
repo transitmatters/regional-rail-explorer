@@ -7,7 +7,7 @@ import {
     Route,
 } from "../../types";
 import { matchDayOfWeek } from "../../time";
-import { isRegionalRailRouteId } from "routes";
+import { isRegionalRailRouteId } from "../../routes";
 
 const flatten = <T>(arr: T[][]): T[] => arr.reduce((a, b) => [...a, ...b], []);
 
