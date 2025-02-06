@@ -16,7 +16,7 @@ import {
     Transfer,
     Trip,
 } from "types";
-import { daysOfWeek, parseTime, compareTimes } from "time";
+import { daysOfWeek, parseTime, compareTimes } from "../../time";
 
 import { GtfsLoader } from "./load";
 import { getSerializedRouteInfoByRegionalRailRouteId } from "./regionalRailRoutes";
