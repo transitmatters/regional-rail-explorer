@@ -5,21 +5,18 @@ type Viewport<T = number> = {
     height: T;
 };
 
-const getInitialViewport = (): null | Viewport => {
-    if (typeof window !== "undefined") {
-        return { width: window.innerWidth, height: window.innerHeight };
-    }
-    return null;
-};
-
 export const useViewport = () => {
-    const [viewport, setViewport] = useState<null | Viewport>(() => getInitialViewport());
+    const [viewport, setViewport] = useState<null | Viewport>(null);
 
     useEffect(() => {
-        const listener = () =>
+        const handleResize = () =>
             setViewport({ width: window.innerWidth, height: window.innerHeight });
-        window.addEventListener("resize", listener);
-        return () => window.removeEventListener("resize", listener);
+
+        if (typeof window !== "undefined") {
+            window.addEventListener("resize", handleResize);
+            handleResize();
+            return () => window.removeEventListener("resize", handleResize);
+        }
     }, []);
 
     if (viewport) {
