@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 
 type Viewport<T = number> = {
     width: T;
@@ -8,7 +8,7 @@ type Viewport<T = number> = {
 export const useViewport = () => {
     const [viewport, setViewport] = useState<null | Viewport>(null);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         const handleResize = () =>
             setViewport({ width: window.innerWidth, height: window.innerHeight });
 
