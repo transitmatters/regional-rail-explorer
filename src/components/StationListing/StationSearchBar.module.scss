@@ -1,4 +1,4 @@
-@import '../../styles/base.scss';
+@use '../../styles/base.scss';
 
 .search {
     width: 100%;
@@ -11,15 +11,18 @@
     background: rgba(white, 0.1);
     border: 2px solid transparent;
     color: white;
+
     &:focus {
         outline: none;
         border: 2px solid rgba(white, 0.8);
-        box-shadow: $global-shadow;
+        box-shadow: base.$global-shadow;
     }
+
     &::placeholder {
         color: rgba(white, 0.5);
     }
-    @include mobile {
+
+    @include base.mobile {
         font-size: 18px;
         height: 35px;
         margin: 0;

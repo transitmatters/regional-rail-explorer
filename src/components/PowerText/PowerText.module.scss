@@ -1,4 +1,4 @@
-@import '../../styles/base.scss';
+@use '../../styles/base.scss';
 
 @mixin offset($position, $shadow: false) {
     position: absolute;
@@ -13,13 +13,15 @@
     color: white;
     position: relative;
     z-index: 0;
-    > * {
+
+    >* {
         margin: 0;
         font-weight: 600;
         font-style: italic;
         text-transform: uppercase;
         font-size: 48px;
-        @include mobile {
+
+        @include base.mobile {
             font-size: 24px;
         }
     }
@@ -27,11 +29,10 @@
 
 .middle {
     @include offset(-0.06em, true);
-    color: $rr-gold;
+    color: base.$rr-gold;
 }
 
 .bottom {
     @include offset(0.06em, true);
-    color: $rr-pink;
+    color: base.$rr-pink;
 }
-

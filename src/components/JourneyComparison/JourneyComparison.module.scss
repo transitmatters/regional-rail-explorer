@@ -1,27 +1,37 @@
-@import '../../styles/base.scss';
+@use 'sass:color';
+@use '../../styles/base.scss';
 
 .journeyComparison {
-    @include fill-to-max-width;
+    @include base.fill-to-max-width;
     margin-bottom: 30px;
+
+    @include base.mobile {
+        @include base.mobile-fill-to-max-width;
+    }
 
     :global(.bubble) {
         display: inline-block;
         color: white;
         padding: 3px 6px;
         margin-top: -3px;
+
         &:global(.green) {
             background: #579f6b;
         }
+
         &:global(.red) {
             background: #ec4747;
         }
+
         &:global(.offset-left) {
             margin-left: 6px;
-            @include mobile {
+
+            @include base.mobile {
                 margin-left: 0;
             }
         }
-        @include mobile {
+
+        @include base.mobile {
             display: block;
             margin: 0px;
             margin-top: 4px;
@@ -35,7 +45,8 @@
 
     :global(.duration) {
         font-size: 18px;
-        @include mobile {
+
+        @include base.mobile {
             font-size: 15px;
         }
     }
@@ -43,25 +54,29 @@
     :global(.column-header) {
         display: flex;
         align-items: center;
+
         :global(.header-blip) {
             margin-right: 8px;
             display: inline;
             height: 0.8em;
             width: 0.8em;
             border-radius: 100px;
+
             &:global(.baseline) {
-                background: $rr-light;
+                background: base.$rr-light;
             }
+
             &:global(.enhanced) {
-                background: $rr-purple;
+                background: base.$rr-purple;
             }
-            @include mobile {
+
+            @include base.mobile {
                 display: none;
             }
         }
     }
 
-    @include mobile {
+    @include base.mobile {
         margin-bottom: 0;
     }
 }
@@ -94,7 +109,8 @@
 
     &:first-child {
         margin-top: 20px;
-        @include mobile {
+
+        @include base.mobile {
             margin-top: 0;
         }
     }
@@ -103,7 +119,8 @@
         margin-bottom: 20px;
         padding-bottom: 20px;
         border-bottom: 1px #e5e5e5 solid;
-        @include mobile {
+
+        @include base.mobile {
             margin-bottom: 0;
             padding-bottom: 0;
         }
@@ -115,7 +132,7 @@
         border: none;
     }
 
-    @include mobile {
+    @include base.mobile {
         grid-template-columns: repeat(2, 1fr);
         grid-template-areas: 'baseline enhanced';
         column-gap: 0;
@@ -141,22 +158,23 @@
         }
 
         > :global(.baseline) {
-            border-color: $rr-light;
+            border-color: base.$rr-light;
             background: white;
         }
 
         > :global(.enhanced) {
-            border-color: $rr-purple;
-            background: lighten($rr-purple, 67%);
+            border-color: base.$rr-purple;
+            background: color.adjust(base.$rr-purple, $lightness: 67%);
         }
 
         &:global(.header) {
             > :global(.baseline) {
-                background: $rr-light;
+                background: base.$rr-light;
                 color: white;
             }
+
             > :global(.enhanced) {
-                background: $rr-purple;
+                background: base.$rr-purple;
                 color: white;
             }
         }
@@ -166,7 +184,7 @@
 .frequencyInfo {
     margin-right: 40px;
 
-    @include mobile {
+    @include base.mobile {
         margin-right: 0;
     }
 
@@ -174,19 +192,17 @@
         height: 1em;
         position: relative;
         margin-bottom: 20px;
+        mask-image: linear-gradient(90deg,
+                rgba(0, 0, 0, 0) 0%,
+                rgba(0, 0, 0, 1) 5%,
+                rgba(0, 0, 0, 1) 95%,
+                rgba(0, 0, 0, 0) 100%);
 
-        @include mobile {
+        @include base.mobile {
             padding: 2px 0;
             margin-bottom: 10px;
         }
 
-        mask-image: linear-gradient(
-            90deg,
-            rgba(0, 0, 0, 0) 0%,
-            rgba(0, 0, 0, 1) 5%,
-            rgba(0, 0, 0, 1) 95%,
-            rgba(0, 0, 0, 0) 100%
-        );
         :global(.line) {
             position: absolute;
             width: 100%;
@@ -195,6 +211,7 @@
             top: 50%;
             transform: translateY(-50%);
         }
+
         :global(.wait-line) {
             position: absolute;
             height: 2px;
@@ -204,6 +221,7 @@
             transform: translateY(-50%);
             box-sizing: border-box;
         }
+
         :global(.time) {
             position: absolute;
             transform: translateX(-50%) translateY(-50%);
@@ -211,12 +229,14 @@
             width: 8px;
             height: 8px;
             border-radius: 10px;
-            background: $rr-purple;
+            background: base.$rr-purple;
+
             &:global(.missed) {
-                box-shadow: 0 0 0 4px rgba($rr-purple, 0.5);
+                box-shadow: 0 0 0 4px rgba(base.$rr-purple, 0.5);
             }
+
             &:global(.caught) {
-                box-shadow: 0 0 0 4px rgba($rr-purple, 0.5);
+                box-shadow: 0 0 0 4px rgba(base.$rr-purple, 0.5);
             }
         }
     }

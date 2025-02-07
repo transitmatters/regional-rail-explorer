@@ -1,13 +1,13 @@
-@import 'styles/base.scss';
+@use 'styles/base.scss';
 
-$top-color: $rr-gold;
-$bottom-color: $rr-purple-secondary;
+$top-color: base.$rr-gold;
+$bottom-color: base.$rr-purple-secondary;
 
 @mixin picker-triangle($color, $size: 8px) {
     position: absolute;
     z-index: 2;
     left: -$size;
-    @include triangle($color, $size);
+    @include base.triangle($color, $size);
 }
 
 .departurePicker {
@@ -17,6 +17,7 @@ $bottom-color: $rr-purple-secondary;
 
     &:not(.disabled):hover {
         cursor: pointer;
+
         .cursor {
             opacity: 1;
         }
@@ -40,7 +41,7 @@ $bottom-color: $rr-purple-secondary;
 .top {
     width: 100%;
     height: 8px;
-    box-shadow: $global-shadow;
+    box-shadow: base.$global-shadow;
     background: $top-color;
     box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
 }
@@ -51,9 +52,10 @@ $bottom-color: $rr-purple-secondary;
     margin-top: 20px;
     background: $bottom-color;
     box-shadow: 0px -1px 2px rgba(0, 0, 0, 0.1);
-    @include mobile {
+
+    @include base.mobile {
         background: $top-color;
-        box-shadow: $global-shadow;
+        box-shadow: base.$global-shadow;
     }
 }
 
@@ -75,6 +77,7 @@ $bottom-color: $rr-purple-secondary;
     position: absolute;
     color: #333;
     user-select: none;
+
     .cursorNeedle {
         position: absolute;
         bottom: 0;
@@ -83,6 +86,7 @@ $bottom-color: $rr-purple-secondary;
         left: -1px;
         background: currentColor;
     }
+
     .cursorTime {
         position: absolute;
         bottom: 0;
@@ -92,12 +96,10 @@ $bottom-color: $rr-purple-secondary;
         z-index: -1;
         font-size: 0.8em;
         white-space: nowrap;
-        background: linear-gradient(
-            90deg,
-            rgba(255, 255, 255, 1) 0%,
-            rgba(255, 255, 255, 1) 90%,
-            rgba(255, 255, 255, 0) 100%
-        );
+        background: linear-gradient(90deg,
+                rgba(255, 255, 255, 1) 0%,
+                rgba(255, 255, 255, 1) 90%,
+                rgba(255, 255, 255, 0) 100%);
     }
 }
 
@@ -131,7 +133,8 @@ $bottom-color: $rr-purple-secondary;
 .bottomTriangle {
     @include picker-triangle($bottom-color);
     bottom: 0;
-    @include mobile {
+
+    @include base.mobile {
         @include picker-triangle($top-color);
     }
 }

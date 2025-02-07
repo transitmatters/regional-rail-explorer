@@ -1,11 +1,11 @@
-@import '../../styles/base.scss';
+@use '../../styles/base.scss';
 
 .appFrame {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 
-    @include mobile {
+    @include base.mobile {
         font-size: 15px;
     }
 }
@@ -15,12 +15,12 @@
     align-items: center;
     height: 60px;
     padding: 0 10px;
-    background: $rr-purple-secondary;
+    background: base.$rr-purple-secondary;
     color: white;
     overflow: hidden;
     z-index: 2;
 
-    @include mobile {
+    @include base.mobile {
         flex-direction: column;
         align-items: flex-start;
         padding: 10px;

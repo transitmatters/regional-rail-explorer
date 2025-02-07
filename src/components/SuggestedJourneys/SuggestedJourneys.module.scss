@@ -1,4 +1,4 @@
-@import '../../styles/base.scss';
+@use '../../styles/base.scss';
 
 .journeys {
     display: grid;
@@ -7,7 +7,7 @@
     row-gap: 20px;
     width: 100%;
 
-    @include mobile {
+    @include base.mobile {
         display: flex;
         flex-direction: column;
     }

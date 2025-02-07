@@ -1,4 +1,4 @@
-@import '../../styles/base.scss';
+@use '../../styles/base.scss';
 
 .button {
     display: flex;
@@ -11,7 +11,7 @@
     margin: 0; // unset Safari
     cursor: pointer;
     background: whitesmoke;
-    box-shadow: $global-shadow;
+    box-shadow: base.$global-shadow;
     font-size: 0.9em;
     color: #111;
 
@@ -20,7 +20,8 @@
         color: whitesmoke;
         border: 2px solid rgba(white, 0.8);
         padding: 3px 8px;
-        svg > * {
+
+        svg>* {
             stroke: currentColor;
         }
     }
@@ -39,18 +40,18 @@
         padding: 8 16px;
     }
 
-    > .icon {
+    >.icon {
         display: flex;
         padding-right: 0.25em;
     }
 
-    > .rightIcon {
+    >.rightIcon {
         display: flex;
         margin-left: auto;
         padding-left: 0.25em;
     }
 
-    & > * {
+    &>* {
         min-height: 1em;
     }
 }

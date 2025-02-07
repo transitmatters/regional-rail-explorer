@@ -1,4 +1,4 @@
-@import '../../styles/base.scss';
+@use '../../styles/base.scss';
 
 $icon-wrapper-size: 2em;
 
@@ -6,7 +6,8 @@ $icon-wrapper-size: 2em;
     padding: 0;
     margin: 0;
     list-style-type: none;
-    & > *:not(:last-child) {
+
+    &>*:not(:last-child) {
         margin-bottom: 0.5em;
     }
 }
@@ -24,21 +25,23 @@ $icon-wrapper-size: 2em;
         justify-content: center;
         width: $icon-wrapper-size;
         height: $icon-wrapper-size;
-        border-radius: $icon-wrapper-size / 2;
+        border-radius: calc($icon-wrapper-size / 2);
         background: #bbb;
         box-sizing: border-box;
 
-        @include mobile {
+        @include base.mobile {
             align-self: flex-start;
         }
 
         &:global(.present) {
-            background: $rr-gold;
-            & > :global(.slash) {
+            background: base.$rr-gold;
+
+            &> :global(.slash) {
                 display: none;
             }
         }
-        & > :global(.slash) {
+
+        &> :global(.slash) {
             position: absolute;
             background: white;
             width: 2px;

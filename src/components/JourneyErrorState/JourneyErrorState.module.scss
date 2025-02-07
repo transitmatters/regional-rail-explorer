@@ -1,4 +1,4 @@
-@import '../../styles/base.scss';
+@use '../../styles/base.scss';
 
 .journeyErrorState {
     display: flex;
@@ -11,7 +11,7 @@
         margin: 0;
     }
 
-    @include mobile {
+    @include base.mobile {
         height: 200px;
     }
 }

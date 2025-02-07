@@ -1,22 +1,24 @@
 @use 'sass:color';
-
-@import '../../styles/base.scss';
+@use '../../styles/base.scss';
 
 $inner-padding: 15px;
 $station-padding: 7px;
 
 @mixin color-line-group($color) {
-    > li {
+    >li {
         &:first-child {
             color: $color;
             font-weight: bold;
         }
     }
-    box-shadow: $global-shadow;
+
+    box-shadow: base.$global-shadow;
+
     &:global(.highlighted) {
-        > li {
+        >li {
             color: white;
         }
+
         background-color: $color;
     }
 }
@@ -29,17 +31,19 @@ $station-padding: 7px;
 }
 
 .header {
-    background: $rr-purple-secondary;
+    background: base.$rr-purple-secondary;
     padding: 10px $inner-padding;
 }
 
 .controls {
-    @include max-width;
+    @include base.max-width;
     display: flex;
     align-items: center;
-    @include mobile {
+
+    @include base.mobile {
         width: 100%;
         margin: 0;
+
         > :not(:last-child) {
             margin-right: 10px;
         }
@@ -55,7 +59,7 @@ $station-padding: 7px;
 }
 
 .stationList {
-    @include max-width;
+    @include base.max-width;
     column-width: 180px;
     padding: 0 $inner-padding;
     padding-bottom: $inner-padding;
@@ -64,20 +68,25 @@ $station-padding: 7px;
 
     li {
         display: flex;
+
         &:hover,
         &:focus {
             cursor: pointer;
             text-decoration: underline;
         }
+
         &[aria-disabled='true']:not(:first-child) {
             opacity: 0.5;
         }
+
         &:not(:last-child) {
             padding-bottom: $station-padding;
         }
+
         a {
             color: inherit;
             text-decoration: none;
+
             &:hover {
                 text-decoration: underline;
             }
@@ -102,27 +111,27 @@ $station-padding: 7px;
     border: 1px solid transparent;
 
     &:global(.red) {
-        @include color-line-group($red-line);
+        @include color-line-group(base.$red-line);
     }
 
     &:global(.orange) {
-        @include color-line-group($orange-line);
+        @include color-line-group(base.$orange-line);
     }
 
     &:global(.blue) {
-        @include color-line-group($blue-line);
+        @include color-line-group(base.$blue-line);
     }
 
     &:global(.green) {
-        @include color-line-group($green-line);
+        @include color-line-group(base.$green-line);
     }
 
     &:global(.silver) {
-        @include color-line-group($silver-line);
+        @include color-line-group(base.$silver-line);
     }
 
     &:global(.regional-rail) {
-        @include color-line-group($rr-purple);
+        @include color-line-group(base.$rr-purple);
     }
 
     &:global(.searching) {
@@ -134,7 +143,7 @@ $station-padding: 7px;
     display: flex;
     align-items: center;
 
-    > div {
+    >div {
         margin-left: 0.4em;
         width: 0.8em;
         height: 0.8em;
@@ -142,27 +151,27 @@ $station-padding: 7px;
         border-radius: 1em;
 
         &:global(.red) {
-            background-color: $red-line;
+            background-color: base.$red-line;
         }
 
         &:global(.orange) {
-            background-color: $orange-line;
+            background-color: base.$orange-line;
         }
 
         &:global(.blue) {
-            background-color: $blue-line;
+            background-color: base.$blue-line;
         }
 
         &:global(.green) {
-            background-color: $green-line;
+            background-color: base.$green-line;
         }
 
         &:global(.silver) {
-            background-color: $silver-line;
+            background-color: base.$silver-line;
         }
 
         &:global(.regional-rail) {
-            background-color: $rr-purple;
+            background-color: base.$rr-purple;
         }
     }
 }

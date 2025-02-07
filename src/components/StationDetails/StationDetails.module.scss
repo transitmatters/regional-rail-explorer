@@ -1,4 +1,5 @@
-@import '../../styles/base.scss';
+@use 'sass:color';
+@use '../../styles/base.scss';
 
 .stationDetails {
     flex-grow: 1;
@@ -8,15 +9,20 @@
 }
 
 .inner {
-    @include fill-to-max-width;
+    @include base.fill-to-max-width;
+
     display: grid;
     overflow: hidden;
     grid-template-areas: 'info primary';
     grid-template-columns: 300px 1fr;
-    box-shadow: $global-shadow;
+    box-shadow: base.$global-shadow;
     margin-top: 20px;
     background: white;
     flex-grow: 1;
+
+    @include base.mobile {
+        @include base.mobile-fill-to-max-width;
+    }
 
     h1 {
         margin: 0;
@@ -37,15 +43,17 @@
 .map {
     width: 300px;
     height: 300px;
-    background: desaturate(lightgreen, 30%);
+    background: color.adjust(lightgreen, $saturation: -30%);
 }
 
 .metadata {
     padding: 0;
     margin: 0;
     list-style: none;
+
     li {
         padding: 8px;
+
         &:nth-child(even) {
             background: #ddd;
         }
