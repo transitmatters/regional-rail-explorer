@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useLayoutEffect } from "react";
 
 interface UseSvgLayoutOptions {
     paddingX?: number;
@@ -11,7 +11,7 @@ export const useSvgLayout = (options: UseSvgLayoutOptions = {}) => {
     const [viewBox, setViewBox] = useState<undefined | string>(undefined);
     const [svg, setSvg] = useState<any>(null);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         if (svg) {
             const bbox = svg.getBBox();
             const x = bbox.x - paddingX;
