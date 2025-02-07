@@ -28,5 +28,5 @@ export const useIncrementingTime = (options: Options) => {
             intervalMs
         );
         return () => clearInterval(intervalHandle);
-    }, [earliest, latest, intervalMs, minutesPerTick]);
+    }, [setTime, earliest, latest, intervalMs, minutesPerTick]);
 };
