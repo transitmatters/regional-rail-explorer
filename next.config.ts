@@ -11,9 +11,10 @@ class WriteScenariosPlugin {
 }
 
 const getServerRuntimeConfig = (phase: string) => {
-    if (phase === PHASE_PRODUCTION_SERVER || PHASE_DEVELOPMENT_SERVER) {
+    if (phase === PHASE_PRODUCTION_SERVER || phase === PHASE_DEVELOPMENT_SERVER) {
         return { scenarios: loadScenariosFromFile() };
     }
+
     return {};
 };
 

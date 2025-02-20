@@ -4,19 +4,7 @@ import path from "path";
 import { loadGtfsNetwork } from "./network";
 import { stringify, parse } from "flatted";
 
-const getGtfsFilePath = (networkName: string): string => {
-    return path.resolve(process.cwd(), "data", networkName + ".tar.gz");
-};
-
-const getScenariosFilePath = () => {
-    return path.resolve(process.cwd(), "scenarios.json");
-};
-
-export const loadScenariosFromFile = () => {
-    return parse(fs.readFileSync("./scenarios.json", "utf8"));
-};
-
-const gtfsNetworksToRead = [
+const GTFS_NETWORKS = [
     {
         id: "present",
         name: "Today's commuter rail",
@@ -31,22 +19,29 @@ const gtfsNetworksToRead = [
     },
 ];
 
+const getGtfsFilePath = (networkName: string): string => {
+    const filePath = path.resolve(process.cwd(), "data", networkName + ".tar.gz");
+    return filePath;
+};
+
+export const loadScenariosFromFile = (): JSON => {
+    return parse(fs.readFileSync("./scenarios.json", "utf8"));
+};
+
 export const loadScenariosFromGtfs = () => {
-    return gtfsNetworksToRead.map((networkDetails) => {
-        return {
-            id: networkDetails.id,
-            name: networkDetails.name,
-            unifiedFares: networkDetails.unifiedFares,
-            network: loadGtfsNetwork(getGtfsFilePath(networkDetails.networkName)),
-        };
-    });
+    return GTFS_NETWORKS.map((networkDetails) => ({
+        id: networkDetails.id,
+        name: networkDetails.name,
+        unifiedFares: networkDetails.unifiedFares,
+        network: loadGtfsNetwork(getGtfsFilePath(networkDetails.networkName)),
+    }));
 };
 
 export const writeScenariosToFile = () => {
-    const scenariosFileIsUpToDate = gtfsNetworksToRead.every((network) => {
+    const scenariosFileIsUpToDate = GTFS_NETWORKS.every((network) => {
         try {
+            const scenariosFileStat = fs.statSync("./scenarios.json");
             const gtfsFileStat = fs.statSync(getGtfsFilePath(network.networkName));
-            const scenariosFileStat = fs.statSync(getScenariosFilePath());
 
             if (gtfsFileStat.mtime < scenariosFileStat.mtime) {
                 return true;
@@ -61,6 +56,8 @@ export const writeScenariosToFile = () => {
         return;
     }
 
+    const scenarios = loadScenariosFromGtfs();
+
     // Update scenarios.json if gtfs data has changed
-    fs.writeFileSync(getScenariosFilePath(), stringify(loadScenariosFromGtfs()));
+    fs.writeFileSync("./scenarios.json", stringify(scenarios));
 };

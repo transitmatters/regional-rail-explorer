@@ -1,20 +1,14 @@
 import getConfig from "next/config";
-import { parse } from "flatted";
 
 import { Scenario, scenarioIds } from "types";
 
 const {
-    serverRuntimeConfig: {
-        scenarios: scenariosFromConfig,
-        scenariosString: scenariosStringFromConfig,
-    },
+    serverRuntimeConfig: { scenarios: scenariosFromConfig },
 } = getConfig();
 
 const getScenarios = (): Scenario[] => {
     if (scenariosFromConfig) {
         return scenariosFromConfig;
-    } else if (scenariosStringFromConfig) {
-        return parse(scenariosStringFromConfig);
     }
     return [];
 };
