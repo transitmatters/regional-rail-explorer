@@ -20,7 +20,7 @@ export const useSvgLayout = (options: UseSvgLayoutOptions = {}) => {
             const height = bbox.height + paddingY * 2;
             setViewBox(`${x} ${y} ${width} ${height}`);
         }
-    }, [svg]);
+    }, [svg, paddingX, paddingY]);
 
     return {
         viewBox,
