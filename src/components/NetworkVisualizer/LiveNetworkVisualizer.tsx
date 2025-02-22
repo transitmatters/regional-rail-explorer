@@ -2,11 +2,11 @@ import React, { useState } from "react";
 
 import { useIncrementingTime } from "hooks";
 
-import NetworkVisualizer, { Props as NetworkVisualizerProps } from "./NetworkVisualizer";
+import { Props as NetworkVisualizerProps, NetworkVisualizer } from "./NetworkVisualizer";
 
 type Props = Omit<NetworkVisualizerProps, "elapsed">;
 
-const LiveNetworkVisualizer = (props: Props) => {
+export const LiveNetworkVisualizer: React.FunctionComponent<Props> = (props) => {
     const [elapsed, setElapsed] = useState(0);
 
     useIncrementingTime({
@@ -18,5 +18,3 @@ const LiveNetworkVisualizer = (props: Props) => {
 
     return <NetworkVisualizer elapsed={elapsed} {...props} />;
 };
-
-export default LiveNetworkVisualizer;

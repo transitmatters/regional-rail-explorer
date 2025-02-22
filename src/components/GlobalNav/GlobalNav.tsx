@@ -2,6 +2,7 @@ import React from "react";
 import classNames from "classnames";
 import { NextRouter, useRouter } from "next/router";
 import Link from "next/link";
+import Image from "next/image";
 import { FiArrowUpRight } from "react-icons/fi";
 
 import { logo } from "./logo";
@@ -62,7 +63,13 @@ const GlobalNav = React.forwardRef((_, ref: React.Ref<HTMLDivElement>) => {
                 {navLinks.map((link) => renderNavLink(link, router))}
             </div>
             <a className={styles.rightElement} href="//transitmatters.org" target="_blank">
-                <img className={styles.tmLogo} src="/tm-logo.svg" />
+                <Image
+                    className={styles.tmLogo}
+                    src="/tm-logo-big.svg"
+                    alt={"TransitMatters Logo"}
+                    width={200}
+                    height={20}
+                />
             </a>
         </div>
     );
