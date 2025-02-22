@@ -68,7 +68,7 @@ const Text = (props) => {
     return <text fill="white" {...props} />;
 };
 
-const JourneySummaryCard = (props: Props) => {
+const JourneySummaryCard: React.FunctionComponent<Props> = (props) => {
     const {
         enhanced,
         baseline,

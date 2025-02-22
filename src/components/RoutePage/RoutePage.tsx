@@ -10,7 +10,7 @@ interface Props {
     routeInfo: SerializableRouteInfo[];
 }
 
-const RoutePage = (props: Props) => {
+const RoutePage: React.FunctionComponent<Props> = (props) => {
     const { routeInfo } = props;
     const [enhanced] = routeInfo;
     return (

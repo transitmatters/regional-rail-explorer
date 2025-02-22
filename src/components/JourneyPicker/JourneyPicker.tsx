@@ -68,7 +68,7 @@ const LabeledControl = ({ label, children, className = "" }) => {
     );
 };
 
-const JourneyPicker = (props: Props) => {
+const JourneyPicker: React.FunctionComponent<Props> = (props) => {
     const {
         day,
         fromStationId,

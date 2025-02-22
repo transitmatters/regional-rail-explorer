@@ -7,7 +7,7 @@ type Props = {
     cool?: boolean;
 };
 
-const PowerText = (props: Props) => {
+const PowerText: React.FunctionComponent<Props> = (props) => {
     const { children, cool = false } = props;
     return (
         <div className={styles.outer}>
