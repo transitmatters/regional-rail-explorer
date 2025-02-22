@@ -24,7 +24,7 @@ const getPersonProps = (position: number, height: number, layer: number) => {
     };
 };
 
-const CrowdingIllustration = (props: Props) => {
+export const CrowdingIllustration: React.FunctionComponent<Props> = (props) => {
     const { crowding, height: totalHeight = 50, perLayer = 15 } = props;
     const totalLayers = Math.ceil(crowding / perLayer);
     const random = Random.clone("yes");
@@ -57,5 +57,3 @@ const CrowdingIllustration = (props: Props) => {
         </div>
     );
 };
-
-export default CrowdingIllustration;

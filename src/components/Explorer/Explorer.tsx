@@ -38,7 +38,7 @@ type Props = {
     arrivals: null | ArrivalsInfo;
 };
 
-const Explorer = (props: Props) => {
+const Explorer: React.FunctionComponent<Props> = (props) => {
     const { journeys: initialJourneys, arrivals: initialArrivals } = props;
     const [
         { fromStationId, toStationId, day, time, navigationKind = "depart-at", reverse = false },

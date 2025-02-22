@@ -131,7 +131,7 @@ const getTripsProgress = (trips: RouteTrips, networkElapsed: Duration, buffer: D
     return tripsProgress;
 };
 
-const NetworkVisualizer = (props: Props) => {
+export const NetworkVisualizer: React.FunctionComponent<Props> = (props) => {
     const {
         className,
         curveRadius,
@@ -196,5 +196,3 @@ const NetworkVisualizer = (props: Props) => {
         </svg>
     );
 };
-
-export default NetworkVisualizer;

@@ -19,7 +19,7 @@ interface Props {
     showArrivals?: boolean;
 }
 
-const DeparturePicker = (props: Props) => {
+const DeparturePicker: React.FunctionComponent<Props> = (props) => {
     const {
         baselineArrivals,
         enhancedArrivals,

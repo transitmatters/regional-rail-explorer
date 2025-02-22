@@ -9,7 +9,7 @@ interface Props {
     disabled: boolean;
 }
 
-const DeparturePickerChrome = (props: Props) => {
+const DeparturePickerChrome: React.FunctionComponent<Props> = (props) => {
     const { indicatorPositionFraction, children, disabled } = props;
 
     const renderIndicator = () => {

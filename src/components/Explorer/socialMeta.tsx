@@ -45,7 +45,7 @@ const getDescription = (journey: JourneyInfo) => {
     return `Trip from ${startStation} to ${endStation} in ${durationString}`;
 };
 
-const getSocialMeta = (props: Props) => {
+const getSocialMeta: React.FunctionComponent<Props> = (props) => {
     const { journeyParams, journeys } = props;
     const enhanced = journeys && journeys[1];
     const description = enhanced && getDescription(enhanced);

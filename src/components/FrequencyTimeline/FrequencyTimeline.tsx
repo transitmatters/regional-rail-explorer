@@ -40,7 +40,7 @@ const getTicks = (range: NetworkTimeRange, ticksPerHour: number) => {
     return ticks;
 };
 
-const FrequencyTimeline = (props: Props) => {
+const FrequencyTimeline: React.FunctionComponent<Props> = (props) => {
     const {
         timeRange,
         baselineArrivals,

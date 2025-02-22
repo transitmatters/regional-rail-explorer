@@ -34,7 +34,7 @@ const selectItems = [
     { id: "phase-one", label: "Regional Rail" },
 ];
 
-const LiveRouteVisualizer = (props: Props) => {
+const LiveRouteVisualizer: React.FunctionComponent<Props> = (props) => {
     const { routeInfo, initialTime = null } = props;
     const [baseline, enhanced] = routeInfo;
     const [scenario, setScenario] = useState("present");

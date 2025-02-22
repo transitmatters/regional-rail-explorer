@@ -1,6 +1,6 @@
 import React from "react";
 
-import CrowdingIllustration from "./CrowdingIllustration";
+import { CrowdingIllustration } from "components";
 
 export default {
     title: "CrowdingIllustration",

@@ -8,7 +8,7 @@ type Props = {
     className?: string;
 };
 
-const OverviewCircle = (props: Props) => {
+const OverviewCircle: React.FunctionComponent<Props> = (props) => {
     const { children, className } = props;
 
     return (

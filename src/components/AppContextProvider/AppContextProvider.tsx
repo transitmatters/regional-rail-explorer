@@ -23,7 +23,7 @@ type Props = {
     children: React.ReactNode;
 };
 
-const AppContextProvider = (props: Props) => {
+const AppContextProvider: React.FunctionComponent<Props> = (props) => {
     const { userAgentAppearsMobile, children } = props;
     const [isMobile, setIsMobile] = useState(userAgentAppearsMobile);
 

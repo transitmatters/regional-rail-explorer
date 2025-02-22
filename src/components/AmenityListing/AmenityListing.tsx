@@ -38,7 +38,7 @@ type Props = {
     absent?: AmenityName[];
 };
 
-const AmenityListing = (props: Props) => {
+const AmenityListing: React.FunctionComponent<Props> = (props) => {
     const { present = [], absent = [] } = props;
 
     const renderAmenity = (amenity: AmenityName, present: boolean) => {

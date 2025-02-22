@@ -1,9 +1,5 @@
 module.exports = {
-    env: {
-        browser: true,
-        es2020: true,
-        node: true,
-    },
+    env: { browser: true, es2020: true, node: true },
     extends: [
         "eslint:recommended",
         "plugin:prettier/recommended",
@@ -13,13 +9,7 @@ module.exports = {
         "plugin:storybook/recommended",
     ],
     parser: "@typescript-eslint/parser",
-    parserOptions: {
-        ecmaFeatures: {
-            jsx: true,
-        },
-        ecmaVersion: 11,
-        sourceType: "module",
-    },
+    parserOptions: { ecmaFeatures: { jsx: true }, ecmaVersion: 11, sourceType: "module" },
     plugins: ["react", "prettier", "@typescript-eslint", "deprecate"],
     rules: {
         "react/display-name": 0,
@@ -40,12 +30,18 @@ module.exports = {
         "@typescript-eslint/no-use-before-define": 0,
         "@typescript-eslint/explicit-module-boundary-types": 0,
         "no-constant-condition": 0,
-        "import/no-anonymous-default-export": 0,
+        "import/no-default-export": "warn",
+        "import/no-anonymous-default-export": "warn",
         "prettier/prettier": "error",
     },
-    settings: {
-        react: {
-            version: "detect",
+    overrides: [
+        {
+            files: ["**/*.stories.tsx"],
+            rules: {
+                "import/no-default-export": ["off"],
+                "import/no-anonymous-default-export": ["off"],
+            },
         },
-    },
+    ],
+    settings: { react: { version: "detect" } },
 };

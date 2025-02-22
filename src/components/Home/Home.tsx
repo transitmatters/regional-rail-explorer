@@ -6,6 +6,7 @@ import { IoMdTimer } from "react-icons/io";
 import { MdGridOn } from "react-icons/md";
 import { CgChevronDoubleDown } from "react-icons/cg";
 import smoothscroll from "smoothscroll-polyfill";
+import Image from "next/image";
 
 import { useAppContext, useViewport } from "hooks";
 import { LiveNetworkVisualizer, PowerText, SuggestedJourneys } from "components";
@@ -14,7 +15,7 @@ import OverviewCircle from "./OverviewCircle";
 
 import styles from "./Home.module.scss";
 
-const Home = () => {
+export const Home: React.FunctionComponent = () => {
     const { viewportHeight } = useViewport();
     const { isMobile } = useAppContext();
     const [initialViewportHeight, setInitialViewportHeight] = useState(viewportHeight);
@@ -56,7 +57,13 @@ const Home = () => {
         <div className={styles.home}>
             <div className={styles.screen}>
                 <a href="//transitmatters.org">
-                    <img className={styles.tmLogo} src="/tm-logo.svg" />
+                    <Image
+                        className={styles.tmLogo}
+                        src="/tm-logo-big.svg"
+                        alt={"TransitMatters Logo"}
+                        width={300}
+                        height={30}
+                    />
                 </a>
                 {viewportHeight && (
                     <LiveNetworkVisualizer
@@ -137,5 +144,3 @@ const Home = () => {
         </div>
     );
 };
-
-export default Home;

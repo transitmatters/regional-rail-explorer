@@ -16,7 +16,7 @@ type Props = {
 
 const defaultTimeRange = [0, 24 * HOUR - 1];
 
-const NumericTimePicker = (props: Props) => {
+const NumericTimePicker: React.FunctionComponent<Props> = (props) => {
     const { time, onSelectTime, timeRange = defaultTimeRange, className } = props;
     const [capturingValue, setCapturingValue] = useState("");
 

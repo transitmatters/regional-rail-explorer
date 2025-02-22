@@ -16,7 +16,7 @@ type Props = {
     meta?: React.ReactNode;
 };
 
-const AppFrame = (props: Props) => {
+export const AppFrame: React.FunctionComponent<Props> = (props) => {
     const { controls = null, meta = null, children, containerClassName } = props;
     const { globalNavRef, controlsRef } = useAppContext();
     return (
@@ -32,5 +32,3 @@ const AppFrame = (props: Props) => {
         </div>
     );
 };
-
-export default AppFrame;

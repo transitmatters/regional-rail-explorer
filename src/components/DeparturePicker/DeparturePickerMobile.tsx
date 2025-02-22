@@ -41,7 +41,7 @@ const getOffsetForTime = (
     return 0;
 };
 
-const DeparturePickerMobile = (props: Props) => {
+const DeparturePickerMobile: React.FunctionComponent<Props> = (props) => {
     const {
         disabled = false,
         onSelectTime,
