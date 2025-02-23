@@ -21,7 +21,7 @@
     "RREInstance": {
       "Type": "AWS::EC2::Instance",
       "Properties": {
-        "ImageId": "ami-070650c005cce4203",
+        "ImageId": "ami-0a7a4e87939439934",
         "InstanceType": "t4g.small",
         "KeyName": "transitmatters-rre",
         "PropagateTagsToVolumeOnCreation": true,
