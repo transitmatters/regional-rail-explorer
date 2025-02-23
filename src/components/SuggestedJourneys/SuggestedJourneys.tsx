@@ -90,7 +90,7 @@ const maybeCapitalizeDay = (day: NetworkDayKind) => {
     return day.charAt(0).toUpperCase() + day.slice(1);
 };
 
-const SuggestedJourneys = (props: Props) => {
+const SuggestedJourneys: React.FunctionComponent<Props> = (props) => {
     const { suggestedJourneys = defaultSuggestedJourneys } = props;
 
     const renderedSuggestedJourneys = suggestedJourneys.map((journey, i) => {

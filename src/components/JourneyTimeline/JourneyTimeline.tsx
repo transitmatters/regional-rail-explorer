@@ -175,7 +175,7 @@ const TransferSegment = (props: {
     );
 };
 
-const JourneyTimeline = (props: Props) => {
+const JourneyTimeline: React.FunctionComponent<Props> = (props) => {
     const { segments } = props;
     if (segments.length === 0) {
         return null;

@@ -15,7 +15,7 @@ type Props = {
     infillIndicatorUsesTextColor?: boolean; // used for stations on selectedLine in StationListing
 };
 
-const StationName = (props: Props) => {
+const StationName: React.FunctionComponent<Props> = (props) => {
     const {
         station,
         onRouteId,

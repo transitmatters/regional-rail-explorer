@@ -16,7 +16,7 @@ type Props = {
     stationScenarioInfo: StationScenarioInfo[];
 };
 
-const StationDetail = (props: Props) => {
+const StationDetail: React.FunctionComponent<Props> = (props) => {
     const { stationScenarioInfo } = props;
     const [baseline] = stationScenarioInfo;
     return (

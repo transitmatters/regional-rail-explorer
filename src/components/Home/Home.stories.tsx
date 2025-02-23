@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import Home from "./Home";
+import { Home } from "components";
 
 export default {
     title: "Home",

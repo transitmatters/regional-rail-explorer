@@ -1,15 +1,15 @@
 export { default as AppContextProvider, AppContext } from "./AppContextProvider";
 export type { AppContextType } from "./AppContextProvider";
-export { default as AppFrame } from "./AppFrame";
+export { AppFrame } from "./AppFrame";
 export { default as AmenityListing } from "./AmenityListing/AmenityListing";
 export { default as Button } from "./Button/Button";
-export { default as CrowdingIllustration } from "./CrowdingIllustration/CrowdingIllustration";
+export { CrowdingIllustration } from "./CrowdingIllustration/CrowdingIllustration";
 export { default as DeparturePicker } from "./DeparturePicker";
 export { default as Explorer } from "./Explorer/Explorer";
 export { default as FrequencyHistogram } from "./FrequencyHistogram/FrequencyHistogram";
 export { default as FrequencyTimeline } from "./FrequencyTimeline/FrequencyTimeline";
 export { default as GlobalNav } from "./GlobalNav/GlobalNav";
-export { default as Home } from "./Home/Home";
+export { Home } from "./Home/Home";
 export { default as JourneyComparison } from "./JourneyComparison/JourneyComparison";
 export { default as JourneyPicker } from "./JourneyPicker/JourneyPicker";
 export { default as JourneyTimeline } from "./JourneyTimeline/JourneyTimeline";

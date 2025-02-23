@@ -8,7 +8,7 @@ The Regional Rail Explorer is a tool to demonstrate the impact of Regional Rail 
 
 ## Setup
 Ensure you have the following dependencies installed:
- - [`node`](https://nodejs.org/en/) `~20.x`
+ - [`node`](https://nodejs.org/en/) `~22.x`
  - [`npm`](https://www.npmjs.com/) `>=10.x`
 
 ### Local Deployment

@@ -64,7 +64,7 @@ const createTripIdToRoutePatternMap = (
     return map;
 };
 
-const RouteVisualizer = (props: Props) => {
+const RouteVisualizer: React.FunctionComponent<Props> = (props) => {
     const {
         branchMap,
         stationNames,

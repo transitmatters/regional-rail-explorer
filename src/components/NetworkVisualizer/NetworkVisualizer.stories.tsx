@@ -1,27 +1,40 @@
 import React from "react";
-import { number, withKnobs } from "@storybook/addon-knobs";
 
 import { DAY, MINUTE } from "time";
 
-import NetworkVisualizer from "./NetworkVisualizer";
-import { LiveNetworkVisualizer } from "components";
+import { LiveNetworkVisualizer, NetworkVisualizer } from "components";
 
 export default {
     title: "NetworkVisualizer",
     component: NetworkVisualizer,
-    decorators: [withKnobs],
 };
 
-export const Default = () => (
-    <NetworkVisualizer
-        curveRadius={number("Curve radius", 10, {
-            range: true,
+export const Default = ({ curveRadius, elapsed }) => (
+    <NetworkVisualizer curveRadius={curveRadius} elapsed={elapsed} />
+);
+
+Default.args = {
+    curveRadius: 10,
+    elapsed: 0,
+};
+
+Default.argTypes = {
+    curveRadius: {
+        control: {
+            type: "range",
             min: 5,
             max: 50,
             step: 1,
-        })}
-        elapsed={number("Seconds elapsed", 0, { range: true, min: 0, max: DAY, step: MINUTE })}
-    />
-);
+        },
+    },
+    elapsed: {
+        control: {
+            type: "range",
+            min: 0,
+            max: DAY,
+            step: MINUTE,
+        },
+    },
+};
 
 export const Live = () => <LiveNetworkVisualizer />;
