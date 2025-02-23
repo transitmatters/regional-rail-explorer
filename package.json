@@ -17,7 +17,7 @@
     "@ridi/object-case-converter": "^2.0.4",
     "bezier-js": "^6.1.4",
     "classnames": "^2.5.1",
-    "csv-parse": "^4.12.0",
+    "csv-parse": "^5.6.0",
     "device-detector-js": "^3.0.3",
     "fast-memoize": "^2.5.2",
     "flatted": "^3.3.3",
