@@ -43,15 +43,14 @@
     - name: Add nodejs 22.x ppa for apt repo
       become: yes
       become_user: root
-      apt_repository:
-        repo: deb https://deb.nodesource.com/node_22.x focal main
-        update_cache: yes
+      shell: curl -fsSL https://deb.nodesource.com/setup_22.x | sudo bash - 
 
     - name: Install nodejs
       become: yes
       become_user: root
       ansible.builtin.apt:
         name: nodejs
+        state: present
 
     - name: get latest github repo
       git:
