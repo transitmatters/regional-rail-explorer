@@ -26,6 +26,12 @@ type Props = {
 
 const colors = ["Red", "Orange", "Blue", "Green", "Silver"];
 const isColorLine = colors.includes.bind(colors);
+const lineName = (line: string) => {
+    if (line === "NewBedford") {
+        return "New Bedford";
+    }
+    return line;
+};
 const noop = () => {};
 const focusSearch = (el) => el?.focus();
 
@@ -148,7 +154,7 @@ const StationListing = React.forwardRef((props: Props, ref: any) => {
                                 render={<li />}
                                 disabled={true}
                             >
-                                {line} Line
+                                {lineName(line)} Line
                             </CompositeItem>
                             {stations.map((station) => (
                                 <CompositeItem
