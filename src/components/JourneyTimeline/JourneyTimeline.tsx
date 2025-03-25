@@ -156,6 +156,12 @@ const TransferSegment = (props: {
                                 Arrive {waitDurationRounded}{" "}
                                 {pluralize("minute", waitDurationRounded)} early
                             </>
+                        ) : waitDurationRounded > 60 ? (
+                            <>
+                                {Math.floor(waitDurationRounded / 60)}{" "}
+                                {pluralize("hour", Math.floor(waitDurationRounded / 60))}{" "}
+                                {waitDurationRounded % 60} minute wait
+                            </>
                         ) : (
                             <>{waitDurationRounded} minute wait</>
                         )}

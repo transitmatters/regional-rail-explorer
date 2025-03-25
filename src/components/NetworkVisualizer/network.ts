@@ -22,6 +22,7 @@ export const prerenderNetwork = (curveRadius = 10) => {
     const toQuincyCenter = [southStation, line(50), ccw, line(60)] as const;
     const toBraintree = [...toQuincyCenter, cw, line(20)] as const;
     const toPlymouthKingstonSplit = [...toBraintree, ccw, line(120), ccw, line(20)] as const;
+    const toMiddleborough = [...toBraintree, line(100), curve(90), line(10), curve(-90)] as const;
 
     const rockport: RoutePatternDescriptor = {
         shape: [...toBeverly, line(100)],
@@ -78,8 +79,13 @@ export const prerenderNetwork = (curveRadius = 10) => {
         stationIds: [],
     };
 
-    const middleborough: RoutePatternDescriptor = {
-        shape: [...toBraintree, line(140)],
+    const newbedford: RoutePatternDescriptor = {
+        shape: [...toMiddleborough, line(40)],
+        stationIds: [],
+    };
+
+    const fallriver: RoutePatternDescriptor = {
+        shape: [...toMiddleborough, cw, line(35)],
         stationIds: [],
     };
 
@@ -108,7 +114,8 @@ export const prerenderNetwork = (curveRadius = 10) => {
         worcester,
         providence,
         stoughton,
-        middleborough,
+        newbedford,
+        fallriver,
         plymouth,
         kingston,
         greenbush,

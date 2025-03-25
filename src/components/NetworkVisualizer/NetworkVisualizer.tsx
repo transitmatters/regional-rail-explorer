@@ -98,7 +98,7 @@ const tripsByRoutePatternId: Record<string, RouteTrips> = {
         headwayMinutes: 30,
         offsetMinutes: 15,
     },
-    middleborough: {
+    newbedford: {
         durationHours: 1,
         headwayMinutes: 30,
         offsetMinutes: 2,
