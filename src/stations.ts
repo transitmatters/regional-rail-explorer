@@ -129,8 +129,13 @@ export const stationsByLine: Record<string, Station[]> = {
         { id: "place-kingston-jct", name: "Kingston Junction" },
         { id: "place-plymouth-center", name: "Plymouth Center" },
     ],
-    Middleborough: [
-        { id: "place-MM-0356", name: "Middleborough/Lakeville" },
+    NewBedford: [
+        { id: "place-NBM-0546", name: "New Bedford" },
+        { id: "place-NBM-0523", name: "Church Street" },
+        { id: "place-FRS-0109", name: "Fall River Depot" },
+        { id: "place-FRS-0054", name: "Freetown" },
+        { id: "place-NBM-0374", name: "East Taunton" },
+        { id: "place-MBS-0350", name: "Middleborough" },
         { id: "place-MM-0277", name: "Bridgewater" },
         { id: "place-MM-0219", name: "Campello" },
         { id: "place-MM-0200", name: "Brockton" },
