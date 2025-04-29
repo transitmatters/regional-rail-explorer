@@ -49,5 +49,8 @@ inventory
 # private keys
 *.pem
 
+# IDE files
 /.idea
 *storybook.log
+.cursor
+

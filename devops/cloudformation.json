@@ -17,6 +17,12 @@
       "Description": "The ACM ARN of the SSL certificate."
     }
   },
+  "Tags": [
+    {
+      "Key": "service",
+      "Value": "regional-rail-explorer"
+    }
+  ],
   "Resources": {
     "RREInstance": {
       "Type": "AWS::EC2::Instance",
