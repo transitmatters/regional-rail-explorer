@@ -27,6 +27,11 @@ const navLinks: NavLink[] = [
         href: "mailto:labs@transitmatters.org?subject=[Regional%20Rail%20Explorer%20Feedback]%20-%20",
         key: "feedback",
     },
+    {
+        title: "Donate",
+        href: "https://transitmatters.org/donate",
+        key: "donate",
+    },
 ];
 
 const renderNavLink = (link: NavLink, router: NextRouter) => {
