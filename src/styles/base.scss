@@ -10,6 +10,7 @@ $rr-light: color.mix($rr-purple, white, 30%);
 $tm-red: #d31a2b;
 
 $red-line: #da291c;
+$mattapan-line: #da291c;
 $orange-line: #ed8b00;
 $green-line: #00843d;
 $blue-line: #003da5;
@@ -57,6 +58,14 @@ $global-shadow: 0px 2px 2px rgba(black, 0.2);
 
     :global(.bkg-silver) {
         background: $silver-line;
+    }
+
+    :global(.text-mattapan) {
+        color: $mattapan-line;
+    }
+
+    :global(.bkg-mattapan) {
+        background: $mattapan-line;
     }
 
     :global(.text-regional-rail) {

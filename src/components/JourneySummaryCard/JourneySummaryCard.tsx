@@ -18,6 +18,7 @@ const routeColors = {
     Orange: "#ed8b00",
     Green: "#00843d",
     Silver: "#7c878e",
+    Mattapan: "#da291c",
 };
 
 const getColorForRouteId = (routeId: string) => {
