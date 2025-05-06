@@ -130,6 +130,10 @@ $station-padding: 7px;
         @include color-line-group(base.$silver-line);
     }
 
+    &:global(.mattapan) {
+        @include color-line-group(base.$mattapan-line);
+    }
+
     &:global(.regional-rail) {
         @include color-line-group(base.$rr-purple);
     }
