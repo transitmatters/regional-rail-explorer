@@ -30,10 +30,10 @@ const scoreState = (state: NavigationState) => {
         boardedRegionalRailCount,
         boardedRoutePatternIds,
         time,
-        context: { unifiedFares, initialTime },
+        context: { initialTime },
     } = state;
     // It's prohibitively expensive to take CR-CR trips without unified fares
-    const regionalRailOveruseWeight = unifiedFares ? 0.0 : 0.5;
+    const regionalRailOveruseWeight = 0.0; // for Expansion Explorer, we weight all modes evenly
     const regionalRailOverusePenalty =
         regionalRailOveruseWeight * (Math.max(1, boardedRegionalRailCount) - 1);
     // Transferring many times adds variability and is rarely as smooth as it looks on paper.
