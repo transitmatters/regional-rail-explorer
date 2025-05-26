@@ -13,9 +13,9 @@ const GTFS_NETWORKS = [
     },
     {
         id: "regional_rail",
-        name: "Electrified regional rail",
+        name: "PMT25 Expansion",
         unifiedFares: true,
-        networkName: "gtfs-regional-rail",
+        networkName: "gtfs-expansion",
     },
 ];
 

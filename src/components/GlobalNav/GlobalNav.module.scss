@@ -8,16 +8,16 @@ $logo-colors: base.$rr-purple, base.$rr-gold, white;
     color: white;
     align-items: center;
     width: 100%;
-    height: 50px;
+    height: 65px;
     box-sizing: border-box;
     overflow: hidden;
-    background: base.$darker-rr-purple;
+    background: #202020;
 }
 
 .logoContainer {
     display: flex;
     align-items: center;
-    margin-left: 15px;
+    margin-left: 0;
     cursor: pointer;
 
     >.text {
@@ -52,7 +52,11 @@ $logo-colors: base.$rr-purple, base.$rr-gold, white;
 }
 
 .logo {
-    height: 34px;
+    height: 60px;
+    width: 500px;
+
+    // drop shadow
+    filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
 
     @for $i from 1 through list.length($logo-colors) {
         path:nth-child(#{$i}) {
@@ -87,7 +91,7 @@ $logo-colors: base.$rr-purple, base.$rr-gold, white;
     border-top: 4px solid transparent;
 
     &.active {
-        background: base.$rr-purple-secondary;
+        background: #404040;
     }
 
     &:not(.active) {
