@@ -58,10 +58,10 @@ const GlobalNav = React.forwardRef((_, ref: React.Ref<HTMLDivElement>) => {
             <Link href="/" legacyBehavior>
                 <div className={styles.logoContainer}>
                     {logo}
-                    <div className={styles.text}>
+                    {/* <div className={styles.text}>
                         <div className={styles.top}>Regional Rail</div>
                         <div className={styles.bottom}>Explorer</div>
-                    </div>
+                    </div> */}
                 </div>
             </Link>
             <div className={styles.links}>

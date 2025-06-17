@@ -1,7 +1,7 @@
 @use 'styles/base.scss';
 
 $top-color: base.$rr-gold;
-$bottom-color: base.$rr-purple-secondary;
+$bottom-color: base.$slate-200;
 
 @mixin picker-triangle($color, $size: 8px) {
     position: absolute;

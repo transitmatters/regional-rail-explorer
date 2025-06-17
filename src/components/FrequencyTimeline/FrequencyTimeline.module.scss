@@ -69,11 +69,11 @@ $mobile-arrival-width: 6px;
 }
 
 .baselineArrival {
-    background: base.$rr-light;
+    background: base.$slate-100;
     @include arrival;
 }
 
 .enhancedArrival {
-    background: base.$rr-purple;
+    background: base.$slate-300;
     @include arrival;
 }
