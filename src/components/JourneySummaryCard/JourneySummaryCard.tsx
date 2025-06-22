@@ -1,4 +1,5 @@
 import React from "react";
+import { getColorCodeForRouteId } from "routes";
 import { MINUTE, stringifyDuration, stringifyTime } from "time";
 
 import { JourneyInfo, JourneyTravelSegment, NetworkDayKind } from "types";
@@ -10,27 +11,6 @@ type Props = {
     travelSegmentThickness?: number;
     width?: number;
     padding?: number;
-};
-
-const routeColors = {
-    Red: "#da291c",
-    Blue: "#003da5",
-    Orange: "#ed8b00",
-    Green: "#00843d",
-    Silver: "#7c878e",
-};
-
-const getColorForRouteId = (routeId: string) => {
-    if (routeId.startsWith("CR-")) {
-        return "#80276c";
-    }
-    if (routeId.startsWith("Green-")) {
-        return routeColors.Green;
-    }
-    if (routeId.startsWith("7")) {
-        return routeColors.Silver;
-    }
-    return routeColors[routeId];
 };
 
 const maybeCapitalizeDay = (day: NetworkDayKind) => {
@@ -156,7 +136,7 @@ const JourneySummaryCard: React.FunctionComponent<Props> = (props) => {
                 x + width,
                 !shouldSkipLeftStation,
                 shouldShowRightStation,
-                getColorForRouteId(routeId)
+                getColorCodeForRouteId(routeId)
             );
             lines.push(lineHere);
             stations.push(...stationsHere);

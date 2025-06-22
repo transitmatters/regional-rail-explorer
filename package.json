@@ -1,10 +1,11 @@
 {
-  "name": "@transitmatters/regional-rail-explorer",
-  "version": "1.0.0",
+  "name": "@transitmatters/expansion-explorer",
+  "version": "2.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:prod": "NODE_OPTIONS='--max-old-space-size=1536' NEXT_DISABLE_TYPECHECK=1 next build",
     "start": "next start -p $PORT",
     "storybook": "storybook dev -p 6006 -c .storybook",
     "lint": "eslint src",
@@ -22,7 +23,7 @@
     "fast-memoize": "^2.5.2",
     "flatted": "^3.3.3",
     "heap": "^0.2.7",
-    "next": "^15.1.7",
+    "next": "^15.3.3",
     "query-string": "^9.1.1",
     "random": "^5.1.1",
     "react": "^18.3.1",
@@ -57,7 +58,7 @@
     "babel-preset-react-app": "^10.1.0",
     "css-loader": "^7.1.2",
     "eslint": "^8.57.0",
-    "eslint-config-next": "^15.1.7",
+    "eslint-config-next": "^15.3.3",
     "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-deprecate": "^0.8.5",
     "eslint-plugin-prettier": "^5.2.3",
@@ -70,8 +71,8 @@
     "typescript": "~5.7.3"
   },
   "engines": {
-    "node": ">=22.2.0",
-    "npm": ">=10.2.0"
+    "node": ">=22.3.0",
+    "npm": ">=10.3.0"
   },
   "volta": {
     "node": "22.15.0"

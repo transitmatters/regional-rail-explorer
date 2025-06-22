@@ -25,3 +25,5 @@ jobs:
         run: npm ci
       - name: Lint frontend code with ESLint
         run: npm run lint
+      - name: Run typecheck
+        run: npm run typecheck

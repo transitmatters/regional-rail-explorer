@@ -43,7 +43,7 @@ const defaultSuggestedJourneys: SuggestedJourneyParams[] = [
         navigationKind: "depart-at",
     },
     {
-        from: "Lynn Interim",
+        from: "Lynn",
         to: "Charles/MGH",
         time: "15:15",
         day: "weekday",

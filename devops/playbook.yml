@@ -1,5 +1,5 @@
 ---
-- name: deploy RRE on EC2
+- name: deploy Expansion Explorer on EC2
   hosts: all
   remote_user: ubuntu
   become_user: ubuntu
@@ -51,19 +51,34 @@
       ansible.builtin.apt:
         name: nodejs
         state: present
+        update_cache: yes
+
+    - name: Install Git LFS
+      become: yes
+      become_user: root 
+      ansible.builtin.apt:
+        name: git-lfs
+        state: present
+        update_cache: yes
 
     - name: get latest github repo
       git:
-        repo: https://github.com/transitmatters/regional-rail-explorer.git
-        dest: /home/ubuntu/regional-rail-explorer
+        repo: https://github.com/transitmatters/expansion-explorer.git
+        dest: /home/ubuntu/expansion-explorer
         force: yes
+        version: "{{ branch | default('main') }}"
+
+    - name: pull git LFS files
+      command: git lfs pull
+      args:
+        chdir: /home/ubuntu/expansion-explorer
 
     - name: copy systemd service file
       become: yes
       become_user: root
       copy:
         src: systemd.conf
-        dest: /etc/systemd/system/regional-rail-explorer.service
+        dest: /etc/systemd/system/expansion-explorer.service
 
     - name: Install nginx
       become: yes
@@ -89,19 +104,19 @@
     - name: install app dependencies
       shell: npm ci
       args:
-        chdir: /home/ubuntu/regional-rail-explorer
+        chdir: /home/ubuntu/expansion-explorer
 
     - name: build application
-      shell: npm run build
+      shell: npm run build:prod
       args:
-        chdir: /home/ubuntu/regional-rail-explorer
+        chdir: /home/ubuntu/expansion-explorer
 
     - name: Make sure a service unit is running and enabled
       become: yes
       become_user: root
       ansible.builtin.systemd_service:
         state: started
-        name: regional-rail-explorer
+        name: expansion-explorer
         enabled: true
 
     - name: restart service
@@ -110,4 +125,4 @@
       ansible.builtin.systemd_service:
         state: restarted
         daemon_reload: true
-        name: regional-rail-explorer
+        name: expansion-explorer

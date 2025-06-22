@@ -7,13 +7,13 @@ import { stringify, parse } from "flatted";
 const GTFS_NETWORKS = [
     {
         id: "present",
-        name: "Today's commuter rail",
+        name: "Today's MBTA",
         unifiedFares: false,
         networkName: "gtfs-present",
     },
     {
         id: "regional_rail",
-        name: "PMT25 Expansion",
+        name: "Expanded MBTA Service",
         unifiedFares: true,
         networkName: "gtfs-expansion",
     },

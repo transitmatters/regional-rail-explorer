@@ -3,7 +3,7 @@ import classNames from "classnames";
 
 import { JourneyInfo, JourneyTransferSegment, Duration, JourneyTravelSegment } from "types";
 import { HOUR, stringifyDuration } from "time";
-import { isRegionalRailRouteId, isSilverLineRouteId } from "routes";
+import { getColorCodeForRouteId, isSilverLineRouteId } from "routes";
 
 import { ComparisonProps } from "./types";
 import ComparisonRow from "./ComparisonRow";
@@ -24,16 +24,12 @@ const getFirstStationAndRouteFromJourney = (journey: JourneyInfo) => {
 };
 
 const getStationIdToCompare = (baseline: JourneyInfo, enhanced: JourneyInfo) => {
-    const [
-        { routeId: baselineRouteId, stationId: baselineStationId },
-        { routeId: enhancedRouteId, stationId: enhancedStationId },
-    ] = [baseline, enhanced].map(getFirstStationAndRouteFromJourney);
+    const [{ stationId: baselineStationId }, { stationId: enhancedStationId }] = [
+        baseline,
+        enhanced,
+    ].map(getFirstStationAndRouteFromJourney);
 
-    const eitherJourneyStartsWithRegionalRail =
-        (baselineRouteId && isRegionalRailRouteId(baselineRouteId)) ||
-        (enhancedRouteId && isRegionalRailRouteId(enhancedRouteId));
-
-    return eitherJourneyStartsWithRegionalRail ? baselineStationId || enhancedStationId : null;
+    return baselineStationId || enhancedStationId || null;
 };
 
 const FrequencyInfo = (props: FrequencyInfoProps) => {
@@ -79,10 +75,11 @@ const FrequencyInfo = (props: FrequencyInfoProps) => {
                 />
                 {shownTimes.map((time, index) => {
                     const left = 50 * (1 + (time - now) / halfInterval);
+                    const color = getColorCodeForRouteId(firstTravelSegment.routeId);
                     return (
                         <div
                             key={index}
-                            style={{ left: `${left}%` }}
+                            style={{ left: `${left}%`, color: color }}
                             className={classNames(
                                 "time",
                                 index === nextHeadwayIndex && "missed",

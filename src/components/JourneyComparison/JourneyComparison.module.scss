@@ -229,14 +229,14 @@
             width: 8px;
             height: 8px;
             border-radius: 10px;
-            background: base.$rr-purple;
+            background: currentColor;
 
             &:global(.missed) {
-                box-shadow: 0 0 0 4px rgba(base.$rr-purple, 0.5);
+                box-shadow: 0 0 0 4px color-mix(in srgb, currentColor 50%, transparent);
             }
 
             &:global(.caught) {
-                box-shadow: 0 0 0 4px rgba(base.$rr-purple, 0.5);
+                box-shadow: 0 0 0 4px color-mix(in srgb, currentColor 50%, transparent);
             }
         }
     }

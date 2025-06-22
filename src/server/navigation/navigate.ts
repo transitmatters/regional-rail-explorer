@@ -36,8 +36,11 @@ const scoreState = (state: NavigationState) => {
     const regionalRailOveruseWeight = 0.0; // for Expansion Explorer, we weight all modes evenly
     const regionalRailOverusePenalty =
         regionalRailOveruseWeight * (Math.max(1, boardedRegionalRailCount) - 1);
+
+    // If the trip can be made without a transfer, we should do that, unless the transfer saves us a lot of time.
     // Transferring many times adds variability and is rarely as smooth as it looks on paper.
-    const tooManyTransfersPenalty = 180 * Math.max(0, boardedRoutePatternIds.size - 2);
+    const tooManyTransfersPenalty = 300 * Math.max(0, boardedRoutePatternIds.size - 2);
+
     // The Silver Line is...much slower than its GTFS schedule claims. We account for that here.
     const silverLinePenalty = 0.5 * timeOnSilverLine;
     const penaltyWeights = 1 + regionalRailOverusePenalty;

@@ -61,7 +61,7 @@ export const stationsByLine: Record<string, Station[]> = {
         { id: "place-ER-0183", name: "Beverly" },
         { id: "place-ER-0168", name: "Salem" },
         { id: "place-ER-0128", name: "Swampscott" },
-        { id: "place-ER-0117", name: "Lynn Interim" },
+        { id: "place-ER-0115", name: "Lynn" },
         { id: "place-ER-0099", name: "River Works" },
         { id: "place-wondl", name: "Wonderland" },
         { id: "place-chels", name: "Chelsea" },
@@ -240,6 +240,8 @@ export const stationsByLine: Record<string, Station[]> = {
         { id: "place-rr-west-station", name: "West Station" },
     ],
     Red: [
+        { id: "place-arlington-heights", name: "Arlington Heights" },
+        { id: "place-arlington-center", name: "Arlington Center" },
         { id: "place-alfcl", name: "Alewife" },
         { id: "place-davis", name: "Davis" },
         { id: "place-portr", name: "Porter" },
@@ -336,6 +338,8 @@ export const stationsByLine: Record<string, Station[]> = {
         { id: "place-prmnl", name: "Prudential" },
     ],
     Blue: [
+        { id: "place-chmnl", name: "Charles/MGH" },
+        { id: "place-bomnl", name: "Bowdoin" },
         { id: "place-orhte", name: "Orient Heights" },
         { id: "place-wimnl", name: "Wood Island" },
         { id: "place-aport", name: "Airport" },
@@ -343,11 +347,12 @@ export const stationsByLine: Record<string, Station[]> = {
         { id: "place-aqucl", name: "Aquarium" },
         { id: "place-state", name: "State" },
         { id: "place-gover", name: "Government Center" },
-        { id: "place-bomnl", name: "Bowdoin" },
-        { id: "place-wondl", name: "Wonderland" },
         { id: "place-rbmnl", name: "Revere Beach" },
         { id: "place-bmmnl", name: "Beachmont" },
         { id: "place-sdmnl", name: "Suffolk Downs" },
+        { id: "place-wondl", name: "Wonderland" },
+        { id: "place-ER-0099", name: "River Works" },
+        { id: "place-ER-0115", name: "Lynn" },
     ],
     Orange: [
         { id: "place-ogmnl", name: "Oak Grove" },
@@ -423,6 +428,9 @@ const alwaysInfillStations = new Set([
     "place-rockland-n-abington",
     "place-kingston-jct",
     "place-plymouth-center",
+    "place-west-lynn",
+    "place-arlington-heights",
+    "place-arlington-center",
 ]);
 
 const infillStationsByRoute = {
@@ -430,6 +438,7 @@ const infillStationsByRoute = {
     "CR-Reading": new Set(["place-sull"]),
     "CR-Fitchburg": new Set(["place-unsqu"]),
     "CR-Lowell": new Set(["place-mdftf"]),
+    Blue: new Set(["place-chmnl", "place-ER-0099", "place-ER-0115"]),
 };
 
 export const isInfillStation = (stationId: string, routeId: string) => {

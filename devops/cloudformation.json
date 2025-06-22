@@ -1,45 +1,45 @@
 {
   "Parameters": {
-    "RREHostname": {
+    "ExpansionHostname": {
       "Type": "String",
-      "Default": "rre-beta.labs.transitmatters.org",
-      "AllowedPattern": "^regionalrail\\.rocks$|^.*\\.labs\\.transitmatters\\.org$",
-      "Description": "The hostname for the site; for example: regionalrail.rocks."
+      "Default": "expansion-beta.labs.transitmatters.org",
+      "AllowedPattern": "^expansion(-beta)?\\.labs\\.transitmatters\\.org$",
+      "Description": "The hostname for the site; for example: expansion.labs.transitmatters.org."
     },
-    "RREDomain": {
+    "ExpansionDomain": {
       "Type": "String",
       "Default": "labs.transitmatters.org",
-      "AllowedPattern": "^regionalrail\\.rocks$|^labs\\.transitmatters\\.org$",
-      "Description": "The parent domain of the site. Most likely regionalrail.rocks or labs.transitmatters.org."
+      "AllowedPattern": "^labs\\.transitmatters\\.org$",
+      "Description": "The parent domain of the site. Most likely transitmatters.org or labs.transitmatters.org."
     },
-    "RRECertArn": {
+    "ExpansionCertArn": {
       "Type": "String",
       "Description": "The ACM ARN of the SSL certificate."
     }
   },
   "Resources": {
-    "RREInstance": {
+    "ExpansionInstance": {
       "Type": "AWS::EC2::Instance",
       "Properties": {
         "ImageId": "ami-0a7a4e87939439934",
         "InstanceType": "t4g.small",
-        "KeyName": "transitmatters-rre",
+        "KeyName": "transitmatters-expansion",
         "PropagateTagsToVolumeOnCreation": true,
         "SecurityGroupIds": [
           {
-            "Ref": "RRESecurityGroup"
+            "Ref": "ExpansionSecurityGroup"
           }
         ],
         "Tags": [
           {
             "Key": "Name",
             "Value": {
-              "Fn::Sub": "rre-${RREHostname}"
+              "Fn::Sub": "expansion-${ExpansionHostname}"
             }
           },
           {
             "Key": "service",
-            "Value": "regional-rail-explorer"
+            "Value": "expansion-explorer"
           }
         ],
         "BlockDeviceMappings": [
@@ -53,11 +53,11 @@
         ]
       }
     },
-    "RRESecurityGroup": {
+    "ExpansionSecurityGroup": {
       "Type": "AWS::EC2::SecurityGroup",
       "Properties": {
         "GroupName": {
-          "Fn::Sub": "RRE-securitygroup-${RREHostname}"
+          "Fn::Sub": "Expansion-securitygroup-${ExpansionHostname}"
         },
         "GroupDescription": "Allow HTTP/HTTPS and SSH inbound and outbound traffic",
         "SecurityGroupIngress": [
@@ -76,20 +76,20 @@
         ]
       }
     },
-    "RREDNSRecord": {
+    "ExpansionDNSRecord": {
       "Type": "AWS::Route53::RecordSet",
       "Properties": {
         "Name": {
-          "Fn::Sub": "${RREHostname}."
+          "Fn::Sub": "${ExpansionHostname}."
         },
         "HostedZoneName": {
-          "Fn::Sub": "${RREDomain}."
+          "Fn::Sub": "${ExpansionDomain}."
         },
         "AliasTarget": {
           "HostedZoneId": "Z2FDTNDATAQYW2",
           "DNSName": {
             "Fn::GetAtt": [
-              "RRECloudFront",
+              "ExpansionCloudFront",
               "DomainName"
             ]
           }
@@ -97,13 +97,13 @@
         "Type": "A"
       }
     },
-    "RRECloudFront": {
+    "ExpansionCloudFront": {
       "Type": "AWS::CloudFront::Distribution",
       "Properties": {
         "DistributionConfig": {
           "Aliases": [
             {
-              "Ref": "RREHostname"
+              "Ref": "ExpansionHostname"
             }
           ],
           "Enabled": "true",
@@ -123,7 +123,7 @@
               },
               "DomainName": {
                 "Fn::GetAtt": [
-                  "RREInstance",
+                  "ExpansionInstance",
                   "PublicDnsName"
                 ]
               },
@@ -134,7 +134,7 @@
           "ViewerCertificate": {
             "MinimumProtocolVersion": "TLSv1.2_2018",
             "AcmCertificateArn": {
-              "Ref": "RRECertArn"
+              "Ref": "ExpansionCertArn"
             },
             "SslSupportMethod": "sni-only"
           }
@@ -142,7 +142,7 @@
         "Tags": [
           {
             "Key": "service",
-            "Value": "regional-rail-explorer"
+            "Value": "expansion-explorer"
           }
         ]
       }
