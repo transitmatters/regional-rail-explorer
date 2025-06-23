@@ -375,6 +375,13 @@ export const stationsByLine: Record<string, Station[]> = {
         { id: "place-sbmnl", name: "Stony Brook" },
         { id: "place-grnst", name: "Green Street" },
         { id: "place-forhl", name: "Forest Hills" },
+        { id: "place-NB-0064", name: "Roslindale Village" },
+        { id: "place-NB-0072", name: "Bellevue" },
+        { id: "place-NB-0076", name: "Highland" },
+        { id: "place-NB-0080", name: "West Roxbury" },
+        { id: "place-millennium-park", name: "Millennium Park" },
+        { id: "place-NB-0109", name: "Hersey" },
+        { id: "place-NB-0120", name: "Needham Junction" },
     ],
 };
 
@@ -431,6 +438,7 @@ const alwaysInfillStations = new Set([
     "place-west-lynn",
     "place-arlington-heights",
     "place-arlington-center",
+    "place-millennium-park",
 ]);
 
 const infillStationsByRoute = {
@@ -439,6 +447,14 @@ const infillStationsByRoute = {
     "CR-Fitchburg": new Set(["place-unsqu"]),
     "CR-Lowell": new Set(["place-mdftf"]),
     Blue: new Set(["place-chmnl", "place-ER-0099", "place-ER-0115"]),
+    Orange: new Set([
+        "place-NB-0064",
+        "place-NB-0072",
+        "place-NB-0076",
+        "place-NB-0080",
+        "place-NB-0109",
+        "place-NB-0120",
+    ]),
 };
 
 export const isInfillStation = (stationId: string, routeId: string) => {
