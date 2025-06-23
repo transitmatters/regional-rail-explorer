@@ -13,6 +13,28 @@ type Props = {
     padding?: number;
 };
 
+const routeColors = {
+    Red: "#da291c",
+    Blue: "#003da5",
+    Orange: "#ed8b00",
+    Green: "#00843d",
+    Silver: "#7c878e",
+    Mattapan: "#da291c",
+};
+
+const getColorForRouteId = (routeId: string) => {
+    if (routeId.startsWith("CR-")) {
+        return "#80276c";
+    }
+    if (routeId.startsWith("Green-")) {
+        return routeColors.Green;
+    }
+    if (routeId.startsWith("7")) {
+        return routeColors.Silver;
+    }
+    return routeColors[routeId];
+};
+
 const maybeCapitalizeDay = (day: NetworkDayKind) => {
     if (day === "weekday") {
         return day;
