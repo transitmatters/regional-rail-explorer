@@ -20,8 +20,16 @@ const getServerRuntimeConfig = (phase: string) => {
 
 const nextConfig: NextConfig = (phase: string) => {
     return {
+        // Disable compression to avoid memory issues
+        compress: false,
         serverRuntimeConfig: getServerRuntimeConfig(phase),
         webpack: (config: any, options: any) => {
+            config.optimization = {
+                ...config.optimization,
+                moduleIds: "deterministic",
+                chunkIds: "deterministic",
+            };
+
             if (!options.isServer) {
                 config.plugins.push(new WriteScenariosPlugin());
             }
