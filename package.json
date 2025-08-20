@@ -31,7 +31,7 @@
     "sass": "^1.85.0",
     "sharp": "^0.33.5",
     "smoothscroll-polyfill": "^0.4.4",
-    "tar": "^6.1.15",
+    "tar": "^7.4.3",
     "tmp": "^0.2.3",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0"
