@@ -52,6 +52,12 @@
         name: nodejs
         state: present
 
+    - name: Install the Datadog Agent
+      become: yes
+      become_user: root
+      import_role:
+        name: datadog.dd.agent
+
     - name: get latest github repo
       git:
         repo: https://github.com/transitmatters/regional-rail-explorer.git
@@ -111,3 +117,39 @@
         state: restarted
         daemon_reload: true
         name: regional-rail-explorer
+
+  vars:
+     datadog_api_key: "{{ lookup('env', 'DD_API_KEY') }}"
+     datadog_site: "datadoghq.com"
+     datadog_config:
+      tags:
+        - "git.repository_url:github.com/transitmatters/regional-rail-explorer"
+        - "git.commit.sha:{{ lookup('env', 'GIT_SHA') }}"
+        - "version:{{ lookup('env', 'GIT_SHA') }}"
+      apm_config:
+        enabled: true
+      process_config:
+        enabled: "true" # type: string
+      logs_enabled: true
+     network_config:
+      enabled: true
+     system_probe_config:
+      enable_oom_kill: true
+     datadog_checks:
+      python:
+        logs:
+          - type: file
+            path: "/home/ubuntu/regional-rail-explorer/regional-rail-explorer.log"
+            service: "regional-rail-explorer"
+            source: python
+            sourcecategory: sourcecode
+          - type: file
+            path: "/home/ubuntu/regional-rail-explorer/s3_upload.log"
+            service: "regional-rail-explorer"
+            source: python
+            sourcecategory: sourcecode
+      systemd:
+        init_config:
+        instances:
+          - unit_names:
+            - regional-rail-explorer.service
