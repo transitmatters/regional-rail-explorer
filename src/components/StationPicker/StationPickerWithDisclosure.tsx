@@ -5,7 +5,7 @@ import { Button, StationsByLine } from "components";
 import { StationPicker } from "components";
 import { useAppContext } from "hooks";
 import { Station } from "types";
-import { useDisclosureStore } from "@ariakit/react";
+import { DisclosureStore, useDisclosureStore } from "@ariakit/react";
 
 interface StationPickerWithDisclosureProps {
     label: string;
@@ -14,13 +14,15 @@ interface StationPickerWithDisclosureProps {
     onSelectStation: (stationId: string) => unknown;
     stationsByLine: StationsByLine;
     previouslySelectedStationId?: Station | null | string;
+    disclosure?: DisclosureStore;
+    onOpen?: () => void;
 }
 
 export const StationPickerWithDisclosure: React.FunctionComponent<
     StationPickerWithDisclosureProps
-> = ({ label, disabled, ...restProps }) => {
+> = ({ label, disabled, disclosure: providedDisclosure, onOpen, ...restProps }) => {
     const { stationPickerDiscloseBelowElementRef } = useAppContext();
-    const disclosure = useDisclosureStore({ defaultOpen: false });
+    const disclosure = providedDisclosure || useDisclosureStore({ defaultOpen: false });
 
     return (
         <StationPicker
@@ -28,12 +30,20 @@ export const StationPickerWithDisclosure: React.FunctionComponent<
             disclosure={disclosure}
             render={(disclosureProps) => {
                 const open = disclosure?.getState().open;
+                const { onClick, ...restDisclosureProps } = disclosureProps;
+                const handleClick = (event: React.MouseEvent) => {
+                    if (!open) {
+                        onOpen?.();
+                    }
+                    onClick?.(event);
+                };
                 return (
                     <Button
                         large
                         outline={open}
                         rightIcon={open ? <GrUp /> : <GrDown />}
-                        {...disclosureProps}
+                        {...restDisclosureProps}
+                        onClick={handleClick}
                         disabled={disabled}
                     >
                         {label}

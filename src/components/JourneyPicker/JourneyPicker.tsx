@@ -13,6 +13,8 @@ import {
     NavigationKind,
 } from "types";
 import { StationPickerWithDisclosure, StationsByLine } from "components";
+import AddressAutocomplete, { AddressSelection } from "../AddressAutocomplete/AddressAutocomplete";
+import { useDisclosureStore } from "@ariakit/react";
 
 import styles from "./JourneyPicker.module.scss";
 
@@ -33,6 +35,14 @@ type Props = {
     timeRange: NetworkTimeRange;
     disabled?: boolean;
     navigationKind: string;
+    fromAddress?: string;
+    toAddress?: string;
+    onChangeFromAddress?: (value: string) => void;
+    onChangeToAddress?: (value: string) => void;
+    onSelectFromAddress?: (selection: AddressSelection) => void;
+    onSelectToAddress?: (selection: AddressSelection) => void;
+    onSelectFromStation?: (stationId: string) => void;
+    onSelectToStation?: (stationId: string) => void;
 };
 
 const timeOfDayPickerOptions = [
@@ -82,11 +92,27 @@ const JourneyPicker: React.FunctionComponent<Props> = (props) => {
         toStationId,
         disabled,
         navigationKind,
+        fromAddress = "",
+        toAddress = "",
+        onChangeFromAddress,
+        onChangeToAddress,
+        onSelectFromAddress,
+        onSelectToAddress,
+        onSelectFromStation,
+        onSelectToStation,
     } = props;
 
     const [timeOfDay, setTimeOfDay] = useState(() =>
         typeof time === "number" ? getTimeOfDayOptionForTime(time) : timeOfDayPickerOptions[0]
     );
+    const [fromInputMode, setFromInputMode] = useState<"station" | "address">(
+        fromAddress ? "address" : "station"
+    );
+    const [toInputMode, setToInputMode] = useState<"station" | "address">(
+        toAddress ? "address" : "station"
+    );
+    const fromDisclosure = useDisclosureStore({ defaultOpen: false });
+    const toDisclosure = useDisclosureStore({ defaultOpen: false });
 
     const selectedNavigationKind = useMemo(() => {
         return (
@@ -121,38 +147,108 @@ const JourneyPicker: React.FunctionComponent<Props> = (props) => {
     const handleSelectFromStation = useCallback(
         (stationId: string) => {
             updateJourneyParams({ fromStationId: stationId });
+            onSelectFromStation?.(stationId);
+            setFromInputMode("station");
         },
-        [updateJourneyParams]
+        [updateJourneyParams, onSelectFromStation]
     );
 
     const handleSelectToStation = useCallback(
         (stationId: string) => {
             updateJourneyParams({ toStationId: stationId });
+            onSelectToStation?.(stationId);
+            setToInputMode("station");
         },
-        [updateJourneyParams]
+        [updateJourneyParams, onSelectToStation]
     );
+
+    const closeStationPickers = () => {
+        fromDisclosure.setOpen(false);
+        toDisclosure.setOpen(false);
+    };
+
+    const renderModeToggle = (
+        mode: "station" | "address",
+        setMode: (value: "station" | "address") => void
+    ) => {
+        return (
+            <div className={styles.modeToggle}>
+                <button
+                    type="button"
+                    className={classNames(styles.modeButton, mode === "station" && styles.active)}
+                    onClick={() => {
+                        setMode("station");
+                    }}
+                >
+                    Station
+                </button>
+                <button
+                    type="button"
+                    className={classNames(styles.modeButton, mode === "address" && styles.active)}
+                    onClick={() => {
+                        setMode("address");
+                        closeStationPickers();
+                    }}
+                >
+                    Address
+                </button>
+            </div>
+        );
+    };
 
     return (
         <div className={styles.journeyPicker}>
             <div className="group from-to-stations">
                 <LabeledControl label="From" className="from-station">
-                    <StationPickerWithDisclosure
-                        lockBodyScroll
-                        disabled={disabled}
-                        label={fromStation?.name ?? "Choose a station"}
-                        onSelectStation={handleSelectFromStation}
-                        stationsByLine={stationsByLine}
-                    />
+                    <div className={styles.inputStack}>
+                        {renderModeToggle(fromInputMode, setFromInputMode)}
+                        {fromInputMode === "station" ? (
+                            <StationPickerWithDisclosure
+                                lockBodyScroll
+                                disabled={disabled}
+                                label={fromStation?.name ?? "Choose a station"}
+                                onSelectStation={handleSelectFromStation}
+                                stationsByLine={stationsByLine}
+                                disclosure={fromDisclosure}
+                                onOpen={() => toDisclosure.setOpen(false)}
+                            />
+                        ) : (
+                            <AddressAutocomplete
+                                value={fromAddress}
+                                disabled={disabled}
+                                placeholder="Start address"
+                                onChange={(value) => onChangeFromAddress?.(value)}
+                                onSelect={(selection) => onSelectFromAddress?.(selection)}
+                                onFocus={closeStationPickers}
+                            />
+                        )}
+                    </div>
                 </LabeledControl>
                 <LabeledControl label="to" className="to-station">
-                    <StationPickerWithDisclosure
-                        lockBodyScroll
-                        disabled={disabled}
-                        label={toStation?.name ?? "Choose a station"}
-                        onSelectStation={handleSelectToStation}
-                        stationsByLine={stationsByLine}
-                        previouslySelectedStationId={fromStation && fromStation.id}
-                    />
+                    <div className={styles.inputStack}>
+                        {renderModeToggle(toInputMode, setToInputMode)}
+                        {toInputMode === "station" ? (
+                            <StationPickerWithDisclosure
+                                lockBodyScroll
+                                disabled={disabled}
+                                label={toStation?.name ?? "Choose a station"}
+                                onSelectStation={handleSelectToStation}
+                                stationsByLine={stationsByLine}
+                                previouslySelectedStationId={fromStation && fromStation.id}
+                                disclosure={toDisclosure}
+                                onOpen={() => fromDisclosure.setOpen(false)}
+                            />
+                        ) : (
+                            <AddressAutocomplete
+                                value={toAddress}
+                                disabled={disabled}
+                                placeholder="End address"
+                                onChange={(value) => onChangeToAddress?.(value)}
+                                onSelect={(selection) => onSelectToAddress?.(selection)}
+                                onFocus={closeStationPickers}
+                            />
+                        )}
+                    </div>
                 </LabeledControl>
                 <Button large outline className="swap-stations-button" onClick={swapStations}>
                     <MdSwapCalls size="1.3em" />

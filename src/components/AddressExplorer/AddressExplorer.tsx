@@ -1,7 +1,5 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { CgSpinner } from "react-icons/cg";
-
-import { stationsByLine, stationsById } from "stations";
 
 import * as api from "api";
 import {
@@ -15,7 +13,6 @@ import {
 } from "types";
 import {
     DeparturePicker,
-    JourneyPicker,
     JourneyComparison,
     JourneyErrorState,
     AppFrame,
@@ -26,12 +23,10 @@ import { useRouterBoundState, usePendingPromise, useUpdateEffect } from "hooks";
 import { getSpanningTimeRange, HOUR } from "time";
 import { successfulJourneyApiResult } from "journeys";
 
-import { getAdvantageousDepartureTime } from "./departures";
+import AddressJourneyPicker from "../AddressJourneyPicker/AddressJourneyPicker";
 
-import styles from "./Explorer.module.scss";
-import getSocialMeta from "./socialMeta";
-
-const scenarioIds = ["present", "regional_rail"];
+import { getAdvantageousDepartureTime } from "../Explorer/departures";
+import styles from "../Explorer/Explorer.module.scss";
 
 type NearestStation = {
     id: string;
@@ -39,11 +34,7 @@ type NearestStation = {
     distanceMeters: number;
 };
 
-type AddressSelection = {
-    label: string;
-    lat: number;
-    lon: number;
-};
+const scenarioIds = ["present", "regional_rail"];
 
 const isFiniteNumber = (value: number | null) =>
     typeof value === "number" && Number.isFinite(value);
@@ -65,25 +56,54 @@ const formatDistance = (distanceMeters: number) => {
     return `${miles.toFixed(1)} mi`;
 };
 
-type Props = {
-    journeys: null | JourneyInfo[];
-    arrivals: null | ArrivalsInfo;
-};
-
-const Explorer: React.FunctionComponent<Props> = (props) => {
-    const { journeys: initialJourneys, arrivals: initialArrivals } = props;
+const AddressExplorer: React.FunctionComponent = () => {
     const [
-        { fromStationId, toStationId, day, time, navigationKind = "depart-at", reverse = false },
+        {
+            fromAddress,
+            toAddress,
+            fromLat,
+            fromLon,
+            toLat,
+            toLon,
+            day,
+            time,
+            navigationKind = "depart-at",
+            reverse = false,
+        },
         updateJourneyParams,
     ] = useRouterBoundState(
         {
-            fromStationId: {
-                initial: null as null | string,
-                param: "from",
+            fromAddress: {
+                initial: "" as string,
+                param: "fromAddress",
             },
-            toStationId: {
-                initial: null as null | string,
-                param: "to",
+            toAddress: {
+                initial: "" as string,
+                param: "toAddress",
+            },
+            fromLat: {
+                initial: null as null | number,
+                param: "fromLat",
+                decode: parseFloat,
+                encode: (value) => (Number.isFinite(value) ? value.toString() : ""),
+            },
+            fromLon: {
+                initial: null as null | number,
+                param: "fromLon",
+                decode: parseFloat,
+                encode: (value) => (Number.isFinite(value) ? value.toString() : ""),
+            },
+            toLat: {
+                initial: null as null | number,
+                param: "toLat",
+                decode: parseFloat,
+                encode: (value) => (Number.isFinite(value) ? value.toString() : ""),
+            },
+            toLon: {
+                initial: null as null | number,
+                param: "toLon",
+                decode: parseFloat,
+                encode: (value) => (Number.isFinite(value) ? value.toString() : ""),
             },
             day: {
                 initial: "weekday" as NetworkDayKind,
@@ -107,24 +127,44 @@ const Explorer: React.FunctionComponent<Props> = (props) => {
             },
         },
         (previousState, nextState) => {
+            const sameEndpoints =
+                previousState.fromAddress === nextState.fromAddress &&
+                previousState.toAddress === nextState.toAddress &&
+                previousState.fromLat === nextState.fromLat &&
+                previousState.fromLon === nextState.fromLon &&
+                previousState.toLat === nextState.toLat &&
+                previousState.toLon === nextState.toLon;
             return {
                 shallow: true,
-                replace:
-                    previousState.fromStationId === nextState.fromStationId &&
-                    previousState.toStationId === nextState.toStationId,
+                replace: sameEndpoints,
             };
         }
     );
-    const [arrivals, setArrivals] = useState<null | ArrivalsInfo>(initialArrivals);
-    const [journeys, setJourneys] = useState<null | JourneyApiResult>(initialJourneys);
+
+    const [fromStation, setFromStation] = useState<null | NearestStation>(null);
+    const [toStation, setToStation] = useState<null | NearestStation>(null);
+    const [arrivals, setArrivals] = useState<null | ArrivalsInfo>(null);
+    const [journeys, setJourneys] = useState<null | JourneyApiResult>(null);
     const [requestedTimeOfDay, setRequestedTimeOfDay] = useState<null | TimeOfDay>(null);
     const [isJourneyPending, wrapJourneyPending] = usePendingPromise();
     const successfulJourneys = journeys && successfulJourneyApiResult(journeys);
     const reverseFromNav = reverse || navigationKind === "arrive-by";
-    const [fromAddress, setFromAddress] = useState("");
-    const [toAddress, setToAddress] = useState("");
-    const [fromNearest, setFromNearest] = useState<null | NearestStation>(null);
-    const [toNearest, setToNearest] = useState<null | NearestStation>(null);
+
+    useEffect(() => {
+        if (isFiniteNumber(fromLat) && isFiniteNumber(fromLon)) {
+            fetchNearestStation(fromLat, fromLon).then(setFromStation);
+        } else {
+            setFromStation(null);
+        }
+    }, [fromLat, fromLon]);
+
+    useEffect(() => {
+        if (isFiniteNumber(toLat) && isFiniteNumber(toLon)) {
+            fetchNearestStation(toLat, toLon).then(setToStation);
+        } else {
+            setToStation(null);
+        }
+    }, [toLat, toLon]);
 
     const timeRange = useMemo(() => {
         if (arrivals) {
@@ -136,24 +176,24 @@ const Explorer: React.FunctionComponent<Props> = (props) => {
 
     useUpdateEffect(() => {
         setArrivals(null);
-        if (fromStationId && toStationId && day) {
-            api.arrivals(fromStationId, toStationId, day, scenarioIds).then(setArrivals);
+        if (fromStation && toStation && day) {
+            api.arrivals(fromStation.id, toStation.id, day, scenarioIds).then(setArrivals);
             if (!time) {
                 setRequestedTimeOfDay("morning");
             }
         }
-    }, [fromStationId, toStationId, day]);
+    }, [fromStation?.id, toStation?.id, day]);
 
     useUpdateEffect(() => {
         setJourneys(null);
-        if (fromStationId && toStationId && day && time) {
+        if (fromStation && toStation && day && time) {
             wrapJourneyPending(
                 api
-                    .journeys(fromStationId, toStationId, day, time, navigationKind, scenarioIds)
+                    .journeys(fromStation.id, toStation.id, day, time, navigationKind, scenarioIds)
                     .then(setJourneys)
             );
         }
-    }, [fromStationId, toStationId, day, time, navigationKind]);
+    }, [fromStation?.id, toStation?.id, day, time, navigationKind]);
 
     useEffect(() => {
         if (requestedTimeOfDay && arrivals) {
@@ -167,26 +207,6 @@ const Explorer: React.FunctionComponent<Props> = (props) => {
             updateJourneyParams({ time });
         }
     }, [requestedTimeOfDay, arrivals]);
-
-    const renderNearestInfo = () => {
-        if (!fromNearest && !toNearest) {
-            return null;
-        }
-        return (
-            <div className={styles.nearestInfo}>
-                {fromNearest && (
-                    <div>
-                        Start: {formatDistance(fromNearest.distanceMeters)} from {fromNearest.name}
-                    </div>
-                )}
-                {toNearest && (
-                    <div>
-                        End: {formatDistance(toNearest.distanceMeters)} from {toNearest.name}
-                    </div>
-                )}
-            </div>
-        );
-    };
 
     const renderDeparturePicker = () => {
         if (arrivals) {
@@ -221,7 +241,6 @@ const Explorer: React.FunctionComponent<Props> = (props) => {
                 return <JourneyErrorState />;
             }
             const [baseline, enhanced] = journeys as JourneyInfo[];
-            // make sure to show error state if regional rail is the one to fail
             if (
                 enhanced.navigationFailed ||
                 (baseline.navigationFailed && enhanced.navigationFailed)
@@ -240,36 +259,6 @@ const Explorer: React.FunctionComponent<Props> = (props) => {
         return null;
     };
 
-    const handleSelectFromAddress = async (selection: AddressSelection) => {
-        setFromAddress(selection.label);
-        if (isFiniteNumber(selection.lat) && isFiniteNumber(selection.lon)) {
-            const nearest = await fetchNearestStation(selection.lat, selection.lon);
-            setFromNearest(nearest);
-            if (nearest) {
-                updateJourneyParams({ fromStationId: nearest.id });
-            }
-        }
-    };
-
-    const handleSelectToAddress = async (selection: AddressSelection) => {
-        setToAddress(selection.label);
-        if (isFiniteNumber(selection.lat) && isFiniteNumber(selection.lon)) {
-            const nearest = await fetchNearestStation(selection.lat, selection.lon);
-            setToNearest(nearest);
-            if (nearest) {
-                updateJourneyParams({ toStationId: nearest.id });
-            }
-        }
-    };
-
-    const handleSelectFromStation = () => {
-        setFromNearest(null);
-    };
-
-    const handleSelectToStation = () => {
-        setToNearest(null);
-    };
-
     const renderFooter = () => {
         if (journeys) {
             return (
@@ -283,37 +272,80 @@ const Explorer: React.FunctionComponent<Props> = (props) => {
         }
     };
 
+    const renderNearestInfo = () => {
+        if (!fromStation && !toStation) {
+            return null;
+        }
+        return (
+            <div className={styles.nearestInfo}>
+                {fromStation && (
+                    <div>
+                        Start: {formatDistance(fromStation.distanceMeters)} from {fromStation.name}
+                    </div>
+                )}
+                {toStation && (
+                    <div>
+                        End: {formatDistance(toStation.distanceMeters)} from {toStation.name}
+                    </div>
+                )}
+            </div>
+        );
+    };
+
+    const handleSwap = () => {
+        updateJourneyParams({
+            fromAddress: toAddress,
+            fromLat: toLat,
+            fromLon: toLon,
+            toAddress: fromAddress,
+            toLat: fromLat,
+            toLon: fromLon,
+        });
+    };
+
+    const handleChangeFromAddress = (value: string) => {
+        updateJourneyParams({ fromAddress: value, fromLat: null, fromLon: null });
+    };
+
+    const handleChangeToAddress = (value: string) => {
+        updateJourneyParams({ toAddress: value, toLat: null, toLon: null });
+    };
+
     return (
         <AppFrame
             mode="journey"
             containerClassName={styles.explorer}
             controlsClassName={styles.controlsOverflowVisible}
-            meta={getSocialMeta({
-                journeyParams: { fromStationId, toStationId, time, day, reverse: reverseFromNav },
-                journeys: successfulJourneys,
-            })}
             controls={
-                <JourneyPicker
+                <AddressJourneyPicker
                     disabled={isJourneyPending}
                     navigationKind={navigationKind}
                     time={time}
                     timeRange={timeRange}
                     day={day}
-                    stationsById={stationsById}
-                    stationsByLine={stationsByLine}
-                    fromStationId={fromStationId}
-                    toStationId={toStationId}
-                    updateJourneyParams={updateJourneyParams}
-                    onSelectTimeOfDay={setRequestedTimeOfDay}
-                    onSelectDay={(day) => updateJourneyParams({ day })}
                     fromAddress={fromAddress}
                     toAddress={toAddress}
-                    onChangeFromAddress={setFromAddress}
-                    onChangeToAddress={setToAddress}
-                    onSelectFromAddress={handleSelectFromAddress}
-                    onSelectToAddress={handleSelectToAddress}
-                    onSelectFromStation={handleSelectFromStation}
-                    onSelectToStation={handleSelectToStation}
+                    onSelectDay={(day) => updateJourneyParams({ day })}
+                    onSelectTimeOfDay={setRequestedTimeOfDay}
+                    onSelectNavigationKind={(kind) => updateJourneyParams({ navigationKind: kind })}
+                    onSelectTime={(time) => updateJourneyParams({ time })}
+                    onSwap={handleSwap}
+                    onChangeFromAddress={handleChangeFromAddress}
+                    onChangeToAddress={handleChangeToAddress}
+                    onSelectFromAddress={(selection) =>
+                        updateJourneyParams({
+                            fromAddress: selection.label,
+                            fromLat: selection.lat,
+                            fromLon: selection.lon,
+                        })
+                    }
+                    onSelectToAddress={(selection) =>
+                        updateJourneyParams({
+                            toAddress: selection.label,
+                            toLat: selection.lat,
+                            toLon: selection.lon,
+                        })
+                    }
                 />
             }
         >
@@ -325,4 +357,4 @@ const Explorer: React.FunctionComponent<Props> = (props) => {
     );
 };
 
-export default Explorer;
+export default AddressExplorer;

@@ -1,0 +1,61 @@
+@use '../../styles/base.scss';
+
+.addressAutocomplete {
+    position: relative;
+    width: 100%;
+}
+
+.input {
+    width: 100%;
+    height: 45px;
+    font-size: 20px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: none;
+    background: rgba(white, 0.1);
+    border: 2px solid transparent;
+    color: white;
+
+    &:focus {
+        outline: none;
+        border: 2px solid rgba(white, 0.8);
+        box-shadow: base.$global-shadow;
+    }
+
+    &::placeholder {
+        color: rgba(white, 0.5);
+    }
+
+    @include base.mobile {
+        font-size: 16px;
+        height: 38px;
+        padding: 8px;
+    }
+}
+
+.results {
+    position: absolute;
+    z-index: 10;
+    left: 0;
+    right: 0;
+    background: rgba(13, 10, 24, 0.95);
+    border: 1px solid rgba(white, 0.15);
+    border-top: none;
+    max-height: 260px;
+    overflow-y: auto;
+    box-shadow: base.$global-shadow;
+}
+
+.result {
+    width: 100%;
+    text-align: left;
+    padding: 10px;
+    background: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+
+    &:hover {
+        background: rgba(white, 0.08);
+    }
+}
