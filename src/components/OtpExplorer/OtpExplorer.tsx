@@ -225,8 +225,8 @@ type OtpResult = {
     error: string | null;
 };
 
-const presentRouter = process.env.NEXT_PUBLIC_OTP_ROUTER_PRESENT || "default";
-const regionalRouter = process.env.NEXT_PUBLIC_OTP_ROUTER_REGIONAL || presentRouter;
+const presentRouter = "present";
+const regionalRouter = "regional";
 
 const scenarios: RouterScenario[] = [
     { id: "present", name: "Today's commuter rail", router: presentRouter },

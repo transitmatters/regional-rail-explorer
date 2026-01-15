@@ -1,9 +1,11 @@
-const getOtpBaseUrl = () => {
-    return (
-        process.env.OTP_BASE_URL ||
-        process.env.NEXT_PUBLIC_OTP_BASE_URL ||
-        "http://localhost:8080/otp/routers"
-    );
+const getOtpBaseUrl = (router: string) => {
+    if (router === "present") {
+        return process.env.OTP_BASE_URL_PRESENT;
+    }
+    if (router === "regional") {
+        return process.env.OTP_BASE_URL_REGIONAL;
+    }
+    return null;
 };
 
 const buildOtpUrl = (base: string, query: Record<string, string>) => {
@@ -15,7 +17,7 @@ const buildOtpUrl = (base: string, query: Record<string, string>) => {
 };
 
 const getCandidatePlanUrls = (router: string, query: Record<string, string>) => {
-    const base = getOtpBaseUrl().replace(/\/$/, "");
+    const base = getOtpBaseUrl(router)!.replace(/\/$/, "");
     const candidates: string[] = [];
 
     if (base.endsWith("/plan")) {
@@ -30,7 +32,7 @@ const getCandidatePlanUrls = (router: string, query: Record<string, string>) => 
 };
 
 const getGraphqlEndpoint = (router: string) => {
-    const base = getOtpBaseUrl().replace(/\/$/, "");
+    const base = getOtpBaseUrl(router)!.replace(/\/$/, "");
     if (base.endsWith("/graphql")) {
         return base;
     }
@@ -197,6 +199,10 @@ export default async (req, res) => {
         res.status(400).json({ error: "Missing required query params." });
         return;
     }
+    if (!router) {
+        res.status(400).json({ error: "Missing required router param." });
+        return;
+    }
     const hasTripTime = Boolean(date && time);
     const planQuery = hasTripTime
         ? {
@@ -209,7 +215,12 @@ export default async (req, res) => {
           }
         : null;
     try {
-        const routerId = router?.toString() || "default";
+        const routerId = router.toString();
+        const baseUrl = getOtpBaseUrl(routerId);
+        if (!baseUrl) {
+            res.status(400).json({ error: "Unsupported router value." });
+            return;
+        }
         const graphqlEndpoint = getGraphqlEndpoint(routerId);
         const graphqlBaseVars = {
             fromLat: fromLat.toString(),
@@ -251,7 +262,10 @@ export default async (req, res) => {
                 return;
             }
             res.status(502).json({
-                error: { message: "OTP GraphQL error", detail: fallbackAttempt.json?.errors || graphqlAttempt.json.errors },
+                error: {
+                    message: "OTP GraphQL error",
+                    detail: fallbackAttempt.json?.errors || graphqlAttempt.json.errors,
+                },
             });
             return;
         }
