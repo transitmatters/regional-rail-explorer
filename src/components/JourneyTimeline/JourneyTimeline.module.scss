@@ -125,9 +125,22 @@ $start-end-point-size: 16px;
 
     :global(.label) {
         display: flex;
+        flex-direction: column;
         color: black;
         font-weight: bold;
         line-height: 1em;
+
+        :global(.route-label) {
+            font-size: 0.8em;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            margin-bottom: 4px;
+        }
+
+        :global(.station-line) {
+            display: flex;
+            align-items: baseline;
+        }
 
         @include base.mobile {
             flex-grow: 1;

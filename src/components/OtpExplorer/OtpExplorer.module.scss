@@ -1,0 +1,30 @@
+@use '../../styles/base.scss';
+
+.explorer {
+    display: flex;
+    flex-direction: column;
+}
+
+.summary {
+    color: white;
+    padding: 12px 16px;
+    background: #0e0a1d;
+    border-bottom: 1px solid rgba(white, 0.15);
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.controlsOverflowVisible {
+    overflow: visible;
+    position: relative;
+}
+
+.comparison {
+    padding: 16px;
+}
+
+.error {
+    color: white;
+    padding: 20px;
+}

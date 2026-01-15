@@ -1,0 +1,114 @@
+@use '../../styles/base.scss';
+
+.journeyPicker {
+    display: flex;
+    align-items: center;
+
+    @include base.mobile {
+        flex-direction: column;
+        align-items: flex-start;
+        display: grid;
+        min-width: 100%;
+    }
+
+    > :global(.labeled-control) {
+        display: flex;
+        align-items: center;
+    }
+
+    > :global(.group) {
+        display: flex;
+        align-items: center;
+        margin-right: 10px;
+
+        @include base.mobile {
+            margin: 0;
+            width: 100%;
+
+            &:not(:last-child) {
+                margin-bottom: 10px;
+            }
+        }
+    }
+
+    > :global(.group.from-to-stations) {
+        @include base.mobile {
+            display: grid;
+            grid-template-areas:
+                'from swap'
+                'to swap';
+            grid-template-columns: minmax(0, 1fr) 50px;
+            row-gap: 10px;
+            column-gap: 10px;
+
+            .labeledControl {
+                margin: 0;
+
+                > :first-child {
+                    width: 35px;
+                    text-transform: capitalize;
+                    text-align: right;
+                    flex-shrink: 0;
+                    margin-left: 0;
+                }
+
+                > :nth-child(2) {
+                    flex-grow: 1;
+                }
+            }
+
+            > :global(.from-station) {
+                grid-area: from;
+            }
+
+            > :global(.to-station) {
+                grid-area: to;
+            }
+
+            > :global(.swap-stations-button) {
+                margin: 0;
+                grid-area: swap;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+            }
+        }
+    }
+
+    :global(.group.time-details) {
+        @include base.mobile {
+            overflow: scroll;
+            justify-content: space-between;
+
+            button {
+                flex-grow: 1;
+            }
+        }
+    }
+
+    :global(.swap-stations-button) {
+        margin-left: 10px;
+    }
+}
+
+.spacer {
+    width: 10px;
+}
+
+.label {
+    color: white;
+    margin: 0 10px;
+    white-space: nowrap;
+}
+
+.hiddenOnMobile {
+    @include base.mobile {
+        display: none;
+    }
+}
+
+.labeledControl {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+}

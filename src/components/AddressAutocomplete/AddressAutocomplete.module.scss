@@ -1,0 +1,52 @@
+@use '../../styles/base.scss';
+
+.wrapper {
+    position: relative;
+    width: 100%;
+    z-index: 20;
+}
+
+.input {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(15, 24, 34, 0.9);
+    color: white;
+    font-size: 14px;
+    outline: none;
+}
+
+.input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.suggestions {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    background: #0f1d2a;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    box-shadow: base.$global-shadow;
+    overflow: hidden;
+}
+
+.suggestion {
+    appearance: none;
+    background: transparent;
+    border: none;
+    color: white;
+    text-align: left;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.suggestion:hover {
+    background: rgba(255, 255, 255, 0.08);
+}

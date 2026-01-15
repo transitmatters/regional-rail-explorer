@@ -39,6 +39,7 @@ export interface JourneyTravelSegment {
     }[];
     routeId: string;
     routePatternId: string;
+    routeLabel?: string;
     levelBoarding: boolean;
 }
 
@@ -48,6 +49,7 @@ export interface JourneyTransferSegment {
     endTime: NetworkTime;
     waitDuration: NetworkTime;
     walkDuration: NetworkTime;
+    walkDistance?: number;
     isWaitAtDestination?: boolean;
 }
 

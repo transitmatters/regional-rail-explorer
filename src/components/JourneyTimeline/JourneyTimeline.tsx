@@ -31,9 +31,17 @@ const getSegmentHeight = (segment: JourneySegment) => {
     return Math.max(minSafeHeight, elapsedMinutes * 4.5 + 50);
 };
 
+const formatWalkDistance = (distanceMeters?: number) => {
+    if (!Number.isFinite(distanceMeters) || distanceMeters === undefined) {
+        return null;
+    }
+    const miles = distanceMeters / 1609.34;
+    return `${miles.toFixed(1)} mi`;
+};
+
 const TravelSegment = (props: { segment: JourneyTravelSegment }) => {
     const { segment } = props;
-    const { startStation, endStation, startTime, endTime, routeId } = segment;
+    const { startStation, endStation, startTime, endTime, routeId, routeLabel } = segment;
     const color = getColorForRouteId(routeId);
     const height = getSegmentHeight(segment);
     const canCollapse = height / segment.passedStations.length < desiredStationSpacingPx;
@@ -92,13 +100,18 @@ const TravelSegment = (props: { segment: JourneyTravelSegment }) => {
         );
     };
 
-    const renderEndpoint = (station, time) => {
+    const renderEndpoint = (station, time, showRouteLabel) => {
         return (
             <div className={styles.travelSegmentEndpoint}>
                 <div className="circle" />
                 <div className="label">
-                    <StationName station={station} onRouteId={routeId} />
-                    <div className="time">{stringifyTime(time)}</div>
+                    {showRouteLabel && routeLabel && (
+                        <div className="route-label">{routeLabel}</div>
+                    )}
+                    <div className="station-line">
+                        <StationName station={station} onRouteId={routeId} />
+                        <div className="time">{stringifyTime(time)}</div>
+                    </div>
                 </div>
             </div>
         );
@@ -107,11 +120,11 @@ const TravelSegment = (props: { segment: JourneyTravelSegment }) => {
     return (
         <div className={classNames(styles.travelSegment, textColor(color))}>
             <div className={"stem"} />
-            {renderEndpoint(startStation, startTime)}
+            {renderEndpoint(startStation, startTime, true)}
             <div className="inner" style={expanded ? { minHeight: height } : { height }}>
                 {renderInnerContents()}
             </div>
-            {renderEndpoint(endStation, endTime)}
+            {renderEndpoint(endStation, endTime, false)}
         </div>
     );
 };
@@ -122,10 +135,12 @@ const TransferSegment = (props: {
     segment: JourneyTransferSegment;
 }) => {
     const { segment, isStart, isEnd } = props;
-    const { startTime, endTime, walkDuration, waitDuration, isWaitAtDestination } = segment;
+    const { startTime, endTime, walkDuration, waitDuration, isWaitAtDestination, walkDistance } =
+        segment;
     const walkDurationRounded = Math.floor(walkDuration / MINUTE);
     const waitDurationRounded = Math.floor(waitDuration / MINUTE);
-    if (isEnd && endTime - startTime < MINUTE * 5) {
+    const walkDistanceLabel = formatWalkDistance(walkDistance);
+    if (isEnd && walkDurationRounded === 0 && waitDurationRounded === 0) {
         return null;
     }
     return (
@@ -148,7 +163,12 @@ const TransferSegment = (props: {
             )}
             <div className="stem" />
             <div className="label">
-                {walkDurationRounded > 0 && <div>{walkDurationRounded} minute transfer</div>}
+                {walkDurationRounded > 0 && (
+                    <div>
+                        {walkDurationRounded} {pluralize("minute", walkDurationRounded)} walk
+                        {walkDistanceLabel ? ` (${walkDistanceLabel})` : ""}
+                    </div>
+                )}
                 {waitDurationRounded > 0 && (
                     <div>
                         {isWaitAtDestination ? (
