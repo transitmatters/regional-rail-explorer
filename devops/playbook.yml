@@ -91,10 +91,11 @@
       args:
         chdir: /home/ubuntu/regional-rail-explorer
 
-    - name: build application
-      shell: npm run build
-      args:
-        chdir: /home/ubuntu/regional-rail-explorer
+    - name: sync built .next directory from runner
+      synchronize:
+        src: "{{ playbook_dir }}/../.next/"
+        dest: /home/ubuntu/regional-rail-explorer/.next/
+        delete: yes
 
     - name: Make sure a service unit is running and enabled
       become: yes
