@@ -48,5 +48,7 @@ jobs:
         run: npx --yes package-lock-utd@1.1.0
       - name: Install app dependencies
         run: npm ci
+      - name: Build application
+        run: npm run build
       - name: Run deploy shell script
         run: cd devops && bash ./deploy.sh -p -c
