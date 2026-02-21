@@ -51,4 +51,4 @@ jobs:
       - name: Build application
         run: npm run build
       - name: Run deploy shell script
-        run: cd devops && bash ./deploy.sh -p -c
+        run: cd devops && bash ./deploy.sh -p
