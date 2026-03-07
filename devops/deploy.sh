@@ -7,17 +7,27 @@ export AWS_DEFAULT_REGION=us-east-1
 export AWS_PAGER=""
 
 PRODUCTION=false
+LOCAL=false
 
 # Argument parsing
 # pass "-p" flag to deploy to production
+# pass "-l" flag to build locally before deploying
 
-while getopts "p" opt; do
+while getopts "pl" opt; do
     case $opt in
         p)
             PRODUCTION=true
             ;;
+        l)
+            LOCAL=true
+            ;;
   esac
 done
+
+if $LOCAL; then
+    echo "Building application locally..."
+    (cd "$(dirname "$0")/.." && npm ci && npm run build)
+fi
 
 $PRODUCTION && HOSTNAME="regionalrail.rocks" || HOSTNAME="rre-beta.labs.transitmatters.org"
 $PRODUCTION && DOMAIN="regionalrail.rocks" || DOMAIN="labs.transitmatters.org"
