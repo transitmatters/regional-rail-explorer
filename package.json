@@ -50,8 +50,8 @@
     "@types/node": "^22.13.5",
     "@types/react": "^18.3.1",
     "@types/smoothscroll-polyfill": "^0.3.4",
-    "@typescript-eslint/eslint-plugin": "^8.32.0",
-    "@typescript-eslint/parser": "^8.32.0",
+    "@typescript-eslint/eslint-plugin": "^8.57.2",
+    "@typescript-eslint/parser": "^8.57.2",
     "ajv": "^8.17.1",
     "babel-loader": "^9.2.1",
     "babel-preset-react-app": "^10.1.0",
@@ -67,7 +67,7 @@
     "sass-loader": "^16.0.5",
     "storybook": "^8.5.8",
     "style-loader": "^4.0.0",
-    "typescript": "~5.8.3"
+    "typescript": "~6.0"
   },
   "engines": {
     "node": ">=22.10.0",
