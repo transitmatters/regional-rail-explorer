@@ -1,0 +1,37 @@
+Stop,Platform_type,Corridor,Dwell_time,Platform_Length,Current_speed,Current_V,Future_speed,Future_V
+South Station,High,Core,30.00,275.00,15.00,6.71,30.00,13.41
+Back Bay - NEC,Mini-high,NEC,90.00,300.00,30.00,13.41,60.00,26.82
+Ruggles,High,NEC,30.00,320.00,100.00,44.70,120.00,53.64
+Forest Hills,High,NEC,30.00,320.00,100.00,44.70,120.00,53.64
+Hyde Park,Mini-high,NEC,90.00,245.00,80.00,35.76,120.00,53.64
+Readville - NEC,Mini-high,NEC,90.00,250.00,60.00,26.82,120.00,53.64
+Route 128,High,NEC,30.00,320.00,130.00,58.12,130.00,58.12
+Canton Junction - NEC,Mini-high,NEC,90.00,258.00,130.00,58.12,130.00,58.12
+Sharon,Mini-high,NEC,90.00,233.00,130.00,58.12,130.00,58.12
+Mansfield,Mini-high,NEC,90.00,235.00,80.00,35.76,160.00,71.53
+Attleboro,Mini-high,NEC,90.00,220.00,80.00,35.76,160.00,71.53
+South Attleboro,Mini-high,NEC,90.00,256.00,125.00,55.88,150.00,67.06
+Pawtucket/Central Falls,High,NEC,30.00,244.00,60.00,26.82,110.00,49.17
+Providence,High,NEC,30.00,320.00,30.00,13.41,60.00,26.82
+TF Green Airport,High,NEC,30.00,255.00,150.00,67.06,130.00,58.12
+Wickford Junction,High,NEC,30.00,260.00,160.00,71.53,160.00,71.53
+Canton Junction - Stoughton,Mini-high,Stoughton,90.00,258.00,30.00,13.41,100.00,44.70
+Canton Center,Mini-high,Stoughton,90.00,145.00,40.00,17.88,100.00,44.70
+Stoughton,Mini-high,Stoughton,90.00,175.00,10.00,4.47,100.00,44.70
+Back Bay - EW,High,East-West,30.00,,,0.00,,0.00
+Lansdowne,High,East-West,30.00,,,0.00,,0.00
+Boston Landing,High,East-West,30.00,,,0.00,,0.00
+Newtonville,Low,East-West,120.00,,,0.00,,0.00
+West Newton,Low,East-West,120.00,,,0.00,,0.00
+Auburndale,Low,East-West,120.00,,,0.00,,0.00
+Wellsley Farms,Low,East-West,120.00,,,0.00,,0.00
+Wellsley Hills,Low,East-West,120.00,,,0.00,,0.00
+Wellsley Square,Mini-high,East-West,90.00,,,0.00,,0.00
+Natick Center,High,East-West,30.00,,,0.00,,0.00
+West Natick,Low,East-West,120.00,,,0.00,,0.00
+Framingham,Mini-high,East-West,90.00,,,0.00,,0.00
+Ashland,Mini-high,East-West,90.00,,,0.00,,0.00
+Southborough,Mini-high,East-West,90.00,,,0.00,,0.00
+Westborough,Mini-high,East-West,90.00,,,0.00,,0.00
+Grafton,Mini-high,East-West,90.00,,,0.00,,0.00
+Worcester,High,East-West,30.00,,,0.00,,0.00

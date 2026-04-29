@@ -1,0 +1,162 @@
+Service_ID,Name,Segment,Segment_type,Segment_ord,Stop_here,Dist,Vmax,Current_Vmax,Future_Vmax,Line
+g1,Providence Local,South Station,Stop,1,TRUE,275.00,13.41,13.41,13.41,Providence/Stoughton
+g2,Providence Local,r1,RoW ,2,FALSE,1040.00,8.94,8.94,6.71,Providence/Stoughton
+g3,Providence Local,r2,RoW ,3,FALSE,694.00,13.41,13.41,17.88,Providence/Stoughton
+g4,Providence Local,Back Bay - NEC,Stop,4,TRUE,300.00,26.82,26.82,26.82,Providence/Stoughton
+g5,Providence Local,r3,RoW ,5,FALSE,660.00,13.41,13.41,17.88,Providence/Stoughton
+g6,Providence Local,r4,RoW ,6,FALSE,817.00,26.82,26.82,44.70,Providence/Stoughton
+g7,Providence Local,Ruggles,Stop,7,TRUE,320.00,53.64,53.64,53.64,Providence/Stoughton
+g8,Providence Local,r5,RoW ,8,FALSE,4070.00,44.70,44.70,53.64,Providence/Stoughton
+g9,Providence Local,Forest Hills,Stop,9,FALSE,320.00,53.64,53.64,53.64,Providence/Stoughton
+g10,Providence Local,r6,RoW ,10,FALSE,5182.00,35.76,35.76,53.64,Providence/Stoughton
+g11,Providence Local,Hyde Park,Stop,11,TRUE,245.00,53.64,53.64,53.64,Providence/Stoughton
+g12,Providence Local,r7,RoW ,12,FALSE,1600.00,26.82,26.82,53.64,Providence/Stoughton
+g13,Providence Local,Readville - NEC,Stop,13,TRUE,250.00,53.64,53.64,53.64,Providence/Stoughton
+g14,Providence Local,r8,RoW ,14,FALSE,1280.00,53.64,53.64,58.12,Providence/Stoughton
+g15,Providence Local,r9,RoW ,15,FALSE,1880.00,58.12,58.12,58.12,Providence/Stoughton
+g16,Providence Local,Route 128,Stop,16,TRUE,320.00,58.12,58.12,58.12,Providence/Stoughton
+g17,Providence Local,r10,RoW ,17,FALSE,5010.00,58.12,58.12,58.12,Providence/Stoughton
+g18,Providence Local,Canton Junction - NEC,Stop,18,TRUE,258.00,58.12,58.12,58.12,Providence/Stoughton
+g19,Providence Local,r15,RoW ,19,FALSE,1470.00,55.88,55.88,55.88,Providence/Stoughton
+g20,Providence Local,r16,RoW ,20,FALSE,3360.00,58.12,58.12,67.06,Providence/Stoughton
+g21,Providence Local,Sharon,Stop,21,TRUE,233.00,58.12,58.12,58.12,Providence/Stoughton
+g22,Providence Local,r17,RoW ,22,FALSE,9020.00,58.12,58.12,58.12,Providence/Stoughton
+g23,Providence Local,r18,RoW ,23,FALSE,1520.00,71.53,71.53,71.53,Providence/Stoughton
+g24,Providence Local,Mansfield,Stop,24,TRUE,235.00,71.53,71.53,71.53,Providence/Stoughton
+g25,Providence Local,r19,RoW ,25,FALSE,9430.00,71.53,71.53,71.53,Providence/Stoughton
+g26,Providence Local,r20,RoW ,26,FALSE,1860.00,35.76,35.76,71.53,Providence/Stoughton
+g27,Providence Local,Attleboro,Stop,27,TRUE,220.00,71.53,71.53,71.53,Providence/Stoughton
+g28,Providence Local,r21,RoW ,28,FALSE,3850.00,35.76,35.76,71.53,Providence/Stoughton
+g29,Providence Local,r22,RoW ,29,FALSE,1340.00,49.17,49.17,53.64,Providence/Stoughton
+g30,Providence Local,r23,RoW ,30,FALSE,2780.00,55.88,55.88,67.06,Providence/Stoughton
+g31,Providence Local,South Attleboro,Stop,31,FALSE,256.00,67.06,67.06,67.06,Providence/Stoughton
+g32,Providence Local,r24,RoW ,32,FALSE,1920.00,55.88,55.88,49.17,Providence/Stoughton
+g33,Providence Local,r25,RoW ,33,FALSE,857.00,26.82,26.82,49.17,Providence/Stoughton
+g34,Providence Local,r26,RoW ,34,FALSE,1150.00,26.82,26.82,49.17,Providence/Stoughton
+g35,Providence Local,Pawtucket/Central Falls,Stop,35,TRUE,244.00,49.17,49.17,49.17,Providence/Stoughton
+g36,Providence Local,r27,RoW ,36,FALSE,654.00,26.82,26.82,49.17,Providence/Stoughton
+g37,Providence Local,r28,RoW ,37,FALSE,3590.00,31.29,31.29,53.64,Providence/Stoughton
+g38,Providence Local,r29,RoW ,38,FALSE,665.00,26.82,26.82,49.17,Providence/Stoughton
+g39,Providence Local,r30,RoW ,39,FALSE,1040.00,13.41,13.41,26.82,Providence/Stoughton
+g40,Providence Local,Providence,Stop,40,TRUE,320.00,26.82,26.82,26.82,Providence/Stoughton
+g41,Stoughton Local,South Station,Stop,1,TRUE,275.00,13.41,13.41,13.41,Providence/Stoughton
+g42,Stoughton Local,r1,RoW ,2,FALSE,1040.00,8.94,8.94,6.71,Providence/Stoughton
+g43,Stoughton Local,r2,RoW ,3,FALSE,694.00,13.41,13.41,17.88,Providence/Stoughton
+g44,Stoughton Local,Back Bay - NEC,Stop,4,TRUE,300.00,26.82,26.82,26.82,Providence/Stoughton
+g45,Stoughton Local,r3,RoW ,5,FALSE,660.00,13.41,13.41,17.88,Providence/Stoughton
+g46,Stoughton Local,r4,RoW ,6,FALSE,817.00,26.82,26.82,44.70,Providence/Stoughton
+g47,Stoughton Local,Ruggles,Stop,7,TRUE,320.00,53.64,53.64,53.64,Providence/Stoughton
+g48,Stoughton Local,r5,RoW ,8,FALSE,4070.00,44.70,44.70,53.64,Providence/Stoughton
+g49,Stoughton Local,Forest Hills,Stop,9,TRUE,320.00,53.64,53.64,53.64,Providence/Stoughton
+g50,Stoughton Local,r6,RoW ,10,FALSE,5182.00,35.76,35.76,53.64,Providence/Stoughton
+g51,Stoughton Local,Hyde Park,Stop,11,TRUE,245.00,53.64,53.64,53.64,Providence/Stoughton
+g52,Stoughton Local,r7,RoW ,12,FALSE,1600.00,26.82,26.82,53.64,Providence/Stoughton
+g53,Stoughton Local,Readville - NEC,Stop,13,TRUE,250.00,53.64,53.64,53.64,Providence/Stoughton
+g54,Stoughton Local,r8,RoW ,14,FALSE,1280.00,53.64,53.64,58.12,Providence/Stoughton
+g55,Stoughton Local,r9,RoW ,15,FALSE,1880.00,58.12,58.12,58.12,Providence/Stoughton
+g56,Stoughton Local,Route 128,Stop,16,TRUE,320.00,58.12,58.12,58.12,Providence/Stoughton
+g57,Stoughton Local,r10,RoW ,17,FALSE,5010.00,58.12,58.12,58.12,Providence/Stoughton
+g58,Stoughton Local,Canton Junction - Stoughton,Stop,18,TRUE,258.00,44.70,44.70,44.70,Providence/Stoughton
+g59,Stoughton Local,r11,RoW ,19,FALSE,672.00,13.41,13.41,44.70,Providence/Stoughton
+g61,Stoughton Local,Canton Center,Stop,20,TRUE,145.00,44.70,44.70,44.70,Providence/Stoughton
+g62,Stoughton Local,r12,RoW ,21,FALSE,900.00,13.41,13.41,44.70,Providence/Stoughton
+g63,Stoughton Local,r13,RoW ,22,FALSE,4100.00,17.88,17.88,44.70,Providence/Stoughton
+g64,Stoughton Local,r14,RoW ,23,FALSE,251.00,4.47,4.47,44.70,Providence/Stoughton
+g65,Stoughton Local,Stoughton,Stop,24,TRUE,175.00,44.70,44.70,44.70,Providence/Stoughton
+g66,Wickford Local,South Station,Stop,1,TRUE,275.00,13.41,13.41,13.41,Providence/Stoughton
+g67,Wickford Local,r1,RoW ,2,FALSE,1040.00,8.94,8.94,6.71,Providence/Stoughton
+g68,Wickford Local,r2,RoW ,3,FALSE,694.00,13.41,13.41,17.88,Providence/Stoughton
+g69,Wickford Local,Back Bay - NEC,Stop,4,TRUE,300.00,26.82,26.82,26.82,Providence/Stoughton
+g70,Wickford Local,r3,RoW ,5,FALSE,660.00,13.41,13.41,17.88,Providence/Stoughton
+g71,Wickford Local,r4,RoW ,6,FALSE,817.00,26.82,26.82,44.70,Providence/Stoughton
+g72,Wickford Local,Ruggles,Stop,7,TRUE,320.00,53.64,53.64,53.64,Providence/Stoughton
+g73,Wickford Local,r5,RoW ,8,FALSE,4070.00,44.70,44.70,53.64,Providence/Stoughton
+g74,Wickford Local,Forest Hills,Stop,9,TRUE,320.00,53.64,53.64,53.64,Providence/Stoughton
+g75,Wickford Local,r6,RoW ,10,FALSE,5182.00,35.76,35.76,53.64,Providence/Stoughton
+g76,Wickford Local,Hyde Park,Stop,11,TRUE,245.00,53.64,53.64,53.64,Providence/Stoughton
+g77,Wickford Local,r7,RoW ,12,FALSE,1600.00,26.82,26.82,53.64,Providence/Stoughton
+g78,Wickford Local,Readville - NEC,Stop,13,TRUE,250.00,53.64,53.64,53.64,Providence/Stoughton
+g79,Wickford Local,r8,RoW ,14,FALSE,1280.00,53.64,53.64,58.12,Providence/Stoughton
+g80,Wickford Local,r9,RoW ,15,FALSE,1880.00,58.12,58.12,58.12,Providence/Stoughton
+g81,Wickford Local,Route 128,Stop,16,TRUE,320.00,58.12,58.12,58.12,Providence/Stoughton
+g82,Wickford Local,r10,RoW ,17,FALSE,5010.00,58.12,58.12,58.12,Providence/Stoughton
+g83,Wickford Local,Canton Junction - NEC,Stop,18,TRUE,258.00,58.12,58.12,58.12,Providence/Stoughton
+g84,Wickford Local,r15,RoW ,19,FALSE,1470.00,55.88,55.88,55.88,Providence/Stoughton
+g85,Wickford Local,r16,RoW ,20,FALSE,3360.00,58.12,58.12,67.06,Providence/Stoughton
+g86,Wickford Local,Sharon,Stop,21,TRUE,233.00,58.12,58.12,58.12,Providence/Stoughton
+g87,Wickford Local,r17,RoW ,22,FALSE,9020.00,58.12,58.12,58.12,Providence/Stoughton
+g88,Wickford Local,r18,RoW ,23,FALSE,1520.00,71.53,71.53,71.53,Providence/Stoughton
+g89,Wickford Local,Mansfield,Stop,24,TRUE,235.00,71.53,71.53,71.53,Providence/Stoughton
+g90,Wickford Local,r19,RoW ,25,FALSE,9430.00,71.53,71.53,71.53,Providence/Stoughton
+g91,Wickford Local,r20,RoW ,26,FALSE,1860.00,35.76,35.76,71.53,Providence/Stoughton
+g92,Wickford Local,Attleboro,Stop,27,TRUE,220.00,71.53,71.53,71.53,Providence/Stoughton
+g93,Wickford Local,r21,RoW ,28,FALSE,3850.00,35.76,35.76,71.53,Providence/Stoughton
+g94,Wickford Local,r22,RoW ,29,FALSE,1340.00,49.17,49.17,53.64,Providence/Stoughton
+g95,Wickford Local,r23,RoW ,30,FALSE,2780.00,55.88,55.88,67.06,Providence/Stoughton
+g96,Wickford Local,South Attleboro,Stop,31,TRUE,256.00,67.06,67.06,67.06,Providence/Stoughton
+g97,Wickford Local,r24,RoW ,32,FALSE,1920.00,55.88,55.88,49.17,Providence/Stoughton
+g98,Wickford Local,r25,RoW ,33,FALSE,857.00,26.82,26.82,49.17,Providence/Stoughton
+g99,Wickford Local,r26,RoW ,34,FALSE,1150.00,26.82,26.82,49.17,Providence/Stoughton
+g100,Wickford Local,Pawtucket/Central Falls,Stop,35,TRUE,244.00,49.17,49.17,49.17,Providence/Stoughton
+g101,Wickford Local,r27,RoW ,36,FALSE,654.00,26.82,26.82,49.17,Providence/Stoughton
+g102,Wickford Local,r28,RoW ,37,FALSE,3590.00,31.29,31.29,53.64,Providence/Stoughton
+g103,Wickford Local,r29,RoW ,38,FALSE,665.00,26.82,26.82,49.17,Providence/Stoughton
+g104,Wickford Local,r30,RoW ,39,FALSE,1040.00,13.41,13.41,26.82,Providence/Stoughton
+g105,Wickford Local,Providence,Stop,40,TRUE,320.00,26.82,26.82,26.82,Providence/Stoughton
+g106,Wickford Local,r31,RoW ,41,FALSE,363.00,13.41,13.41,26.82,Providence/Stoughton
+g107,Wickford Local,r32,RoW ,42,FALSE,678.00,26.82,26.82,35.76,Providence/Stoughton
+g108,Wickford Local,r33,RoW ,43,FALSE,3910.00,31.29,31.29,44.70,Providence/Stoughton
+g109,Wickford Local,r34,RoW ,44,FALSE,327.00,24.59,24.59,31.29,Providence/Stoughton
+g110,Wickford Local,r35,RoW ,45,FALSE,1910.00,44.70,44.70,58.12,Providence/Stoughton
+g111,Wickford Local,r36,RoW ,46,FALSE,635.00,49.17,49.17,58.12,Providence/Stoughton
+g112,Wickford Local,r37,RoW ,47,FALSE,5620.00,67.06,67.06,58.12,Providence/Stoughton
+g113,Wickford Local,TF Green Airport,Stop,48,TRUE,255.00,58.12,58.12,58.12,Providence/Stoughton
+g114,Wickford Local,r38,RoW ,49,FALSE,3340.00,67.06,67.06,58.12,Providence/Stoughton
+g115,Wickford Local,r39,RoW ,50,FALSE,620.00,46.94,46.94,55.88,Providence/Stoughton
+g116,Wickford Local,r40,RoW ,51,FALSE,2760.00,51.41,51.41,60.35,Providence/Stoughton
+g117,Wickford Local,r41,RoW ,52,FALSE,991.00,49.17,49.17,55.88,Providence/Stoughton
+g118,Wickford Local,r42,RoW ,53,FALSE,1210.00,71.53,71.53,71.53,Providence/Stoughton
+g119,Wickford Local,r43,RoW ,54,FALSE,717.00,58.12,58.12,71.53,Providence/Stoughton
+g120,Wickford Local,r44,RoW ,55,FALSE,3950.00,71.53,71.53,71.53,Providence/Stoughton
+g121,Wickford Local,r45,RoW ,56,FALSE,3250.00,71.53,71.53,71.53,Providence/Stoughton
+g122,Wickford Local,Wickford Junction,Stop,57,TRUE,260.00,71.53,71.53,71.53,Providence/Stoughton
+g123,Providence Express,South Station,Stop,1,TRUE,275.00,13.41,13.41,13.41,Providence/Stoughton
+g124,Providence Express,r1,RoW ,2,FALSE,1040.00,8.94,8.94,6.71,Providence/Stoughton
+g125,Providence Express,r2,RoW ,3,FALSE,694.00,13.41,13.41,17.88,Providence/Stoughton
+g126,Providence Express,Back Bay - NEC,Stop,4,TRUE,300.00,26.82,26.82,26.82,Providence/Stoughton
+g127,Providence Express,r3,RoW ,5,FALSE,660.00,13.41,13.41,17.88,Providence/Stoughton
+g128,Providence Express,r4,RoW ,6,FALSE,817.00,26.82,26.82,44.70,Providence/Stoughton
+g129,Providence Express,Ruggles,Stop,7,TRUE,320.00,53.64,53.64,53.64,Providence/Stoughton
+g130,Providence Express,r5,RoW ,8,FALSE,4070.00,44.70,44.70,53.64,Providence/Stoughton
+g131,Providence Express,Forest Hills,Stop,9,TRUE,320.00,53.64,53.64,53.64,Providence/Stoughton
+g132,Providence Express,r6,RoW ,10,FALSE,5182.00,35.76,35.76,53.64,Providence/Stoughton
+g133,Providence Express,Hyde Park,Stop,11,FALSE,245.00,53.64,53.64,53.64,Providence/Stoughton
+g134,Providence Express,r7,RoW ,12,FALSE,1600.00,26.82,26.82,53.64,Providence/Stoughton
+g135,Providence Express,Readville - NEC,Stop,13,FALSE,250.00,53.64,53.64,53.64,Providence/Stoughton
+g136,Providence Express,r8,RoW ,14,FALSE,1280.00,53.64,53.64,58.12,Providence/Stoughton
+g137,Providence Express,r9,RoW ,15,FALSE,1880.00,58.12,58.12,58.12,Providence/Stoughton
+g138,Providence Express,Route 128,Stop,16,TRUE,320.00,58.12,58.12,58.12,Providence/Stoughton
+g139,Providence Express,r10,RoW ,17,FALSE,5010.00,58.12,58.12,58.12,Providence/Stoughton
+g140,Providence Express,Canton Junction - NEC,Stop,18,TRUE,258.00,58.12,58.12,58.12,Providence/Stoughton
+g141,Providence Express,r15,RoW ,19,FALSE,1470.00,55.88,55.88,55.88,Providence/Stoughton
+g142,Providence Express,r16,RoW ,20,FALSE,3360.00,58.12,58.12,67.06,Providence/Stoughton
+g143,Providence Express,Sharon,Stop,21,TRUE,233.00,58.12,58.12,58.12,Providence/Stoughton
+g144,Providence Express,r17,RoW ,22,FALSE,9020.00,58.12,58.12,58.12,Providence/Stoughton
+g145,Providence Express,r18,RoW ,23,FALSE,1520.00,71.53,71.53,71.53,Providence/Stoughton
+g146,Providence Express,Mansfield,Stop,24,TRUE,235.00,71.53,71.53,71.53,Providence/Stoughton
+g147,Providence Express,r19,RoW ,25,FALSE,9430.00,71.53,71.53,71.53,Providence/Stoughton
+g148,Providence Express,r20,RoW ,26,FALSE,1860.00,35.76,35.76,71.53,Providence/Stoughton
+g149,Providence Express,Attleboro,Stop,27,TRUE,220.00,71.53,71.53,71.53,Providence/Stoughton
+g150,Providence Express,r21,RoW ,28,FALSE,3850.00,35.76,35.76,71.53,Providence/Stoughton
+g151,Providence Express,r22,RoW ,29,FALSE,1340.00,49.17,49.17,53.64,Providence/Stoughton
+g152,Providence Express,r23,RoW ,30,FALSE,2780.00,55.88,55.88,67.06,Providence/Stoughton
+g153,Providence Express,South Attleboro,Stop,31,FALSE,256.00,67.06,67.06,67.06,Providence/Stoughton
+g154,Providence Express,r24,RoW ,32,FALSE,1920.00,55.88,55.88,49.17,Providence/Stoughton
+g155,Providence Express,r25,RoW ,33,FALSE,857.00,26.82,26.82,49.17,Providence/Stoughton
+g156,Providence Express,r26,RoW ,34,FALSE,1150.00,26.82,26.82,49.17,Providence/Stoughton
+g157,Providence Express,Pawtucket/Central Falls,Stop,35,TRUE,244.00,49.17,49.17,49.17,Providence/Stoughton
+g158,Providence Express,r27,RoW ,36,FALSE,654.00,26.82,26.82,49.17,Providence/Stoughton
+g159,Providence Express,r28,RoW ,37,FALSE,3590.00,31.29,31.29,53.64,Providence/Stoughton
+g160,Providence Express,r29,RoW ,38,FALSE,665.00,26.82,26.82,49.17,Providence/Stoughton
+g161,Providence Express,r30,RoW ,39,FALSE,1040.00,13.41,13.41,26.82,Providence/Stoughton
+g162,Providence Express,Providence,Stop,40,TRUE,320.00,26.82,26.82,26.82,Providence/Stoughton
