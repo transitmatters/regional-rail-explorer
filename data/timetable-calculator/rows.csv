@@ -1,0 +1,50 @@
+RoW_ID,From,To,Distance,Current_Speed,Current_Vmax,Future_Speed,Future_Vmax,Notes
+r1,Boston S,Cove,1040.00,20.00,8.94,15.00,6.71,
+r2,Cove,Back Bay - NEC,694.00,30.00,13.41,40.00,17.88,
+r3,Back Bay - NEC,Claremont St,660.00,30.00,13.41,40.00,17.88,
+r4,Claremont St,Ruggles,817.00,60.00,26.82,100.00,44.70,
+r5,Ruggles,Forest Hills,4070.00,100.00,44.70,120.00,53.64,
+r6,Forest Hills,Hyde Park,5182.00,80.00,35.76,120.00,53.64,
+r7,Hyde Park,Readville,1600.00,60.00,26.82,120.00,53.64,
+r8,Readville,Readville Yard,1280.00,120.00,53.64,130.00,58.12,
+r9,Readville Yard,Route 128,1880.00,130.00,58.12,130.00,58.12,
+r10,Route 128,Canton Junction,5010.00,130.00,58.12,130.00,58.12,
+r11,Canton Junction,Canton Center,672.00,30.00,13.41,100.00,44.70,
+r12,Canton Center,Bolivar St,900.00,30.00,13.41,100.00,44.70,
+r13,Bolivar St,School St,4100.00,40.00,17.88,100.00,44.70,
+r14,School St,Stoughton,251.00,10.00,4.47,100.00,44.70,
+r15,Canton Junction,High St,1470.00,125.00,55.88,125.00,55.88,
+r16,High St,Sharon,3360.00,130.00,58.12,150.00,67.06,
+r17,Sharon,Maple Spur,9020.00,130.00,58.12,130.00,58.12,
+r18,Maple Spur,Mansfield,1520.00,160.00,71.53,160.00,71.53,
+r19,Mansfield,Lindsey Spur,9430.00,160.00,71.53,160.00,71.53,
+r20,Lindsey Spur,Attleboro,1860.00,80.00,35.76,160.00,71.53,"Outbound 80, inbound 60?"
+r21,Attleboro,Taunton Yard,3850.00,80.00,35.76,160.00,71.53,"Outbound 80, inbound 60?"
+r22,Taunton Yard,Ten Mile River,1340.00,110.00,49.17,120.00,53.64,Inbound 30?!
+r23,Ten Mile River,South Attleboro,2780.00,125.00,55.88,150.00,67.06,
+r24,South Attleboro,I-95,1920.00,125.00,55.88,110.00,49.17,
+r25,I-95,Boston Switch,857.00,60.00,26.82,110.00,49.17,Connect to P&W
+r26,Boston Switch,Pawtucket,1150.00,60.00,26.82,110.00,49.17,
+r27,Pawtucket,Mineral Spring,654.00,60.00,26.82,110.00,49.17,
+r28,Mineral Spring,West River,3590.00,70.00,31.29,120.00,53.64,
+r29,West River,RI-146,665.00,60.00,26.82,110.00,49.17,
+r30,RI-146,Providence,1040.00,30.00,13.41,60.00,26.82,
+r31,Providence,95-6 Inter,363.00,30.00,13.41,60.00,26.82,
+r32,95-6 Inter,Acorn St,678.00,60.00,26.82,80.00,35.76,
+r33,Acorn St,Huntington,3910.00,70.00,31.29,100.00,44.70,
+r34,Huntington,Elmwood,327.00,55.00,24.59,70.00,31.29,Curve
+r35,Elmwood,RI 10,1910.00,100.00,44.70,130.00,58.12,
+r36,RI 10,Park Ave,635.00,110.00,49.17,130.00,58.12,
+r37,Park Ave,PVD,5620.00,150.00,67.06,130.00,58.12,
+r38,PVD,Ponaug,3340.00,150.00,67.06,130.00,58.12,
+r39,Ponaug,Midgely,620.00,105.00,46.94,125.00,55.88,Curve
+r40,Midgely,Williams St,2760.00,115.00,51.41,135.00,60.35,
+r41,Williams St,Crompton St,991.00,110.00,49.17,125.00,55.88,Curve
+r42,Crompton St,Scalloptown,1210.00,160.00,71.53,160.00,71.53,
+r43,Scalloptown,Ebony Dr,717.00,130.00,58.12,160.00,71.53,Curve
+r44,Ebony Dr,Davisville,3950.00,160.00,71.53,160.00,71.53,To Quonset
+r45,Davisville,Wickford Junction,3250.00,160.00,71.53,160.00,71.53,
+r46,Wickford Junction,Henry Lot,8480.00,160.00,71.53,160.00,71.53,
+r47,Henry Lot,Hundred Acre,1360.00,130.00,58.12,130.00,58.12,
+r48,Hundred Acre,Kingston,2600.00,160.00,71.53,160.00,71.53,
+r49,Kingston,Pawcatuck,5730.00,160.00,71.53,160.00,71.53,To possible I-95 RoW
