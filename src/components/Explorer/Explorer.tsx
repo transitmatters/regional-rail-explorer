@@ -165,11 +165,7 @@ const Explorer: React.FunctionComponent<Props> = (props) => {
                 return <JourneyErrorState />;
             }
             const [baseline, enhanced] = journeys as JourneyInfo[];
-            // make sure to show error state if regional rail is the one to fail
-            if (
-                enhanced.navigationFailed ||
-                (baseline.navigationFailed && enhanced.navigationFailed)
-            ) {
+            if (baseline.navigationFailed && enhanced.navigationFailed) {
                 return <JourneyErrorState />;
             }
 
