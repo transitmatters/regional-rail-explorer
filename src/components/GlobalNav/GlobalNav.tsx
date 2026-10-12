@@ -16,6 +16,7 @@ type NavLink = {
 
 const navLinks: NavLink[] = [
     { title: "Plan a trip", pathname: "/explore", key: "trip" },
+    { title: "Timetable Calculator", pathname: "/timetable-calculator", key: "ttc" },
     { title: "Read the Reports", href: "http://regionalrail.net", key: "reports" },
     {
         title: "Source Code",

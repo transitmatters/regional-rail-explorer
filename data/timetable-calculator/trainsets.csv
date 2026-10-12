@@ -1,0 +1,6 @@
+Consist,Mass,Force,Power,Vmax,Braking_rate,Acceleration,Transition_V,Seats
+MBTA Diesel,467000,240000,2300000,35.32,0.30,0.51,9.58,
+EMU Stadler Flirt,342000,320000,6400000,55.56,0.80,0.94,20.00,
+EMU Stadler Kiss,566400,540000,6000000,55.56,0.80,0.95,11.11,
+Siemens Charger [Electric mode],495700,310000,4000000,55.88,0.60,0.63,12.90,
+Siemens Charger [Battery mode],495700,310000,3300000,55.88,0.60,0.63,10.65,

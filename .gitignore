@@ -53,4 +53,4 @@ inventory
 /.idea
 *storybook.log
 .cursor
-
+.claude/settings.local.json

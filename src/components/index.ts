@@ -28,3 +28,4 @@ export { StationPickerWithDisclosure } from "./StationPicker/StationPickerWithDi
 export { default as SuggestedJourneys } from "./SuggestedJourneys/SuggestedJourneys";
 export { StationSearchBar, StationListing } from "./StationListing";
 export type { StationsByLine } from "./StationListing";
+export { TimetableCalculator } from "./TimetableCalculator";
