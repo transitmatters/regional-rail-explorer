@@ -34,20 +34,23 @@ $ npm run storybook
 Steps for deploying to AWS or testing the deployment locally. You don't need these steps for most local development.
 
 ### Server Deployment
-Ensure you have the following dependencies installed:
-- [nginx](https://www.nginx.com/)
-- [supervisord](http://supervisord.org/introduction.html)
+Servers are provisioned with the Ansible playbook in [`devops/`](./devops). It installs nginx,
+copies [`systemd.conf`](./devops/systemd.conf) to the `regional-rail-explorer` systemd unit, and
+starts the application on port 5000. The nginx configuration proxies public requests to that unit.
+
+Ensure you have the AWS CLI and Ansible installed and configured for the TransitMatters deployment
+account. Build from the repository root, then run the deployment script from `devops`:
 
 ```bash
-$ git pull
-$ sudo cp devops/regional-rail-explorer-supervisor.conf /etc/supervisor/conf.d/regional-rail-explorer.conf
-$ sudo cp devops/regional-rail-explorer-nginx.conf /etc/nginx/sites-enabled/
-$ sudo supervisorctl reload
-$ sudo systemctl restart nginx
-$ npm install
+$ npm ci
 $ NODE_OPTIONS="--max-old-space-size=2048" npm run build
-$ sudo supervisorctl restart regional-rail-explorer
+$ cd devops
+$ ./deploy.sh       # beta deployment
+$ ./deploy.sh -p    # production deployment
 ```
+
+The playbook manages the service lifecycle; do not use the removed supervisord configuration or
+`supervisorctl` commands.
 
 Initial API requests will be quite slow for now as the server must load and parse several large GTFS bundles.
 
