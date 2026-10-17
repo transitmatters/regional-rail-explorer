@@ -8,8 +8,8 @@ The Regional Rail Explorer is a tool to demonstrate the impact of Regional Rail 
 
 ## Setup
 Ensure you have the following dependencies installed:
- - [`node`](https://nodejs.org/en/) `~22.x` (with [mise](https://mise.jdx.dev): `mise trust && mise install`, pinned in `.nvmrc`)
- - [`npm`](https://www.npmjs.com/) `>=10.x`
+ - [`node`](https://nodejs.org/en/) `~26.x` (with [mise](https://mise.jdx.dev): `mise trust && mise install`, pinned in `.nvmrc`)
+ - [`npm`](https://www.npmjs.com/) `>=11.x`
 
 ### Local Deployment
 ```bash
@@ -48,26 +48,21 @@ $ npm run storybook
 
 Steps for deploying to AWS or testing the deployment locally. You don't need these steps for most local development.
 
-### Server Deployment
-Ensure you have the following dependencies installed:
-- [nginx](https://www.nginx.com/)
-- [supervisord](http://supervisord.org/introduction.html)
+### Production build
+Production uses Next's [standalone output](https://nextjs.org/docs/pages/api-reference/config/next-config-js/output). To build and run it the way the server does:
 
 ```bash
-$ git pull
-$ sudo cp devops/regional-rail-explorer-supervisor.conf /etc/supervisor/conf.d/regional-rail-explorer.conf
-$ sudo cp devops/regional-rail-explorer-nginx.conf /etc/nginx/sites-enabled/
-$ sudo supervisorctl reload
-$ sudo systemctl restart nginx
-$ npm install
-$ NODE_OPTIONS="--max-old-space-size=2048" npm run build
-$ sudo supervisorctl restart regional-rail-explorer
+$ npm run build
+$ mkdir release
+$ cp -r .next/standalone/. release/ && cp -r .next/static release/.next/static
+$ cp -r public scenarios.json release/
+$ cd release && PORT=5000 node server.js
 ```
 
 Initial API requests will be quite slow for now as the server must load and parse several large GTFS bundles.
 
 ### AWS Deployment
-You can deploy changes to this application to an AWS EC2 instance running Ubuntu using the `devops/deploy.sh` script.
+You can deploy changes to this application to an AWS EC2 instance running Ubuntu using the `devops/deploy.sh` script. It expects the packaged `release/` directory above (CI builds it on an arm64 runner to match the instance), ships it to `releases/<sha>` on the host, and rolls back to the previous release if the new one fails its health check.
 
 Ensure you've installed the [AWS CLI](https://aws.amazon.com/cli/) and configured it with your account credentials. You will also need [Ansible](https://www.ansible.com/) installed. Some additional configuration may be nessessary as well - see the `devops` folder for more.
 
