@@ -19,8 +19,23 @@ $ npm run build && npm start
 ```
 Then navigate to http://localhost:3000.
 
+For development with hot reloading, run `npm run dev` instead.
+
+## Project Structure
+```
+data/            # GTFS bundles for today's service and Regional Rail scenarios (from regional-rail-schedule-generator)
+src/
+  components/    # React components
+  pages/         # Next.js pages and API routes
+  server/        # Scenario loading and journey planning
+  types/         # Shared TypeScript types
+devops/          # EC2 deployment (CloudFormation, Ansible, nginx, systemd)
+```
+
+`scenarios.json` is computed from `data/` at build time and is not committed.
+
 ## Linting
-To lint the project source code, run `$ npm run lint` in the root directory
+To lint the project source code, run `$ npm run lint` in the root directory. `npm run check` runs ESLint and the TypeScript type check together.
 
 ## Storybook
 An index of React component fixtures is available to browse by running:
