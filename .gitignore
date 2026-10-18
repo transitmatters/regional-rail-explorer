@@ -54,3 +54,6 @@ inventory
 *storybook.log
 .cursor
 
+
+# Packaged standalone build shipped to the host (see devops/playbook.yml)
+/release/
