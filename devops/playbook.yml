@@ -3,12 +3,27 @@
   hosts: all
   remote_user: ubuntu
   become_user: ubuntu
+
+  # The host only runs the app. CI builds a Next standalone bundle (server, traced
+  # node_modules, static assets, scenarios.json) into release/ and we ship that here,
+  # so nothing is cloned, installed or built on this 2GiB box.
+  vars:
+    app_dir: /home/ubuntu/regional-rail-explorer
+    git_sha: "{{ lookup('env', 'GIT_SHA') }}"
+    release_dir: "{{ app_dir }}/releases/{{ git_sha }}"
+    # Runs mapScenarios in getServerSideProps, so it fails if scenarios.json is missing or broken
+    health_url: http://127.0.0.1:5000/station/place-sstat
+    releases_to_keep: 3
+
   tasks:
+    # -- Host prep ---------------------------------------------------------
+
     - name: Create swap file
       become: yes
       become_user: root
-      command: dd if=/dev/zero of=/extraswap bs=1M count=512
-      when: ansible_swaptotal_mb < 1
+      command: dd if=/dev/zero of=/extraswap bs=1M count=2048
+      args:
+        creates: /extraswap
 
     - name: Make sure swap file has the right permissions
       become: yes
@@ -17,58 +32,56 @@
         path: /extraswap
         mode: "0600"
 
+    # Keyed off whether the file is already active swap rather than whether we just
+    # created it: mkswap refuses on an active swap file, and this also recovers a
+    # file a previous deploy created but never formatted.
+    - name: Check whether the swap file is already active
+      become: yes
+      become_user: root
+      command: swapon --show=NAME --noheadings
+      register: active_swap
+      changed_when: false
+
     - name: Run mkswap
       become: yes
       become_user: root
       command: mkswap /extraswap
-      when: ansible_swaptotal_mb < 1
+      when: "'/extraswap' not in active_swap.stdout"
 
     - name: Add swap to fstab
       become: yes
       become_user: root
-      action: lineinfile dest=/etc/fstab regexp="extraswap" line="/extraswap none swap sw 0 0" state=present
+      lineinfile:
+        dest: /etc/fstab
+        regexp: extraswap
+        line: /extraswap none swap sw 0 0
+        state: present
 
     - name: Turn swap on
       become: yes
       become_user: root
       command: swapon -a
+      changed_when: false
 
-    - name: Add nodejs apt key
+    - name: Add nodejs 26.x ppa for apt repo
       become: yes
       become_user: root
-      apt_key:
-        url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
-        state: present
+      shell: curl -fsSL https://deb.nodesource.com/setup_26.x | bash -
 
-    - name: Add nodejs 22.x ppa for apt repo
-      become: yes
-      become_user: root
-      shell: curl -fsSL https://deb.nodesource.com/setup_22.x | sudo bash - 
-
+    # state: latest so an existing install from an older major gets upgraded
     - name: Install nodejs
       become: yes
       become_user: root
-      ansible.builtin.apt:
+      apt:
         name: nodejs
-        state: present
+        state: latest
 
-    - name: get latest github repo
-      git:
-        repo: https://github.com/transitmatters/regional-rail-explorer.git
-        dest: /home/ubuntu/regional-rail-explorer
-        force: yes
-
-    - name: copy systemd service file
-      become: yes
-      become_user: root
-      copy:
-        src: systemd.conf
-        dest: /etc/systemd/system/regional-rail-explorer.service
+    # -- Web tier ----------------------------------------------------------
 
     - name: Install nginx
       become: yes
       become_user: root
-      ansible.builtin.apt:
+      apt:
         name: nginx
 
     - name: copy nginx config file
@@ -78,37 +91,141 @@
         src: nginx.conf
         dest: /etc/nginx/sites-enabled/default
 
-    - name: restart nginx
+    # Reloaded every run rather than via a handler, so a deploy that fails after
+    # writing the config can't leave nginx on the old one forever.
+    - name: Reload nginx
       become: yes
       become_user: root
-      systemd:
+      systemd_service:
         name: nginx
-        state: restarted
-        daemon_reload: yes
+        state: reloaded
+      changed_when: false
 
-    - name: install app dependencies
-      shell: npm ci
-      args:
-        chdir: /home/ubuntu/regional-rail-explorer
+    # -- Release -----------------------------------------------------------
 
-    - name: sync built .next directory from runner
+    - name: Find the release currently being served
+      stat:
+        path: "{{ app_dir }}/current"
+      register: current_link
+
+    - name: Record the previous release
+      set_fact:
+        previous_release: "{{ current_link.stat.lnk_source if (current_link.stat.islnk | default(false)) else '' }}"
+
+    - name: Create the release directory
+      file:
+        path: "{{ release_dir }}"
+        state: directory
+        mode: "0755"
+
+    - name: Ship the built release from the runner
       synchronize:
-        src: "{{ playbook_dir }}/../.next/"
-        dest: /home/ubuntu/regional-rail-explorer/.next/
+        src: "{{ playbook_dir }}/../release/"
+        dest: "{{ release_dir }}/"
         delete: yes
 
-    - name: Make sure a service unit is running and enabled
+    - name: copy systemd service file
       become: yes
       become_user: root
-      ansible.builtin.systemd_service:
-        state: started
-        name: regional-rail-explorer
-        enabled: true
+      template:
+        src: systemd.conf
+        dest: /etc/systemd/system/regional-rail-explorer.service
 
-    - name: restart service
-      become: yes
-      become_user: root
-      ansible.builtin.systemd_service:
-        state: restarted
-        daemon_reload: true
-        name: regional-rail-explorer
+    - name: Switch to the new release and verify it serves
+      block:
+        - name: Point current at the new release
+          file:
+            src: "{{ release_dir }}"
+            dest: "{{ app_dir }}/current"
+            state: link
+            force: yes
+
+        - name: Make sure a service unit is running and enabled
+          become: yes
+          become_user: root
+          systemd_service:
+            name: regional-rail-explorer
+            state: started
+            enabled: true
+            daemon_reload: true
+
+        - name: restart service
+          become: yes
+          become_user: root
+          systemd_service:
+            name: regional-rail-explorer
+            state: restarted
+            daemon_reload: true
+
+        - name: Wait for the app to serve a scenario page
+          uri:
+            url: "{{ health_url }}"
+            status_code: 200
+            timeout: 30
+          register: health
+          until: health.status == 200
+          retries: 20
+          delay: 3
+
+      rescue:
+        - name: Roll back to the previous release
+          when: previous_release | length > 0 and previous_release != release_dir
+          block:
+            - name: Point current back at the previous release
+              file:
+                src: "{{ previous_release }}"
+                dest: "{{ app_dir }}/current"
+                state: link
+                force: yes
+
+            - name: Restart on the previous release
+              become: yes
+              become_user: root
+              systemd_service:
+                name: regional-rail-explorer
+                state: restarted
+
+            - name: Wait for the rolled-back app to serve
+              uri:
+                url: "{{ health_url }}"
+                status_code: 200
+                timeout: 30
+              register: rollback_health
+              until: rollback_health.status == 200
+              retries: 20
+              delay: 3
+
+        - name: Fail the deploy
+          fail:
+            msg: >-
+              {{ git_sha }} failed its health check.
+              {{ ('Rolled back to ' + previous_release + '.')
+                 if previous_release | length > 0 and previous_release != release_dir
+                 else 'There was no previous release to roll back to.' }}
+
+    # -- Cleanup -----------------------------------------------------------
+
+    # Only reached after a successful deploy, so the served release is always kept
+    - name: Prune old releases
+      shell: |
+        set -euo pipefail
+        cd {{ app_dir }}/releases
+        ls -1t | { grep -vx '{{ git_sha }}' || true; } | tail -n +{{ releases_to_keep }} | while read -r old; do
+          echo "removed $old"
+          rm -rf -- "$old"
+        done
+      args:
+        executable: /bin/bash
+      register: prune
+      changed_when: "'removed ' in prune.stdout"
+
+    # Deploys used to git clone and npm ci into app_dir; clear that out now that
+    # only releases/ and current/ are used.
+    - name: Remove the legacy checkout
+      shell: |
+        set -euo pipefail
+        find {{ app_dir }} -mindepth 1 -maxdepth 1 ! -name releases ! -name current -print -exec rm -rf {} +
+      args:
+        executable: /bin/bash
+      register: legacy_cleanup
+      changed_when: legacy_cleanup.stdout | length > 0
