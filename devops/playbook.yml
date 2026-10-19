@@ -15,36 +15,39 @@
     health_url: http://127.0.0.1:5000/station/place-sstat
     releases_to_keep: 3
 
-    # Read by the datadog.dd.agent role
+    # Read by the datadog.dd.agent role. Adds one Datadog infrastructure host (about
+    # $15/month at the Pro list price) plus log ingestion, which is small at this
+    # traffic. APM and network monitoring are off to save cost and memory on this box.
     datadog_api_key: "{{ lookup('env', 'DD_API_KEY') }}"
     datadog_site: "datadoghq.com"
+    # So the agent can read the app's stdout from the systemd journal
+    datadog_additional_groups:
+      - systemd-journal
     datadog_config:
       tags:
         - "git.repository_url:github.com/transitmatters/regional-rail-explorer"
         - "git.commit.sha:{{ git_sha }}"
         - "version:{{ git_sha }}"
+      # The app has no dd-trace, so there's nothing to send traces
       apm_config:
-        enabled: true
+        enabled: false
       process_config:
         enabled: "true" # type: string
       logs_enabled: true
     network_config:
-      enabled: true
+      enabled: false
+    # Still runs system-probe, but OOM kills are worth seeing on a 2GiB host
     system_probe_config:
       enable_oom_kill: true
     datadog_checks:
-      python:
+      # The app logs to stdout, which systemd sends to the journal
+      journald:
         logs:
-          - type: file
-            path: "/home/ubuntu/regional-rail-explorer/regional-rail-explorer.log"
+          - type: journald
+            include_units:
+              - regional-rail-explorer.service
             service: "regional-rail-explorer"
-            source: python
-            sourcecategory: sourcecode
-          - type: file
-            path: "/home/ubuntu/regional-rail-explorer/s3_upload.log"
-            service: "regional-rail-explorer"
-            source: python
-            sourcecategory: sourcecode
+            source: nodejs
       systemd:
         init_config:
         instances:

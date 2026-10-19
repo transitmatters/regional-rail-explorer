@@ -6,6 +6,12 @@ export AWS_REGION=us-east-1
 export AWS_DEFAULT_REGION=us-east-1
 export AWS_PAGER=""
 
+# Ensure required secrets are set
+if [[ -z "$DD_API_KEY" ]]; then
+    echo "Must provide DD_API_KEY in environment to deploy" 1>&2
+    exit 1
+fi
+
 PRODUCTION=false
 LOCAL=false
 
@@ -69,6 +75,7 @@ INSTANCE_HOSTNAME=$(aws ec2 describe-instances --instance-ids $INSTANCE_PHYSICAL
 
 # Run the playbook! :-)
 export ANSIBLE_HOST_KEY_CHECKING=False # If it's a new host, ssh known_hosts not having the key fingerprint will cause an error. Silence it
+ansible-galaxy collection install datadog.dd
 ansible-playbook -v -i $INSTANCE_HOSTNAME, -u ubuntu --private-key ~/.ssh/transitmatters-rre.pem playbook.yml
 
 # Grab the cloudfront ID and invalidate its cache
