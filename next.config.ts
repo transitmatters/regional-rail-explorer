@@ -1,8 +1,6 @@
 import type { NextConfig } from "next";
-import webpack from "webpack";
-import { loadScenariosFromFile, writeScenariosToFile } from "./src/server/_loadScenarios";
-
-import { PHASE_PRODUCTION_SERVER, PHASE_DEVELOPMENT_SERVER } from "next/dist/shared/lib/constants";
+import type webpack from "webpack";
+import { writeScenariosToFile } from "./src/server/_loadScenarios";
 
 class WriteScenariosPlugin {
     apply(compiler: webpack.Compiler) {
@@ -10,33 +8,35 @@ class WriteScenariosPlugin {
     }
 }
 
-const getServerRuntimeConfig = (phase: string) => {
-    if (phase === PHASE_PRODUCTION_SERVER || phase === PHASE_DEVELOPMENT_SERVER) {
-        return { scenarios: loadScenariosFromFile() };
-    }
+const nextConfig: NextConfig = {
+    // Bundles the server and only the node_modules it needs into .next/standalone,
+    // so the host can run it without an npm install. See devops/playbook.yml
+    output: "standalone",
+    // Build-time tooling that next-server's trace picks up but the production server never loads
+    outputFileTracingExcludes: {
+        "*": [
+            "node_modules/webpack/**",
+            "node_modules/esbuild/**",
+            "node_modules/@esbuild/**",
+            "node_modules/terser/**",
+            "node_modules/sass/**",
+        ],
+    },
+    // Disable compression to avoid memory issues
+    compress: false,
+    webpack: (config: any, options: any) => {
+        config.optimization = {
+            ...config.optimization,
+            moduleIds: "deterministic",
+            chunkIds: "deterministic",
+        };
 
-    return {};
-};
+        if (!options.isServer) {
+            config.plugins.push(new WriteScenariosPlugin());
+        }
 
-const nextConfig: NextConfig = (phase: string) => {
-    return {
-        // Disable compression to avoid memory issues
-        compress: false,
-        serverRuntimeConfig: getServerRuntimeConfig(phase),
-        webpack: (config: any, options: any) => {
-            config.optimization = {
-                ...config.optimization,
-                moduleIds: "deterministic",
-                chunkIds: "deterministic",
-            };
-
-            if (!options.isServer) {
-                config.plugins.push(new WriteScenariosPlugin());
-            }
-
-            return config;
-        },
-    };
+        return config;
+    },
 };
 
 export default nextConfig;

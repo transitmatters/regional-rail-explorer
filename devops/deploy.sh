@@ -26,7 +26,17 @@ done
 
 if $LOCAL; then
     echo "Building application locally..."
-    (cd "$(dirname "$0")/.." && npm ci && npm run build)
+    # Same packaging as the deploy workflow; the playbook ships release/. The host is
+    # arm64, so a build from an x86 machine bundles the wrong sharp binary.
+    (
+        cd "$(dirname "$0")/.."
+        npm ci && npm run build
+        rm -rf release && mkdir release
+        cp -r .next/standalone/. release/
+        cp -r .next/static release/.next/static
+        cp -r public release/public
+        cp scenarios.json release/
+    )
 fi
 
 $PRODUCTION && HOSTNAME="regionalrail.rocks" || HOSTNAME="rre-beta.labs.transitmatters.org"
@@ -46,7 +56,7 @@ aws cloudformation deploy --stack-name $STACK_NAME \
     --template-file cloudformation.json \
     --capabilities CAPABILITY_NAMED_IAM \
     --no-fail-on-empty-changeset \
-    --tags service=regional-rail-explorer \
+    --tags service=regional-rail-explorer team=tm-labs \
     --parameter-overrides \
     RREHostname=$HOSTNAME \
     RREDomain=$DOMAIN \
