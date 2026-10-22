@@ -24,6 +24,8 @@
     datadog_additional_groups:
       - systemd-journal
     datadog_config:
+      # The agent's expvar server defaults to port 5000, which the app listens on
+      expvar_port: 5050
       tags:
         - "git.repository_url:github.com/transitmatters/regional-rail-explorer"
         - "git.commit.sha:{{ git_sha }}"
@@ -120,6 +122,11 @@
       become_user: root
       import_role:
         name: datadog.dd.agent
+
+    # Restart the agent on its new config now rather than at the end of the play,
+    # so it has let go of the app's port before the app starts and is health checked.
+    - name: Apply Datadog Agent config changes
+      meta: flush_handlers
 
     # -- Web tier ----------------------------------------------------------
 
