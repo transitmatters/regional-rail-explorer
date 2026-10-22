@@ -17,6 +17,7 @@ jobs:
     env:
       TM_RRE_RR_RKS_CERT_ARN: ${{ secrets.TM_RRE_RR_RKS_CERT_ARN }}
       TM_LABS_WILDCARD_CERT_ARN: ${{ secrets.TM_LABS_WILDCARD_CERT_ARN }}
+      DD_API_KEY: ${{ secrets.DD_API_KEY }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3

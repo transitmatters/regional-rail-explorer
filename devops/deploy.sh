@@ -6,18 +6,44 @@ export AWS_REGION=us-east-1
 export AWS_DEFAULT_REGION=us-east-1
 export AWS_PAGER=""
 
+# Ensure required secrets are set
+if [[ -z "$DD_API_KEY" ]]; then
+    echo "Must provide DD_API_KEY in environment to deploy" 1>&2
+    exit 1
+fi
+
 PRODUCTION=false
+LOCAL=false
 
 # Argument parsing
 # pass "-p" flag to deploy to production
+# pass "-l" flag to build locally before deploying
 
-while getopts "p" opt; do
+while getopts "pl" opt; do
     case $opt in
         p)
             PRODUCTION=true
             ;;
+        l)
+            LOCAL=true
+            ;;
   esac
 done
+
+if $LOCAL; then
+    echo "Building application locally..."
+    # Same packaging as the deploy workflow; the playbook ships release/. The host is
+    # arm64, so a build from an x86 machine bundles the wrong sharp binary.
+    (
+        cd "$(dirname "$0")/.."
+        npm ci && npm run build
+        rm -rf release && mkdir release
+        cp -r .next/standalone/. release/
+        cp -r .next/static release/.next/static
+        cp -r public release/public
+        cp scenarios.json release/
+    )
+fi
 
 $PRODUCTION && HOSTNAME="regionalrail.rocks" || HOSTNAME="rre-beta.labs.transitmatters.org"
 $PRODUCTION && DOMAIN="regionalrail.rocks" || DOMAIN="labs.transitmatters.org"
@@ -49,6 +75,7 @@ INSTANCE_HOSTNAME=$(aws ec2 describe-instances --instance-ids $INSTANCE_PHYSICAL
 
 # Run the playbook! :-)
 export ANSIBLE_HOST_KEY_CHECKING=False # If it's a new host, ssh known_hosts not having the key fingerprint will cause an error. Silence it
+ansible-galaxy collection install datadog.dd
 ansible-playbook -v -i $INSTANCE_HOSTNAME, -u ubuntu --private-key ~/.ssh/transitmatters-rre.pem playbook.yml
 
 # Grab the cloudfront ID and invalidate its cache
