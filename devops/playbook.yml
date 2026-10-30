@@ -127,6 +127,18 @@
         name: rsync
         update_cache: yes
 
+    # The summary card (link preview image) is an SVG rendered by sharp, whose text falls
+    # back to fontconfig's default serif. Without fonts it renders every glyph as a box.
+    # Liberation Serif has the same metrics as Times, which the card was laid out with.
+    - name: Install fonts for the summary card
+      become: yes
+      become_user: root
+      apt:
+        name:
+          - fontconfig
+          - fonts-liberation
+        install_recommends: no
+
     - name: Create the journald drop-in directory
       become: yes
       become_user: root

@@ -31,3 +31,6 @@ jobs:
         run: npm ci
       - name: Fully build application
         run: npm run build
+      # Checks that scenarios.json rebuilds the same network and routes the same journeys
+      - name: Run tests
+        run: npm test
