@@ -21,7 +21,7 @@
     "RREInstance": {
       "Type": "AWS::EC2::Instance",
       "Properties": {
-        "ImageId": "ami-0a7a4e87939439934",
+        "ImageId": "ami-0bd4645f796aee89f",
         "InstanceType": "t4g.small",
         "KeyName": "transitmatters-rre",
         "PropagateTagsToVolumeOnCreation": true,
@@ -46,7 +46,7 @@
           {
             "DeviceName": "/dev/sda1",
             "Ebs": {
-              "VolumeSize": 20,
+              "VolumeSize": 12,
               "VolumeType": "gp3"
             }
           }

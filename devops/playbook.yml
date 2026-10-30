@@ -6,7 +6,7 @@
 
   # The host only runs the app. CI builds a Next standalone bundle (server, traced
   # node_modules, static assets, scenarios.json) into release/ and we ship that here,
-  # so nothing is cloned, installed or built on this 2GiB box.
+  # so nothing is cloned, installed or built on this small box.
   vars:
     app_dir: /home/ubuntu/regional-rail-explorer
     git_sha: "{{ lookup('env', 'GIT_SHA') }}"
@@ -36,20 +36,25 @@
       process_config:
         enabled: "true" # type: string
       logs_enabled: true
-    network_config:
-      enabled: false
-    # Still runs system-probe, but OOM kills are worth seeing on a 2GiB host
-    system_probe_config:
-      enable_oom_kill: true
+    # No system_probe_config or network_config: the role then removes system-probe.yaml,
+    # so system-probe (~70MB) doesn't run. OOM kills still show up via kernel logs below.
     datadog_checks:
-      # The app logs to stdout, which systemd sends to the journal
       journald:
         logs:
+          # The app logs to stdout, which systemd sends to the journal
           - type: journald
+            config_id: app
             include_units:
               - regional-rail-explorer.service
             service: "regional-rail-explorer"
             source: nodejs
+          # Kernel messages, so OOM kills are visible without system-probe
+          - type: journald
+            config_id: kernel
+            include_matches:
+              - _TRANSPORT=kernel
+            service: "regional-rail-explorer"
+            source: kernel
       systemd:
         init_config:
         instances:
@@ -103,6 +108,50 @@
       become_user: root
       command: swapon -a
       changed_when: false
+
+    # Prefer dropping page cache over swapping out the app's heap
+    - name: Lower swappiness
+      become: yes
+      become_user: root
+      sysctl:
+        name: vm.swappiness
+        value: "10"
+        sysctl_file: /etc/sysctl.d/60-swappiness.conf
+
+    # The Ubuntu Minimal image leaves out rsync, which the release sync below needs
+    - name: Install rsync
+      become: yes
+      become_user: root
+      apt:
+        name: rsync
+        update_cache: yes
+
+    - name: Create the journald drop-in directory
+      become: yes
+      become_user: root
+      file:
+        path: /etc/systemd/journald.conf.d
+        state: directory
+        mode: "0755"
+
+    - name: Cap journald's disk and memory use
+      become: yes
+      become_user: root
+      copy:
+        dest: /etc/systemd/journald.conf.d/size.conf
+        content: |
+          [Journal]
+          SystemMaxUse=100M
+          RuntimeMaxUse=32M
+      register: journald_conf
+
+    - name: Restart journald on its new limits
+      become: yes
+      become_user: root
+      systemd_service:
+        name: systemd-journald
+        state: restarted
+      when: journald_conf.changed
 
     - name: Add nodejs 26.x ppa for apt repo
       become: yes
