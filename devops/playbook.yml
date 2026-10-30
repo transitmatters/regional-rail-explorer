@@ -36,8 +36,9 @@
       process_config:
         enabled: "true" # type: string
       logs_enabled: true
-    # No system_probe_config or network_config: the role then removes system-probe.yaml,
-    # so system-probe (~70MB) doesn't run. OOM kills still show up via kernel logs below.
+    # No system_probe_config or network_config: the role then writes an empty
+    # system-probe.yaml, so only system-probe-lite (~3MB) runs instead of the full
+    # system-probe (~70MB). OOM kills still show up via kernel logs below.
     datadog_checks:
       journald:
         logs:
