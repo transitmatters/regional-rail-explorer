@@ -1,8 +1,8 @@
 import fs from "fs";
 import path from "path";
-import { parse } from "flatted";
-
 import { Scenario, scenarioIds } from "types";
+
+import { deserializeNetwork, SCENARIOS_FILE_VERSION, ScenariosFile } from "./network/serialize";
 
 let scenarios: Scenario[] | null = null;
 
@@ -11,9 +11,18 @@ let scenarios: Scenario[] | null = null;
 // server.js chdirs into its own directory, where the deploy places scenarios.json.
 const getScenarios = (): Scenario[] => {
     if (!scenarios) {
-        scenarios = parse(
+        const file: ScenariosFile = JSON.parse(
             fs.readFileSync(path.join(process.cwd(), "scenarios.json"), "utf8")
-        ) as Scenario[];
+        );
+        if (file.version !== SCENARIOS_FILE_VERSION) {
+            throw new Error(
+                `scenarios.json is version ${file.version}, expected ${SCENARIOS_FILE_VERSION}. Rebuild it.`
+            );
+        }
+        scenarios = file.scenarios.map((scenario) => ({
+            ...scenario,
+            network: deserializeNetwork(scenario.network),
+        }));
     }
     return scenarios;
 };
