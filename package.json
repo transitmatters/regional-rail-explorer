@@ -10,7 +10,8 @@
     "lint": "eslint src",
     "typecheck": "tsc",
     "check": "npm run lint && npm run typecheck",
-    "install-git-hooks": "rm -f ./.git/hooks/* && cp ./.githooks/* ./.git/hooks && chmod +x ./.git/hooks/*"
+    "install-git-hooks": "rm -f ./.git/hooks/* && cp ./.githooks/* ./.git/hooks && chmod +x ./.git/hooks/*",
+    "test": "vitest run"
   },
   "dependencies": {
     "@ariakit/react": "^0.4.15",
@@ -20,7 +21,6 @@
     "csv-parse": "^4.12.0",
     "device-detector-js": "^3.0.3",
     "fast-memoize": "^2.5.2",
-    "flatted": "^3.3.3",
     "heap": "^0.2.7",
     "next": "^15.3.2",
     "query-string": "^9.1.1",
@@ -67,7 +67,8 @@
     "sass-loader": "^16.0.5",
     "storybook": "^8.5.8",
     "style-loader": "^4.0.0",
-    "typescript": "~5.8.3"
+    "typescript": "~5.8.3",
+    "vitest": "^5.0.5"
   },
   "engines": {
     "node": ">=26.0.0",
