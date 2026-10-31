@@ -22,7 +22,10 @@
       "Type": "AWS::EC2::Instance",
       "Properties": {
         "ImageId": "ami-0bd4645f796aee89f",
-        "InstanceType": "t4g.small",
+        "InstanceType": "t4g.micro",
+        "CreditSpecification": {
+          "CPUCredits": "standard"
+        },
         "KeyName": "transitmatters-rre",
         "PropagateTagsToVolumeOnCreation": true,
         "SecurityGroupIds": [
