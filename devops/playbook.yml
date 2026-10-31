@@ -119,6 +119,19 @@
         value: "10"
         sysctl_file: /etc/sysctl.d/60-swappiness.conf
 
+    # Nothing here uses snaps, and snapd plus the snap-packaged amazon-ssm-agent hold ~80MB.
+    # The SSM agent can't register anyway: the instance has no IAM role. Purging also
+    # drops the ubuntu-cloud-minimal metapackage, so no autoremove: it would then remove
+    # packages the system still needs.
+    - name: Remove snapd
+      become: yes
+      become_user: root
+      apt:
+        name: snapd
+        state: absent
+        purge: yes
+        autoremove: no
+
     # The Ubuntu Minimal image leaves out rsync, which the release sync below needs
     - name: Install rsync
       become: yes
