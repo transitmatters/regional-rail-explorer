@@ -8,7 +8,7 @@ on:
 
 jobs:
   frontend:
-    # arm64 to match the Graviton host, so the bundled sharp binary is the right one
+    # arm64 to match the arm64 Lambda, so the bundled sharp binary is the right one
     runs-on: ubuntu-24.04-arm
     steps:
       - name: Checkout repo
@@ -31,3 +31,6 @@ jobs:
         run: npm ci
       - name: Fully build application
         run: npm run build
+      # Checks that scenarios.json rebuilds the same network and routes the same journeys
+      - name: Run tests
+        run: npm test

@@ -1,4 +1,5 @@
 {
+  "Transform": "AWS::Serverless-2016-10-31",
   "Parameters": {
     "RREHostname": {
       "Type": "String",
@@ -15,65 +16,150 @@
     "RRECertArn": {
       "Type": "String",
       "Description": "The ACM ARN of the SSL certificate."
+    },
+    "GitSha": {
+      "Type": "String",
+      "Default": "unknown",
+      "Description": "The commit being deployed."
+    },
+    "DDApiKey": {
+      "Type": "String",
+      "NoEcho": true,
+      "Description": "Datadog API key, for the Datadog Lambda extension."
+    },
+    "DDEnv": {
+      "Type": "String",
+      "Default": "beta",
+      "AllowedValues": [
+        "prod",
+        "beta"
+      ],
+      "Description": "The env tag on this stack's Datadog metrics and logs."
     }
   },
   "Resources": {
-    "RREInstance": {
-      "Type": "AWS::EC2::Instance",
+    "RREFunction": {
+      "Type": "AWS::Serverless::Function",
       "Properties": {
-        "ImageId": "ami-0a7a4e87939439934",
-        "InstanceType": "t4g.small",
-        "KeyName": "transitmatters-rre",
-        "PropagateTagsToVolumeOnCreation": true,
-        "SecurityGroupIds": [
-          {
-            "Ref": "RRESecurityGroup"
-          }
+        "Description": {
+          "Fn::Sub": "Regional Rail Explorer (${RREHostname})"
+        },
+        "CodeUri": "../release",
+        "Handler": "run.sh",
+        "Runtime": "nodejs24.x",
+        "Architectures": [
+          "arm64"
         ],
-        "Tags": [
+        "MemorySize": 2048,
+        "Timeout": 30,
+        "ReservedConcurrentExecutions": 10,
+        "Layers": [
           {
-            "Key": "Name",
-            "Value": {
-              "Fn::Sub": "rre-${RREHostname}"
-            }
+            "Fn::Sub": "arn:aws:lambda:${AWS::Region}:753240598075:layer:LambdaAdapterLayerArm64:30"
           },
           {
-            "Key": "service",
-            "Value": "regional-rail-explorer"
+            "Fn::Sub": "arn:aws:lambda:${AWS::Region}:464622532012:layer:Datadog-Extension-ARM:101"
           }
         ],
-        "BlockDeviceMappings": [
-          {
-            "DeviceName": "/dev/sda1",
-            "Ebs": {
-              "VolumeSize": 20,
-              "VolumeType": "gp3"
-            }
+        "LoggingConfig": {
+          "LogGroup": {
+            "Ref": "RRELogGroup"
           }
-        ]
+        },
+        "Environment": {
+          "Variables": {
+            "AWS_LAMBDA_EXEC_WRAPPER": "/opt/bootstrap",
+            "AWS_LWA_READINESS_CHECK_PROTOCOL": "http",
+            "AWS_LWA_READINESS_CHECK_PATH": "/api/arrivals?from=place-sstat&to=place-ER-0362&day=weekday",
+            "PORT": "8080",
+            "HOSTNAME": "127.0.0.1",
+            "NODE_ENV": "production",
+            "FONTCONFIG_PATH": "/var/task/fonts",
+            "GIT_SHA": {
+              "Ref": "GitSha"
+            },
+            "DD_API_KEY": {
+              "Ref": "DDApiKey"
+            },
+            "DD_SITE": "datadoghq.com",
+            "DD_SERVICE": "regional-rail-explorer",
+            "DD_ENV": {
+              "Ref": "DDEnv"
+            },
+            "DD_VERSION": {
+              "Ref": "GitSha"
+            },
+            "DD_TAGS": {
+              "Fn::Sub": "git.commit.sha:${GitSha},git.repository_url:github.com/transitmatters/regional-rail-explorer"
+            },
+            "DD_TRACE_ENABLED": "false",
+            "DD_SERVERLESS_FLUSH_STRATEGY": "periodically,60000"
+          }
+        },
+        "Tags": {
+          "service": "regional-rail-explorer"
+        }
       }
     },
-    "RRESecurityGroup": {
-      "Type": "AWS::EC2::SecurityGroup",
+    "RRELogGroup": {
+      "Type": "AWS::Logs::LogGroup",
       "Properties": {
-        "GroupName": {
-          "Fn::Sub": "RRE-securitygroup-${RREHostname}"
+        "LogGroupName": {
+          "Fn::Sub": "/aws/lambda/rre-${RREHostname}"
         },
-        "GroupDescription": "Allow HTTP/HTTPS and SSH inbound and outbound traffic",
-        "SecurityGroupIngress": [
-          {
-            "IpProtocol": "tcp",
-            "FromPort": 80,
-            "ToPort": 80,
-            "CidrIp": "0.0.0.0/0"
+        "RetentionInDays": 14
+      }
+    },
+    "RREFunctionUrl": {
+      "Type": "AWS::Lambda::Url",
+      "Properties": {
+        "TargetFunctionArn": {
+          "Fn::GetAtt": [
+            "RREFunction",
+            "Arn"
+          ]
+        },
+        "AuthType": "AWS_IAM"
+      }
+    },
+    "RREFunctionUrlPermission": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "FunctionName": {
+          "Ref": "RREFunction"
+        },
+        "Action": "lambda:InvokeFunctionUrl",
+        "Principal": "cloudfront.amazonaws.com",
+        "SourceArn": {
+          "Fn::Sub": "arn:aws:cloudfront::${AWS::AccountId}:distribution/${RRECloudFront}"
+        }
+      }
+    },
+    "RREFunctionInvokePermission": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "FunctionName": {
+          "Ref": "RREFunction"
+        },
+        "Action": "lambda:InvokeFunction",
+        "Principal": "cloudfront.amazonaws.com",
+        "SourceArn": {
+          "Fn::Sub": "arn:aws:cloudfront::${AWS::AccountId}:distribution/${RRECloudFront}"
+        }
+      }
+    },
+    "RREOriginAccessControl": {
+      "Type": "AWS::CloudFront::OriginAccessControl",
+      "Properties": {
+        "OriginAccessControlConfig": {
+          "Name": {
+            "Fn::Sub": "rre-${RREHostname}"
           },
-          {
-            "IpProtocol": "tcp",
-            "FromPort": 22,
-            "ToPort": 22,
-            "CidrIp": "0.0.0.0/0"
-          }
-        ]
+          "Description": "Lets only this distribution call the RRE function URL",
+          "OriginAccessControlOriginType": "lambda",
+          "SigningBehavior": "always",
+          "SigningProtocol": "sigv4"
+        }
       }
     },
     "RREDNSRecord": {
@@ -115,19 +201,65 @@
             "TargetOriginId": "only-origin",
             "ViewerProtocolPolicy": "redirect-to-https"
           },
+          "CacheBehaviors": [
+            {
+              "PathPattern": "/_next/static/*",
+              "TargetOriginId": "static",
+              "ViewerProtocolPolicy": "redirect-to-https",
+              "Compress": true,
+              "CachePolicyId": "658327ea-f89d-4fab-a63d-7e88639e58f6"
+            }
+          ],
           "DefaultRootObject": "",
           "Origins": [
             {
               "CustomOriginConfig": {
-                "OriginProtocolPolicy": "http-only"
+                "OriginProtocolPolicy": "https-only",
+                "OriginSSLProtocols": [
+                  "TLSv1.2"
+                ]
               },
               "DomainName": {
+                "Fn::Select": [
+                  2,
+                  {
+                    "Fn::Split": [
+                      "/",
+                      {
+                        "Fn::GetAtt": [
+                          "RREFunctionUrl",
+                          "FunctionUrl"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              "OriginAccessControlId": {
                 "Fn::GetAtt": [
-                  "RREInstance",
-                  "PublicDnsName"
+                  "RREOriginAccessControl",
+                  "Id"
                 ]
               },
               "Id": "only-origin"
+            },
+            {
+              "DomainName": {
+                "Fn::GetAtt": [
+                  "RREStaticBucket",
+                  "RegionalDomainName"
+                ]
+              },
+              "S3OriginConfig": {
+                "OriginAccessIdentity": ""
+              },
+              "OriginAccessControlId": {
+                "Fn::GetAtt": [
+                  "RREStaticOriginAccessControl",
+                  "Id"
+                ]
+              },
+              "Id": "static"
             }
           ],
           "PriceClass": "PriceClass_100",
@@ -145,6 +277,76 @@
             "Value": "regional-rail-explorer"
           }
         ]
+      }
+    },
+    "RREStaticBucket": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "PublicAccessBlockConfiguration": {
+          "BlockPublicAcls": true,
+          "BlockPublicPolicy": true,
+          "IgnorePublicAcls": true,
+          "RestrictPublicBuckets": true
+        },
+        "Tags": [
+          {
+            "Key": "service",
+            "Value": "regional-rail-explorer"
+          }
+        ]
+      }
+    },
+    "RREStaticBucketPolicy": {
+      "Type": "AWS::S3::BucketPolicy",
+      "Properties": {
+        "Bucket": {
+          "Ref": "RREStaticBucket"
+        },
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Sid": "AllowCloudFrontRead",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "cloudfront.amazonaws.com"
+              },
+              "Action": "s3:GetObject",
+              "Resource": {
+                "Fn::Sub": "${RREStaticBucket.Arn}/*"
+              },
+              "Condition": {
+                "StringEquals": {
+                  "AWS:SourceArn": {
+                    "Fn::Sub": "arn:aws:cloudfront::${AWS::AccountId}:distribution/${RRECloudFront}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "RREStaticOriginAccessControl": {
+      "Type": "AWS::CloudFront::OriginAccessControl",
+      "Properties": {
+        "OriginAccessControlConfig": {
+          "Name": {
+            "Fn::Sub": "rre-static-${RREHostname}"
+          },
+          "Description": "Lets only this distribution read the RRE static bucket",
+          "OriginAccessControlOriginType": "s3",
+          "SigningBehavior": "always",
+          "SigningProtocol": "sigv4"
+        }
+      }
+    }
+  },
+  "Outputs": {
+    "StaticBucketName": {
+      "Description": "Bucket that deploy.sh uploads /_next/static to",
+      "Value": {
+        "Ref": "RREStaticBucket"
       }
     }
   }
