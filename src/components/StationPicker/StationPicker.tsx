@@ -4,8 +4,8 @@ import {
     Disclosure,
     DisclosureContent,
     DisclosureStore,
+    DisclosureProps,
 } from "@ariakit/react/disclosure";
-import { RenderProp } from "@ariakit/react-core/cjs/utils/types";
 import classNames from "classnames";
 
 import { useAppContext, useLockBodyScroll, useViewport } from "hooks";
@@ -21,7 +21,7 @@ type StationPickerProps = {
     onSelectStation: (stationId: string) => unknown;
     discloseBelowElementRef?: React.MutableRefObject<null | HTMLElement>;
     disclosure: DisclosureStore;
-    render?: RenderProp | React.ReactElement;
+    render?: DisclosureProps["render"];
 } & StationListingProps;
 
 const StationPicker: React.FunctionComponent<StationPickerProps> = ({

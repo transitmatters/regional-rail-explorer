@@ -1,8 +1,8 @@
 import fs from "fs";
 import path from "path";
 import tmp from "tmp";
-import tar from "tar";
-import parse from "csv-parse/lib/sync";
+import { extract } from "tar";
+import { parse } from "csv-parse/sync";
 import { camelize } from "@ridi/object-case-converter";
 
 import {
@@ -19,14 +19,14 @@ import {
 const uncompressArchiveToTmpDirectory = (archivePath: string) => {
     const { name: tmpDir } = tmp.dirSync();
     const [archivePrettyName] = path.basename(archivePath).split(".");
-    tar.extract({ file: archivePath, sync: true, cwd: tmpDir });
+    extract({ file: archivePath, sync: true, cwd: tmpDir });
     return path.join(tmpDir, archivePrettyName);
 };
 
 const loadCsv = <T>(filePath: string): T[] => {
     const contents = fs.readFileSync(filePath);
-    const records = parse(contents, { delimiter: ",", columns: true });
-    return records.map(camelize);
+    const records: Record<string, string>[] = parse(contents, { delimiter: ",", columns: true });
+    return records.map((record) => camelize<T>(record));
 };
 
 export const createGtfsLoader = (archivePath: string) => {
