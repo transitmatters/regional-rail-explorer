@@ -54,6 +54,4 @@ export type TravelNavigationState = BaseNavigationState & {
 };
 
 export type NavigationState =
-    | StartNavigationState
-    | TransferNavigationState
-    | TravelNavigationState;
+    StartNavigationState | TransferNavigationState | TravelNavigationState;

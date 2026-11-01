@@ -1,5 +1,5 @@
-import { addons } from "@storybook/manager-api";
-import { FORCE_RE_RENDER, STORY_CHANGED } from "@storybook/core-events";
+import { addons } from "storybook/manager-api";
+import { FORCE_RE_RENDER, STORY_CHANGED } from "storybook/internal/core-events";
 
 let stores: Record<string, any> = {};
 

@@ -58,7 +58,6 @@ const getTimeOfDayOptionForTime = (time: NetworkTime) => {
     return timeOfDayPickerOptions[index];
 };
 
-// eslint-disable-next-line react/prop-types
 const LabeledControl = ({ label, children, className = "" }) => {
     return (
         <div className={classNames(styles.labeledControl, className)}>
