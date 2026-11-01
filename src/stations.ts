@@ -30,6 +30,8 @@ export const stationsByLine: Record<string, Station[]> = {
         { id: "place-bbsta", name: "Back Bay" },
         { id: "place-sstat", name: "South Station" },
         { id: "place-FS-0049", name: "Foxboro" },
+        { id: "place-rr-foxboro-center", name: "Foxboro Center" },
+        { id: "place-NEC-2040", name: "Mansfield" },
         { id: "place-DB-2205", name: "Fairmount" },
         { id: "place-DB-2222", name: "Blue Hill Avenue" },
         { id: "place-DB-2230", name: "Morton Street" },
@@ -423,6 +425,7 @@ const alwaysInfillStations = new Set([
     "place-rockland-n-abington",
     "place-kingston-jct",
     "place-plymouth-center",
+    "place-rr-foxboro-center",
 ]);
 
 const infillStationsByRoute = {
