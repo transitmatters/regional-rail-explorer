@@ -8,7 +8,7 @@ on:
 
 jobs:
   frontend:
-    # arm64 to match the Graviton host, so the bundled sharp binary is the right one
+    # arm64 to match the arm64 Lambda, so the bundled sharp binary is the right one
     runs-on: ubuntu-24.04-arm
     steps:
       - name: Checkout repo

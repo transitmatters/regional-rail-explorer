@@ -42,10 +42,6 @@ scenarios.json
 # TypeScript stuff
 *.tsbuildinfo
 
-# Ansible stuff
-hosts
-inventory
-
 # private keys
 *.pem
 
@@ -55,5 +51,9 @@ inventory
 .cursor
 
 
-# Packaged standalone build shipped to the host (see devops/playbook.yml)
+# Packaged standalone build that Lambda runs (see devops/package-release.sh)
 /release/
+# /_next/static, uploaded to S3 by devops/deploy.sh
+/release-static/
+# Template written by `aws cloudformation package` in devops/deploy.sh
+/devops/packaged.json

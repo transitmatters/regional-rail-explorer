@@ -29,7 +29,7 @@ src/
   pages/         # Next.js pages and API routes
   server/        # Scenario loading and journey planning
   types/         # Shared TypeScript types
-devops/          # EC2 deployment (CloudFormation, Ansible, nginx, systemd)
+devops/          # Lambda deployment (CloudFormation, packaging, deploy and cache warm-up scripts)
 ```
 
 `scenarios.json` is computed from `data/` at build time and is not committed.
@@ -49,22 +49,32 @@ $ npm run storybook
 Steps for deploying to AWS or testing the deployment locally. You don't need these steps for most local development.
 
 ### Production build
-Production uses Next's [standalone output](https://nextjs.org/docs/pages/api-reference/config/next-config-js/output). To build and run it the way the server does:
+Production uses Next's [standalone output](https://nextjs.org/docs/pages/api-reference/config/next-config-js/output). To build and run it the way Lambda does:
 
 ```bash
 $ npm run build
-$ mkdir release
-$ cp -r .next/standalone/. release/ && cp -r .next/static release/.next/static
-$ cp -r public scenarios.json release/
-$ cd release && PORT=5000 node server.js
+$ bash devops/package-release.sh
+$ cd release && PORT=8080 ./run.sh
 ```
 
 Initial API requests will be quite slow for now as the server must load and parse several large GTFS bundles.
 
 ### AWS Deployment
-You can deploy changes to this application to an AWS EC2 instance running Ubuntu using the `devops/deploy.sh` script. It expects the packaged `release/` directory above (CI builds it on an arm64 runner to match the instance), ships it to `releases/<sha>` on the host, and rolls back to the previous release if the new one fails its health check.
+The app runs on AWS Lambda behind CloudFront. `devops/cloudformation.json` defines one arm64 function that runs the unchanged `node server.js` through the [AWS Lambda Web Adapter](https://github.com/awslabs/aws-lambda-web-adapter). The function's URL only accepts requests that CloudFront signs, through origin access control. CloudFront serves `/_next/static/*` (the build-hashed JS and CSS) from a private S3 bucket in the same stack, so loading a page doesn't send each chunk to Lambda. `devops/deploy.sh` uploads those files to the bucket, zips `release/`, uploads it with `aws cloudformation package`, deploys the stack and invalidates CloudFront. It then fails if `/api/arrivals` doesn't respond. Once the invalidation finishes, it runs `devops/warm-cache.sh`, which requests the home page, its assets and the suggested journeys, so the first visitors after a deploy get cached pages. Run `deploy.sh -l` to build and package locally first. Build on an arm64 machine, as CI does, so the bundled sharp binary matches the function. `deploy.sh` deploys to `rre-beta.labs.transitmatters.org` by default, and to production with `-p`.
 
-Ensure you've installed the [AWS CLI](https://aws.amazon.com/cli/) and configured it with your account credentials. You will also need [Ansible](https://www.ansible.com/) installed. Some additional configuration may be nessessary as well - see the `devops` folder for more.
+You need the [AWS CLI](https://aws.amazon.com/cli/) configured with a `transitmatters` profile. `DD_API_KEY` must be set in your environment, plus `TM_LABS_WILDCARD_CERT_ARN` (beta) or `TM_RRE_RR_RKS_CERT_ARN` (production).
+
+The packages go to an S3 bucket that is created once by hand, with a rule that expires old packages:
+
+```bash
+$ aws s3 mb s3://rre-lambda-deployments --region us-east-1
+$ aws s3api put-bucket-lifecycle-configuration --bucket rre-lambda-deployments \
+    --lifecycle-configuration '{"Rules":[{"ID":"expire-old-packages","Status":"Enabled","Filter":{},"Expiration":{"Days":30}}]}'
+```
+
+Monitoring is in Datadog, under the service `regional-rail-explorer` (env `prod` or `beta`). The [Datadog Lambda extension](https://docs.datadoghq.com/serverless/libraries_integrations/extension/) layer sends the function's `aws.lambda.enhanced.*` metrics and its logs. APM is off. Logs also go to the CloudWatch log group `/aws/lambda/rre-<hostname>`, which keeps them for 14 days.
+
+The summary card renders SVG text with sharp, and Lambda has no system fonts. So `release/fonts/` bundles Liberation Serif (from `devops/lambda/fonts/`), and `FONTCONFIG_PATH` points fontconfig at it.
 
 ## Support TransitMatters
 If you've found this app helpful or interesting, please consider [donating](https://transitmatters.org/donate) to TransitMatters to help support our mission to provide data-driven advocacy for a more reliable, sustainable, and equitable transit system in Metropolitan Boston.
