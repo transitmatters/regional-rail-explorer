@@ -98,12 +98,39 @@ const isStopTimeToday = (stopTime: StopTime, today: NetworkDayKind | NetworkDay)
     return stopTime.trip.serviceDays.some((day) => matchDayOfWeek(day, today));
 };
 
+// A station where some trips start or end while others pass through, so riders change trains
+// there even on a single route. For example, many New Bedford trips are a South Station - Fall
+// River train plus a shuttle from East Taunton to New Bedford.
+const changePointCache = new WeakMap<Station, boolean>();
+
+const isChangePoint = (station: Station) => {
+    const cached = changePointCache.get(station);
+    if (cached !== undefined) {
+        return cached;
+    }
+    let hasEndpoint = false;
+    let hasPassThrough = false;
+    for (const stop of station.stops) {
+        for (const stopTime of stop.stopTimes) {
+            const { stopTimes } = stopTime.trip;
+            if (stopTimes[0] === stopTime || stopTimes[stopTimes.length - 1] === stopTime) {
+                hasEndpoint = true;
+            } else {
+                hasPassThrough = true;
+            }
+        }
+    }
+    const result = hasEndpoint && hasPassThrough;
+    changePointCache.set(station, result);
+    return result;
+};
+
 const isUsefulStopToExplore = (stop: Stop, goal: Station) => {
     if (stop.parentStation === goal) {
         return true;
     }
     const uniqueRoutes = new Set(stop.parentStation.stops.map((stop) => stop.routes).flat());
-    return uniqueRoutes.size > 1;
+    return uniqueRoutes.size > 1 || isChangePoint(stop.parentStation);
 };
 
 const isGoalState = (state: NavigationState) => {
@@ -137,7 +164,10 @@ const createTransferState = (
         context,
         timeOnSilverLine,
     } = parent;
-    const boardingRegionalRail = isRegionalRailRouteId(stopTime.trip.routeId);
+    // Changing trains within one line doesn't need another ticket
+    const boardingRegionalRail =
+        isRegionalRailRouteId(stopTime.trip.routeId) &&
+        from?.trip.routeId !== stopTime.trip.routeId;
     return {
         kind: "transfer" as const,
         context,
