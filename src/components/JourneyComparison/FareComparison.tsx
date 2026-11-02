@@ -8,23 +8,29 @@ import ComparisonRow from "./ComparisonRow";
 
 type FareRegime = "subway" | "commuterRail";
 
+type Fare = { regime: FareRegime; routeId: string };
+
 const getNonUnifiedFareSegmentsCount = (journey: JourneyInfo) => {
-    const segments = journey.segments.reduce(
-        (partialSegments: FareRegime[], journeySegment: JourneySegment) => {
+    const fares = journey.segments.reduce(
+        (partialFares: Fare[], journeySegment: JourneySegment) => {
             if (journeySegment.kind === "transfer") {
-                return partialSegments;
+                return partialFares;
             }
-            const previousFareRegime = partialSegments[partialSegments.length - 1];
-            const fareRegime: FareRegime = isRegionalRailRouteId(journeySegment.routeId)
-                ? "commuterRail"
-                : "subway";
-            if (fareRegime === "subway" && previousFareRegime === "subway") {
-                return partialSegments;
+            const previousFare = partialFares[partialFares.length - 1];
+            const { routeId } = journeySegment;
+            const regime: FareRegime = isRegionalRailRouteId(routeId) ? "commuterRail" : "subway";
+            if (regime === "subway" && previousFare?.regime === "subway") {
+                return partialFares;
             }
-            return [...partialSegments, fareRegime];
+            // Changing trains within one Commuter Rail line is covered by the same ticket
+            if (regime === "commuterRail" && previousFare?.routeId === routeId) {
+                return partialFares;
+            }
+            return [...partialFares, { regime, routeId }];
         },
         []
     );
+    const segments = fares.map((fare) => fare.regime);
     return {
         subway: segments.filter((s) => s === "subway").length,
         commuterRail: segments.filter((s) => s === "commuterRail").length,
