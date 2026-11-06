@@ -1,4 +1,5 @@
 import React from "react";
+import { getJourneyEndpoints } from "journeys";
 import { MINUTE, stringifyDuration, stringifyTime } from "time";
 
 import { JourneyInfo, JourneyTravelSegment, NetworkDayKind } from "types";
@@ -187,8 +188,9 @@ const JourneySummaryCard: React.FunctionComponent<Props> = (props) => {
     };
 
     const renderToFromText = (baselineY: number) => {
-        const startStationName = travelSegments[0].startStation.name;
-        const endStationName = travelSegments[travelSegments.length - 1].endStation.name;
+        const { startStation, endStation } = getJourneyEndpoints(enhanced.segments);
+        const startStationName = startStation.name;
+        const endStationName = endStation.name;
         const textLength = 4 + (startStationName + endStationName).length;
         const fontSize = Math.max(25, 65 - 0.7 * textLength ** 1.03);
         const y = baselineY;

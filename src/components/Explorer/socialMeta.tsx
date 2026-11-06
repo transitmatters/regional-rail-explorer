@@ -1,8 +1,9 @@
 import React from "react";
 import queryString from "query-string";
 
+import { getJourneyEndpoints } from "journeys";
 import { stringifyDuration } from "time";
-import { JourneyInfo, ParsedJourneyParams, JourneyTravelSegment } from "types";
+import { JourneyInfo, ParsedJourneyParams } from "types";
 
 type Props = {
     journeyParams: ParsedJourneyParams;
@@ -33,16 +34,10 @@ const getDescription = (journey: JourneyInfo) => {
     if (journey.navigationFailed) {
         return null;
     }
-    const travelSegments = journey.segments.filter(
-        (x): x is JourneyTravelSegment => x.kind === "travel"
-    );
-    const first = travelSegments[0];
-    const last = travelSegments[travelSegments.length - 1];
-    const startStation = first.startStation.name;
-    const endStation = last.endStation.name;
+    const { startStation, endStation } = getJourneyEndpoints(journey.segments);
     const duration = getJourneyDuration(journey);
     const durationString = stringifyDuration(duration, true);
-    return `Trip from ${startStation} to ${endStation} in ${durationString}`;
+    return `Trip from ${startStation.name} to ${endStation.name} in ${durationString}`;
 };
 
 const getSocialMeta: React.FunctionComponent<Props> = (props) => {

@@ -17,7 +17,8 @@ export const navigate = (options: NavigationOptions): JourneySegment[] => {
         });
         const finalSegment = reverseOptimizedJourney[reverseOptimizedJourney.length - 1];
         const waitDuration = originalEndTime - finalSegment.endTime;
-        if (finalSegment.kind === "travel" && waitDuration >= 5 * MINUTE) {
+        const arrivesAtDestination = finalSegment.kind === "travel" || !!finalSegment.walkToStation;
+        if (arrivesAtDestination && waitDuration >= 5 * MINUTE) {
             return [
                 ...reverseOptimizedJourney,
                 {
@@ -33,8 +34,14 @@ export const navigate = (options: NavigationOptions): JourneySegment[] => {
     }
     const journeySegments = createJourneyFromState(finalNavigationState);
     if (navigationKind === "depart-after" && journeySegments.length > 0) {
-        if (journeySegments[0].kind !== "travel") {
-            return journeySegments.slice(1);
+        const [firstSegment, ...rest] = journeySegments;
+        if (firstSegment.kind !== "travel") {
+            // Drop the wait before the first train, but keep a walk to the station it leaves from
+            if (firstSegment.walkToStation) {
+                const startTime = firstSegment.endTime - firstSegment.walkDuration;
+                return [{ ...firstSegment, startTime, waitDuration: 0 }, ...rest];
+            }
+            return rest;
         }
     }
     return journeySegments;
