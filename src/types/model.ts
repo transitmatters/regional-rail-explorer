@@ -47,6 +47,8 @@ export interface Station {
     id: string;
     name: string;
     stops: Stop[];
+    // Commuter Rail fare zone, e.g. "1A" or "4". Null for stations outside the zone system.
+    zone: null | string;
 }
 
 export interface Amenities {
