@@ -5,16 +5,31 @@ import {
     JourneyTransferSegment,
     JourneyTravelSegment,
     NetworkTime,
+    Station,
     Stop,
     Trip,
 } from "types";
 
-import { NavigationState, TransferNavigationState, TravelNavigationState } from "./types";
+import {
+    NavigationContext,
+    NavigationState,
+    StationWalk,
+    TransferNavigationState,
+    TravelNavigationState,
+    WalkNavigationState,
+} from "./types";
 import { resolveTemporalOrder } from "./util";
 
-const getJourneyStation = (stop: Stop): JourneyStation => {
-    const { name, id } = stop.parentStation;
-    return { name, id };
+const getStationInfo = ({ name, id }: Station): JourneyStation => ({ name, id });
+
+const getJourneyStation = (stop: Stop): JourneyStation => getStationInfo(stop.parentStation);
+
+const getWalkStations = (walk: null | StationWalk, context: NavigationContext) => {
+    if (!walk) {
+        return {};
+    }
+    const [from, to] = resolveTemporalOrder(walk.from, walk.to, context.reverse);
+    return { walkFromStation: getStationInfo(from), walkToStation: getStationInfo(to) };
 };
 
 const getPassedJourneyStationsOnTrip = (
@@ -33,7 +48,7 @@ const getPassedJourneyStationsOnTrip = (
 };
 
 const createJourneyTransferSegment = (state: TransferNavigationState): JourneyTransferSegment => {
-    const { from, to, context, walkDuration } = state;
+    const { from, to, context, walkDuration, walk } = state;
     const [startTime, endTime] = resolveTemporalOrder(
         // if the state lacks a 'from', assume it's the inital segment of the journey
         from?.time || context.initialTime,
@@ -48,6 +63,20 @@ const createJourneyTransferSegment = (state: TransferNavigationState): JourneyTr
         endTime,
         waitDuration,
         walkDuration,
+        ...getWalkStations(walk, context),
+    };
+};
+
+const createJourneyWalkSegment = (state: WalkNavigationState): JourneyTransferSegment => {
+    const { fromTime, time, context, walkDuration, walk } = state;
+    const [startTime, endTime] = resolveTemporalOrder(fromTime, time, context.reverse);
+    return {
+        kind: "transfer",
+        startTime,
+        endTime,
+        waitDuration: 0,
+        walkDuration,
+        ...getWalkStations(walk, context),
     };
 };
 
@@ -76,6 +105,9 @@ const createJourneySegmentFromState = (state: NavigationState): null | JourneySe
     }
     if (state.kind === "travel") {
         return createJourneyTravelSegment(state);
+    }
+    if (state.kind === "walk") {
+        return createJourneyWalkSegment(state);
     }
     return null;
 };
