@@ -34,7 +34,8 @@ export default async (req, res) => {
     const journeyParams = getJourneyParamsForQuery(rawJourneyParams);
     const journeys = getJourneyInfoForParams(journeyParams);
     const { format } = req.query;
-    if (journeys) {
+    // The card draws the Regional Rail trip, so there's nothing to show if it has no route
+    if (journeys && !journeys[1].navigationFailed) {
         const [baseline, enhanced] = journeys;
         const cardString = ReactDOMServer.renderToString(
             <JourneySummaryCard baseline={baseline} enhanced={enhanced} day={journeyParams.day!} />

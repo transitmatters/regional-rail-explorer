@@ -66,6 +66,10 @@ const WaitInfo = (props: WaitInfoProps) => {
 
 const WaitComparison = (props: ComparisonProps) => {
     const { baseline, enhanced } = props;
+    // There's nothing to compare against when today's Commuter Rail has no trip
+    if (baseline.navigationFailed) {
+        return null;
+    }
     return (
         <ComparisonRow
             title="Your wait"
