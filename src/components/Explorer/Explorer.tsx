@@ -165,12 +165,24 @@ const Explorer: React.FunctionComponent<Props> = (props) => {
                 return <JourneyErrorState />;
             }
             const [baseline, enhanced] = journeys as JourneyInfo[];
-            // make sure to show error state if regional rail is the one to fail
-            if (
-                enhanced.navigationFailed ||
-                (baseline.navigationFailed && enhanced.navigationFailed)
-            ) {
-                return <JourneyErrorState />;
+            if (enhanced.navigationFailed && baseline.navigationFailed) {
+                return (
+                    <JourneyErrorState
+                        kind="noTrain"
+                        title="No train for this trip"
+                        message="Neither today's Commuter Rail nor Regional Rail runs a train for this trip at this time. Try a different time or day."
+                    />
+                );
+            }
+            // Only Regional Rail failed. The comparison view assumes it has a Regional Rail trip.
+            if (enhanced.navigationFailed) {
+                return (
+                    <JourneyErrorState
+                        kind="noTrain"
+                        title="No Regional Rail trip at this time"
+                        message="Regional Rail doesn't run a train for this trip at this time. Try a different time or day."
+                    />
+                );
             }
 
             return (
