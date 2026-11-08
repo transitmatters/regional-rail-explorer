@@ -9,6 +9,7 @@ import ComparisonRow from "./ComparisonRow";
 import WaitComparison from "./WaitComparison";
 import FrequencyComparison from "./FrequencyComparison";
 import FareComparison from "./FareComparison";
+import NoBaselineReason from "./NoBaselineReason";
 
 import styles from "./JourneyComparison.module.scss";
 
@@ -23,7 +24,7 @@ const getTotalJourneyDuration = (journey: JourneyInfo) => {
 
 const renderJourneyDuration = (journey: JourneyInfo) => {
     if (journey.navigationFailed) {
-        return "No route found";
+        return null;
     }
     const first = journey.segments[0];
     const last = journey.segments[journey.segments.length - 1];
@@ -36,10 +37,47 @@ const renderJourneyDuration = (journey: JourneyInfo) => {
 
 const getStartTime = (journey: JourneyInfo) => {
     if (!journey || journey.navigationFailed) {
-        return "--:--";
+        return null;
     }
     const first = journey.segments[0];
     return stringifyTime(first.startTime, { use12Hour: true });
+};
+
+const renderTotalTime = (
+    journey: JourneyInfo,
+    totalDuration: null | number,
+    enhanced: JourneyInfo
+) => {
+    if (journey.navigationFailed) {
+        return (
+            <>
+                <div className="duration">
+                    <div className="bubble red">No train</div>
+                </div>
+                <NoBaselineReason enhanced={enhanced} />
+            </>
+        );
+    }
+    return (
+        <>
+            <div className="duration">
+                {totalDuration ? stringifyDuration(totalDuration) : "---"}
+            </div>
+            <div className="secondary">{renderJourneyDuration(journey)}</div>
+        </>
+    );
+};
+
+const renderNextTrain = (journey: JourneyInfo) => {
+    const startTime = getStartTime(journey);
+    return <div className="duration">{startTime ? "Departs at " + startTime : "No train"}</div>;
+};
+
+const renderTimeline = (journey: JourneyInfo) => {
+    if (journey.navigationFailed) {
+        return <div className={styles.noRouteTimeline}>No route</div>;
+    }
+    return <JourneyTimeline segments={journey.segments} />;
 };
 
 const JourneyComparison = (props: ComparisonProps) => {
@@ -52,6 +90,7 @@ const JourneyComparison = (props: ComparisonProps) => {
             ? 1 - enhancedTotalDuration / baselineTotalDuration
             : 0;
     const showDelayRow =
+        !baseline.navigationFailed &&
         enhanced.amenities.includes("electricTrains") &&
         !baseline.amenities.includes("electricTrains");
     const showWaitRow = !baseline.reverse && !departAfter;
@@ -76,16 +115,7 @@ const JourneyComparison = (props: ComparisonProps) => {
             />
             <ComparisonRow
                 title="Total time"
-                baseline={
-                    <>
-                        <div className="duration">
-                            {baselineTotalDuration
-                                ? stringifyDuration(baselineTotalDuration)
-                                : "---"}
-                        </div>
-                        <div className="secondary">{renderJourneyDuration(baseline)}</div>
-                    </>
-                }
+                baseline={renderTotalTime(baseline, baselineTotalDuration, enhanced)}
                 enhanced={
                     <>
                         <div className="duration">
@@ -105,23 +135,21 @@ const JourneyComparison = (props: ComparisonProps) => {
             {departAfter && (
                 <ComparisonRow
                     title="Next train"
-                    baseline={
-                        <>
-                            <div className="duration">{"Departs at " + getStartTime(baseline)}</div>
-                        </>
-                    }
-                    enhanced={
-                        <>
-                            <div className="duration">{"Departs at " + getStartTime(enhanced)}</div>
-                        </>
-                    }
+                    baseline={renderNextTrain(baseline)}
+                    enhanced={renderNextTrain(enhanced)}
                 />
             )}
             {showWaitRow && <WaitComparison {...props} />}
             {amenitiesDiff.length > 0 && (
                 <ComparisonRow
                     title="Your ride"
-                    baseline={<AmenityListing absent={amenitiesDiff} />}
+                    baseline={
+                        baseline.navigationFailed ? (
+                            <AmenityListing noService />
+                        ) : (
+                            <AmenityListing absent={amenitiesDiff} />
+                        )
+                    }
                     enhanced={<AmenityListing present={amenitiesDiff} />}
                 />
             )}
@@ -150,8 +178,8 @@ const JourneyComparison = (props: ComparisonProps) => {
             <FrequencyComparison {...props} />
             <ComparisonRow
                 title="Your trip"
-                baseline={<JourneyTimeline segments={baseline.segments} />}
-                enhanced={<JourneyTimeline segments={enhanced.segments} />}
+                baseline={renderTimeline(baseline)}
+                enhanced={renderTimeline(enhanced)}
             />
         </div>
     );
