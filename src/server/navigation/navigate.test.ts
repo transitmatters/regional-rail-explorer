@@ -1,7 +1,7 @@
 import path from "path";
 import { beforeAll, describe, expect, test } from "vitest";
 
-import { JourneyTravelSegment, NavigationKind, Network } from "types";
+import { JourneyTransferSegment, JourneyTravelSegment, NavigationKind, Network } from "types";
 import { loadGtfsNetwork } from "server/network";
 
 import { navigate } from ".";
@@ -60,6 +60,64 @@ describe("changing trains at East Taunton", () => {
         const travel = travelSegments(journey);
         expect(travel[travel.length - 1].endStation.id).toBe("place-sstat");
         expect(duration(journey)).toBeLessThan(3 * HOUR);
+    });
+});
+
+const walkSegments = (journey: ReturnType<typeof navigate>) =>
+    journey.filter(
+        (segment): segment is JourneyTransferSegment =>
+            segment.kind === "transfer" && !!segment.walkToStation
+    );
+
+// Riders can leave one station and walk to a nearby one, like Lansdowne to Kenmore (issue #58)
+describe("walking between stations", () => {
+    test("West Newton to Longwood walks from Lansdowne to the D branch", () => {
+        const journey = navigatePresent("place-WML-0091", "place-longw", 8 * HOUR, "depart-at");
+        const travel = travelSegments(journey);
+        expect(travel.map((segment) => segment.routeId)).toEqual(["CR-Worcester", "Green-D"]);
+        expect(travel[0].endStation.id).toBe("place-WML-0025");
+        const [walk] = walkSegments(journey);
+        expect(walk.walkFromStation?.id).toBe("place-WML-0025");
+        expect(walk.walkToStation?.id).toBe(travel[1].startStation.id);
+        expect(walk.walkDuration).toBeGreaterThan(0);
+    });
+
+    test("West Newton to Copley ends with a walk from Back Bay", () => {
+        const journey = navigatePresent("place-WML-0091", "place-coecl", 8 * HOUR, "depart-at");
+        const lastSegment = journey[journey.length - 1] as JourneyTransferSegment;
+        expect(lastSegment.walkFromStation?.id).toBe("place-bbsta");
+        expect(lastSegment.walkToStation?.id).toBe("place-coecl");
+        expect(lastSegment.waitDuration).toBe(0);
+        expect(travelSegments(journey)).toHaveLength(1);
+    });
+
+    test("Copley to Wellesley Hills starts with a walk to Back Bay", () => {
+        const journey = navigatePresent("place-coecl", "place-WML-0135", 17 * HOUR, "depart-at");
+        const [firstSegment] = journey as JourneyTransferSegment[];
+        expect(firstSegment.walkFromStation?.id).toBe("place-coecl");
+        expect(firstSegment.walkToStation?.id).toBe("place-bbsta");
+        expect(firstSegment.startTime).toBe(17 * HOUR);
+        expect(travelSegments(journey).map((segment) => segment.startStation.id)).toEqual([
+            "place-bbsta",
+        ]);
+    });
+
+    test("Copley to Wellesley Hills, departing after 5 PM, keeps the walk but not the wait", () => {
+        const journey = navigatePresent("place-coecl", "place-WML-0135", 17 * HOUR, "depart-after");
+        const [firstSegment, secondSegment] = journey;
+        expect(firstSegment.kind).toBe("transfer");
+        expect((firstSegment as JourneyTransferSegment).walkToStation?.id).toBe("place-bbsta");
+        expect((firstSegment as JourneyTransferSegment).waitDuration).toBe(0);
+        expect(firstSegment.endTime).toBe(secondSegment.startTime);
+    });
+
+    test("West Newton to Longwood, arriving by 10 AM, walks from Lansdowne", () => {
+        const journey = navigatePresent("place-WML-0091", "place-longw", 10 * HOUR, "arrive-by");
+        const travel = travelSegments(journey);
+        expect(travel[0].endStation.id).toBe("place-WML-0025");
+        expect(travel[travel.length - 1].endStation.id).toBe("place-longw");
+        expect(walkSegments(journey)).toHaveLength(1);
+        expect(journey[journey.length - 1].endTime).toBeLessThanOrEqual(10 * HOUR);
     });
 });
 
