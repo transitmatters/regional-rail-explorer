@@ -19,6 +19,7 @@ import { getStationsByIds } from "server/network";
 import { getArrivalTimesForJourney } from "server/navigation/arrivals";
 import { mapScenarios } from "server/scenarios";
 import { HOUR, MINUTE } from "time";
+import { calculateFare } from "fares";
 
 const omitUndefined = <T extends Record<string, any>>(obj: T): Partial<T> => {
     const res: Partial<T> = {};
@@ -120,6 +121,7 @@ const getJourneyInfoForScenario = (
             arrivals: {},
             platformCrowding: {},
             reverse: navigationKind === "arrive-by",
+            fare: null,
         };
     }
 
@@ -147,6 +149,10 @@ const getJourneyInfoForScenario = (
             },
         },
         navigationFailed: false,
+        fare: calculateFare(journey, (stationId) => network.stationsById[stationId]?.zone, {
+            unified: unifiedFares,
+            day,
+        }),
     };
 };
 

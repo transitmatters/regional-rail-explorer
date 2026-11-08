@@ -1,6 +1,10 @@
 import { JourneyInfo, CrowdingLevel, JourneyParams } from "types";
+import { calculateFare } from "fares";
 import { enhanced, baseline } from "storydata/journey";
 import { enhancedArrivals, baselineArrivals } from "storydata/salem";
+
+const fareZones = { "place-ER-0168": "3", "place-DB-2258": "1A" };
+const zoneForStation = (stationId: string) => fareZones[stationId] ?? "1A";
 
 export const baselineInfo: JourneyInfo = {
     reverse: false,
@@ -29,6 +33,7 @@ export const baselineInfo: JourneyInfo = {
     },
     amenities: [],
     navigationFailed: false,
+    fare: calculateFare(baseline, zoneForStation, { unified: false, day: "weekday" }),
 };
 
 export const enhancedInfo: JourneyInfo = {
@@ -58,6 +63,7 @@ export const enhancedInfo: JourneyInfo = {
     },
     amenities: ["electricTrains", "levelBoarding", "increasedTopSpeed"],
     navigationFailed: false,
+    fare: calculateFare(enhanced, zoneForStation, { unified: true, day: "weekday" }),
 };
 
 export const journeyParams: JourneyParams = {
@@ -77,6 +83,7 @@ export const failedBaselineInfo: JourneyInfo = {
     arrivals: {},
     amenities: [],
     navigationFailed: true,
+    fare: null,
 };
 
 // A Regional Rail trip that starts at a station today's Commuter Rail doesn't serve
