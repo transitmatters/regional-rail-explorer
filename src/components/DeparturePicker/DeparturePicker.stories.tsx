@@ -3,7 +3,7 @@ import React from "react";
 import * as salem from "storydata/salem";
 
 import DeparturePicker from "./DeparturePicker";
-import { useStorybookState } from "hooks";
+import { useStorybookState } from "hooks/useStorybookState";
 
 export default {
     title: "DeparturePicker",

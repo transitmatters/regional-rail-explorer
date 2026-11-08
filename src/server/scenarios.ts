@@ -1,27 +1,29 @@
-import getConfig from "next/config";
+import fs from "fs";
+import path from "path";
+import { parse } from "flatted";
 
 import { Scenario, scenarioIds } from "types";
 
-const {
-    serverRuntimeConfig: { scenarios: scenariosFromConfig },
-} = getConfig();
+let scenarios: Scenario[] | null = null;
 
+// scenarios.json is written at build time by WriteScenariosPlugin (next.config.ts). It's read
+// lazily so the dev server doesn't race the plugin, and relative to cwd because the standalone
+// server.js chdirs into its own directory, where the deploy places scenarios.json.
 const getScenarios = (): Scenario[] => {
-    if (scenariosFromConfig) {
-        return scenariosFromConfig;
+    if (!scenarios) {
+        scenarios = parse(
+            fs.readFileSync(path.join(process.cwd(), "scenarios.json"), "utf8")
+        ) as Scenario[];
     }
-    return [];
+    return scenarios;
 };
-
-export const scenarios: Scenario[] = getScenarios();
-export const scenarioNames = typeof scenarios;
 
 export const mapScenarios = <T, E>(
     callback: (scenario: Scenario) => T,
     handleError?: (err: Error, scenario: Scenario) => E
 ): (T | E)[] => {
     const scenariosById = scenarioIds.map((id) => {
-        const scenario = scenarios.find((sc) => sc.id === id);
+        const scenario = getScenarios().find((sc) => sc.id === id);
         if (scenario) {
             return scenario;
         }

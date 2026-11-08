@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 
 import { loadGtfsNetwork } from "./network";
-import { stringify, parse } from "flatted";
+import { stringify } from "flatted";
 
 const GTFS_NETWORKS = [
     {
@@ -22,10 +22,6 @@ const GTFS_NETWORKS = [
 const getGtfsFilePath = (networkName: string): string => {
     const filePath = path.resolve(process.cwd(), "data", networkName + ".tar.gz");
     return filePath;
-};
-
-export const loadScenariosFromFile = (): JSON => {
-    return parse(fs.readFileSync("./scenarios.json", "utf8"));
 };
 
 export const loadScenariosFromGtfs = () => {

@@ -36,7 +36,7 @@ aws cloudformation deploy --stack-name $STACK_NAME \
     --template-file cloudformation.json \
     --capabilities CAPABILITY_NAMED_IAM \
     --no-fail-on-empty-changeset \
-    --tags service=regional-rail-explorer \
+    --tags service=regional-rail-explorer team=tm-labs \
     --parameter-overrides \
     RREHostname=$HOSTNAME \
     RREDomain=$DOMAIN \
