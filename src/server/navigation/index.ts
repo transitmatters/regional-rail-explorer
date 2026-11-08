@@ -34,14 +34,8 @@ export const navigate = (options: NavigationOptions): JourneySegment[] => {
     }
     const journeySegments = createJourneyFromState(finalNavigationState);
     if (navigationKind === "depart-after" && journeySegments.length > 0) {
-        const [firstSegment, ...rest] = journeySegments;
-        if (firstSegment.kind !== "travel") {
-            // Drop the wait before the first train, but keep a walk to the station it leaves from
-            if (firstSegment.walkToStation) {
-                const startTime = firstSegment.endTime - firstSegment.walkDuration;
-                return [{ ...firstSegment, startTime, waitDuration: 0 }, ...rest];
-            }
-            return rest;
+        if (journeySegments[0].kind !== "travel") {
+            return journeySegments.slice(1);
         }
     }
     return journeySegments;

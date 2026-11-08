@@ -91,25 +91,34 @@ describe("walking between stations", () => {
         expect(travelSegments(journey)).toHaveLength(1);
     });
 
-    test("Copley to Wellesley Hills starts with a walk to Back Bay", () => {
-        const journey = navigatePresent("place-coecl", "place-WML-0135", 17 * HOUR, "depart-at");
-        const [firstSegment] = journey as JourneyTransferSegment[];
-        expect(firstSegment.walkFromStation?.id).toBe("place-coecl");
-        expect(firstSegment.walkToStation?.id).toBe("place-bbsta");
-        expect(firstSegment.startTime).toBe(17 * HOUR);
-        expect(travelSegments(journey).map((segment) => segment.startStation.id)).toEqual([
-            "place-bbsta",
-        ]);
+    test("West Newton to Copley, arriving by 9 AM, still ends with a walk from Back Bay", () => {
+        const journey = navigatePresent("place-WML-0091", "place-coecl", 9 * HOUR, "arrive-by");
+        const walk = walkSegments(journey).find(
+            (segment) => segment.walkToStation?.id === "place-coecl"
+        );
+        expect(walk?.walkFromStation?.id).toBe("place-bbsta");
+        expect(travelSegments(journey)[0].startStation.id).toBe("place-WML-0091");
     });
 
-    test("Copley to Wellesley Hills, departing after 5 PM, keeps the walk but not the wait", () => {
-        const journey = navigatePresent("place-coecl", "place-WML-0135", 17 * HOUR, "depart-after");
-        const [firstSegment, secondSegment] = journey;
-        expect(firstSegment.kind).toBe("transfer");
-        expect((firstSegment as JourneyTransferSegment).walkToStation?.id).toBe("place-bbsta");
-        expect((firstSegment as JourneyTransferSegment).waitDuration).toBe(0);
-        expect(firstSegment.endTime).toBe(secondSegment.startTime);
-    });
+    // Journeys always start at the rider's starting station, even when a walk to a nearby one
+    // would be faster
+    describe.each<NavigationKind>(["depart-at", "depart-after", "arrive-by"])(
+        "never starting with a walk, %s",
+        (navigationKind) => {
+            test.each([
+                ["Copley to Wellesley Hills", "place-coecl", "place-WML-0135", 17 * HOUR],
+                ["Lansdowne to Oak Grove", "place-WML-0025", "place-ogmnl", 21 * HOUR],
+                ["Kenmore to West Newton", "place-kencl", "place-WML-0091", 8 * HOUR],
+            ])("%s", (_, fromStationId, toStationId, time) => {
+                const journey = navigatePresent(fromStationId, toStationId, time, navigationKind);
+                const [firstSegment] = journey;
+                if (firstSegment.kind === "transfer") {
+                    expect(firstSegment.walkToStation).toBeUndefined();
+                }
+                expect(travelSegments(journey)[0].startStation.id).toBe(fromStationId);
+            });
+        }
+    );
 
     test("West Newton to Longwood, arriving by 10 AM, walks from Lansdowne", () => {
         const journey = navigatePresent("place-WML-0091", "place-longw", 10 * HOUR, "arrive-by");

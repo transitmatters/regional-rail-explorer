@@ -273,6 +273,10 @@ const getTransferStates = (parent: TravelNavigationState): TransferNavigationSta
 
 const getWalkToGoalStates = (parent: TravelNavigationState): WalkNavigationState[] => {
     const { context, time } = parent;
+    // Searching backward, the goal is where the rider starts, and journeys always start there
+    if (context.reverse) {
+        return [];
+    }
     const station = parent.to.stop.parentStation;
     const walkDuration = getWalkingNeighbors(station).get(context.goal);
     if (walkDuration === undefined) {
@@ -303,8 +307,11 @@ const getTravelStates = (parent: TransferNavigationState): TravelNavigationState
     } = parent;
 
     const isSilverLine = to.trip.routeId.startsWith("7");
+    // Skip the stop where the rider boards. Riding nowhere would let a walk into the goal count as
+    // the end of the search, which searching backward is a walk at the start of the journey.
     const candidateEndStopsOnTrip = to.trip.stopTimes.filter((stopTime) => {
         return (
+            stopTime !== to &&
             isSuccessorTime(stopTime.time, to.time, context.reverse) &&
             isUsefulStopToExplore(stopTime.stop, context.goal)
         );
@@ -338,8 +345,12 @@ const getTransferStatesFromStartState = (
             return createTransferState(parent, stopTime, null, 0);
         });
     });
-    // Riders can also walk to a nearby station to start. Walking straight to the goal isn't a
-    // journey on the network, so leave that out.
+    // Journeys always start at the rider's starting station. Searching backward, the search starts
+    // from where the rider ends up, so they can walk there from a nearby station. Walking straight
+    // to the goal isn't a journey on the network, so leave that out.
+    if (!reverse) {
+        return boardAtOrigin;
+    }
     const walkThenBoard = [...getWalkingNeighbors(origin)]
         .filter(([neighbor]) => neighbor !== goal)
         .flatMap(([neighbor, walkDuration]) => {
