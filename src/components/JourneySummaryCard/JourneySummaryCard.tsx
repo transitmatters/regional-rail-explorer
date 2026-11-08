@@ -80,8 +80,9 @@ const JourneySummaryCard: React.FunctionComponent<Props> = (props) => {
         padding = 50,
     } = props;
     const duration = getJourneyDuration(enhanced);
-    const baselineDuration = getJourneyDuration(baseline);
-    const speedup = baselineDuration - duration;
+    // Today's Commuter Rail may have no trip at all, e.g. to a station only Regional Rail serves
+    const baselineDuration = baseline.navigationFailed ? null : getJourneyDuration(baseline);
+    const speedup = baselineDuration === null ? null : baselineDuration - duration;
     const stationDotRadius = 1.2 * travelSegmentThickness;
     const height = width / 2;
     const travelSegments = enhanced.segments.filter(
@@ -172,6 +173,16 @@ const JourneySummaryCard: React.FunctionComponent<Props> = (props) => {
     };
 
     const renderWithRegionalRail = (y: number) => {
+        if (speedup === null) {
+            return (
+                <Text fontSize={25} y={y} x={padding} fontWeight="100" fontStyle="italic">
+                    <tspan fontWeight="bold" fill="#579f6b">
+                        Only possible
+                    </tspan>{" "}
+                    with frequent and electrified Regional Rail
+                </Text>
+            );
+        }
         const includeComparison = speedup >= 5 * MINUTE;
         const comparisonString = includeComparison && `${stringifyDuration(speedup)} faster`;
         const withText = comparisonString ? "with" : "With";

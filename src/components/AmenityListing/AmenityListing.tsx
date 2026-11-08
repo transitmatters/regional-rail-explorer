@@ -1,6 +1,6 @@
 import React from "react";
 import classNames from "classnames";
-import { FaAccessibleIcon, FaGasPump } from "react-icons/fa";
+import { FaAccessibleIcon, FaGasPump, FaTrain } from "react-icons/fa";
 import { GiElectric } from "react-icons/gi";
 import { IoMdSpeedometer } from "react-icons/io";
 
@@ -36,10 +36,26 @@ const amenityToString: Record<
 type Props = {
     present?: AmenityName[];
     absent?: AmenityName[];
+    // Show a single "no train" item instead of amenities, for a scenario with no trip at all
+    noService?: boolean;
 };
 
 const AmenityListing: React.FunctionComponent<Props> = (props) => {
-    const { present = [], absent = [] } = props;
+    const { present = [], absent = [], noService = false } = props;
+
+    if (noService) {
+        return (
+            <ul className={styles.amenityListing}>
+                <li className={styles.amenity}>
+                    <div className="icon-wrapper">
+                        <FaTrain color="whitesmoke" size="0.95em" />
+                        <div className="slash" />
+                    </div>
+                    <span className="label">No train today</span>
+                </li>
+            </ul>
+        );
+    }
 
     const renderAmenity = (amenity: AmenityName, present: boolean) => {
         const { presence, absence, icon, absenceIcon } = amenityToString[amenity];

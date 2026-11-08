@@ -1,4 +1,8 @@
+@use 'sass:color';
 @use '../../styles/base.scss';
+
+$icon-size: 96px;
+$badge-size: 36px;
 
 .journeyErrorState {
     display: flex;
@@ -6,12 +10,49 @@
     align-items: center;
     justify-content: center;
     flex-grow: 1;
+    text-align: center;
+    padding: 0 16px;
 
     h2 {
         margin: 0;
     }
 
     @include base.mobile {
-        height: 200px;
+        min-height: 200px;
+        padding: 24px 16px;
+    }
+}
+
+.noTrainIcon {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: $icon-size;
+    height: $icon-size;
+    margin-bottom: 16px;
+    border-radius: 50%;
+    background: color.adjust(base.$rr-purple, $lightness: 67%);
+
+    :global(.train) {
+        width: 56px;
+        height: 56px;
+        color: base.$rr-purple;
+    }
+
+    :global(.badge) {
+        position: absolute;
+        right: -2px;
+        bottom: -2px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: $badge-size;
+        height: $badge-size;
+        border-radius: 50%;
+        background: #ec4747;
+        color: white;
+        font-size: 22px;
+        box-shadow: 0 0 0 3px white;
     }
 }

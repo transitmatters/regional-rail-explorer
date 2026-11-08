@@ -120,3 +120,23 @@ describe("walking between stations", () => {
         expect(journey[journey.length - 1].endTime).toBeLessThanOrEqual(10 * HOUR);
     });
 });
+
+// The Mattapan line meets the Red Line at Ashmont (issue #137)
+describe("riding the Mattapan line", () => {
+    test("Mattapan to South Station, departing at 8 AM", () => {
+        const journey = navigatePresent("place-matt", "place-sstat", 8 * HOUR, "depart-at");
+        const travel = travelSegments(journey);
+        expect(travel.map((segment) => segment.routeId)).toEqual(["Mattapan", "Red"]);
+        expect(travel[0].endStation.id).toBe("place-asmnl");
+        expect(travel[1].endStation.id).toBe("place-sstat");
+        expect(duration(journey)).toBeLessThan(HOUR);
+    });
+
+    test("Worcester to Milton, arriving by 6 PM", () => {
+        const journey = navigatePresent("place-WML-0442", "place-miltt", 18 * HOUR, "arrive-by");
+        const travel = travelSegments(journey);
+        expect(travel[0].routeId).toBe("CR-Worcester");
+        expect(travel[travel.length - 1].routeId).toBe("Mattapan");
+        expect(travel[travel.length - 1].endStation.id).toBe("place-miltt");
+    });
+});
