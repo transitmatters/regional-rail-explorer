@@ -2,11 +2,16 @@ import React from "react";
 import Head from "next/head";
 import Script from "next/script";
 import DeviceDetector from "device-detector-js";
+import { config } from "@fortawesome/fontawesome-svg-core";
 
 import { AppContextProvider } from "components";
 import { setCdnCacheHeaders, setNoCacheHeaders } from "server/cache";
 
+import "@fortawesome/fontawesome-svg-core/styles.css";
 import "styles/global.scss";
+
+// Next loads the stylesheet above, so Font Awesome doesn't need to inject its own
+config.autoAddCss = false;
 
 const deviceDetector = new DeviceDetector();
 

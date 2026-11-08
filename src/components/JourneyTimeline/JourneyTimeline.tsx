@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import classNames from "classnames";
 import { Button } from "@ariakit/react/button";
-import { BsChevronExpand } from "react-icons/bs";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUpDown } from "@fortawesome/free-solid-svg-icons";
 
 import { StationName } from "components";
 import { JourneySegment, JourneyTransferSegment, JourneyTravelSegment } from "types";
@@ -60,7 +61,7 @@ const TravelSegment = (props: { segment: JourneyTravelSegment }) => {
                 onClick={() => setExpanded(true)}
             >
                 <div className="circle">
-                    <BsChevronExpand strokeWidth={1} size={18} />
+                    <FontAwesomeIcon icon={faUpDown} style={{ fontSize: 14 }} />
                 </div>
                 <div className="label">Show {numHiddenStations} more</div>
             </Button>

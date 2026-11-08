@@ -1,7 +1,8 @@
 import classNames from "classnames";
 import React, { MouseEventHandler, useContext } from "react";
 import * as AK from "@ariakit/react/menu";
-import { GrNext } from "react-icons/gr";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
 import { Menu } from "./Menu";
 import { MenuContext } from "./menuContext";
@@ -41,7 +42,11 @@ const DisplayMenuItem: React.FunctionComponent = (
     }: DisplayMenuItemProps,
     ref
 ) => {
-    const label = hasSubmenu ? <GrNext size={14} style={{ paddingLeft: 4 }} /> : rightElement;
+    const label = hasSubmenu ? (
+        <FontAwesomeIcon icon={faChevronRight} style={{ fontSize: 12, paddingLeft: 4 }} />
+    ) : (
+        rightElement
+    );
 
     const onClickWithHref: React.MouseEventHandler<HTMLLIElement> = (evt) => {
         if (onClick) {

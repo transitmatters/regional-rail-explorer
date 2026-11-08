@@ -1,6 +1,7 @@
 import React from "react";
 import { action } from "storybook/actions";
-import { GrDown } from "react-icons/gr";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
 import { stationsByLine } from "stations";
 import Button from "components/Button/Button";
@@ -34,7 +35,7 @@ export const WithCustomButton = () => {
             onSelectStation={action("select-station")}
             disclosure={disclosure}
         >
-            <Button large rightIcon={<GrDown />}>
+            <Button large rightIcon={<FontAwesomeIcon icon={faChevronDown} />}>
                 Choose a station...
             </Button>
         </StationPicker>

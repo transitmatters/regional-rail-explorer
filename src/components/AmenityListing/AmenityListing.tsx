@@ -1,8 +1,8 @@
 import React from "react";
 import classNames from "classnames";
-import { FaAccessibleIcon, FaGasPump, FaTrain } from "react-icons/fa";
-import { GiElectric } from "react-icons/gi";
-import { IoMdSpeedometer } from "react-icons/io";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAccessibleIcon } from "@fortawesome/free-brands-svg-icons";
+import { faBolt, faGasPump, faGaugeHigh, faTrain } from "@fortawesome/free-solid-svg-icons";
 
 import { AmenityName } from "types";
 
@@ -13,21 +13,31 @@ const amenityToString: Record<
     { presence: string; absence: string; icon: any; absenceIcon?: any }
 > = {
     electricTrains: {
-        icon: (props) => <GiElectric {...props} size="1.4em" />,
-        absenceIcon: (props) => <FaGasPump {...props} size="0.95em" />,
+        icon: (props) => <FontAwesomeIcon {...props} icon={faBolt} style={{ fontSize: "1.2em" }} />,
+        absenceIcon: (props) => (
+            <FontAwesomeIcon {...props} icon={faGasPump} style={{ fontSize: "0.95em" }} />
+        ),
         presence: "Fast, quiet, and reliable electric train",
         absence: "Legacy diesel train",
     },
     levelBoarding: {
-        icon: (props) => <FaAccessibleIcon {...props} size="1.1em" />,
+        icon: (props) => (
+            <FontAwesomeIcon {...props} icon={faAccessibleIcon} style={{ fontSize: "1.1em" }} />
+        ),
         presence: "High platforms for quick and accessible boarding",
         absence: "Step-up platform creates delays in boarding",
     },
     increasedTopSpeed: {
         icon: (props) => (
-            <IoMdSpeedometer {...props} size="1.25em" style={{ transform: "scaleX(-1)" }} />
+            <FontAwesomeIcon
+                {...props}
+                icon={faGaugeHigh}
+                style={{ fontSize: "1.1em", transform: "scaleX(-1)" }}
+            />
         ),
-        absenceIcon: (props) => <IoMdSpeedometer {...props} size="1.25em" />,
+        absenceIcon: (props) => (
+            <FontAwesomeIcon {...props} icon={faGaugeHigh} style={{ fontSize: "1.1em" }} />
+        ),
         presence: "Modern tracks and signals ensure trains can run at full speed",
         absence: "Speed restrictions artifically limit the top speed of trains",
     },
@@ -48,7 +58,11 @@ const AmenityListing: React.FunctionComponent<Props> = (props) => {
             <ul className={styles.amenityListing}>
                 <li className={styles.amenity}>
                     <div className="icon-wrapper">
-                        <FaTrain color="whitesmoke" size="0.95em" />
+                        <FontAwesomeIcon
+                            icon={faTrain}
+                            color="whitesmoke"
+                            style={{ fontSize: "0.95em" }}
+                        />
                         <div className="slash" />
                     </div>
                     <span className="label">No train today</span>

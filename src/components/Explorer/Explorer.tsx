@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { CgSpinner } from "react-icons/cg";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 import { stationsByLine, stationsById } from "stations";
 
@@ -155,7 +156,11 @@ const Explorer: React.FunctionComponent<Props> = (props) => {
         if (isJourneyPending) {
             return (
                 <div className={styles.spinnerContainer}>
-                    <CgSpinner className="spinning" size={50} />
+                    <FontAwesomeIcon
+                        icon={faSpinner}
+                        className="spinning"
+                        style={{ fontSize: 50 }}
+                    />
                 </div>
             );
         }
