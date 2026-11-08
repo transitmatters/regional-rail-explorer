@@ -45,6 +45,7 @@ type SerializedStop = {
 type SerializedStation = {
     id: string;
     name: string;
+    zone: null | string;
     stops: SerializedStop[];
 };
 
@@ -58,7 +59,7 @@ export type SerializedNetwork = {
 };
 
 // Bump when the format changes, so builds regenerate a stale scenarios.json
-export const SCENARIOS_FILE_VERSION = 2;
+export const SCENARIOS_FILE_VERSION = 3;
 
 export type ScenariosFile = {
     version: number;
@@ -108,6 +109,7 @@ export const serializeNetwork = (network: Network): SerializedNetwork => {
         stations: stations.map((station) => ({
             id: station.id,
             name: station.name,
+            zone: station.zone,
             stops: station.stops.map((stop) => ({
                 id: stop.id,
                 name: stop.name,
@@ -156,6 +158,7 @@ export const deserializeNetwork = (serialized: SerializedNetwork): Network => {
         const station: Station = {
             id: serializedStation.id,
             name: serializedStation.name,
+            zone: serializedStation.zone,
             stops: [],
         };
         station.stops = serializedStation.stops.map((serializedStop) => {

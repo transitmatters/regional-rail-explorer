@@ -157,6 +157,7 @@ describe.each(["present", "regional_rail"])("%s scenario", (scenarioId) => {
         Object.values(original.stationsById).forEach((station) => {
             const rebuiltStation = rebuilt.stationsById[station.id];
             expect(rebuiltStation.name).toEqual(station.name);
+            expect(rebuiltStation.zone).toEqual(station.zone);
             expect(rebuiltStation.stops.map(stopSignature)).toEqual(
                 station.stops.map(stopSignature)
             );
@@ -173,6 +174,12 @@ describe.each(["present", "regional_rail"])("%s scenario", (scenarioId) => {
         originalTrips.forEach((trip) => {
             expect(tripSignature(rebuilt.trips[trip.id])).toEqual(tripSignature(trip));
         });
+    });
+
+    test("knows the fare zone of Commuter Rail stations", () => {
+        const { rebuilt } = networks[scenarioId];
+        expect(rebuilt.stationsById["place-sstat"].zone).toEqual("1A");
+        expect(rebuilt.stationsById["place-WML-0442"].zone).toEqual("8");
     });
 
     test("keeps amenities and route info", () => {

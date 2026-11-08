@@ -17,6 +17,7 @@ export const baseline: JourneySegment[] = [
         ],
         routeId: "CR-Newburyport",
         routePatternId: "Newburyport",
+        directionId: "1",
     },
     { kind: "transfer", startTime: 29280, walkDuration: 302, waitDuration: 298, endTime: 29880 },
     {
@@ -32,6 +33,7 @@ export const baseline: JourneySegment[] = [
         ],
         routeId: "Orange",
         routePatternId: "Orange",
+        directionId: "0",
     },
     { kind: "transfer", startTime: 30240, walkDuration: 115, waitDuration: 5, endTime: 30360 },
     {
@@ -44,6 +46,7 @@ export const baseline: JourneySegment[] = [
         passedStations: [],
         routeId: "Red",
         routePatternId: "Red",
+        directionId: "0",
     },
     { kind: "transfer", startTime: 30480, walkDuration: 162, waitDuration: 558, endTime: 31200 },
     {
@@ -56,6 +59,7 @@ export const baseline: JourneySegment[] = [
         passedStations: [{ time: 31680, station: { name: "Newmarket", id: "place-DB-2265" } }],
         routeId: "CR-Fairmount",
         routePatternId: "Fairmount",
+        directionId: "0",
     },
 ];
 
@@ -76,6 +80,7 @@ export const enhanced: JourneySegment[] = [
         ],
         routeId: "CR-Newburyport",
         routePatternId: "Newburyport",
+        directionId: "1",
     },
     { kind: "transfer", startTime: 29280, walkDuration: 302, waitDuration: 298, endTime: 29880 },
     {
@@ -91,6 +96,7 @@ export const enhanced: JourneySegment[] = [
         ],
         routeId: "Orange",
         routePatternId: "Orange",
+        directionId: "0",
     },
     { kind: "transfer", startTime: 28780, walkDuration: 115, waitDuration: 5, endTime: 28900 },
     {
@@ -103,6 +109,7 @@ export const enhanced: JourneySegment[] = [
         passedStations: [],
         routeId: "Red",
         routePatternId: "Red",
+        directionId: "0",
     },
     { kind: "transfer", startTime: 30480, walkDuration: 162, waitDuration: 450, endTime: 31092 },
     {
@@ -115,6 +122,7 @@ export const enhanced: JourneySegment[] = [
         passedStations: [{ time: 31300, station: { name: "Newmarket", id: "place-DB-2265" } }],
         routeId: "CR-Fairmount",
         routePatternId: "Fairmout",
+        directionId: "0",
     },
 ];
 
@@ -158,6 +166,7 @@ export const walkBetweenStations: JourneySegment[] = [
         ],
         routeId: "CR-Worcester",
         routePatternId: "CR-Worcester-6874ed14-1",
+        directionId: "1",
     },
     {
         kind: "transfer",
@@ -190,6 +199,7 @@ export const walkBetweenStations: JourneySegment[] = [
         passedStations: [],
         routeId: "Green-D",
         routePatternId: "Green-D-854-0",
+        directionId: "0",
     },
 ];
 
@@ -248,5 +258,6 @@ export const walkFromOrigin: JourneySegment[] = [
         ],
         routeId: "CR-Worcester",
         routePatternId: "CR-Worcester-b7d67732-0",
+        directionId: "0",
     },
 ];

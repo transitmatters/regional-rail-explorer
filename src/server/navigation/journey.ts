@@ -96,6 +96,7 @@ const createJourneyTravelSegment = (state: TravelNavigationState): JourneyTravel
         passedStations: getPassedJourneyStationsOnTrip(trip, startStopTime.time, endStopTime.time),
         routeId: trip.routeId,
         routePatternId: trip.routePatternId,
+        directionId: trip.directionId,
     };
 };
 
