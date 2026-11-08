@@ -285,10 +285,29 @@ describe.each(["present", "regional_rail"])("%s scenario", (scenarioId) => {
             });
             const travelSegments = journey.filter((segment) => segment.kind === "travel");
             expect(travelSegments.length, context).toBeGreaterThan(0);
-            expect(travelSegments[0].startStation.id, context).toEqual(query.fromStationId);
-            expect(travelSegments[travelSegments.length - 1].endStation.id, context).toEqual(
-                query.toStationId
-            );
+            // A journey can start or end by walking from or to a nearby station
+            const firstSegment = journey[0];
+            const lastSegment = journey[journey.length - 1];
+            const startStationId =
+                (firstSegment.kind === "transfer" && firstSegment.walkFromStation?.id) ||
+                travelSegments[0].startStation.id;
+            const endStationId =
+                (lastSegment.kind === "transfer" && lastSegment.walkToStation?.id) ||
+                travelSegments[travelSegments.length - 1].endStation.id;
+            expect(startStationId, context).toEqual(query.fromStationId);
+            expect(endStationId, context).toEqual(query.toStationId);
+            // Every walk leaves from where the last train stopped and reaches where the next one leaves
+            journey.forEach((segment, index) => {
+                if (segment.kind !== "transfer" || !segment.walkToStation) return;
+                const previous = journey[index - 1];
+                const next = journey[index + 1];
+                if (previous?.kind === "travel") {
+                    expect(segment.walkFromStation?.id, context).toEqual(previous.endStation.id);
+                }
+                if (next?.kind === "travel") {
+                    expect(segment.walkToStation.id, context).toEqual(next.startStation.id);
+                }
+            });
         });
         // These are busy stations at busy times, so nearly every query should find a journey
         expect(successes / queries).toBeGreaterThan(0.9);

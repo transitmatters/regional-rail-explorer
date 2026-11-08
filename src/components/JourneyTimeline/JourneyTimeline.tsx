@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import classNames from "classnames";
 import { Button } from "@ariakit/react/button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUpDown } from "@fortawesome/free-solid-svg-icons";
+import { faPersonWalking, faUpDown } from "@fortawesome/free-solid-svg-icons";
 
 import { StationName } from "components";
 import { JourneySegment, JourneyTransferSegment, JourneyTravelSegment } from "types";
@@ -123,10 +123,12 @@ const TransferSegment = (props: {
     segment: JourneyTransferSegment;
 }) => {
     const { segment, isStart, isEnd } = props;
-    const { startTime, endTime, walkDuration, waitDuration, isWaitAtDestination } = segment;
+    const { startTime, endTime, walkDuration, waitDuration, isWaitAtDestination, walkToStation } =
+        segment;
     const walkDurationRounded = Math.floor(walkDuration / MINUTE);
     const waitDurationRounded = Math.floor(waitDuration / MINUTE);
-    if (isEnd && endTime - startTime < MINUTE * 5) {
+    // Hide a short wait at the end, but always show a walk to the destination
+    if (isEnd && !walkToStation && endTime - startTime < MINUTE * 5) {
         return null;
     }
     return (
@@ -149,7 +151,14 @@ const TransferSegment = (props: {
             )}
             <div className="stem" />
             <div className="label">
-                {walkDurationRounded > 0 && <div>{walkDurationRounded} minute transfer</div>}
+                {walkToStation ? (
+                    <div className={styles.walk}>
+                        <FontAwesomeIcon icon={faPersonWalking} aria-hidden />
+                        {walkDurationRounded} minute walk to {walkToStation.name}
+                    </div>
+                ) : (
+                    walkDurationRounded > 0 && <div>{walkDurationRounded} minute transfer</div>
+                )}
                 {waitDurationRounded > 0 && (
                     <div>
                         {isWaitAtDestination ? (

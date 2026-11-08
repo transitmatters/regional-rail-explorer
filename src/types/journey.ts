@@ -51,6 +51,9 @@ export interface JourneyTransferSegment {
     waitDuration: NetworkTime;
     walkDuration: NetworkTime;
     isWaitAtDestination?: boolean;
+    // Set when the rider leaves one station and walks to another, like Lansdowne to Kenmore
+    walkFromStation?: JourneyStation;
+    walkToStation?: JourneyStation;
 }
 
 export type JourneySegment = JourneyTransferSegment | JourneyTravelSegment;
