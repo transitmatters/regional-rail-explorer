@@ -1,5 +1,6 @@
 import React from "react";
-import { HiPlusCircle } from "react-icons/hi";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import classNames from "classnames";
 
 import { getLinkToStation, isInfillStation } from "stations";
@@ -41,7 +42,7 @@ const StationName: React.FunctionComponent<Props> = (props) => {
             )}
             {showInfillStatus && (
                 <div className={styles.infillStatus} tabIndex={0}>
-                    <HiPlusCircle className={styles.plus} />
+                    <FontAwesomeIcon icon={faCirclePlus} className={styles.plus} />
                     <span className={styles.tooltipText}>New station</span>
                 </div>
             )}

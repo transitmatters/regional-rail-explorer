@@ -15,6 +15,10 @@
   },
   "dependencies": {
     "@ariakit/react": "^0.4.15",
+    "@fortawesome/fontawesome-svg-core": "^7.3.1",
+    "@fortawesome/free-brands-svg-icons": "^7.3.1",
+    "@fortawesome/free-solid-svg-icons": "^7.3.1",
+    "@fortawesome/react-fontawesome": "^3.5.0",
     "@ridi/object-case-converter": "^2.0.4",
     "bezier-js": "^6.1.4",
     "classnames": "^2.5.1",
@@ -27,7 +31,6 @@
     "random": "^5.1.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-icons": "^5.5.0",
     "sass": "^1.85.0",
     "sharp": "^0.35.5",
     "smoothscroll-polyfill": "^0.4.4",

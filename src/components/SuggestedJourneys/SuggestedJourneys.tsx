@@ -1,8 +1,15 @@
 import React from "react";
 import classNames from "classnames";
-import { IconType } from "react-icons";
-import { MdOutlineQrCode, MdOutlineSportsBaseball } from "react-icons/md";
-import { FaBriefcase, FaGhost, FaGraduationCap, FaStethoscope } from "react-icons/fa";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    IconDefinition,
+    faBaseball,
+    faBriefcase,
+    faGhost,
+    faGraduationCap,
+    faQrcode,
+    faStethoscope,
+} from "@fortawesome/free-solid-svg-icons";
 
 import { parseTime, stringifyTime } from "time";
 import { stationsByName, stationsById } from "stations";
@@ -17,7 +24,7 @@ type SuggestedJourneyParams = {
     to: string;
     navigationKind: NavigationKind;
     day: NetworkDayKind;
-    accentIcon: IconType;
+    accentIcon: IconDefinition;
     accentColor?: string;
 };
 
@@ -31,7 +38,7 @@ const defaultSuggestedJourneys: SuggestedJourneyParams[] = [
         to: "Back Bay",
         time: "8:40",
         day: "weekday",
-        accentIcon: FaBriefcase,
+        accentIcon: faBriefcase,
         navigationKind: "depart-at",
     },
     {
@@ -39,7 +46,7 @@ const defaultSuggestedJourneys: SuggestedJourneyParams[] = [
         to: "Oak Grove",
         time: "21:00",
         day: "saturday",
-        accentIcon: MdOutlineSportsBaseball,
+        accentIcon: faBaseball,
         navigationKind: "depart-at",
     },
     {
@@ -47,7 +54,7 @@ const defaultSuggestedJourneys: SuggestedJourneyParams[] = [
         to: "Charles/MGH",
         time: "15:15",
         day: "weekday",
-        accentIcon: FaStethoscope,
+        accentIcon: faStethoscope,
         navigationKind: "arrive-by",
     },
     {
@@ -55,7 +62,7 @@ const defaultSuggestedJourneys: SuggestedJourneyParams[] = [
         to: "Salem",
         time: "12:00",
         day: "sunday",
-        accentIcon: FaGhost,
+        accentIcon: faGhost,
         accentColor: "#fc8c03",
         navigationKind: "depart-at",
     },
@@ -64,7 +71,7 @@ const defaultSuggestedJourneys: SuggestedJourneyParams[] = [
         to: "Wellesley Square",
         time: "10:15",
         day: "weekday",
-        accentIcon: FaGraduationCap,
+        accentIcon: faGraduationCap,
         navigationKind: "depart-at",
     },
 ];
@@ -94,15 +101,7 @@ const SuggestedJourneys: React.FunctionComponent<Props> = (props) => {
     const { suggestedJourneys = defaultSuggestedJourneys } = props;
 
     const renderedSuggestedJourneys = suggestedJourneys.map((journey, i) => {
-        const {
-            from,
-            to,
-            time,
-            day,
-            navigationKind,
-            accentColor,
-            accentIcon: AccentIcon,
-        } = journey;
+        const { from, to, time, day, navigationKind, accentColor, accentIcon } = journey;
         const fromStation = stationsById[from] || stationsByName[from];
         const toStation = stationsById[to] || stationsByName[to];
         const parsedTime = parseTime(time);
@@ -141,8 +140,16 @@ const SuggestedJourneys: React.FunctionComponent<Props> = (props) => {
                     </div>
                     <div className={styles.iconsContainer}>
                         <div className={styles.iconsContainerInner}>
-                            <MdOutlineQrCode className={styles.qr} size={80} />
-                            <AccentIcon className={styles.accentIcon} size={30} />
+                            <FontAwesomeIcon
+                                icon={faQrcode}
+                                className={styles.qr}
+                                style={{ fontSize: 80 }}
+                            />
+                            <FontAwesomeIcon
+                                icon={accentIcon}
+                                className={styles.accentIcon}
+                                style={{ fontSize: 30 }}
+                            />
                         </div>
                     </div>
                 </div>

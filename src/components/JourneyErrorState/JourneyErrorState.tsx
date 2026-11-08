@@ -1,6 +1,6 @@
 import React from "react";
-import { PiTrainRegionalDuotone } from "react-icons/pi";
-import { TbClockX } from "react-icons/tb";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faClock, faTrain } from "@fortawesome/free-solid-svg-icons";
 
 import styles from "./JourneyErrorState.module.scss";
 
@@ -14,9 +14,9 @@ type Props = {
 const NoTrainIcon = () => {
     return (
         <div className={styles.noTrainIcon} aria-hidden="true">
-            <PiTrainRegionalDuotone className="train" />
+            <FontAwesomeIcon icon={faTrain} className="train" />
             <div className="badge">
-                <TbClockX />
+                <FontAwesomeIcon icon={faClock} />
             </div>
         </div>
     );

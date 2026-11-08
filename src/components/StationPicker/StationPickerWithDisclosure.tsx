@@ -1,5 +1,6 @@
 import React from "react";
-import { GrDown, GrUp } from "react-icons/gr";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 
 import { Button, StationsByLine } from "components";
 import { StationPicker } from "components";
@@ -32,7 +33,7 @@ export const StationPickerWithDisclosure: React.FunctionComponent<
                     <Button
                         large
                         outline={open}
-                        rightIcon={open ? <GrUp /> : <GrDown />}
+                        rightIcon={<FontAwesomeIcon icon={open ? faChevronUp : faChevronDown} />}
                         {...disclosureProps}
                         disabled={disabled}
                     >

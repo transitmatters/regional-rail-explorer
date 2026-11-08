@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import classNames from "classnames";
 import { Button } from "@ariakit/react/button";
-import { BsChevronExpand } from "react-icons/bs";
-import { MdDirectionsWalk } from "react-icons/md";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPersonWalking, faUpDown } from "@fortawesome/free-solid-svg-icons";
 
 import { StationName } from "components";
 import { JourneySegment, JourneyTransferSegment, JourneyTravelSegment } from "types";
@@ -61,7 +61,7 @@ const TravelSegment = (props: { segment: JourneyTravelSegment }) => {
                 onClick={() => setExpanded(true)}
             >
                 <div className="circle">
-                    <BsChevronExpand strokeWidth={1} size={18} />
+                    <FontAwesomeIcon icon={faUpDown} style={{ fontSize: 14 }} />
                 </div>
                 <div className="label">Show {numHiddenStations} more</div>
             </Button>
@@ -153,7 +153,7 @@ const TransferSegment = (props: {
             <div className="label">
                 {walkToStation ? (
                     <div className={styles.walk}>
-                        <MdDirectionsWalk aria-hidden />
+                        <FontAwesomeIcon icon={faPersonWalking} aria-hidden />
                         {walkDurationRounded} minute walk to {walkToStation.name}
                     </div>
                 ) : (
