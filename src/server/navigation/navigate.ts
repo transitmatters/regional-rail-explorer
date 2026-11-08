@@ -19,8 +19,10 @@ import {
     NavigationOptions,
     NavigationState,
     StartNavigationState,
+    StationWalk,
     TransferNavigationState,
     TravelNavigationState,
+    WalkNavigationState,
 } from "./types";
 import { resolveTemporalOrder } from "./util";
 
@@ -47,7 +49,13 @@ const scoreState = (state: NavigationState) => {
 };
 
 const getStatePriorityHeap = (): Heap<NavigationState> => {
-    return new Heap((a: NavigationState, b: NavigationState) => scoreState(a) - scoreState(b));
+    // Among equally good states, explore the simpler journey first. Otherwise one with extra legs
+    // that arrives at the same time can win, like riding a stop and walking further to a train
+    // you could have walked to directly.
+    return new Heap(
+        (a: NavigationState, b: NavigationState) =>
+            scoreState(a) - scoreState(b) || a.parents.length - b.parents.length
+    );
 };
 
 const getSelfTransfer = (stop: Stop): Transfer => {
@@ -98,15 +106,75 @@ const isStopTimeToday = (stopTime: StopTime, today: NetworkDayKind | NetworkDay)
     return stopTime.trip.serviceDays.some((day) => matchDayOfWeek(day, today));
 };
 
+// A station where some trips start or end while others pass through, so riders change trains
+// there even on a single route. For example, many New Bedford trips are a South Station - Fall
+// River train plus a shuttle from East Taunton to New Bedford.
+const changePointCache = new WeakMap<Station, boolean>();
+
+const isChangePoint = (station: Station) => {
+    const cached = changePointCache.get(station);
+    if (cached !== undefined) {
+        return cached;
+    }
+    let hasEndpoint = false;
+    let hasPassThrough = false;
+    for (const stop of station.stops) {
+        for (const stopTime of stop.stopTimes) {
+            const { stopTimes } = stopTime.trip;
+            if (stopTimes[0] === stopTime || stopTimes[stopTimes.length - 1] === stopTime) {
+                hasEndpoint = true;
+            } else {
+                hasPassThrough = true;
+            }
+        }
+    }
+    const result = hasEndpoint && hasPassThrough;
+    changePointCache.set(station, result);
+    return result;
+};
+
+// Other stations that riders can walk to from this one, like Kenmore from Lansdowne, with the
+// shortest walk to each. These come from GTFS transfers between stops of different stations.
+const walkingNeighborsCache = new WeakMap<Station, Map<Station, Duration>>();
+
+const getWalkingNeighbors = (station: Station) => {
+    const cached = walkingNeighborsCache.get(station);
+    if (cached) {
+        return cached;
+    }
+    const neighbors = new Map<Station, Duration>();
+    for (const stop of station.stops) {
+        for (const transfer of stop.transfers) {
+            const neighbor = transfer.toStop.parentStation;
+            const shortestWalk = neighbors.get(neighbor);
+            if (
+                neighbor !== station &&
+                (shortestWalk === undefined || transfer.walkTime < shortestWalk)
+            ) {
+                neighbors.set(neighbor, transfer.walkTime);
+            }
+        }
+    }
+    walkingNeighborsCache.set(station, neighbors);
+    return neighbors;
+};
+
 const isUsefulStopToExplore = (stop: Stop, goal: Station) => {
     if (stop.parentStation === goal) {
         return true;
     }
     const uniqueRoutes = new Set(stop.parentStation.stops.map((stop) => stop.routes).flat());
-    return uniqueRoutes.size > 1;
+    return (
+        uniqueRoutes.size > 1 ||
+        isChangePoint(stop.parentStation) ||
+        getWalkingNeighbors(stop.parentStation).size > 0
+    );
 };
 
 const isGoalState = (state: NavigationState) => {
+    if (state.kind === "walk") {
+        return true;
+    }
     return state.kind === "travel" && state.to.stop.parentStation === state.context.goal;
 };
 
@@ -127,7 +195,8 @@ const createTransferState = (
     parent: NavigationState,
     stopTime: StopTime,
     from: null | StopTime,
-    walkDuration: number
+    walkDuration: number,
+    walk: null | StationWalk = null
 ): TransferNavigationState => {
     const {
         boardedAtStations,
@@ -137,7 +206,10 @@ const createTransferState = (
         context,
         timeOnSilverLine,
     } = parent;
-    const boardingRegionalRail = isRegionalRailRouteId(stopTime.trip.routeId);
+    // Changing trains within one line doesn't need another ticket
+    const boardingRegionalRail =
+        isRegionalRailRouteId(stopTime.trip.routeId) &&
+        from?.trip.routeId !== stopTime.trip.routeId;
     return {
         kind: "transfer" as const,
         context,
@@ -151,6 +223,7 @@ const createTransferState = (
             ? boardedRegionalRailCount + 1
             : boardedRegionalRailCount,
         walkDuration,
+        walk,
         timeOnSilverLine,
     };
 };
@@ -188,11 +261,34 @@ const getTransferStates = (parent: TravelNavigationState): TransferNavigationSta
             const walkDuration = transfer.walkTime;
             const now = displaceTime(to.time, walkDuration, context.reverse);
             const visitableStopTimes = getNextVisitableStopTimes(parent, transfer.toStop, now);
+            const fromStation = to.stop.parentStation;
+            const toStation = transfer.toStop.parentStation;
+            const walk = fromStation === toStation ? null : { from: fromStation, to: toStation };
             return visitableStopTimes.map((stopTime) => {
-                return createTransferState(parent, stopTime, to, walkDuration);
+                return createTransferState(parent, stopTime, to, walkDuration, walk);
             });
         })
         .flat();
+};
+
+const getWalkToGoalStates = (parent: TravelNavigationState): WalkNavigationState[] => {
+    const { context, time } = parent;
+    const station = parent.to.stop.parentStation;
+    const walkDuration = getWalkingNeighbors(station).get(context.goal);
+    if (walkDuration === undefined) {
+        return [];
+    }
+    return [
+        {
+            ...parent,
+            kind: "walk" as const,
+            parents: [...parent.parents, parent],
+            walk: { from: station, to: context.goal },
+            walkDuration,
+            fromTime: time,
+            time: displaceTime(time, walkDuration, context.reverse),
+        },
+    ];
 };
 
 const getTravelStates = (parent: TransferNavigationState): TravelNavigationState[] => {
@@ -235,15 +331,27 @@ const getTransferStatesFromStartState = (
     parent: StartNavigationState
 ): TransferNavigationState[] => {
     const { context } = parent;
-    const { origin, initialTime } = context;
-    return origin.stops
-        .map((stop) => {
-            const visitableStopTimes = getNextVisitableStopTimes(parent, stop, initialTime);
-            return visitableStopTimes.map((stopTime) => {
-                return createTransferState(parent, stopTime, null, 0);
+    const { origin, goal, initialTime, reverse } = context;
+    const boardAtOrigin = origin.stops.flatMap((stop) => {
+        const visitableStopTimes = getNextVisitableStopTimes(parent, stop, initialTime);
+        return visitableStopTimes.map((stopTime) => {
+            return createTransferState(parent, stopTime, null, 0);
+        });
+    });
+    // Riders can also walk to a nearby station to start. Walking straight to the goal isn't a
+    // journey on the network, so leave that out.
+    const walkThenBoard = [...getWalkingNeighbors(origin)]
+        .filter(([neighbor]) => neighbor !== goal)
+        .flatMap(([neighbor, walkDuration]) => {
+            const now = displaceTime(initialTime, walkDuration, reverse);
+            const walk = { from: origin, to: neighbor };
+            return neighbor.stops.flatMap((stop) => {
+                return getNextVisitableStopTimes(parent, stop, now).map((stopTime) => {
+                    return createTransferState(parent, stopTime, null, walkDuration, walk);
+                });
             });
-        })
-        .flat();
+        });
+    return [...boardAtOrigin, ...walkThenBoard];
 };
 
 const getSuccessorStates = (state: NavigationState): NavigationState[] => {
@@ -251,7 +359,10 @@ const getSuccessorStates = (state: NavigationState): NavigationState[] => {
         return getTransferStatesFromStartState(state);
     }
     if (state.kind === "travel") {
-        return getTransferStates(state);
+        return [...getTransferStates(state), ...getWalkToGoalStates(state)];
+    }
+    if (state.kind === "walk") {
+        return [];
     }
     return getTravelStates(state);
 };
@@ -279,6 +390,9 @@ export const printTripFromState = (state: NavigationState) => {
                 "->",
                 state.to.stop.parentStation.name
             );
+        }
+        if (state.kind === "walk") {
+            console.log(time, "walk", state.walk.from.name, "->", state.walk.to.name);
         }
     });
 };

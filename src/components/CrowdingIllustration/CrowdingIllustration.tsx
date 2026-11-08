@@ -1,7 +1,8 @@
 import React from "react";
 import classNames from "classnames";
 import Random from "random";
-import { GiPerson } from "react-icons/gi";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPerson } from "@fortawesome/free-solid-svg-icons";
 
 import { CrowdingLevel } from "types";
 
@@ -19,8 +20,8 @@ const getPersonProps = (position: number, height: number, layer: number) => {
             zIndex: -layer,
             color: "#" + (layer * (255 / 3)).toString(16).repeat(3),
             left: `${Math.min(95, Math.max(0, position))}%`,
+            fontSize: `${(1 - layer * 0.05) * height}px`,
         },
-        size: `${(1 - layer * 0.05) * height}px`,
     };
 };
 
@@ -37,8 +38,9 @@ export const CrowdingIllustration: React.FunctionComponent<Props> = (props) => {
         const position = getOffset() + 100 * (index / crowding);
         const height = getHeight();
         return (
-            <GiPerson
+            <FontAwesomeIcon
                 key={index}
+                icon={faPerson}
                 className={styles.person}
                 {...getPersonProps(position, height, layer)}
             />

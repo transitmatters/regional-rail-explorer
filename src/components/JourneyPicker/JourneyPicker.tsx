@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState, useMemo } from "react";
 import classNames from "classnames";
-import { MdSwapCalls } from "react-icons/md";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRightLeft } from "@fortawesome/free-solid-svg-icons";
 
 import { HOUR } from "time";
 import { Button, NumericTimePicker, Select } from "components";
@@ -58,7 +59,6 @@ const getTimeOfDayOptionForTime = (time: NetworkTime) => {
     return timeOfDayPickerOptions[index];
 };
 
-// eslint-disable-next-line react/prop-types
 const LabeledControl = ({ label, children, className = "" }) => {
     return (
         <div className={classNames(styles.labeledControl, className)}>
@@ -155,7 +155,7 @@ const JourneyPicker: React.FunctionComponent<Props> = (props) => {
                     />
                 </LabeledControl>
                 <Button large outline className="swap-stations-button" onClick={swapStations}>
-                    <MdSwapCalls size="1.3em" />
+                    <FontAwesomeIcon icon={faRightLeft} style={{ fontSize: "1.1em" }} />
                 </Button>
             </div>
             <div className="group time-details">

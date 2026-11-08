@@ -10,7 +10,7 @@ class WriteScenariosPlugin {
 
 const nextConfig: NextConfig = {
     // Bundles the server and only the node_modules it needs into .next/standalone,
-    // so the host can run it without an npm install. See devops/playbook.yml
+    // so Lambda can run it without an npm install. See devops/package-release.sh
     output: "standalone",
     // Build-time tooling that next-server's trace picks up but the production server never loads
     outputFileTracingExcludes: {

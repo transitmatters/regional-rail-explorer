@@ -5,6 +5,7 @@ import queryString from "query-string";
 import { ParsedJourneyParams } from "types";
 import { JourneySummaryCard } from "components";
 import { getJourneyParamsForQuery, getSuccessfulJourneys } from "server/journey";
+import { setCdnCacheHeaders } from "server/cache";
 
 const getJourneyInfoForParams = (journeyParams: ParsedJourneyParams) => {
     const { fromStationId, toStationId, day, time, navigationKind } = journeyParams;
@@ -33,21 +34,19 @@ export default async (req, res) => {
     const journeyParams = getJourneyParamsForQuery(rawJourneyParams);
     const journeys = getJourneyInfoForParams(journeyParams);
     const { format } = req.query;
-    if (journeys) {
+    // The card draws the Regional Rail trip, so there's nothing to show if it has no route
+    if (journeys && !journeys[1].navigationFailed) {
         const [baseline, enhanced] = journeys;
         const cardString = ReactDOMServer.renderToString(
             <JourneySummaryCard baseline={baseline} enhanced={enhanced} day={journeyParams.day!} />
         );
         const useSvg = format === "svg";
+        // Rendered before any headers are set, so a sharp failure isn't sent as a cacheable 500
+        const body = useSvg ? cardString : await convertSvgToPng(cardString);
+        setCdnCacheHeaders(res);
         res.status(200);
-        if (useSvg) {
-            res.setHeader("content-type", "image/svg+xml");
-            res.send(cardString);
-        } else {
-            const buffer = await convertSvgToPng(cardString);
-            res.setHeader("content-type", "image/png");
-            res.send(buffer);
-        }
+        res.setHeader("content-type", useSvg ? "image/svg+xml" : "image/png");
+        res.send(body);
     } else {
         res.status(500).send("");
     }

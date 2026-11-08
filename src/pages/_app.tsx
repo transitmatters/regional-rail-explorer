@@ -2,10 +2,16 @@ import React from "react";
 import Head from "next/head";
 import Script from "next/script";
 import DeviceDetector from "device-detector-js";
+import { config } from "@fortawesome/fontawesome-svg-core";
 
 import { AppContextProvider } from "components";
+import { setCdnCacheHeaders, setNoCacheHeaders } from "server/cache";
 
+import "@fortawesome/fontawesome-svg-core/styles.css";
 import "styles/global.scss";
+
+// Next loads the stylesheet above, so Font Awesome doesn't need to inject its own
+config.autoAddCss = false;
 
 const deviceDetector = new DeviceDetector();
 
@@ -35,6 +41,16 @@ const App = ({ Component, pageProps, userAgentAppearsMobile = false }) => {
 };
 
 App.getInitialProps = ({ ctx }) => {
+    // Every page renders the same for everyone (CloudFront doesn't forward the browser's
+    // User-Agent, so the check below never sees a phone), so successful pages can be cached.
+    // This runs again to render the error page if the page then fails, so never cache that.
+    if (ctx.res) {
+        if (ctx.res.statusCode === 200 && !ctx.err) {
+            setCdnCacheHeaders(ctx.res);
+        } else {
+            setNoCacheHeaders(ctx.res);
+        }
+    }
     const userAgent = ctx.req?.headers?.["user-agent"];
     if (userAgent) {
         const device = deviceDetector.parse(userAgent);

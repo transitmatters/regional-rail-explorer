@@ -1,10 +1,8 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import classNames from "classnames";
 import { Button } from "@ariakit/react/button";
-import { GiElectric } from "react-icons/gi";
-import { IoMdTimer } from "react-icons/io";
-import { MdGridOn } from "react-icons/md";
-import { CgChevronDoubleDown } from "react-icons/cg";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAnglesDown, faBolt, faStopwatch, faTableCells } from "@fortawesome/free-solid-svg-icons";
 import smoothscroll from "smoothscroll-polyfill";
 import Image from "next/image";
 
@@ -50,7 +48,11 @@ export const Home: React.FunctionComponent = () => {
     );
 
     const nextScreenArrow = (
-        <CgChevronDoubleDown size={30} className={classNames(styles.nextScreenArrow, "hovering")} />
+        <FontAwesomeIcon
+            icon={faAnglesDown}
+            style={{ fontSize: 30 }}
+            className={classNames(styles.nextScreenArrow, "hovering")}
+        />
     );
 
     return (
@@ -94,7 +96,7 @@ export const Home: React.FunctionComponent = () => {
                 <div className={classNames(styles.section, styles.overview)}>
                     <div className={styles.overviewEntry}>
                         <OverviewCircle className={styles.overviewCircle}>
-                            <IoMdTimer />
+                            <FontAwesomeIcon icon={faStopwatch} />
                         </OverviewCircle>
                         <h2>Frequent</h2>
                         <p>
@@ -105,7 +107,7 @@ export const Home: React.FunctionComponent = () => {
                     </div>
                     <div className={styles.overviewEntry}>
                         <OverviewCircle className={styles.overviewCircle}>
-                            <GiElectric />
+                            <FontAwesomeIcon icon={faBolt} />
                         </OverviewCircle>
                         <h2>Electrified</h2>
                         <p>
@@ -116,7 +118,7 @@ export const Home: React.FunctionComponent = () => {
                     </div>
                     <div className={styles.overviewEntry}>
                         <OverviewCircle className={styles.overviewCircle}>
-                            <MdGridOn />
+                            <FontAwesomeIcon icon={faTableCells} />
                         </OverviewCircle>
                         <h2>Integrated</h2>
                         <p>

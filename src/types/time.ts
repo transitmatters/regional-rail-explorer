@@ -1,11 +1,5 @@
 export type NetworkDay =
-    | "monday"
-    | "tuesday"
-    | "wednesday"
-    | "thursday"
-    | "friday"
-    | "saturday"
-    | "sunday";
+    "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday";
 
 export type NetworkDayKind = "weekday" | "saturday" | "sunday";
 export type NetworkTime = number;

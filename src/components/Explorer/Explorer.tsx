@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { CgSpinner } from "react-icons/cg";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 import { stationsByLine, stationsById } from "stations";
 
@@ -155,7 +156,11 @@ const Explorer: React.FunctionComponent<Props> = (props) => {
         if (isJourneyPending) {
             return (
                 <div className={styles.spinnerContainer}>
-                    <CgSpinner className="spinning" size={50} />
+                    <FontAwesomeIcon
+                        icon={faSpinner}
+                        className="spinning"
+                        style={{ fontSize: 50 }}
+                    />
                 </div>
             );
         }
@@ -165,8 +170,24 @@ const Explorer: React.FunctionComponent<Props> = (props) => {
                 return <JourneyErrorState />;
             }
             const [baseline, enhanced] = journeys as JourneyInfo[];
-            if (baseline.navigationFailed && enhanced.navigationFailed) {
-                return <JourneyErrorState />;
+            if (enhanced.navigationFailed && baseline.navigationFailed) {
+                return (
+                    <JourneyErrorState
+                        kind="noTrain"
+                        title="No train for this trip"
+                        message="Neither today's Commuter Rail nor Regional Rail runs a train for this trip at this time. Try a different time or day."
+                    />
+                );
+            }
+            // Only Regional Rail failed. The comparison view assumes it has a Regional Rail trip.
+            if (enhanced.navigationFailed) {
+                return (
+                    <JourneyErrorState
+                        kind="noTrain"
+                        title="No Regional Rail trip at this time"
+                        message="Regional Rail doesn't run a train for this trip at this time. Try a different time or day."
+                    />
+                );
             }
 
             return (

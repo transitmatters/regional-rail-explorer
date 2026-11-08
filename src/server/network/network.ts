@@ -46,11 +46,18 @@ const createStop = (gtfsStop: GtfsStop, parentStation: Station): Stop => {
     };
 };
 
+// MBTA zone ids look like "CR-zone-1A"; other zone kinds (rapid transit, bus) aren't fare zones here
+const parseFareZone = (zoneId: undefined | string): null | string => {
+    const match = zoneId?.match(/^CR-zone-(\w+)$/);
+    return match ? match[1] : null;
+};
+
 const createStation = (gtfsStop: GtfsStop): Station => {
     return {
         id: gtfsStop.stopId,
         name: gtfsStop.stopName,
         stops: [],
+        zone: parseFareZone(gtfsStop.zoneId),
     };
 };
 

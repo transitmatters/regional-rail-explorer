@@ -3,7 +3,8 @@ import classNames from "classnames";
 import { NextRouter, useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
-import { FiArrowUpRight } from "react-icons/fi";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 
 import { logo } from "./logo";
 
@@ -39,7 +40,11 @@ const renderNavLink = (link: NavLink, router: NextRouter) => {
         return (
             <a className={styles.link} href={link.href} target="_blank" key={link.key}>
                 {link.title}
-                <FiArrowUpRight className={styles.linkIcon} size={18} />
+                <FontAwesomeIcon
+                    icon={faArrowUpRightFromSquare}
+                    className={styles.linkIcon}
+                    style={{ fontSize: 12 }}
+                />
             </a>
         );
     }

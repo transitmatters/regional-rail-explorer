@@ -1,7 +1,8 @@
 import { Button } from "components";
 
 import React, { useCallback, useState } from "react";
-import { GrDown } from "react-icons/gr";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
 import { Menu, MenuProps } from "./Menu";
 import { MenuItem } from "./MenuItem";
@@ -21,7 +22,7 @@ interface Props<I> extends Omit<MenuProps, "disclosure" | "children"> {
 }
 
 const defaultDisclosure = (item: SelectItem) => (
-    <Button rightIcon={<GrDown />}>{item.label}</Button>
+    <Button rightIcon={<FontAwesomeIcon icon={faChevronDown} />}>{item.label}</Button>
 );
 
 const Select = <I extends SelectItem>(props: Props<I>) => {

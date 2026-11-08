@@ -17,6 +17,7 @@ export const baseline: JourneySegment[] = [
         ],
         routeId: "CR-Newburyport",
         routePatternId: "Newburyport",
+        directionId: "1",
     },
     { kind: "transfer", startTime: 29280, walkDuration: 302, waitDuration: 298, endTime: 29880 },
     {
@@ -32,6 +33,7 @@ export const baseline: JourneySegment[] = [
         ],
         routeId: "Orange",
         routePatternId: "Orange",
+        directionId: "0",
     },
     { kind: "transfer", startTime: 30240, walkDuration: 115, waitDuration: 5, endTime: 30360 },
     {
@@ -44,6 +46,7 @@ export const baseline: JourneySegment[] = [
         passedStations: [],
         routeId: "Red",
         routePatternId: "Red",
+        directionId: "0",
     },
     { kind: "transfer", startTime: 30480, walkDuration: 162, waitDuration: 558, endTime: 31200 },
     {
@@ -56,6 +59,7 @@ export const baseline: JourneySegment[] = [
         passedStations: [{ time: 31680, station: { name: "Newmarket", id: "place-DB-2265" } }],
         routeId: "CR-Fairmount",
         routePatternId: "Fairmount",
+        directionId: "0",
     },
 ];
 
@@ -76,6 +80,7 @@ export const enhanced: JourneySegment[] = [
         ],
         routeId: "CR-Newburyport",
         routePatternId: "Newburyport",
+        directionId: "1",
     },
     { kind: "transfer", startTime: 29280, walkDuration: 302, waitDuration: 298, endTime: 29880 },
     {
@@ -91,6 +96,7 @@ export const enhanced: JourneySegment[] = [
         ],
         routeId: "Orange",
         routePatternId: "Orange",
+        directionId: "0",
     },
     { kind: "transfer", startTime: 28780, walkDuration: 115, waitDuration: 5, endTime: 28900 },
     {
@@ -103,6 +109,7 @@ export const enhanced: JourneySegment[] = [
         passedStations: [],
         routeId: "Red",
         routePatternId: "Red",
+        directionId: "0",
     },
     { kind: "transfer", startTime: 30480, walkDuration: 162, waitDuration: 450, endTime: 31092 },
     {
@@ -115,5 +122,142 @@ export const enhanced: JourneySegment[] = [
         passedStations: [{ time: 31300, station: { name: "Newmarket", id: "place-DB-2265" } }],
         routeId: "CR-Fairmount",
         routePatternId: "Fairmout",
+        directionId: "0",
+    },
+];
+
+// West Newton to Longwood on today's Commuter Rail, walking from Lansdowne to Fenway
+export const walkBetweenStations: JourneySegment[] = [
+    {
+        kind: "transfer",
+        startTime: 28800,
+        endTime: 31500,
+        waitDuration: 2700,
+        walkDuration: 0,
+    },
+    {
+        kind: "travel",
+        levelBoarding: false,
+        startTime: 31500,
+        endTime: 32340,
+        startStation: {
+            name: "West Newton",
+            id: "place-WML-0091",
+        },
+        endStation: {
+            name: "Lansdowne",
+            id: "place-WML-0025",
+        },
+        passedStations: [
+            {
+                time: 31740,
+                station: {
+                    name: "Newtonville",
+                    id: "place-WML-0081",
+                },
+            },
+            {
+                time: 32040,
+                station: {
+                    name: "Boston Landing",
+                    id: "place-WML-0035",
+                },
+            },
+        ],
+        routeId: "CR-Worcester",
+        routePatternId: "CR-Worcester-6874ed14-1",
+        directionId: "1",
+    },
+    {
+        kind: "transfer",
+        startTime: 32340,
+        endTime: 32940,
+        waitDuration: 0,
+        walkDuration: 600,
+        walkFromStation: {
+            name: "Lansdowne",
+            id: "place-WML-0025",
+        },
+        walkToStation: {
+            name: "Fenway",
+            id: "place-fenwy",
+        },
+    },
+    {
+        kind: "travel",
+        levelBoarding: true,
+        startTime: 32940,
+        endTime: 33060,
+        startStation: {
+            name: "Fenway",
+            id: "place-fenwy",
+        },
+        endStation: {
+            name: "Longwood",
+            id: "place-longw",
+        },
+        passedStations: [],
+        routeId: "Green-D",
+        routePatternId: "Green-D-854-0",
+        directionId: "0",
+    },
+];
+
+// Copley to West Newton on today's Commuter Rail, starting with a walk to Back Bay
+export const walkFromOrigin: JourneySegment[] = [
+    {
+        kind: "transfer",
+        startTime: 63000,
+        endTime: 64320,
+        waitDuration: 960,
+        walkDuration: 360,
+        walkFromStation: {
+            name: "Copley",
+            id: "place-coecl",
+        },
+        walkToStation: {
+            name: "Back Bay",
+            id: "place-bbsta",
+        },
+    },
+    {
+        kind: "travel",
+        levelBoarding: false,
+        startTime: 64320,
+        endTime: 65520,
+        startStation: {
+            name: "Back Bay",
+            id: "place-bbsta",
+        },
+        endStation: {
+            name: "West Newton",
+            id: "place-WML-0091",
+        },
+        passedStations: [
+            {
+                time: 64560,
+                station: {
+                    name: "Lansdowne",
+                    id: "place-WML-0025",
+                },
+            },
+            {
+                time: 64920,
+                station: {
+                    name: "Boston Landing",
+                    id: "place-WML-0035",
+                },
+            },
+            {
+                time: 65280,
+                station: {
+                    name: "Newtonville",
+                    id: "place-WML-0081",
+                },
+            },
+        ],
+        routeId: "CR-Worcester",
+        routePatternId: "CR-Worcester-b7d67732-0",
+        directionId: "0",
     },
 ];

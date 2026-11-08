@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useCallback } from "react";
 import classNames from "classnames";
-import { MdClose } from "react-icons/md";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 import { Button, StationName } from "components";
 import { Station } from "stations";
@@ -24,7 +25,7 @@ type Props = {
     linkToStations?: boolean;
 };
 
-const colors = ["Red", "Orange", "Blue", "Green", "Silver"];
+const colors = ["Red", "Mattapan", "Orange", "Blue", "Green", "Silver"];
 const isColorLine = colors.includes.bind(colors);
 const lineName = (line: string) => {
     if (line === "NewBedford") {
@@ -229,7 +230,7 @@ const StationListing = React.forwardRef((props: Props, ref: any) => {
                         />
                         {onClose && (
                             <Button large minimal onClick={onClose}>
-                                <MdClose size="1.3em" />
+                                <FontAwesomeIcon icon={faXmark} style={{ fontSize: "1.3em" }} />
                             </Button>
                         )}
                     </div>

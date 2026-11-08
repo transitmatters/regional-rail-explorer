@@ -1,6 +1,7 @@
 import { getStationsByIds } from "server/network";
 import { getStopTimesAtStation } from "server/navigation/arrivals";
 import { mapScenarios } from "server/scenarios";
+import { setCdnCacheHeaders } from "server/cache";
 import { DepartureBoardEntry } from "types";
 
 export default async (req, res) => {
@@ -23,5 +24,6 @@ export default async (req, res) => {
             })
             .sort((a, b) => a.time - b.time);
     });
+    setCdnCacheHeaders(res);
     res.status(200).json(board);
 };

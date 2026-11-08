@@ -7,16 +7,18 @@
       "esnext"
     ],
     "baseUrl": "./src",
+    // baseUrl is deprecated in TS 6, but Next's next.config.ts loader can't resolve the
+    // src/ imports it pulls in through paths alone yet
+    "ignoreDeprecations": "6.0",
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
     "strictNullChecks": true,
     "forceConsistentCasingInFileNames": true,
-    "downlevelIteration": true,
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",

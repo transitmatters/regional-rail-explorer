@@ -39,6 +39,8 @@ export interface JourneyTravelSegment {
     }[];
     routeId: string;
     routePatternId: string;
+    // GTFS direction_id of the trip: for Commuter Rail, "1" is toward Boston
+    directionId: string;
     levelBoarding: boolean;
 }
 
@@ -49,10 +51,27 @@ export interface JourneyTransferSegment {
     waitDuration: NetworkTime;
     walkDuration: NetworkTime;
     isWaitAtDestination?: boolean;
+    // Set when the rider leaves one station and walks to another, like Lansdowne to Kenmore
+    walkFromStation?: JourneyStation;
+    walkToStation?: JourneyStation;
 }
 
 export type JourneySegment = JourneyTransferSegment | JourneyTravelSegment;
 export type Journey = JourneySegment[];
+
+export interface FareLeg {
+    kind: "commuterRail" | "subway";
+    // In cents
+    amount: number;
+}
+
+export interface JourneyFare {
+    // In cents
+    total: number;
+    legs: FareLeg[];
+    // Whether the total includes the proposed half-price off-peak Regional Rail fare
+    offPeakDiscount: boolean;
+}
 
 export interface JourneyInfo {
     scenario: ScenarioInfo;
@@ -62,4 +81,5 @@ export interface JourneyInfo {
     platformCrowding: Record<string, { station: JourneyStation; crowdingLevel: CrowdingLevel }>;
     reverse: boolean;
     navigationFailed: boolean;
+    fare: null | JourneyFare;
 }
