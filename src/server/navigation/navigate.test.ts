@@ -82,6 +82,15 @@ describe("walking between stations", () => {
         expect(walk.walkDuration).toBeGreaterThan(0);
     });
 
+    // A walk has to save at least twice its length. Walking 10 minutes from Mass Ave to Northeastern
+    // only saved 5 minutes over riding the E branch.
+    test("North Station to Northeastern rides instead of walking to save a few minutes", () => {
+        const journey = navigatePresent("place-north", "place-nuniv", 8 * HOUR, "depart-at");
+        expect(walkSegments(journey)).toHaveLength(0);
+        const travel = travelSegments(journey);
+        expect(travel[travel.length - 1].endStation.id).toBe("place-nuniv");
+    });
+
     test("West Newton to Copley ends with a walk from Back Bay", () => {
         const journey = navigatePresent("place-WML-0091", "place-coecl", 8 * HOUR, "depart-at");
         const lastSegment = journey[journey.length - 1] as JourneyTransferSegment;

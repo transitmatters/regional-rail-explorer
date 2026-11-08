@@ -34,6 +34,8 @@ type BaseNavigationState = {
     boardedRoutePatternIds: Set<string>;
     boardedRegionalRailCount: number;
     timeOnSilverLine: number;
+    // Time spent walking between stations
+    timeWalking: number;
 };
 
 export type StartNavigationState = BaseNavigationState & {
