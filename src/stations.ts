@@ -263,6 +263,16 @@ export const stationsByLine: Record<string, Station[]> = {
         { id: "place-qamnl", name: "Quincy Adams" },
         { id: "place-brntn", name: "Braintree" },
     ],
+    Mattapan: [
+        { id: "place-asmnl", name: "Ashmont" },
+        { id: "place-cedgr", name: "Cedar Grove" },
+        { id: "place-butlr", name: "Butler" },
+        { id: "place-miltt", name: "Milton" },
+        { id: "place-cenav", name: "Central Avenue" },
+        { id: "place-valrd", name: "Valley Road" },
+        { id: "place-capst", name: "Capen Street" },
+        { id: "place-matt", name: "Mattapan" },
+    ],
     Green: [
         { id: "place-lake", name: "Boston College" },
         { id: "place-sougr", name: "South Street" },
