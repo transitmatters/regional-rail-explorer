@@ -1,7 +1,7 @@
 import React from "react";
 import classNames from "classnames";
 
-import { JourneyInfo, JourneyTransferSegment, Duration, JourneyTravelSegment } from "types";
+import { JourneyInfo, JourneySegment, Duration, JourneyTravelSegment } from "types";
 import { HOUR, stringifyDuration } from "time";
 import { isRegionalRailRouteId, isSilverLineRouteId } from "routes";
 
@@ -13,42 +13,38 @@ import styles from "./JourneyComparison.module.scss";
 interface FrequencyInfoProps {
     journey: JourneyInfo;
     halfInterval?: Duration;
-    arrivalStationId: string;
 }
 
-const getFirstStationAndRouteFromJourney = (journey: JourneyInfo) => {
-    const [firstSegment] = [journey].map(
-        (j) => j.segments.find((seg) => seg.kind === "travel") as JourneyTravelSegment
-    );
-    return { routeId: firstSegment?.routeId, stationId: firstSegment?.startStation?.id };
-};
+const getFirstTravelSegment = (journey: JourneyInfo) =>
+    journey.segments.find((seg): seg is JourneyTravelSegment => seg.kind === "travel");
 
-const getStationIdToCompare = (baseline: JourneyInfo, enhanced: JourneyInfo) => {
-    const [
-        { routeId: baselineRouteId, stationId: baselineStationId },
-        { routeId: enhancedRouteId, stationId: enhancedStationId },
-    ] = [baseline, enhanced].map(getFirstStationAndRouteFromJourney);
+const eitherJourneyStartsWithRegionalRail = (baseline: JourneyInfo, enhanced: JourneyInfo) =>
+    [baseline, enhanced].some((journey) => {
+        const routeId = getFirstTravelSegment(journey)?.routeId;
+        return !!routeId && isRegionalRailRouteId(routeId);
+    });
 
-    const eitherJourneyStartsWithRegionalRail =
-        (baselineRouteId && isRegionalRailRouteId(baselineRouteId)) ||
-        (enhancedRouteId && isRegionalRailRouteId(enhancedRouteId));
-
-    return eitherJourneyStartsWithRegionalRail ? baselineStationId || enhancedStationId : null;
+// Where the rider reaches the platform to wait for their first train, after any walk to it
+const getArriveAtPlatformTime = (segments: JourneySegment[]) => {
+    const [first] = segments;
+    return first.kind === "transfer" ? first.startTime + first.walkDuration : first.startTime;
 };
 
 const FrequencyInfo = (props: FrequencyInfoProps) => {
-    const { journey, arrivalStationId, halfInterval = HOUR * 1.25 } = props;
+    const { journey, halfInterval = HOUR * 1.25 } = props;
     if (journey.navigationFailed) {
         return <div className="secondary">No Commuter Rail train to catch.</div>;
     }
-    const {
-        segments,
-        arrivals: {
-            [arrivalStationId]: { times },
-        },
-    } = journey;
-    const arriveAtPlatform = (segments[0] as JourneyTransferSegment).startTime;
-    const now = times.find((time) => time >= arriveAtPlatform)!;
+    const { segments, arrivals } = journey;
+    // Each journey can board its first train at a different station, since one may walk to a
+    // nearby station first, so look up the arrivals where this journey boards
+    const firstTravelSegment = getFirstTravelSegment(journey);
+    const times = firstTravelSegment && arrivals[firstTravelSegment.startStation.id]?.times;
+    const arriveAtPlatform = getArriveAtPlatformTime(segments);
+    const now = times?.find((time) => time >= arriveAtPlatform);
+    if (!firstTravelSegment || !times || now === undefined) {
+        return <div className="secondary">-</div>;
+    }
     const shownTimes = times.filter((time) => Math.abs(time - now) <= halfInterval);
     const nextHeadwayIndex = shownTimes.findIndex((time) => time >= now);
     const nextArrival = shownTimes[nextHeadwayIndex];
@@ -56,9 +52,6 @@ const FrequencyInfo = (props: FrequencyInfoProps) => {
     const subsequentHeadway = subsequentArrival - nextArrival;
     const waitWidth = (50 * subsequentHeadway) / halfInterval;
     const waitLeft = 50 * (1 + (nextArrival - now) / halfInterval);
-    const firstTravelSegment = journey.segments.find(
-        (seg) => seg.kind === "travel"
-    ) as JourneyTravelSegment;
     const noun = isSilverLineRouteId(firstTravelSegment.routeId) ? "bus" : "train";
     const text = Number.isFinite(subsequentHeadway) ? (
         <>
@@ -99,13 +92,12 @@ const FrequencyInfo = (props: FrequencyInfoProps) => {
 
 const FrequencyComparison = (props: ComparisonProps) => {
     const { baseline, enhanced } = props;
-    const idToCompare = getStationIdToCompare(baseline, enhanced);
-    if (idToCompare) {
+    if (eitherJourneyStartsWithRegionalRail(baseline, enhanced)) {
         return (
             <ComparisonRow
                 title={`Missed your train?`}
-                baseline={<FrequencyInfo journey={baseline} arrivalStationId={idToCompare} />}
-                enhanced={<FrequencyInfo journey={enhanced} arrivalStationId={idToCompare} />}
+                baseline={<FrequencyInfo journey={baseline} />}
+                enhanced={<FrequencyInfo journey={enhanced} />}
             />
         );
     }

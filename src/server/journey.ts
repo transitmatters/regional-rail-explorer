@@ -125,25 +125,37 @@ const getJourneyInfoForScenario = (
         };
     }
 
+    // A journey can start with a walk to another station, so measure arrivals and crowding
+    // where the first train is actually boarded rather than at the origin
+    const firstTravelSegment = journey.find(
+        (seg): seg is JourneyTravelSegment => seg.kind === "travel"
+    )!;
+    const [boardingStation] = getStationsByIds(network, firstTravelSegment.startStation.id);
+    const firstSegment = journey[0];
+    const reachPlatformTime =
+        firstSegment.kind === "transfer"
+            ? firstSegment.startTime + firstSegment.walkDuration
+            : firstSegment.startTime;
+
     // TODO(ian): dedupe this nonsense from /api/arrivals
     const toStationIds = journey
         .map((seg) => seg.kind === "travel" && seg.endStation.id)
         .filter((x): x is string => !!x);
     const toStations = getStationsByIds(network, ...toStationIds);
-    const arrivals = getArrivalTimesForJourney(fromStation, toStations, day);
+    const arrivals = getArrivalTimesForJourney(boardingStation, toStations, day);
     return {
         reverse: navigationKind === "arrive-by",
         scenario: { id, name },
         segments: journey,
         amenities: calculateAmenities(scenario, journey),
         platformCrowding: calculatePlatformCrowding([
-            { station: fromStation, arrivals: arrivals, time: time },
+            { station: boardingStation, arrivals: arrivals, time: reachPlatformTime },
         ]),
         arrivals: {
-            [fromStation.id]: {
+            [boardingStation.id]: {
                 station: {
-                    name: fromStation.name,
-                    id: fromStation.id,
+                    name: boardingStation.name,
+                    id: boardingStation.id,
                 },
                 times: arrivals,
             },
