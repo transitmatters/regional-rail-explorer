@@ -26,9 +26,15 @@ import {
 } from "./types";
 import { resolveTemporalOrder } from "./util";
 
+// A walk between stations is only worth it if it saves at least this many times its own length,
+// so a 10 minute walk has to save 20 minutes. Walking is slower and less predictable than the
+// timetable suggests, and it's harder for riders with luggage, kids or limited mobility.
+const WALK_MUST_SAVE_MULTIPLE = 2;
+
 const scoreState = (state: NavigationState) => {
     const {
         timeOnSilverLine,
+        timeWalking,
         boardedRegionalRailCount,
         boardedRoutePatternIds,
         time,
@@ -42,9 +48,13 @@ const scoreState = (state: NavigationState) => {
     const tooManyTransfersPenalty = 180 * Math.max(0, boardedRoutePatternIds.size - 2);
     // The Silver Line is...much slower than its GTFS schedule claims. We account for that here.
     const silverLinePenalty = 0.5 * timeOnSilverLine;
+    const walkingPenalty = WALK_MUST_SAVE_MULTIPLE * timeWalking;
     const penaltyWeights = 1 + regionalRailOverusePenalty;
     return (
-        penaltyWeights * Math.abs(time - initialTime) + silverLinePenalty + tooManyTransfersPenalty
+        penaltyWeights * Math.abs(time - initialTime) +
+        silverLinePenalty +
+        tooManyTransfersPenalty +
+        walkingPenalty
     );
 };
 
@@ -187,6 +197,7 @@ const createStartState = (context: NavigationContext): StartNavigationState => {
         boardedRegionalRailCount: 0,
         time: context.initialTime,
         timeOnSilverLine: 0,
+        timeWalking: 0,
         parents: [],
     };
 };
@@ -205,6 +216,7 @@ const createTransferState = (
         parents,
         context,
         timeOnSilverLine,
+        timeWalking,
     } = parent;
     // Changing trains within one line doesn't need another ticket
     const boardingRegionalRail =
@@ -225,6 +237,7 @@ const createTransferState = (
         walkDuration,
         walk,
         timeOnSilverLine,
+        timeWalking: walk ? timeWalking + walkDuration : timeWalking,
     };
 };
 
@@ -287,6 +300,7 @@ const getWalkToGoalStates = (parent: TravelNavigationState): WalkNavigationState
             walkDuration,
             fromTime: time,
             time: displaceTime(time, walkDuration, context.reverse),
+            timeWalking: parent.timeWalking + walkDuration,
         },
     ];
 };
@@ -300,6 +314,7 @@ const getTravelStates = (parent: TransferNavigationState): TravelNavigationState
         boardedRegionalRailCount: boardedRegionalRailCount,
         parents,
         timeOnSilverLine,
+        timeWalking,
     } = parent;
 
     const isSilverLine = to.trip.routeId.startsWith("7");
@@ -323,6 +338,7 @@ const getTravelStates = (parent: TransferNavigationState): TravelNavigationState
             boardedRoutePatternIds,
             boardedRegionalRailCount,
             timeOnSilverLine: timeOnSilverLine + timeOnSilverLineHere,
+            timeWalking,
         };
     });
 };
