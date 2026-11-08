@@ -241,3 +241,19 @@
         }
     }
 }
+
+.noRouteTimeline {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 80px;
+    margin-right: 40px;
+    border: 2px dashed #ddd;
+    border-radius: 4px;
+    color: #aaa;
+    font-style: italic;
+
+    @include base.mobile {
+        margin-right: 0;
+    }
+}

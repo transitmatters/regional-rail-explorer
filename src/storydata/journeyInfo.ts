@@ -73,3 +73,26 @@ export const journeyParams: JourneyParams = {
     time: 26100,
     navigationKind: "depart-at",
 };
+
+// What the server returns when a scenario has no route for a trip
+export const failedBaselineInfo: JourneyInfo = {
+    reverse: false,
+    scenario: baselineInfo.scenario,
+    segments: [],
+    platformCrowding: {},
+    arrivals: {},
+    amenities: [],
+    navigationFailed: true,
+    fare: null,
+};
+
+// A Regional Rail trip that starts at a station today's Commuter Rail doesn't serve
+export const enhancedFromNewStationInfo: JourneyInfo = {
+    ...enhancedInfo,
+    segments: enhancedInfo.segments.map((segment, index) =>
+        index === enhancedInfo.segments.findIndex((s) => s.kind === "travel") &&
+        segment.kind === "travel"
+            ? { ...segment, startStation: { name: "Ceylon Park", id: "place-rr-ceylon-park" } }
+            : segment
+    ),
+};

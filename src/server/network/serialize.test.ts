@@ -20,6 +20,7 @@ const STATION_IDS = [
     "place-ER-0362",
     "place-DB-2265",
     "place-FR-0253",
+    "place-matt",
 ];
 
 const DAY_TIMES: [NetworkDayKind, number][] = [
