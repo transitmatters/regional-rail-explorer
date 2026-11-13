@@ -3,7 +3,7 @@ import { setCorsHeaders } from "server/cors";
 import { getJourneyParamsForQuery, getJourneys } from "server/journey";
 
 export default async (req, res) => {
-    setCorsHeaders(res);
+    setCorsHeaders(req, res);
     const { fromStationId, toStationId, day, time, navigationKind } = getJourneyParamsForQuery(
         req.query
     );
