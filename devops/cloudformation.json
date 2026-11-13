@@ -203,6 +203,18 @@
           },
           "CacheBehaviors": [
             {
+              "PathPattern": "/api/*",
+              "TargetOriginId": "only-origin",
+              "ViewerProtocolPolicy": "redirect-to-https",
+              "Compress": true,
+              "ForwardedValues": {
+                "QueryString": "true",
+                "Headers": [
+                  "Origin"
+                ]
+              }
+            },
+            {
               "PathPattern": "/_next/static/*",
               "TargetOriginId": "static",
               "ViewerProtocolPolicy": "redirect-to-https",
