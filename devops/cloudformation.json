@@ -58,7 +58,7 @@
             "Fn::Sub": "arn:aws:lambda:${AWS::Region}:753240598075:layer:LambdaAdapterLayerArm64:30"
           },
           {
-            "Fn::Sub": "arn:aws:lambda:${AWS::Region}:464622532012:layer:Datadog-Extension-ARM:101"
+            "Fn::Sub": "arn:aws:lambda:${AWS::Region}:464622532012:layer:Datadog-Extension-ARM:104"
           }
         ],
         "LoggingConfig": {
